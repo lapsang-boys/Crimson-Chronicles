@@ -1,5 +1,11 @@
 package Hello
 
+constant int id_footman = 'hfoo'
+constant rect a1p1Spawn = gg_rct_A1P1Spawn
+
 // Wurst demo package
 init
-	print("Hello World")
+	print("Hello Wurst")
+	
+	let pos = a1p1Spawn.getCenter()
+	createUnit(Player(0), id_footman, pos, angle(PI/2))
