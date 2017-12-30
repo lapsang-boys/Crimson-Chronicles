@@ -1,8 +1,8 @@
 ---
-projectName: "td"
+projectName: "Rex Temporis"
 dependencies:
 - "https://github.com/wurstscript/wurstStdlib2"
 buildMapData:
-  name: "DefaultName"
-  fileName: "DefaultFileName"
-  author: "DefaultAuthor"
+  name: "Rex-TD"
+  fileName: "Rex-TD"
+  author: "Kranx & Karlek"
