@@ -1,6 +1,7 @@
 package InitGame
 
 import Constants
+import ID2S
 
 init
     SetTimeOfDay(23)
@@ -10,5 +11,3 @@ init
         let p = Player(i)
         p.setGold(35)
         p.setLumber(10)        
-
-    

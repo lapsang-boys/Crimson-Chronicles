@@ -1,19 +1,21 @@
 package Constants
 
-public int NUMBER_OF_PLAYERS = 1
-public int MAX_AREAS = 1
-public int STARTING_LIFE = 10
+public constant int NUMBER_OF_PLAYERS = 1
+public constant int MAX_AREAS = 1
+public constant int STARTING_LIFE = 10
 
 // The first builder. All hail micro breweries.
 public constant ID_BUILDER = 'd000'
+
+// The first mob.
 public constant ID_RACCOON = 'd001'
 
+// The first tower.
 public constant ID_TEST_TOWER = 'f000'
-public constant ID_TEST_TOWER_STR = "f000"
 
 // Ability which spawns the next level.
-public constant ID_LEVEL_IN_PROGRESS = 'g001'
 public constant ID_NEXT_LEVEL = 'g000'
-public constant ID_NEXT_LEVEL_STR = "g000"
+// Placeholder ability when level is in progress.
+public constant ID_LEVEL_IN_PROGRESS = 'g001'
 
-public player PLAYER_BROWN = Player(11)
+public constant player PLAYER_BROWN = Player(11)

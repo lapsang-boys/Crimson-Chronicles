@@ -1,6 +1,5 @@
 package TestTower
 
-import Assets
 import Constants
 import UnitObjEditing
 
