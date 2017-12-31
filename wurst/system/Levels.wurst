@@ -8,15 +8,17 @@ public class Level
     int num
     spawnInterval si
     int bounty
+    int bonus
     int lifeLost    
     string levelName
     string desc
 
-    construct (int uID, int num, spawnInterval si, int bounty, int lifeLost, string levelName, string desc)
+    construct (int uID, int num, spawnInterval si, int bounty, int bonus, int lifeLost, string levelName, string desc)
         this.uID = uID
         this.num = num
         this.si = si
         this.bounty = bounty
+        this.bonus = bonus
         this.lifeLost = lifeLost
         this.levelName = levelName
         this.desc = desc
@@ -32,7 +34,7 @@ public LinkedList<Level> levels = new LinkedList<Level>
 
 init
     // ============== Area 1 ==============
-    Level L1 = new Level('hfoo', 15, spawnInterval(1.4, 3.), 1, 1,
+    Level L1 = new Level('hfoo', 3, spawnInterval(1.4, 3.), 1, 10, 1,
     "[Level i] - Ape",
     "Description")
     levels.add(L1)

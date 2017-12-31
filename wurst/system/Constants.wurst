@@ -10,3 +10,5 @@ public constant ID_BUILDER = 'd000'
 // Ability which spawns the next level.
 public constant ID_NEXT_LEVEL = 'g000'
 public constant ID_NEXT_LEVEL_STR = "g000"
+
+public player PLAYER_BROWN = Player(0) 

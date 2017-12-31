@@ -6,14 +6,28 @@ import TypeCasting
 import LinkedList
 
 import Regions
+import Constants
 import Movement
 import Levels
 import PlayerData
 
+class UnitWrapper
+    unit u
+    int playerNum
+    construct(unit u)
+        this.u = u
+
+	ondestroy
+		u.remove()
+        PlayerData pd = playerData.get(this.playerNum)
+        pd.registerMobLeave()
+        print("Destroyed in ondestroy!")
+
+
 function acta()
     let u = GetTriggerUnit()
     int n = getPlayerN(u)
-    u.remove()
+    UnitWrapper uw = new UnitWrapper(u)
     player p = Player(n)
     
     PlayerData pd = playerData.get(n)
@@ -21,12 +35,12 @@ function acta()
     Level l = levels.get(levelIndex)
     p.addGold(l.bounty)
     pd.loseLife(l.lifeLost)
-    
+    destroy uw
     
     // SFX
 
-function isUnitOwnedByPlayerRed() returns boolean
-    return GetTriggerUnit().getOwner() == Player(0)
+function isUnitOwnedByPlayerBrown() returns boolean
+    return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
 function isValid() returns boolean
     return GetTriggerUnit().getUserData() == 4
@@ -34,7 +48,7 @@ function isValid() returns boolean
 trigger endEnter = CreateTrigger()
 
 init
-    endEnter.addCondition(Condition(function isUnitOwnedByPlayerRed))
+    endEnter.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     endEnter.addAction(function acta)
 
     for i in ends

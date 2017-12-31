@@ -1,9 +1,10 @@
 package Spawn
 
 import TimerUtils
-import Movement
+import OnUnitEnterLeave
 import RegisterEvents
 
+import Movement
 import Constants
 import Levels
 import PlayerData
@@ -23,6 +24,7 @@ function spawnLevel()
 	let p = builder.getOwner()
 	builder.removeAbility(ID_NEXT_LEVEL)
 	PlayerData pd = playerData.get(p.getId())
+
 	int levelIndex = pd.level
 	let l = levels.get(levelIndex)
 

@@ -7,6 +7,7 @@ import LinkedList
 
 import Regions
 import Movement
+import Constants
 
 constant int id_footman = 'hfoo'
 
@@ -17,8 +18,8 @@ function act()
     let pos = getNext(GetTriggerUnit())
     GetTriggerUnit().issuePointOrder("move", pos)
 
-function isUnitOwnedByPlayerRed() returns boolean
-    return GetTriggerUnit().getOwner() == Player(0)
+function isUnitOwnedByPlayerBrown() returns boolean
+    return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
 function hasValid(int i) returns boolean
     return GetTriggerUnit().getUserData() == i
@@ -37,9 +38,9 @@ trigger creepEnter2 = CreateTrigger()
 trigger creepEnter3 = CreateTrigger()
 
 init
-    creepEnter1.addCondition(Condition(function isUnitOwnedByPlayerRed))
-    creepEnter2.addCondition(Condition(function isUnitOwnedByPlayerRed))
-    creepEnter3.addCondition(Condition(function isUnitOwnedByPlayerRed))
+    creepEnter1.addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    creepEnter2.addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    creepEnter3.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     creepEnter1.addAction(function act)
     creepEnter2.addAction(function act)
     creepEnter3.addAction(function act)

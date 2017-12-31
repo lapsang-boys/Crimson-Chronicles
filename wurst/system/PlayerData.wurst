@@ -2,6 +2,7 @@ package PlayerData
 
 import LinkedList
 
+import Levels
 import Constants
 
 public class PlayerData
@@ -9,29 +10,44 @@ public class PlayerData
     int level
     int area
     int life
+    int mobsRemoved
+    unit builder
 
     construct(int playerNum, int level, int area, int life)
         this.playerNum = playerNum
         this.level = level
         this.area = area
         this.life = life
+        this.mobsRemoved = 0
+
+
+    function setBuilder(unit builder)
+        this.builder = builder
 
     function loseLife(int i)
         this.life -= i
         if this.life >= 1
             if i > 1
-                print("You lost " + I2S(i) + "lives.")
+                print("You lost " + I2S(i) + " lives.")
             else
-                print("You lost " + I2S(i) + "life.")
+                print("You lost " + I2S(i) + " life.")
         else
             loseGame()
 
     function loseGame()
         print("You lost.")
 
+    function registerMobLeave()
+        this.mobsRemoved++
+        Level l = levels.get(this.level)
+        if this.mobsRemoved == levels.get(this.level).num
+            print("Level finished!")
+            this.builder.addAbility(ID_NEXT_LEVEL)
+            Player(this.playerNum).addGold(l.bonus)
+            this.level++
+	        this.mobsRemoved = 0
+            // might change area later.
 
-// public HashMap<player, int> currentLevel = new HashMap<player, int>
-// public HashMap<player,int> playersArea = new HashMap<player, int>
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
 init
