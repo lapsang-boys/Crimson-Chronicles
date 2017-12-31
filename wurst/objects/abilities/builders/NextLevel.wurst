@@ -1,0 +1,31 @@
+package NextLevel
+
+import AbilityObjEditing
+
+import Constants
+
+class NextLevel extends AbilityDefinitionWindWalk
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+        setArtCaster("")
+        setCasterAttachmentPoint("")
+        setArtEffect("")
+        setIconNormal("ReplaceableTextures\\CommandButtons\\BTNHumanWatchTower.blp")
+        setArtTarget("")
+        setDurationNormal(1, 0.01)
+        setTargetAttachmentPoint("")
+        setHeroAbility(false)
+        setRequirements("")
+        setLevels(1)
+        setBuffs(1, "")
+        setManaCost(1, 0)
+        setRace(Race.Human)
+        setHotkeyNormal("R")
+        setTooltipNormal(1, "[|cffffcc00R|r] Summon next level")
+        setTooltipNormalExtended(1, "Are you prepared to meet your maker jajajaja.")
+
+@compiletime function nanoBreweryMoveTower()
+    new NextLevel(ID_NEXT_LEVEL)

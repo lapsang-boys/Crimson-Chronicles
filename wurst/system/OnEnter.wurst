@@ -1,0 +1,60 @@
+package OnEnter
+
+import InitRegions
+
+import TypeCasting
+import LinkedList
+
+import Regions
+import Movement
+
+constant int id_footman = 'hfoo'
+
+function act()
+    let u = GetTriggerUnit()
+    let cv = u.getUserData()
+    u.setUserData(cv + 1)
+    let pos = getNext(GetTriggerUnit())
+    GetTriggerUnit().issuePointOrder("move", pos)
+
+function isUnitOwnedByPlayerRed() returns boolean
+    return GetTriggerUnit().getOwner() == Player(0)
+
+function hasValid(int i) returns boolean
+    return GetTriggerUnit().getUserData() == i
+
+function hasValid1() returns boolean
+    return hasValid(1)
+
+function hasValid2() returns boolean
+    return hasValid(2)
+
+function hasValid3() returns boolean
+    return hasValid(3)
+
+trigger creepEnter1 = CreateTrigger()
+trigger creepEnter2 = CreateTrigger()
+trigger creepEnter3 = CreateTrigger()
+
+init
+    creepEnter1.addCondition(Condition(function isUnitOwnedByPlayerRed))
+    creepEnter2.addCondition(Condition(function isUnitOwnedByPlayerRed))
+    creepEnter3.addCondition(Condition(function isUnitOwnedByPlayerRed))
+    creepEnter1.addAction(function act)
+    creepEnter2.addAction(function act)
+    creepEnter3.addAction(function act)
+
+    for i in nodes1
+        let r = rectFromIndex(i)
+        creepEnter1.addCondition(Condition(function hasValid1))
+        TriggerRegisterEnterRectSimple(creepEnter1, r)
+
+    for i in nodes2
+        let r = rectFromIndex(i)
+        creepEnter2.addCondition(Condition(function hasValid2))
+        TriggerRegisterEnterRectSimple(creepEnter2, r)
+
+    for i in nodes3
+        let r = rectFromIndex(i)
+        creepEnter3.addCondition(Condition(function hasValid3))
+        TriggerRegisterEnterRectSimple(creepEnter3, r)

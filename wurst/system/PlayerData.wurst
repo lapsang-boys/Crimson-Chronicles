@@ -1,0 +1,41 @@
+package PlayerData
+
+import LinkedList
+
+import Constants
+
+public class PlayerData
+    int playerNum
+    int level
+    int area
+    int life
+
+    construct(int playerNum, int level, int area, int life)
+        this.playerNum = playerNum
+        this.level = level
+        this.area = area
+        this.life = life
+
+    function loseLife(int i)
+        this.life -= i
+        if this.life >= 1
+            if i > 1
+                print("You lost " + I2S(i) + "lives.")
+            else
+                print("You lost " + I2S(i) + "life.")
+        else
+            loseGame()
+
+    function loseGame()
+        print("You lost.")
+
+
+// public HashMap<player, int> currentLevel = new HashMap<player, int>
+// public HashMap<player,int> playersArea = new HashMap<player, int>
+public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
+
+init
+    // Init player level tracker
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        PlayerData pd = new PlayerData(i, 0, 0, STARTING_LIFE)
+        playerData.add(pd)

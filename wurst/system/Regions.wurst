@@ -1,0 +1,12 @@
+package Regions
+
+import LinkedList
+
+public LinkedList<int> playerArea = new LinkedList<int>
+public LinkedList<int> nodes1 = new LinkedList<int>
+public LinkedList<int> nodes2 = new LinkedList<int>
+public LinkedList<int> nodes3 = new LinkedList<int>
+public LinkedList<int> ends = new LinkedList<int>
+
+public LinkedList<int> A0P0 = new LinkedList<int>
+public LinkedList<int> array A0 = [A0P0]

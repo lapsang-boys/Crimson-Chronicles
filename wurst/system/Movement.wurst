@@ -1,0 +1,54 @@
+package Movement
+
+import Regions
+import Constants
+import TypeCasting
+import ErrorHandling
+import LinkedList
+
+import PlayerData
+
+public function getPlayerN(unit u) returns int
+    let pos = u.getPos()
+    for i in playerArea
+        let r = rectFromIndex(i)
+        if pos.isInRect(r)
+            return i mod NUMBER_OF_PLAYERS
+
+    error("This creature is not in any player's area.")
+    return 0
+
+// Pre-condition: unit arrives at correct node => increase custom value on unit u before calling GetNext.
+public function getNext(unit u) returns vec2
+    var p = getPlayerN(u)
+    PlayerData pd = playerData.get(p)
+    let path = getPath(pd.area, p)
+
+    var cv = u.getUserData()
+    if cv >= path.size()
+        error("Invalid custom value for unit: "+u.getName())
+        return vec2(0, 0)
+    
+    let rectIndex = path.get(cv)
+    return rectFromIndex(rectIndex).getCenter()
+
+public function getPath(int areaCode, int p) returns LinkedList<int>
+    switch areaCode
+        case 0
+            return A0[p]
+        default
+            error("This shouldn't happen!")
+            return null
+
+public function getSpawn(player p) returns rect
+    PlayerData pd = playerData.get(p.getId())
+    let path = getPath(pd.area, p.getId())
+    let spawn = path.getFirst()
+    return rectFromIndex(spawn)
+
+public function getEnd(player p) returns rect
+    PlayerData pd = playerData.get(p.getId())
+    let path = getPath(pd.area, p.getId())
+    let last = path.getSize()-1
+    let endReg = path.get(last)
+    return rectFromIndex(endReg)

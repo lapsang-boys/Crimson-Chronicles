@@ -1,0 +1,43 @@
+package End
+
+import InitRegions
+
+import TypeCasting
+import LinkedList
+
+import Regions
+import Movement
+import Levels
+import PlayerData
+
+function acta()
+    let u = GetTriggerUnit()
+    int n = getPlayerN(u)
+    u.remove()
+    player p = Player(n)
+    
+    PlayerData pd = playerData.get(n)
+    int levelIndex = pd.level
+    Level l = levels.get(levelIndex)
+    p.addGold(l.bounty)
+    pd.loseLife(l.lifeLost)
+    
+    
+    // SFX
+
+function isUnitOwnedByPlayerRed() returns boolean
+    return GetTriggerUnit().getOwner() == Player(0)
+
+function isValid() returns boolean
+    return GetTriggerUnit().getUserData() == 4
+
+trigger endEnter = CreateTrigger()
+
+init
+    endEnter.addCondition(Condition(function isUnitOwnedByPlayerRed))
+    endEnter.addAction(function acta)
+
+    for i in ends
+        let r = rectFromIndex(i)
+        endEnter.addCondition(Condition(function isValid))
+        TriggerRegisterEnterRectSimple(endEnter, r)

@@ -1,0 +1,14 @@
+package InitGame
+
+import Constants
+
+init
+    SetTimeOfDay(23)
+
+    // Set the current level for all players to the first level.
+    for i = 0 to NUMBER_OF_PLAYERS
+        let p = Player(i)
+        p.setGold(35)
+        p.setLumber(10)        
+
+    

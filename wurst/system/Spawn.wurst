@@ -1,0 +1,55 @@
+package Spawn
+
+import TimerUtils
+import Movement
+import RegisterEvents
+
+import Constants
+import Levels
+import PlayerData
+
+class TimerData
+	player p
+	Level l
+	int cur
+
+	construct(player p, Level l)
+		this.p = p
+		this.l = l
+		this.cur = 0
+
+function spawnLevel()
+	let builder = GetTriggerUnit()
+	let p = builder.getOwner()
+	builder.removeAbility(ID_NEXT_LEVEL)
+	PlayerData pd = playerData.get(p.getId())
+	int levelIndex = pd.level
+	let l = levels.get(levelIndex)
+
+	TimerData lt = new TimerData(p, l)
+	let t = getTimer()
+	
+	t.setData(lt castTo int)
+	t.start(l.getDuration(), function summonMobs)
+	l.printInfo()
+	
+function summonMobs()
+	let t = GetExpiredTimer()
+	let lt = t.getData() castTo TimerData
+	if lt.cur == lt.l.num
+		t.release()
+		return
+
+	lt.cur = lt.cur + 1
+	let p = lt.p
+	let pos = getSpawn(p).randomPoint()	
+	let u = createUnit(p, lt.l.uID, pos, angle(PI/2))
+	u.setUserData(1)
+	u.issuePointOrder("move", getNext(u))
+	
+	t.start(lt.l.getDuration(), function summonMobs)
+
+init
+	let pos = getSpawn(Player(0)).randomPoint()
+	createUnit(Player(0), ID_BUILDER, pos, angle(PI/2))
+	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)

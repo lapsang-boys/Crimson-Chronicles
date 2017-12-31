@@ -1,0 +1,12 @@
+package Constants
+
+public int NUMBER_OF_PLAYERS = 1
+public int MAX_AREAS = 1
+public int STARTING_LIFE = 10
+
+// The first builder. All hail micro breweries.
+public constant ID_BUILDER = 'd000'
+
+// Ability which spawns the next level.
+public constant ID_NEXT_LEVEL = 'g000'
+public constant ID_NEXT_LEVEL_STR = "g000"
