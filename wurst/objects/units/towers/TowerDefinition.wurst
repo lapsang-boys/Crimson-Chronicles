@@ -1,0 +1,28 @@
+package TowerDefinition
+
+import UnitObjEditing
+
+// public function getTowerAbilities(LinkedList<string> vals) returns string
+//     var ret = "A00O,Avul"
+//     for val in vals
+//         ret += ("," + val)
+//     return ret
+
+public class TowerDefinition extends BuildingDefinition
+    construct(int id)
+        super(id, 'hwtw')
+
+        setNormalAbilities("A00O,Avul")
+        setGroundTexture("")
+        setSelectionScale(1.)
+        setShadowTextureBuilding("")
+        setAttack1DamageSidesperDie(1)
+        setAttack1DamageNumberofDice(1)
+        setAttack1TargetsAllowed("enemies,ground,vulnerable")
+        setAttacksEnabled(1)
+        setArmorType(ArmorType.Divine)
+        setPathingMap("PathTextures\\2x2Unbuildable.tga")
+        setBuildTime(2)
+        setLumberCost(0)
+        setUpgradesTo("")
+        setUpgradesUsed("")

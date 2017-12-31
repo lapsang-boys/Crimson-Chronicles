@@ -23,6 +23,7 @@ function spawnLevel()
 	let builder = GetTriggerUnit()
 	let p = builder.getOwner()
 	builder.removeAbility(ID_NEXT_LEVEL)
+	builder.addAbility(ID_LEVEL_IN_PROGRESS)
 	PlayerData pd = playerData.get(p.getId())
 
 	int levelIndex = pd.level
@@ -45,7 +46,7 @@ function summonMobs()
 	lt.cur = lt.cur + 1
 	let p = lt.p
 	let pos = getSpawn(p).randomPoint()	
-	let u = createUnit(p, lt.l.uID, pos, angle(PI/2))
+	let u = createUnit(PLAYER_BROWN, lt.l.uID, pos, angle(PI/2))
 	u.setUserData(1)
 	u.issuePointOrder("move", getNext(u))
 	
@@ -53,5 +54,6 @@ function summonMobs()
 
 init
 	let pos = getSpawn(Player(0)).randomPoint()
-	createUnit(Player(0), ID_BUILDER, pos, angle(PI/2))
+	let u = createUnit(Player(0), ID_BUILDER, pos, angle(PI/2))
+	playerData.get(0).setBuilder(u)
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)

@@ -6,16 +6,12 @@ import PlayerData
 
 function cleanUp()
     let u = GetTriggerUnit()
-    print("lol")
     int playerNum = getPlayerN(u)
     PlayerData pd = playerData.get(playerNum)
     pd.registerMobLeave()
 
 trigger diesTrigger = CreateTrigger()
 
-function isUnitOwnedByPlayerBrown() returns boolean
-    return GetTriggerUnit().getOwner() == PLAYER_BROWN
-
 init
-    TriggerAddCondition(diesTrigger, Condition(function isUnitOwnedByPlayerBrown))
     TriggerRegisterPlayerUnitEventSimple(diesTrigger, PLAYER_BROWN, EVENT_PLAYER_UNIT_DEATH)
+    TriggerAddAction(diesTrigger, function cleanUp)

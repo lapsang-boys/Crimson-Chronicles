@@ -6,9 +6,14 @@ public int STARTING_LIFE = 10
 
 // The first builder. All hail micro breweries.
 public constant ID_BUILDER = 'd000'
+public constant ID_RACCOON = 'd001'
+
+public constant ID_TEST_TOWER = 'f000'
+public constant ID_TEST_TOWER_STR = "f000"
 
 // Ability which spawns the next level.
+public constant ID_LEVEL_IN_PROGRESS = 'g001'
 public constant ID_NEXT_LEVEL = 'g000'
 public constant ID_NEXT_LEVEL_STR = "g000"
 
-public player PLAYER_BROWN = Player(0) 
+public player PLAYER_BROWN = Player(11)

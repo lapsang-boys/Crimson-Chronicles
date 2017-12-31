@@ -1,0 +1,36 @@
+package TestTower
+
+import Assets
+import Constants
+import UnitObjEditing
+
+import TowerDefinition
+
+class TestTower extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
+        setModelFile("Buildings\\Human\\HumanTower\\HumanTower.mdx")
+        setRequiredAnimationNames("second")
+        setScalingValue(.6)
+        setAcquisitionRange(550.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Siege)
+        setAttack1CooldownTime(1.7)
+        setAttack1DamageBase(196)
+        setAttack1ProjectileArt("Units\\Creeps\\EarthPandarenBrewmaster\\EarthPandarenBrewmaster_Missile.mdx")
+        setAttack1ProjectileSpeed(1200)
+        setProjectileLaunchZ(110.)
+        setAttack1Range(550)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("ElvenGuardTower")
+        setGoldCost(10)
+        setHotkey("Q")
+        setName("Test Tower")
+        setTooltipBasic("[|cff999999Q|r] Test Tower")
+        setTooltipExtended("Haha. nej.")
+
+@compiletime function testTower()
+    new TestTower(ID_TEST_TOWER)

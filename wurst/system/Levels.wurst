@@ -2,6 +2,8 @@ package Levels
 
 import LinkedList
 
+import Constants
+
 tuple spawnInterval (real low, real high)
 public class Level
     int uID
@@ -34,7 +36,7 @@ public LinkedList<Level> levels = new LinkedList<Level>
 
 init
     // ============== Area 1 ==============
-    Level L1 = new Level('hfoo', 3, spawnInterval(1.4, 3.), 1, 10, 1,
+    Level L1 = new Level(ID_RACCOON, 10, spawnInterval(1.4, 3.), 1, 10, 1,
     "[Level i] - Ape",
     "Description")
     levels.add(L1)

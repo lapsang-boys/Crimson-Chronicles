@@ -42,7 +42,9 @@ public class PlayerData
         Level l = levels.get(this.level)
         if this.mobsRemoved == levels.get(this.level).num
             print("Level finished!")
+            this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
             this.builder.addAbility(ID_NEXT_LEVEL)
+        	
             Player(this.playerNum).addGold(l.bonus)
             this.level++
 	        this.mobsRemoved = 0

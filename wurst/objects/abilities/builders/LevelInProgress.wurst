@@ -1,10 +1,10 @@
-package NextLevel
+package LevelInProgress
 
 import AbilityObjEditing
 
 import Constants
 
-class NextLevel extends AbilityDefinitionWindWalk
+class NextLevel extends AbilityDefinitionCriticalStrikecreep
     construct(int id)
         super(id)
 
@@ -13,7 +13,7 @@ class NextLevel extends AbilityDefinitionWindWalk
         setArtCaster("")
         setCasterAttachmentPoint("")
         setArtEffect("")
-        setIconNormal("ReplaceableTextures\\CommandButtons\\BTNBattleRoar.blp")
+        setIconNormal("ReplaceableTextures\\PassiveButtons\\PASBTNBattleRoar.blp")
         setArtTarget("")
         setDurationNormal(1, 0.01)
         setTargetAttachmentPoint("")
@@ -24,8 +24,8 @@ class NextLevel extends AbilityDefinitionWindWalk
         setManaCost(1, 0)
         setRace(Race.Human)
         setHotkeyNormal("R")
-        setTooltipNormal(1, "[|cffffcc00R|r] Summon next level")
-        setTooltipNormalExtended(1, "Are you prepared to meet your maker jajajaja.")
+        setTooltipNormal(1, "Level in progress")
+        setTooltipNormalExtended(1, "Can you handle it? lol")
 
 @compiletime function nanoBreweryMoveTower()
-    new NextLevel(ID_NEXT_LEVEL)
+    new NextLevel(ID_LEVEL_IN_PROGRESS)
