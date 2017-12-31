@@ -10,19 +10,22 @@ import UnitObjEditing
 
 public class TowerDefinition extends BuildingDefinition
     construct(int id)
-        super(id, 'hwtw')
+        super(id, 'hgtw')
 
-        setNormalAbilities("A00O,Avul")
-        setGroundTexture("")
-        setSelectionScale(1.)
+        setSelectionScale(1.5)
         setShadowTextureBuilding("")
-        setAttack1DamageSidesperDie(1)
-        setAttack1DamageNumberofDice(1)
-        setAttack1TargetsAllowed("enemies,ground,vulnerable")
-        setAttacksEnabled(1)
-        setArmorType(ArmorType.Divine)
-        setPathingMap("PathTextures\\2x2Unbuildable.tga")
+        
         setBuildTime(2)
         setLumberCost(0)
-        setUpgradesTo("")
-        setUpgradesUsed("")
+        
+        setHitPointsMaximumBase(10)
+        setHitPointsRegenerationRate(1.)
+        setAttacksEnabled(1)
+        setArmorType(ArmorType.Divine)
+        
+        setAttack1AnimationBackswingPoint(.3)
+        setAttack1AnimationDamagePoint(.3)
+        setProjectileLaunchZ(145.)
+        
+        setRequirements("")
+        
