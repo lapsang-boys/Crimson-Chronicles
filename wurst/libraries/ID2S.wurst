@@ -1,0 +1,56 @@
+package ID2S
+
+// Credits: feelerly
+// https://www.hiveworkshop.com/threads/unit-name-from-integer-unitid.52007/#post-485837
+
+constant string stringNum = "0123456789"
+constant string stringABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+constant string stringabc = "abcdefghijklmnopqrstuvwxyz"
+
+// public function S2ID(string source) returns integer
+//     integer Id = 0
+//     integer n1 = 1
+//     integer n2 = 1
+//     while n1 <= StringLength(source)
+//         while n2<= 10
+//             if SubString(source, n1-1, n1) == SubString(stringNum, n2-1, n2)
+//                 Id = Id+R2I(('0'+n2-1)*Pow(256.00,I2R(StringLength(source)-n1)))
+//                 n2 = n2+1
+//             else
+//                 n2=n2+1
+//         n2 = 1
+//         while n2<=26
+//             if SubString(source,n1-1,n1)==SubString(stringABC, n2-1, n2)
+//                 Id = Id+R2I(I2R('A'+n2-1)*Pow(256.00,I2R(StringLength(source)-n1)))
+//                 n2 = n2+1
+//             else
+//                 n2=n2+1
+//         n2=1
+//         while n2 <= 26
+//             if SubString(source,n1-1,n1) == SubString(stringabc, n2-1, n2)
+//                 Id = Id+R2I(('a'+n2-1)*Pow(256.00,I2R(StringLength(source)-n1)))
+//                 n2 = n2+1
+//             else
+//                 n2 = n2+1
+//         n2 = 1
+//         n1 = n1+1
+//     return Id
+
+public function ID2S(int id) returns string
+    string target = ""
+    integer n = 0
+    integer dis = 0
+    var i = id
+    while i != 0
+        n = ModuloInteger(i, 256)
+        if n>= '0' and n <= '9'
+            dis = n - '0'
+            target = SubString(stringNum, dis, dis+1)+target
+        if n >= 'A' and n <= 'Z'
+            dis = n - 'A'
+            target = SubString(stringABC, dis, dis+1)+target
+        if n >= 'a' and n <= 'z'
+            dis = n - 'a'   
+            target = SubString(stringabc, dis, dis+1)+target
+        i = i div 256
+    return target
