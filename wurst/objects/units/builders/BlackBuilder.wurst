@@ -1,4 +1,4 @@
-package Builder
+package BlackBuilder
 
 import Assets
 import UnitObjEditing
@@ -13,19 +13,19 @@ class Builder extends UnitDefinition
         // ------------------------------------
         // ========== Tavern ==================
         // ------------------------------------
-        setName("Builder |cffffcc00(Beer)|r")
-        setTooltipBasic("Choose |cffffcc00Beer|r [|cffffcc00R|r]")
-        setTooltipExtended("A drunken race that focuses on flavor rather than damage.")
-        setButtonPositionX(3)
+        setName("Builder |cffffcc00(Black)|r")
+        setTooltipBasic("Choose |cffffcc00Reg|r [|cffffcc00W|r]")
+        setTooltipExtended("Blackness is the shit.")
+        setButtonPositionX(1)
         setButtonPositionY(2)
-        setHotkey("R")
+        setHotkey("W")
 
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setModelFile(Units.peasant1)
-        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNHeroArchMage.blp")
-        setUnitSoundSet("Peasant")
+        setModelFile(Units.acolyte1)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNAcolyte.blp")
+        //setUnitSoundSet("Peasant")
 
         // --------------------------------------------
         // ========== Buildings and abilities =========
@@ -54,4 +54,4 @@ class Builder extends UnitDefinition
 
 
 @compiletime function builder()
-    new Builder(ID_BUILDER)
+    new Builder(ID_BUILDER_BLACK)

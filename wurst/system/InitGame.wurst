@@ -10,14 +10,14 @@ function startGameFirstTime(player p)
     FogEnableOff()
     FogMaskEnableOff()
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
-    
+
 
 public function startGame(player p)
     let pos = getSpawn(p).randomPoint()
-    let u = createUnit(p, ID_BUILDER, pos, angle(PI/2))
+    let u = createUnit(p, ID_BUILDER_BLACK, pos, angle(PI/2))
     playerData.get(p.getId()).setBuilder(u)
     p.setGold(35)
-    p.setLumber(10)        
+    p.setLumber(10)
 
 function initGame()
     SetTimeOfDay(23)
@@ -28,7 +28,7 @@ function initGame()
 
 trigger leaderTrig = CreateTrigger()
 
-init 
+init
     TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
     TriggerAddAction(leaderTrig, function initGame)
 

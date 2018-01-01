@@ -3,12 +3,19 @@ package Spawn
 import TimerUtils
 import OnUnitEnterLeave
 import RegisterEvents
+import HashMap
+import SoundUtils
 
 import Movement
 import Leaderboard
 import Constants
 import Levels
 import PlayerData
+
+// Summon level sound hashmap
+HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
+let SOUND_BUILDER_BLACK = "Units\\Undead\\Acolyte\\AcolyteYesAttack1.wav"
+let SOUND_BUILDER_REG = "Units\\Orc\\Tauren\\TaurenYesAttack1.wav"
 
 class TimerData
 	player p
@@ -26,6 +33,7 @@ function spawnLevel()
 	builder.removeAbility(ID_NEXT_LEVEL)
 	builder.addAbility(ID_LEVEL_IN_PROGRESS)
 	PlayerData pd = playerData.get(p.getId())
+	playSummonLevelSound(pd)
 	pd.levelInProgress = true
 
 	int levelIndex = pd.level
@@ -33,12 +41,12 @@ function spawnLevel()
 
 	TimerData lt = new TimerData(p, l)
 	let t = getTimer()
-	
+
 	t.setData(lt castTo int)
 	t.start(l.getDuration(), function summonMobs)
 	l.printInfo(p)
 	updateLevel(p, pd.level+1)
-	
+
 function summonMobs()
 	let t = GetExpiredTimer()
 	let lt = t.getData() castTo TimerData
@@ -46,14 +54,23 @@ function summonMobs()
 	if lt.cur == lt.l.num or (not playerData.get(p.getId()).levelInProgress)
 		t.release()
 		return
-	
+
 	lt.cur = lt.cur + 1
-	let pos = getSpawn(p).randomPoint()	
+	let pos = getSpawn(p).randomPoint()
 	let u = createUnit(PLAYER_BROWN, lt.l.uID, pos, angle(PI/2))
 	u.setUserData(1)
 	u.issuePointOrder("move", getNext(u))
-	
+
 	t.start(lt.l.getDuration(), function summonMobs)
+
+function playSummonLevelSound(PlayerData pd)
+	let sp = SUMMON_LEVEL_SOUND_MAP.get(pd.builder.getTypeId())
+	SoundDefinition sd = new SoundDefinition(sp, false)
+	sd.playForPlayer(pd.p)
+
 
 init
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)
+
+	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_BLACK, SOUND_BUILDER_BLACK)
+	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_REG, SOUND_BUILDER_REG)
