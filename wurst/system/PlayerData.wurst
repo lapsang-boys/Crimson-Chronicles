@@ -32,7 +32,7 @@ public class PlayerData
 
     construct(int playerNum, int level, int area, int life)
         this.playerNum = playerNum
-        this.p = Player(playerNum) 
+        this.p = Player(playerNum)
         this.level = level
         this.area = area
         this.life = life
@@ -80,29 +80,32 @@ public class PlayerData
 
     function levelComplete()
         Level l = levels.get(this.level)
-        printTimedToPlayer(infoColor.colorize("You completed level ")
-        + numberColor.colorize(I2S(this.level))
-        + infoColor.colorize(" and also received ")
-        + numberColor.colorize(I2S(l.bounty))
-        + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
 
         this.levelInProgress = false
         this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
-        
         this.level++
         this.mobsRemoved = 0
-        
-        // Win game
-        if not this.level == levels.getSize()
+
+        if this.level == levels.getSize()
+            // === Win game =============================================
             this.winGame()
-        // Next level
         else
-            print("Level finished!")
+            // === Next level ===========================================
+            printTimedToPlayer(infoColor.colorize("You completed level ")
+            + numberColor.colorize(I2S(this.level))
+            + infoColor.colorize(" and also received ")
+            + numberColor.colorize(I2S(l.bonus))
+            + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
+
+            // Add next level summoning ability.
             this.builder.addAbility(ID_NEXT_LEVEL)
+            // Reward bonus.
             this.p.addGold(l.bonus)
+
+            // Play victory sound.
             SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
             sd.playForPlayer(this.p)
-        
+
         // might change area later.
 
     function registerMobDeath()
