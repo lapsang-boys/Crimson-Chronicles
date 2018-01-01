@@ -18,4 +18,4 @@ function sellTower()
     tower.remove()
 
 init
-	registerSpellEffectEvent(ID_SELL_TOWER, function sellTower)
+    registerSpellEffectEvent(ID_SELL_TOWER, function sellTower)

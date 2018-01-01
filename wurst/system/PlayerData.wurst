@@ -85,11 +85,10 @@ public class PlayerData
             levelComplete()
 
     function registerLeak()
-        Level l = levels.get(this.level)
         this.life--
         updateLife(this.p, this.life)
         this.registerMobDeath()
-        
+
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
 init

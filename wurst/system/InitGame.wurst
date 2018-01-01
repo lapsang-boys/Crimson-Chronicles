@@ -1,7 +1,6 @@
 package InitGame
 
 import Constants
-import ID2S
 import Movement
 import PlayerData
 
@@ -11,8 +10,8 @@ function startGameFirstTime(player p)
 
 public function startGame(player p)
     let pos = getSpawn(p).randomPoint()
-	let u = createUnit(p, ID_BUILDER, pos, angle(PI/2))
-	playerData.get(p.getId()).setBuilder(u)
+    let u = createUnit(p, ID_BUILDER, pos, angle(PI/2))
+    playerData.get(p.getId()).setBuilder(u)
     p.setGold(35)
     p.setLumber(10)        
 
