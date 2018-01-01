@@ -1,0 +1,15 @@
+package PlayerEvents
+
+import Constants
+import Colorscheme
+
+function playerLeaves()
+    player p = GetTriggerPlayer()
+    printTimed(fromPlayer(p).colorize(p.getName()) + textColor.colorize(" has left the game!"), 10)
+
+trigger leaveTrigger = CreateTrigger()
+
+init
+    TriggerAddAction(leaveTrigger, function playerLeaves)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerEventLeave(leaveTrigger, Player(i))

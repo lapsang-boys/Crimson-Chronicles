@@ -6,6 +6,7 @@ import SoundUtils
 import ClosureForGroups
 
 import Levels
+import Colorscheme
 import Regions
 import Leaderboard
 import Constants
@@ -40,7 +41,7 @@ public class PlayerData
         this.life -= i
         if this.life >= 1
             if i > 1
-                print("You lost " + I2S(i) + " lives.")
+                printTimedToPlayer(warningColor.colorize("You lost " + I2S(i) + " lives."), 10, this.p)
             else
                 print("You lost " + I2S(i) + " life.")
         else

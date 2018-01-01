@@ -1,7 +1,4 @@
-package ColorScheme
-
-import Colors
-import LinkedList
+package Colorscheme
 
 import ColUtil
 
@@ -11,7 +8,18 @@ public color base2 = fromHsl(42, 100/100, 70/100)
 public color base3 = fromHsl(164, 95/100, 43/100)
 public color base4 = fromHsl(0, 0/100, 99/100)
 
-color array bases = [base0, base1, base2, base3, base4]
+public color infoColor 
+public color warningColor
+public color flavorColor = base2
+public color fieldColor = base0.accent(2)
+public color valueColor = base1
+public color hotkeyColor = base3
+public color nameColor = base2
+public color textColor = base4
+public color discreetColor = base4
+ 
+public function color.colorize(string s) returns string
+    return this.toColorString()+s+"|r"
 
 public function color.accent(int index) returns color
     hsl cHsl = toHsl(this)
