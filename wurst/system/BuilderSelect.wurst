@@ -1,0 +1,26 @@
+package BuilderSelect
+
+import RegisterEvents
+
+import Constants
+import PlayerData
+
+function buildingSelect()
+    let tavern = GetSellingUnit()
+    let builder = GetSoldUnit()
+    PlayerData pd = playerData.get(tavern.getOwner().getId())
+    pd.setBuilder(builder)
+
+    let pos = tavern.getPos()
+    flashEffect("Objects\\Spawnmodels\\Human\\HCancelDeath\\HCancelDeath.mdl", pos)
+    tavern.remove()
+    builder.setPos(pos)
+    SelectUnit(builder, true)
+
+function isBuilder() returns boolean
+    return GetSellingUnit().getTypeId() == ID_TAVERN
+
+trigger builderSelect = CreateTrigger()
+
+init
+    registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, null, function isBuilder, function buildingSelect)

@@ -25,7 +25,7 @@ class Builder extends UnitDefinition
         // -------------------------------------
         setModelFile(Units.acolyte1)
         setIconGameInterface(Icons.bTNAcolyte)
-        //setUnitSoundSet("Peasant")
+        setUnitSoundSet("Acolyte")
 
         // --------------------------------------------
         // ========== Buildings and abilities =========
