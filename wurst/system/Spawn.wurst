@@ -73,5 +73,5 @@ function playSummonLevelSound(PlayerData pd)
 init
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)
 
-	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_BLACK, Sounds.acolyteYesAttack1)
-	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_REG, Sounds.taurenYesAttack1)
+	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_BLACK, SOUND_BUILDER_BLACK)
+	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_REG, SOUND_BUILDER_REG)

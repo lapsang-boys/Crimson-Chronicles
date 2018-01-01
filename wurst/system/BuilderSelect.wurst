@@ -1,9 +1,14 @@
 package BuilderSelect
 
 import RegisterEvents
+import HashMap
 
 import Constants
 import PlayerData
+import Leaderboard
+
+// Summon level sound hashmap
+HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
 
 function buildingSelect()
     let tavern = GetSellingUnit()
@@ -17,6 +22,9 @@ function buildingSelect()
     builder.setPos(pos)
     SelectUnit(builder, true)
 
+    let icon = LEADERBOARD_ICON_MAP.get(builder.getTypeId())
+    updateIcon(pd.p, icon)
+
 function isBuilder() returns boolean
     return GetSellingUnit().getTypeId() == ID_TAVERN
 
@@ -24,3 +32,5 @@ trigger builderSelect = CreateTrigger()
 
 init
     registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, null, function isBuilder, function buildingSelect)
+    LEADERBOARD_ICON_MAP.put(ID_BUILDER_BLACK, ICON_BUILDER_BLACK)
+	LEADERBOARD_ICON_MAP.put(ID_BUILDER_REG, ICON_BUILDER_REG)
