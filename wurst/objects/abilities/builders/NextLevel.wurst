@@ -8,7 +8,7 @@ class NextLevel extends AbilityDefinitionWindWalk
     construct(int id)
         super(id)
 
-        setButtonPositionNormalX(0)
+        setButtonPositionNormalX(3)
         setButtonPositionNormalY(2)
         setArtCaster("")
         setCasterAttachmentPoint("")
