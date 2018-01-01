@@ -1,19 +1,19 @@
-package Raccoon
+package Acco
 
 import Assets
 import UnitObjEditing
 
 import Constants
 
-class Raccoon extends UnitDefinition
+class Acco extends UnitDefinition
     construct(int id)
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
         // ========== Model file, bounty etc. ========== 
         // ---------------------------------------------
-        setName("Raccon")
-        setModelFile(Units.raccoon1)
+        setName("Acco")
+        setModelFile(Units.acolyte1)
         // setUnitSoundSet("Peasant")
         setGoldBountyAwardedBase(1)
         setGoldBountyAwardedNumberofDice(0)
@@ -37,5 +37,5 @@ class Raccoon extends UnitDefinition
 
         setAttacksEnabled(0)
         
-@compiletime function racoon()
-    new Raccoon(ID_RACCOON)
+@compiletime function acco()
+    new Acco(ID_ACCO)

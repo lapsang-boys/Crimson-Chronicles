@@ -9,6 +9,8 @@ function startGameFirstTime(player p)
     startGame(p)
     FogEnableOff()
     FogMaskEnableOff()
+    PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
+    
 
 public function startGame(player p)
     let pos = getSpawn(p).randomPoint()

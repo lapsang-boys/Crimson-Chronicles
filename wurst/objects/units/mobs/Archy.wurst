@@ -1,19 +1,19 @@
-package Raccoon
+package Archy
 
 import Assets
 import UnitObjEditing
 
 import Constants
 
-class Raccoon extends UnitDefinition
+class Archy extends UnitDefinition
     construct(int id)
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
         // ========== Model file, bounty etc. ========== 
         // ---------------------------------------------
-        setName("Raccon")
-        setModelFile(Units.raccoon1)
+        setName("Archy")
+        setModelFile(Units.archer)
         // setUnitSoundSet("Peasant")
         setGoldBountyAwardedBase(1)
         setGoldBountyAwardedNumberofDice(0)
@@ -37,5 +37,5 @@ class Raccoon extends UnitDefinition
 
         setAttacksEnabled(0)
         
-@compiletime function racoon()
-    new Raccoon(ID_RACCOON)
+@compiletime function archy()
+    new Archy(ID_ARCHY)

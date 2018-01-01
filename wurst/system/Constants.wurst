@@ -12,6 +12,8 @@ public constant ID_BUILDER = 'd000'
 // Mobs
 public constant ID_MOB_BASE_UNIT = 'earc'
 public constant ID_RACCOON = 'd001'
+public constant ID_ACCO = 'd002'
+public constant ID_ARCHY = 'd003'
 
 // Towers
 public constant ID_TEST_TOWER = 'f000'
