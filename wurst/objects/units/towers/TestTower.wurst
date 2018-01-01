@@ -9,23 +9,56 @@ class TestTower extends TowerDefinition
     construct(int id)
         super(id)
 
+        // ------------------------------------
+        // ========== Model file etc ========== 
+        // ------------------------------------
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
-        setModelFile("Buildings\\Human\\HumanTower\\HumanTower.mdx")
-        setRequiredAnimationNames("second")
-        setScalingValue(.6)
+        setModelFile("units\\Human\\Rifleman\\Rifleman.mdx")
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet("Rifleman")
+        setScalingValue(1.)
+        setGroundTexture("")
+        
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
         setAcquisitionRange(550.)
-        setAttack1AnimationBackswingPoint(.15)
-        setAttack1AnimationDamagePoint(.15)
-        setAttack1AttackType(AttackType.Siege)
+        setAttack1Range(550)
         setAttack1CooldownTime(1.7)
-        setAttack1DamageBase(196)
+        setAttack1DamageBase(3)
+        setAttack1DamageSidesperDie(6)
+        setAttack1DamageNumberofDice(1)
+        // If non air attacking?
+        // setAttack1TargetsAllowed("enemies,ground,vulnerable")
+
+        // ------------------------------------
+        // ========== Spells  ========== 
+        // ------------------------------------
+                // TODO: Sell ability
+        // setNormalAbilities("A00O,Avul")
+
+        // ------------------------------------------------
+        // ========== Attack modelfile speed etc ==========
+        // ------------------------------------------------
         setAttack1ProjectileArt("Units\\Creeps\\EarthPandarenBrewmaster\\EarthPandarenBrewmaster_Missile.mdx")
         setAttack1ProjectileSpeed(1200)
-        setProjectileLaunchZ(110.)
-        setAttack1Range(550)
         setAttack1WeaponType(WeaponType.Missile)
-        setUnitSoundSet("ElvenGuardTower")
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
         setGoldCost(10)
+        setPointValue(10)
+        setUpgradesTo("")
+        setUpgradesUsed("")
+        // If other tower should be required
+        // setRequirements("")
+
+        // ------------------------------------
+        // ========== Desctiption ==========
+        // ------------------------------------
         setHotkey("Q")
         setName("Test Tower")
         setTooltipBasic("[|cff999999Q|r] Test Tower")
