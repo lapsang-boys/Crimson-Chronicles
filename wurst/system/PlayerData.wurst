@@ -43,7 +43,7 @@ public class PlayerData
             if i > 1
                 printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives."), 10, this.p)
             else
-                printTimedToPlayer(warningColor.colorize("You lost " + I2S(i) + " life."), 10, this.p)
+                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life."), 10, this.p)
         else
             loseGame()
 

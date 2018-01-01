@@ -8,9 +8,9 @@ public color base2 = fromHsl(42, 100/100, 70/100)
 public color base3 = fromHsl(164, 95/100, 43/100)
 public color base4 = fromHsl(0, 0/100, 99/100)
 
-public color infoColor 
-public color warningColor
-public color numberColor
+public color infoColor = base2
+public color warningColor = base0
+public color numberColor = base3
 public color flavorColor = base2
 public color fieldColor = base0.accent(2)
 public color valueColor = base1
@@ -18,7 +18,7 @@ public color hotkeyColor = base3
 public color nameColor = base2
 public color textColor = base4
 public color discreetColor = base4
- 
+
 public function color.colorize(string s) returns string
     return this.toColorString()+s+"|r"
 

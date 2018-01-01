@@ -15,7 +15,7 @@ function sellTower()
     flashEffect(FX_PATH, pos)
     p.setGold(p.getGold() + gold)
     
-    printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + textColor.colorize(" gold."), 10, p)
+    printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), 10, p)
     tower.remove()
 
 init
