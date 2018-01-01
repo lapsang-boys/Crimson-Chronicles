@@ -10,6 +10,7 @@ public color base4 = fromHsl(0, 0/100, 99/100)
 
 public color infoColor 
 public color warningColor
+public color numberColor
 public color flavorColor = base2
 public color fieldColor = base0.accent(2)
 public color valueColor = base1

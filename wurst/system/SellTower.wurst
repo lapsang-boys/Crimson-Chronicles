@@ -3,6 +3,7 @@ package SellTower
 import RegisterEvents
 
 import Constants
+import Colorscheme
 
 let FX_PATH = "UI\\Feedback\\GoldCredit\\GoldCredit.mdl"
 
@@ -14,7 +15,7 @@ function sellTower()
     flashEffect(FX_PATH, pos)
     p.setGold(p.getGold() + gold)
     
-    print("|cff00dd00You have sold " + tower.getName() + " for |r" + I2S(gold) + " |cff00dd00gold.|r" )
+    printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + textColor.colorize(" gold."), 10, p)
     tower.remove()
 
 init

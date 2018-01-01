@@ -3,6 +3,7 @@ package Remake
 import Colors
 
 import Constants
+import Colorscheme
 import PlayerData
 import InitGame
 
@@ -17,7 +18,7 @@ function remake()
     pd.reset()
     
     // color c = fromPlayer(p)
-    print("Player "+GetPlayerName(p) + " has remaked!")
+    printTimed(textColor.colorize("Player ") + fromPlayer(p).colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), 10)
 
     // Start the game again.
     startGame(p)

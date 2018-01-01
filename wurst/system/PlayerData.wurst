@@ -41,14 +41,14 @@ public class PlayerData
         this.life -= i
         if this.life >= 1
             if i > 1
-                printTimedToPlayer(warningColor.colorize("You lost " + I2S(i) + " lives."), 10, this.p)
+                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives."), 10, this.p)
             else
-                print("You lost " + I2S(i) + " life.")
+                printTimedToPlayer(warningColor.colorize("You lost " + I2S(i) + " life."), 10, this.p)
         else
             loseGame()
 
     function loseGame()
-        print("You lost.")
+        printTimedToPlayer(infoColor.colorize("You have lost the game."), 10, this.p)
         this.levelInProgress = false
         this.cleanse()
 
@@ -66,7 +66,7 @@ public class PlayerData
         updateLife(this.p, this.life)
 
     function levelComplete()
-        print("Level finished!")
+        printTimedToPlayer(infoColor.colorize("You lost."), 10, this.p)
         Level l = levels.get(this.level)
 
         this.levelInProgress = false
