@@ -21,8 +21,7 @@ class UnitWrapper
 	ondestroy
 		u.remove()
         PlayerData pd = playerData.get(this.playerNum)
-        pd.registerMobLeave()
-
+        pd.registerLeak()
 
 function acta()
     let u = GetTriggerUnit()

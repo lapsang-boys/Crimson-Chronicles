@@ -1,0 +1,31 @@
+package Remake
+
+import Colors
+
+import Constants
+import PlayerData
+import InitGame
+
+function remake()
+    player p = GetTriggerPlayer()
+    PlayerData pd = playerData.get(p.getId())
+
+    // Remove everything in region.
+    pd.cleanse()
+
+    // Revert values and stop spawn.
+    pd.reset()
+    
+    // color c = fromPlayer(p)
+    print("Player "+GetPlayerName(p) + " has remaked!")
+
+    // Start the game again.
+    startGame(p)
+    
+trigger remakeTrig = CreateTrigger()
+init
+    TriggerAddAction(remakeTrig, function remake)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-rmk", true)
+        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-remake", true)
+    

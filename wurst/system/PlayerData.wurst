@@ -1,26 +1,37 @@
 package PlayerData
 
 import LinkedList
+import TypeCasting
 import SoundUtils
+import ClosureForGroups
 
 import Levels
+import Regions
 import Leaderboard
 import Constants
 
+class Remover implements ForGroupCallback
+    function callback(unit u)
+        u.remove()
+
 public class PlayerData
     int playerNum
+    player p
     int level
     int area
     int life
     int mobsRemoved
     unit builder
+    bool levelInProgress
 
     construct(int playerNum, int level, int area, int life)
         this.playerNum = playerNum
+        this.p = Player(playerNum) 
         this.level = level
         this.area = area
         this.life = life
         this.mobsRemoved = 0
+        this.levelInProgress = false
 
     function setBuilder(unit builder)
         this.builder = builder
@@ -38,26 +49,47 @@ public class PlayerData
     function loseGame()
         print("You lost.")
 
-    function registerMobLeave()
-        this.mobsRemoved++
+    function cleanse()
+        rect r = rectFromIndex(playerArea.get(this.playerNum))
+        Remover rem = new Remover()
+        forUnitsInRect(r, rem)
+
+    function reset()
+        this.levelInProgress = false
+        this.area = 0
+        this.life = STARTING_LIFE
+        this.mobsRemoved = 0
+        this.level = 0
+        updateLife(this.p, this.life)
+
+    function levelComplete()
+        print("Level finished!")
         Level l = levels.get(this.level)
-        player p = Player(this.playerNum)
-        this.life--
-        updateLife(p, this.life)
+
+        this.levelInProgress = false
+        this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
+        this.builder.addAbility(ID_NEXT_LEVEL)
+        this.p.addGold(l.bonus)
+
+        this.level++
+        this.mobsRemoved = 0
+        
+        SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
+        sd.playForPlayer(this.p)
+        
+        // might change area later.
+
+    function registerMobDeath()
+        this.mobsRemoved++
         if this.mobsRemoved == levels.get(this.level).num
-            print("Level finished!")
-            this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
-            this.builder.addAbility(ID_NEXT_LEVEL)
-            p.addGold(l.bonus)
+            levelComplete()
 
-            this.level++
-            this.mobsRemoved = 0
-            
-            SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
-            sd.playForPlayer(p)
-            
-            // might change area later.
-
+    function registerLeak()
+        Level l = levels.get(this.level)
+        this.life--
+        updateLife(this.p, this.life)
+        this.registerMobDeath()
+        
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
 init
