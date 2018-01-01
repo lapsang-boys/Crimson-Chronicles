@@ -1,15 +1,24 @@
 package TestTower
 
 import Constants
+import Damage
 import UnitObjEditing
 
+import Tooltip
 import TowerDefinition
 import ID2S
+
+constant DAMAGE_BASE = 3
+constant DAMAGE_SIDES_PER_DIE = 6
+constant DAMAGE_NUMBER_OF_DIE = 1
+constant RANGE = 550
+constant ATTACK_SPEED = 1.7
+constant GOLD_COST = 10
+constant POINT_VALUE = 10
 
 class TestTower extends TowerDefinition
     construct(int id)
         super(id)
-
         // -------------------------------------
         // ========== Model file etc. ========== 
         // -------------------------------------
@@ -25,12 +34,12 @@ class TestTower extends TowerDefinition
         // ------------------------------------
         // ========== Attack damage ==========
         // ------------------------------------
-        setAcquisitionRange(550.)
-        setAttack1Range(550)
-        setAttack1CooldownTime(1.7)
-        setAttack1DamageBase(3)
-        setAttack1DamageSidesperDie(6)
-        setAttack1DamageNumberofDice(1)
+        setAcquisitionRange(RANGE.toReal())
+        setAttack1Range(RANGE)
+        setAttack1CooldownTime(ATTACK_SPEED)
+        setAttack1DamageBase(DAMAGE_BASE)
+        setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+        setAttack1DamageNumberofDice(DAMAGE_NUMBER_OF_DIE)
         // Only ground tower? I.e can't attack air?
         // setAttack1TargetsAllowed("enemies,ground,vulnerable")
 
@@ -49,8 +58,8 @@ class TestTower extends TowerDefinition
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
         // ----------------------------------------------------------
-        setGoldCost(10)
-        setPointValue(10)
+        setGoldCost(GOLD_COST)
+        setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
         // If other tower should be required
@@ -61,8 +70,13 @@ class TestTower extends TowerDefinition
         // ---------------------------------
         setHotkey("Q")
         setName("Test Tower")
-        setTooltipBasic("[|cff999999Q|r] Test Tower")
-        setTooltipExtended("Haha. nej.")
+        setTooltipBasic(tooltipBasic("Q", "Test Tower", false))
+        setTooltipExtended(tooltipExtended(
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
+            ATTACK_SPEED,
+            RANGE,
+            "",
+            "Haha nej."))
 
 @compiletime function testTower()
     new TestTower(ID_TEST_TOWER)

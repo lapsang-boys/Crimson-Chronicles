@@ -27,7 +27,8 @@ class SellTowerAbility extends AbilityDefinitionWindWalk
         setBuffs(1, "")
         setManaCost(1, 0)
         setRace(Race.Human)
-        setHotkeyNormal("R")
+        setHotkeyNormal("X")
+        setName("Sell tower")
         setTooltipNormal(1, "Sell tower")
         setTooltipNormalExtended(1, "Mmmm.. Gold!")
 

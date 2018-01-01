@@ -19,5 +19,5 @@ public constant ID_TEST_TOWER = 'f000'
 // Abilities
 public constant ID_NEXT_LEVEL = 'g000'
 public constant ID_LEVEL_IN_PROGRESS = 'g001'
-public constant ID_SELL_TOWER = 'g002'
 
+public constant ID_SELL_TOWER = 'g002'

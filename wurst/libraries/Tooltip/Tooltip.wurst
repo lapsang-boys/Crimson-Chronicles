@@ -1,0 +1,39 @@
+package Tooltip
+
+import ColorScheme
+import Damage
+
+function color.colorize(string s) returns string
+    return this.toColorString()+s+"|r"
+
+public function tooltipBasic(string hotkey, string towerName, bool upgrade) returns string
+    color hotkeyColor = base3
+    color nameColor = base2
+    color textColor = base4
+    color discreetColor = base4
+    
+    if upgrade
+        return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
+                + textColor.colorize(" Upgrade to ")
+                + nameColor.colorize(towerName)
+    else
+        return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
+                + textColor.colorize(" Build ")
+                + nameColor.colorize(towerName)
+
+public function tooltipExtended(damage dmg, real speed, int range, string abilities, string flavor) returns string
+    color flavorColor = base2
+    color fieldColor = base0.accent(2)
+    color valueColor = base1
+    
+    string tooltip = flavorColor.colorize(flavor) + "|n|n"
+           + fieldColor.colorize("Damage:  ") + valueColor.colorize(dmg.toString()) + "|n"
+           + fieldColor.colorize("Speed:      ") + valueColor.colorize(speed.toString()) + "|n"
+           + fieldColor.colorize("Range:      ") + valueColor.colorize(range.toString()) + "|n"
+    
+    if abilities.length() > 0
+        tooltip += fieldColor.colorize("Abilities:   ") + valueColor.colorize(abilities)
+        
+    return tooltip
+
+public function tooltipBuilder()
