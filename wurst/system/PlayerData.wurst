@@ -90,7 +90,6 @@ public class PlayerData
         // Win game
         if this.level == levels.getSize()
             this.winGame()
-        // Next level
         else
             printTimedToPlayer(infoColor.colorize("You completed level ")
             + numberColor.colorize(I2S(this.level))
@@ -99,7 +98,10 @@ public class PlayerData
             + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
 
             this.builder.addAbility(ID_NEXT_LEVEL)
+            // Reward bonus.
             this.p.addGold(l.bonus)
+
+            // Play victory sound.
             SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
             sd.playForPlayer(this.p)
 

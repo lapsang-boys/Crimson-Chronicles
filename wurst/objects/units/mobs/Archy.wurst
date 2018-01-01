@@ -17,6 +17,7 @@ class Archy extends UnitDefinition
         // setUnitSoundSet("Peasant")
         setGoldBountyAwardedBase(1)
         setGoldBountyAwardedNumberofDice(0)
+        setCollisionSize(1)
 
         // ------------------------------------
         // ========== Abilities ===============
