@@ -42,7 +42,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt("Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl")
+        setAttack1ProjectileArt("Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdx")
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
 

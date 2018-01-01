@@ -4,6 +4,7 @@ import LinkedList
 import SoundUtils
 
 import Levels
+import Leaderboard
 import Constants
 
 public class PlayerData
@@ -20,7 +21,6 @@ public class PlayerData
         this.area = area
         this.life = life
         this.mobsRemoved = 0
-
 
     function setBuilder(unit builder)
         this.builder = builder
@@ -41,18 +41,21 @@ public class PlayerData
     function registerMobLeave()
         this.mobsRemoved++
         Level l = levels.get(this.level)
+        player p = Player(this.playerNum)
+        this.life--
+        updateLife(p, this.life)
         if this.mobsRemoved == levels.get(this.level).num
             print("Level finished!")
             this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
             this.builder.addAbility(ID_NEXT_LEVEL)
-        	player p = Player(this.playerNum)
             p.addGold(l.bonus)
+
             this.level++
             this.mobsRemoved = 0
             
             SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
             sd.playForPlayer(p)
-
+            
             // might change area later.
 
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
