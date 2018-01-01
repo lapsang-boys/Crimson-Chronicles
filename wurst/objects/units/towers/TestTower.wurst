@@ -42,7 +42,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt("Units\\Creeps\\EarthPandarenBrewmaster\\EarthPandarenBrewmaster_Missile.mdx")
+        setAttack1ProjectileArt("Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdx")
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
 
