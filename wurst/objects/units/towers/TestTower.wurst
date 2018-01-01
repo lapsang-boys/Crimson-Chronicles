@@ -35,7 +35,7 @@ class TestTower extends TowerDefinition
         // setAttack1TargetsAllowed("enemies,ground,vulnerable")
 
         // ------------------------------------
-        // ========== Spells  ========== 
+        // ========== Spells ================== 
         // ------------------------------------
         setNormalAbilities(ID2S(ID_SELL_TOWER))
 

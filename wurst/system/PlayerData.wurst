@@ -48,6 +48,8 @@ public class PlayerData
 
     function loseGame()
         print("You lost.")
+        this.levelInProgress = false
+        this.cleanse()
 
     function cleanse()
         rect r = rectFromIndex(playerArea.get(this.playerNum))
@@ -86,9 +88,12 @@ public class PlayerData
 
     function registerLeak()
         Level l = levels.get(this.level)
-        this.life--
+        this.p.addGold(l.bounty)
+        //this.registerMobDeath()
+        let i = l.lifeLost
+        loseLife(i)
         updateLife(this.p, this.life)
-        this.registerMobDeath()
+        
         
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
