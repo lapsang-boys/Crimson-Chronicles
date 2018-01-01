@@ -5,49 +5,6 @@ import Colors
 import Constants
 import PlayerData
 
-// function MKillsActions takes nothing returns nothing
-//     local integer playerN = GetPlayerId(GetOwningPlayer(GetKillingUnitBJ()))
-    
-//     set Defenders[playerN].kills = Defenders[playerN].kills  + 1
-//     MultiboardSetItemValueBJ(mb, 3, ( playerN + 2 ), I2S(Defenders[playerN].kills))
-// endfunction
-
-// //===========================================================================
-// function InitTrig_MKills takes nothing returns nothing
-//     set gg_trg_MKills = CreateTrigger(  )
-//     TriggerRegisterPlayerUnitEventSimple( gg_trg_MKills, Player(11), EVENT_PLAYER_UNIT_DEATH )
-//     TriggerAddAction( gg_trg_MKills, function MKillsActions )
-// endfunction
-
-// function MTimeActions takes nothing returns nothing
-//     set Seconds = Seconds + 1
-//     if Minutes == 60 then
-//         set Minutes = 0
-//         set Hours = Hours + 1
-//     elseif Seconds == 60 then
-//         set Seconds = 0
-//         set Minutes = Minutes + 1
-//     elseif Hours > 0 then
-//         MultiboardSetItemValueBJ(mb, 2, 8, ( ( I2S(Hours) + ( ":" + I2S(Minutes) ) ) + ( ":" + I2S(Seconds) ) ))
-//     else
-//         MultiboardSetItemValueBJ(mb, 2, 8, ( I2S(Minutes) + ( ":" + I2S(Seconds) ) ))
-//     endif
-// endfunction
-
-// //===========================================================================
-// function InitTrig_MTime takes nothing returns nothing
-//     set gg_trg_MTime = CreateTrigger(  )
-//     TriggerRegisterTimerEventPeriodic( gg_trg_MTime, 1.00 )
-//     TriggerAddAction( gg_trg_MTime, function MTimeActions )
-// endfunction
-
-// function Trig_MMain_Func030Func001C takes nothing returns boolean
-//     if ( not ( GetPlayerSlotState(ConvertedPlayer(( GetForLoopIndexA() - 1 ))) == PLAYER_SLOT_STATE_PLAYING ) ) then
-//         return false
-//     endif
-//     return true
-// endfunction
-
 function setItemStyle(multiboard mb, int i, int j, bool showIcon)
     multiboarditem mbitem = MultiboardGetItem(mb, i, j)
     MultiboardSetItemStyle(mbitem, true, showIcon)
