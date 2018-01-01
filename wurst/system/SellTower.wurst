@@ -1,20 +1,23 @@
 package SellTower
 
+import Assets
 import RegisterEvents
+import SoundUtils
 
 import Constants
 import Colorscheme
-
-let FX_PATH = "UI\\Feedback\\GoldCredit\\GoldCredit.mdl"
 
 function sellTower()
     let tower = GetTriggerUnit()
     let pos = tower.getPos()
     let p = tower.getOwner()
     let gold = GetUnitPointValue(tower)
-    flashEffect(FX_PATH, pos)
+    flashEffect(UI.goldCredit, pos)
     p.setGold(p.getGold() + gold)
-    
+
+    SoundDefinition sd = new SoundDefinition(Sounds.receiveGold1, false)
+    sd.playForPlayer(p)
+
     printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), DISPLAY_TIME, p)
     tower.remove()
 

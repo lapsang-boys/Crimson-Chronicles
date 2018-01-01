@@ -2,6 +2,7 @@ package End
 
 import InitRegions
 
+import Assets
 import TypeCasting
 import SoundUtils
 import LinkedList
@@ -11,9 +12,6 @@ import Constants
 import Movement
 import Levels
 import PlayerData
-
-let LEAK_FX = "Abilities\\Spells\\Items\\AIil\\AIilTarget.mdl"
-let LEAK_SOUND = "Sound\\Interface\\CreepAggroWhat1.wav"
 
 class UnitWrapper
     unit u
@@ -31,17 +29,17 @@ function leak()
     int n = getPlayerN(u)
     UnitWrapper uw = new UnitWrapper(u)
     player p = Player(n)
-    
+
     PlayerData pd = playerData.get(n)
     pd.registerLeak()
-    
-    SoundDefinition sd = new SoundDefinition(LEAK_SOUND, false)
+
+    SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
     sd.playForPlayer(p)
 
-    flashEffect(LEAK_FX, u.getPos())
+    flashEffect(Abilities.aIilTarget, u.getPos())
 
     destroy uw
-    
+
     // SFX
 
 function isUnitOwnedByPlayerBrown() returns boolean

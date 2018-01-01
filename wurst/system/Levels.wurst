@@ -34,7 +34,8 @@ public class Level
 
     function printInfo(player p)
         printTimedToPlayer(this.levelName, DISPLAY_TIME, p)
-        printTimedToPlayer(this.desc, DISPLAY_TIME, p)
+        if this.desc.length() > 0
+            printTimedToPlayer(this.desc, DISPLAY_TIME, p)
         for mt in this.types
             printTimedToPlayer(monsterHint(mt), DISPLAY_TIME, p)
 
@@ -49,6 +50,18 @@ function levelDescriptionMsg(string desc) returns string
 
 init
     // ============== Area 1 ==============
+    Level L0 = new Level(
+        ID_PATH_SHOWER,
+        spawnInterval(1.35, 1.35),
+        3, // Num
+        0, // Bounty
+        0, // Bonus
+        0, // Life lost
+        levelNameMsg(0, "Path shower"),
+        levelDescriptionMsg(""),
+        new LinkedList<MonsterType>..add(MonsterType.INVULNERABLE))
+    levels.add(L0)
+
     Level L1 = new Level(
         ID_RACCOON,
         spawnInterval(1.35, 1.35),

@@ -1,11 +1,9 @@
 package NextLevel
 
+import Assets
 import AbilityObjEditing
 
 import Constants
-
-let ICON = "ReplaceableTextures\\CommandButtons\\BTNBattleRoar.blp"
-let SOUND = "Units\\Human\\Arthas\\ArthasPissed3.wav"
 
 class NextLevel extends AbilityDefinitionWindWalk
     construct(int id)
@@ -16,8 +14,7 @@ class NextLevel extends AbilityDefinitionWindWalk
         setArtCaster("")
         setCasterAttachmentPoint("")
         setArtEffect("")
-        setEffectSound(SOUND)
-        setIconNormal(ICON)
+        setIconNormal(Icons.bTNBattleRoar)
         setArtTarget("")
         setDurationNormal(1, 0.01)
         setTargetAttachmentPoint("")

@@ -1,10 +1,9 @@
 package LevelInProgress
 
+import Assets
 import AbilityObjEditing
 
 import Constants
-
-let ICON = "ReplaceableTextures\\PassiveButtons\\PASBTNBattleRoar.blp"
 
 class NextLevel extends AbilityDefinitionCriticalStrikecreep
     construct(int id)
@@ -14,7 +13,7 @@ class NextLevel extends AbilityDefinitionCriticalStrikecreep
         setArtCaster("")
         setCasterAttachmentPoint("")
         setArtEffect("")
-        setIconNormal(ICON)
+        setIconNormal(Icons.pASBTNBattleRoar)
         setArtTarget("")
         setDurationNormal(1, 0.01)
         setTargetAttachmentPoint("")

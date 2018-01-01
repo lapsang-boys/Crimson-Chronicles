@@ -24,7 +24,7 @@ class Builder extends UnitDefinition
         // ========== Model file etc. ==========
         // -------------------------------------
         setModelFile(Units.acolyte1)
-        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNAcolyte.blp")
+        setIconGameInterface(Icons.bTNAcolyte)
         //setUnitSoundSet("Peasant")
 
         // --------------------------------------------

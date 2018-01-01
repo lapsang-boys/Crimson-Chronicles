@@ -2,6 +2,7 @@ package PlayerData
 
 import LinkedList
 import TypeCasting
+import Assets
 import SoundUtils
 import ClosureForGroups
 
@@ -18,7 +19,8 @@ class Remover implements ForGroupCallback
 class Winner implements ForGroupCallback
     function callback(unit u)
         u.setAnimation("stand victory")
-        u.addEffect("Objects\\Spawnmodels\\Other\\ToonBoom\\ToonBoom.mdl", "origin")
+        u.addEffect(Objects.toonBoom, "origin")
+        // u.addEffect("Objects\\Spawnmodels\\Other\\ToonBoom\\ToonBoom.mdl", "origin")
 
 public class PlayerData
     int playerNum
@@ -43,11 +45,11 @@ public class PlayerData
         this.builder = builder
 
     function loseLife(int i)
-        this.life -= i
         if this.life >= 1
+            this.life -= i
             if i > 1
                 printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives."), DISPLAY_TIME, this.p)
-            else
+            else if i == 1
                 printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life."), DISPLAY_TIME, this.p)
         else
             loseGame()
@@ -59,7 +61,7 @@ public class PlayerData
 
     function winGame()
         printTimedToPlayer(infoColor.colorize("You won the game!"), DISPLAY_TIME, this.p)
-        SoundDefinition sd = new SoundDefinition("Sound\\Interface\\NewTournament.wav", false)
+        SoundDefinition sd = new SoundDefinition(Sounds.newTournament, false)
         sd.playForPlayer(this.p)
         rect r = rectFromIndex(playerArea.get(this.playerNum))
         Winner w = new Winner()
@@ -88,8 +90,12 @@ public class PlayerData
         this.mobsRemoved = 0
 
         // Win game
-        if this.level == levels.getSize()
+        if not this.level == levels.getSize()
             this.winGame()
+            return
+
+        if this.level == 1
+            printTimedToPlayer(infoColor.colorize("You completed level info level."), DISPLAY_TIME, this.p)
         else
             printTimedToPlayer(infoColor.colorize("You completed level ")
             + numberColor.colorize(I2S(this.level))
@@ -97,13 +103,14 @@ public class PlayerData
             + numberColor.colorize(I2S(l.bounty))
             + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
 
-            this.builder.addAbility(ID_NEXT_LEVEL)
             // Reward bonus.
             this.p.addGold(l.bonus)
 
             // Play victory sound.
-            SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
+            SoundDefinition sd = new SoundDefinition(Sounds.questCompleted, false)
             sd.playForPlayer(this.p)
+
+        this.builder.addAbility(ID_NEXT_LEVEL)
 
         // might change area later.
 
@@ -115,7 +122,6 @@ public class PlayerData
     function registerLeak()
         Level l = levels.get(this.level)
         this.p.addGold(l.bounty)
-        //this.registerMobDeath()
         let i = l.lifeLost
         loseLife(i)
         updateLife(this.p, this.life)

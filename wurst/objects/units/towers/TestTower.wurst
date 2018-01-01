@@ -1,5 +1,6 @@
 package TestTower
 
+import Assets
 import Constants
 import Damage
 import UnitObjEditing
@@ -22,8 +23,8 @@ class TestTower extends TowerDefinition
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
-        setModelFile("units\\Human\\Rifleman\\Rifleman.mdx")
+        setIconGameInterface(Icons.bTNRockTower)
+        setModelFile(Units.rifleman1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
@@ -51,7 +52,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt("Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdx")
+        setAttack1ProjectileArt(Abilities.searingArrowMissile)
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
 

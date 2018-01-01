@@ -24,7 +24,7 @@ class Builder extends UnitDefinition
         // ========== Model file etc. ==========
         // -------------------------------------
         setModelFile(Units.peasant1)
-        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNHeroArchMage.blp")
+        setIconGameInterface(Icons.bTNHeroArchMage)
         setUnitSoundSet("Peasant")
 
         // --------------------------------------------

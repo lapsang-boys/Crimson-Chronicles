@@ -14,6 +14,7 @@ public constant ID_BUILDER_REG = 'b002'
 
 // Mobs
 public constant ID_MOB_BASE_UNIT = 'earc'
+public constant ID_PATH_SHOWER = 'm000'
 public constant ID_RACCOON = 'm001'
 public constant ID_ACCO = 'm002'
 public constant ID_ARCHY = 'm003'

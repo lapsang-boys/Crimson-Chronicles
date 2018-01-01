@@ -1,5 +1,6 @@
 package Spawn
 
+import Assets
 import TimerUtils
 import OnUnitEnterLeave
 import RegisterEvents
@@ -12,11 +13,8 @@ import Constants
 import Levels
 import PlayerData
 
-let SPAWN_FX = "Abilities\\Spells\\Items\\AIil\\AIilTarget.mdl"
 // Summon level sound hashmap
 HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
-let SOUND_BUILDER_BLACK = "Units\\Undead\\Acolyte\\AcolyteYesAttack1.wav"
-let SOUND_BUILDER_REG = "Units\\Orc\\Tauren\\TaurenYesAttack1.wav"
 
 class TimerData
 	player p
@@ -59,7 +57,7 @@ function summonMobs()
 	lt.cur = lt.cur + 1
 	let pos = getSpawn(p).randomPoint()
 	let u = createUnit(PLAYER_BROWN, lt.l.uID, pos, angle(PI/2))
-	flashEffect(SPAWN_FX, pos)
+	flashEffect(Abilities.aIilTarget, pos)
 
 	u.setUserData(1)
 	u.issuePointOrder("move", getNext(u))
@@ -75,5 +73,5 @@ function playSummonLevelSound(PlayerData pd)
 init
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)
 
-	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_BLACK, SOUND_BUILDER_BLACK)
-	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_REG, SOUND_BUILDER_REG)
+	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_BLACK, Sounds.acolyteYesAttack1)
+	SUMMON_LEVEL_SOUND_MAP.put(ID_BUILDER_REG, Sounds.taurenYesAttack1)
