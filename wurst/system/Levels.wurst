@@ -37,9 +37,19 @@ public LinkedList<Level> levels = new LinkedList<Level>
 init
     // ============== Area 1 ==============
     Level L1 = new Level(ID_RACCOON, 20, spawnInterval(1.4, 3.), 1, 10, 1,
-    "[Level i] - Ape",
+    "[Level 1] - Ape",
     "Description")
     levels.add(L1)
+
+    Level L2 = new Level(ID_RACCOON, 20, spawnInterval(1.4, 3.), 1, 10, 1,
+    "[Level 2] - Ape",
+    "Description")
+    levels.add(L2)
+
+    Level L3 = new Level(ID_RACCOON, 20, spawnInterval(1.4, 3.), 1, 10, 1,
+    "[Level 3] - Ape",
+    "Description")
+    levels.add(L3)
 
 
 

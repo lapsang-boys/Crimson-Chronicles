@@ -16,6 +16,7 @@ class Raccoon extends UnitDefinition
         setModelFile(Units.raccoon1)
         // setUnitSoundSet("Peasant")
         setGoldBountyAwardedBase(1)
+        setGoldBountyAwardedNumberofDice(0)
 
         // ------------------------------------
         // ========== Abilities ===============
