@@ -3,6 +3,8 @@ package Levels
 import LinkedList
 
 import Constants
+import MonsterType
+import Colorscheme
 
 tuple spawnInterval (real low, real high)
 public class Level
@@ -11,11 +13,12 @@ public class Level
     spawnInterval si
     int bounty
     int bonus
-    int lifeLost    
+    int lifeLost
     string levelName
+    LinkedList<MonsterType> types
     string desc
 
-    construct (int uID, int num, spawnInterval si, int bounty, int bonus, int lifeLost, string levelName, string desc)
+    construct (int uID, spawnInterval si, int num, int bounty, int bonus, int lifeLost, string levelName, string desc, LinkedList<MonsterType> types)
         this.uID = uID
         this.num = num
         this.si = si
@@ -24,6 +27,7 @@ public class Level
         this.lifeLost = lifeLost
         this.levelName = levelName
         this.desc = desc
+        this.types = types
 
     function getDuration() returns real
         return GetRandomReal(this.si.low, this.si.high)
@@ -31,25 +35,53 @@ public class Level
     function printInfo(player p)
         printTimedToPlayer(this.levelName, DISPLAY_TIME, p)
         printTimedToPlayer(this.desc, DISPLAY_TIME, p)
+        for mt in this.types
+            printTimedToPlayer(monsterHint(mt), DISPLAY_TIME, p)
 
 public LinkedList<Level> levels = new LinkedList<Level>
 
+function levelNameMsg(int num, string name) returns string
+    return discreetColor.colorize("[") + textColor.colorize("Level ") + numberColor.colorize(I2S(num)) + discreetColor.colorize("]")
+            + textColor.colorize(" - ") + nameColor.colorize(name)
+
+function levelDescriptionMsg(string desc) returns string
+    return textColor.colorize(desc)
+
 init
     // ============== Area 1 ==============
-    Level L1 = new Level(ID_RACCOON, 20, spawnInterval(1.4, 3.), 1, 10, 1,
-    "[Level 1] - Ape",
-    "Description")
+    Level L1 = new Level(
+        ID_RACCOON,
+        spawnInterval(1.35, 1.35),
+        20, // Num
+        1, // Bounty
+        10, // Bonus
+        1, // Life lost
+        levelNameMsg(1, "Raccoon"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MonsterType>)
     levels.add(L1)
 
-    Level L2 = new Level(ID_ACCO, 20, spawnInterval(1.4, 3.), 1, 10, 1,
-    "[Level 2] - Ape",
-    "Description")
+    Level L2 = new Level(
+        ID_ACCO,
+        spawnInterval(1.35, 1.35),
+        20, // Num
+        1, // Bounty
+        10, // Bonus
+        1, // Life lost
+        levelNameMsg(1, "Acolyte"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MonsterType>)
     levels.add(L2)
 
-    Level L3 = new Level(ID_ARCHY, 20, spawnInterval(1.4, 3.), 1, 10, 1,
-    "[Level 3] - Ape",
-    "Description")
+    Level L3 = new Level(
+        ID_ARCHY,
+        spawnInterval(1.35, 1.35),
+        20, // Num
+        1, // Bounty
+        10, // Bonus
+        1, // Life lost
+        levelNameMsg(1, "Archer"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MonsterType>)
     levels.add(L3)
-
-
 

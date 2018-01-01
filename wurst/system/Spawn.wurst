@@ -12,6 +12,7 @@ import Constants
 import Levels
 import PlayerData
 
+let SPAWN_FX = "Abilities\\Spells\\Items\\AIil\\AIilTarget.mdl"
 // Summon level sound hashmap
 HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
 let SOUND_BUILDER_BLACK = "Units\\Undead\\Acolyte\\AcolyteYesAttack1.wav"
@@ -58,6 +59,8 @@ function summonMobs()
 	lt.cur = lt.cur + 1
 	let pos = getSpawn(p).randomPoint()
 	let u = createUnit(PLAYER_BROWN, lt.l.uID, pos, angle(PI/2))
+	flashEffect(SPAWN_FX, pos)
+
 	u.setUserData(1)
 	u.issuePointOrder("move", getNext(u))
 
