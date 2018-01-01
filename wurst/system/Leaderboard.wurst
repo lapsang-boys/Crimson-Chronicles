@@ -1,0 +1,86 @@
+package Leaderboard
+
+import Colors
+
+import Constants
+import PlayerData
+
+function setItemStyle(multiboard mb, int i, int j, bool showIcon)
+    multiboarditem mbitem = MultiboardGetItem(mb, i, j)
+    MultiboardSetItemStyle(mbitem, true, showIcon)
+    MultiboardReleaseItem(mbitem)
+
+function setItemWidth(multiboard mb, int i, int j, real w)
+    multiboarditem mbitem = MultiboardGetItem(mb, i, j)
+    MultiboardSetItemWidth(mbitem, w)
+    MultiboardReleaseItem(mbitem)
+
+function setItemValue(multiboard mb, int i, int j, string val)
+    multiboarditem mbitem = MultiboardGetItem(mb, i, j)
+    MultiboardSetItemValue(mbitem, val)
+    MultiboardReleaseItem(mbitem)
+
+function setItemIcon(multiboard mb, int i, int j, string icon)
+    multiboarditem mbitem = MultiboardGetItem(mb, i, j)
+    MultiboardSetItemIcon(mbitem, icon)
+    MultiboardReleaseItem(mbitem)
+
+function setItemColor(multiboard mb, int i, int j, colorA c)
+    multiboarditem mbitem = MultiboardGetItem(mb, i, j)
+    MultiboardSetItemValueColor(mbitem, c.red, c.green, c.blue, c.alpha)
+    MultiboardReleaseItem(mbitem)
+
+function act()
+    // Title
+    multiboard mb = CreateMultiboard()
+
+    MultiboardSetRowCount(mb, NUMBER_OF_PLAYERS+1)
+    MultiboardSetColumnCount(mb, 4)
+    MultiboardSetTitleText(mb, "")
+    MultiboardDisplay(mb, false)
+    multiboarditem mbitem
+
+    for i = 0 to NUMBER_OF_PLAYERS
+        for j = 0 to 5
+            setItemStyle(mb, i, j, false)
+
+    for i = 0 to NUMBER_OF_PLAYERS
+        setItemWidth(mb, i, 0, 0.02)
+        setItemWidth(mb, i, 1, 0.08)
+        setItemWidth(mb, i, 2, 0.04)
+        setItemWidth(mb, i, 3, 0.04)
+
+    setItemValue(mb, 0, 1, "Player name")
+    setItemValue(mb, 0, 2, "Lives")
+    setItemValue(mb, 0, 3, "Level")
+    colorA titleColor = colorA(0xaa, 0xaa, 0xaa, 0xff)
+    setItemColor(mb, 0, 1, titleColor)
+    setItemColor(mb, 0, 2, titleColor)
+    setItemColor(mb, 0, 3, titleColor)
+
+    // Text
+    for i = 1 to NUMBER_OF_PLAYERS
+        // if is playing
+        player p = Player(i-1)
+        colorA pc = fromPlayer(p).withAlpha(0xff)
+        colorA grey = colorA(30, 30, 30, 60)
+        if GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING
+            setItemStyle(mb, i, 0, true)
+            setItemIcon(mb, i, 0, "ReplaceableTextures\\WorldEditUI\\Editor-Random-Unit.blp")            
+            setItemValue(mb, i, 1, GetPlayerName(p))
+            setItemColor(mb, i, 1, pc)
+            setItemValue(mb, i, 2, I2S(STARTING_LIFE))
+            setItemValue(mb, i, 3, I2S(playerData.get(i).level))
+        else
+            setItemValue(mb, i, 1, "-empty-")
+            setItemValue(mb, i, 2, "-")
+            setItemColor(mb, i, 1, grey)
+            setItemColor(mb, i, 2, grey)
+        
+    MultiboardDisplay(mb, true)
+
+trigger leaderTrig = CreateTrigger()
+
+init 
+    TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
+    TriggerAddAction(leaderTrig, function act)

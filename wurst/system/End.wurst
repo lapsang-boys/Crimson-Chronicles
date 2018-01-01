@@ -3,6 +3,7 @@ package End
 import InitRegions
 
 import TypeCasting
+import SoundUtils
 import LinkedList
 
 import Regions
@@ -35,6 +36,10 @@ function acta()
     Level l = levels.get(levelIndex)
     p.addGold(l.bounty)
     pd.loseLife(l.lifeLost)
+    
+    SoundDefinition sd = new SoundDefinition("Sound\\Interface\\CreepAggroWhat1.wav", false)
+    sd.playForPlayer(p)
+
     destroy uw
     
     // SFX

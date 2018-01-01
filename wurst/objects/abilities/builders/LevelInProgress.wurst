@@ -9,8 +9,7 @@ let ICON = "ReplaceableTextures\\PassiveButtons\\PASBTNBattleRoar.blp"
 class NextLevel extends AbilityDefinitionCriticalStrikecreep
     construct(int id)
         super(id)
-
-        setButtonPositionNormalX(0)
+        setButtonPositionNormalX(3)
         setButtonPositionNormalY(2)
         setArtCaster("")
         setCasterAttachmentPoint("")
