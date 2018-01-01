@@ -22,7 +22,6 @@ class UnitWrapper
 		u.remove()
         PlayerData pd = playerData.get(this.playerNum)
         pd.registerMobLeave()
-        print("Destroyed in ondestroy!")
 
 
 function acta()

@@ -45,8 +45,8 @@ public class PlayerData
             print("Level finished!")
             this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
             this.builder.addAbility(ID_NEXT_LEVEL)
-        	
-            Player(this.playerNum).addGold(l.bonus)
+        	player p = Player(this.playerNum)
+            p.addGold(l.bonus)
             this.level++
             this.mobsRemoved = 0
             

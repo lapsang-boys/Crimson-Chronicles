@@ -20,7 +20,7 @@ class TestTower extends TowerDefinition
         setTintingColorBlue(255)
         setUnitSoundSet("Rifleman")
         setScalingValue(1.)
-        setGroundTexture("EMDA")
+        setGroundTexture("HSMA")
         
         // ------------------------------------
         // ========== Attack damage ==========
@@ -42,7 +42,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt("Units\\Creeps\\EarthPandarenBrewmaster\\EarthPandarenBrewmaster_Missile.mdx")
+        setAttack1ProjectileArt("Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl")
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
 
