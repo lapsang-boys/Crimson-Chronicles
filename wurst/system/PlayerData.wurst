@@ -41,14 +41,14 @@ public class PlayerData
         this.life -= i
         if this.life >= 1
             if i > 1
-                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives."), 10, this.p)
+                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives."), DISPLAY_TIME, this.p)
             else
-                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life."), 10, this.p)
+                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life."), DISPLAY_TIME, this.p)
         else
             loseGame()
 
     function loseGame()
-        printTimedToPlayer(infoColor.colorize("You have lost the game."), 10, this.p)
+        printTimedToPlayer(infoColor.colorize("You have lost the game."), DISPLAY_TIME, this.p)
         this.levelInProgress = false
         this.cleanse()
 
@@ -66,8 +66,12 @@ public class PlayerData
         updateLife(this.p, this.life)
 
     function levelComplete()
-        printTimedToPlayer(infoColor.colorize("You lost."), 10, this.p)
         Level l = levels.get(this.level)
+        printTimedToPlayer(infoColor.colorize("You completed level ")
+        + numberColor.colorize(I2S(this.level))
+        + infoColor.colorize(" and also received ")
+        + numberColor.colorize(I2S(l.bounty))
+        + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
 
         this.levelInProgress = false
         this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
@@ -79,7 +83,6 @@ public class PlayerData
         
         SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
         sd.playForPlayer(this.p)
-        
         // might change area later.
 
     function registerMobDeath()

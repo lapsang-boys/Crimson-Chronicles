@@ -5,7 +5,7 @@ import Movement
 import PlayerData
 
 function startGameFirstTime(player p)
-    printTimedToPlayer("Welcome!", 5, p)
+    printTimedToPlayer("Welcome!", DISPLAY_TIME, p)
     startGame(p)
     FogEnableOff()
     FogMaskEnableOff()

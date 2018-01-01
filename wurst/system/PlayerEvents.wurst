@@ -5,7 +5,7 @@ import Colorscheme
 
 function playerLeaves()
     player p = GetTriggerPlayer()
-    printTimed(fromPlayer(p).colorize(p.getName()) + textColor.colorize(" has left the game!"), 10)
+    printTimed(fromPlayer(p).colorize(p.getName()) + textColor.colorize(" has left the game!"), DISPLAY_TIME)
 
 trigger leaveTrigger = CreateTrigger()
 

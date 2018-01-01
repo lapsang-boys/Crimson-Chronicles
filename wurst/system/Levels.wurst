@@ -29,8 +29,8 @@ public class Level
         return GetRandomReal(this.si.low, this.si.high)
 
     function printInfo(player p)
-        printTimedToPlayer(this.levelName, 10, p)
-        printTimedToPlayer(this.desc, 10, p)
+        printTimedToPlayer(this.levelName, DISPLAY_TIME, p)
+        printTimedToPlayer(this.desc, DISPLAY_TIME, p)
 
 public LinkedList<Level> levels = new LinkedList<Level>
 

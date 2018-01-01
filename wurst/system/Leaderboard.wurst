@@ -32,6 +32,9 @@ function setItemColor(multiboard mb, int i, int j, colorA c)
 public function updateLife(player p, int life)
     setItemValue(mb, p.getId()+1, 2, I2S(life))
 
+public function updateLevel(player p, int level)
+    setItemValue(mb, p.getId()+1, 3, I2S(level))
+
 function act()
     // Title
     mb = CreateMultiboard()
