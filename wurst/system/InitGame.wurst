@@ -2,12 +2,30 @@ package InitGame
 
 import Constants
 import ID2S
+import Movement
+import PlayerData
 
-init
+function startGameFirstTime(player p)
+    print("Welcome!")
+    startGame(p)
+
+public function startGame(player p)
+    let pos = getSpawn(p).randomPoint()
+	let u = createUnit(p, ID_BUILDER, pos, angle(PI/2))
+	playerData.get(p.getId()).setBuilder(u)
+    p.setGold(35)
+    p.setLumber(10)        
+
+function initGame()
     SetTimeOfDay(23)
 
     // Set the current level for all players to the first level.
-    for i = 0 to NUMBER_OF_PLAYERS
-        let p = Player(i)
-        p.setGold(35)
-        p.setLumber(10)        
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        startGameFirstTime(Player(i))
+
+trigger leaderTrig = CreateTrigger()
+
+init 
+    TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
+    TriggerAddAction(leaderTrig, function initGame)
+

@@ -25,6 +25,7 @@ function spawnLevel()
 	builder.removeAbility(ID_NEXT_LEVEL)
 	builder.addAbility(ID_LEVEL_IN_PROGRESS)
 	PlayerData pd = playerData.get(p.getId())
+	pd.levelInProgress = true
 
 	int levelIndex = pd.level
 	let l = levels.get(levelIndex)
@@ -39,12 +40,12 @@ function spawnLevel()
 function summonMobs()
 	let t = GetExpiredTimer()
 	let lt = t.getData() castTo TimerData
-	if lt.cur == lt.l.num
+	let p = lt.p
+	if lt.cur == lt.l.num or (not playerData.get(p.getId()).levelInProgress)
 		t.release()
 		return
-
+	
 	lt.cur = lt.cur + 1
-	let p = lt.p
 	let pos = getSpawn(p).randomPoint()	
 	let u = createUnit(PLAYER_BROWN, lt.l.uID, pos, angle(PI/2))
 	u.setUserData(1)
@@ -53,7 +54,4 @@ function summonMobs()
 	t.start(lt.l.getDuration(), function summonMobs)
 
 init
-	let pos = getSpawn(Player(0)).randomPoint()
-	let u = createUnit(Player(0), ID_BUILDER, pos, angle(PI/2))
-	playerData.get(0).setBuilder(u)
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)

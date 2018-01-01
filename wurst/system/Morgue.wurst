@@ -8,7 +8,7 @@ function cleanUp()
     let u = GetTriggerUnit()
     int playerNum = getPlayerN(u)
     PlayerData pd = playerData.get(playerNum)
-    pd.registerMobLeave()
+    pd.registerMobDeath()
 
 trigger diesTrigger = CreateTrigger()
 
