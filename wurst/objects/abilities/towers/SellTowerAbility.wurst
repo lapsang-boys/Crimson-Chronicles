@@ -1,20 +1,22 @@
-package LevelInProgress
+package SellTowerAbility
 
 import AbilityObjEditing
 
 import Constants
 
-let ICON = "ReplaceableTextures\\PassiveButtons\\PASBTNBattleRoar.blp"
+let ICON = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp"
+let SOUND = "Sound\\Interface\\ReceiveGold.wav"
 
-class NextLevel extends AbilityDefinitionCriticalStrikecreep
+class SellTowerAbility extends AbilityDefinitionWindWalk
     construct(int id)
         super(id)
 
-        setButtonPositionNormalX(0)
+        setButtonPositionNormalX(3)
         setButtonPositionNormalY(2)
         setArtCaster("")
         setCasterAttachmentPoint("")
         setArtEffect("")
+        setEffectSound(SOUND)
         setIconNormal(ICON)
         setArtTarget("")
         setDurationNormal(1, 0.01)
@@ -26,8 +28,8 @@ class NextLevel extends AbilityDefinitionCriticalStrikecreep
         setManaCost(1, 0)
         setRace(Race.Human)
         setHotkeyNormal("R")
-        setTooltipNormal(1, "Level in progress")
-        setTooltipNormalExtended(1, "Can you handle it? lol")
+        setTooltipNormal(1, "Sell tower")
+        setTooltipNormalExtended(1, "Mmmm.. Gold!")
 
 @compiletime function nanoBreweryMoveTower()
-    new NextLevel(ID_LEVEL_IN_PROGRESS)
+    new SellTowerAbility(ID_SELL_TOWER)

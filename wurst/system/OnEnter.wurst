@@ -9,8 +9,6 @@ import Regions
 import Movement
 import Constants
 
-constant int id_footman = 'hfoo'
-
 function act()
     let u = GetTriggerUnit()
     let cv = u.getUserData()

@@ -2,12 +2,6 @@ package TowerDefinition
 
 import UnitObjEditing
 
-// public function getTowerAbilities(LinkedList<string> vals) returns string
-//     var ret = "A00O,Avul"
-//     for val in vals
-//         ret += ("," + val)
-//     return ret
-
 public class TowerDefinition extends BuildingDefinition
     construct(int id)
         super(id, 'hgtw')

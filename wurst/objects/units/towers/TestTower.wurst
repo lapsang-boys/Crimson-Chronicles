@@ -4,6 +4,7 @@ import Constants
 import UnitObjEditing
 
 import TowerDefinition
+import ID2S
 
 class TestTower extends TowerDefinition
     construct(int id)
@@ -19,7 +20,7 @@ class TestTower extends TowerDefinition
         setTintingColorBlue(255)
         setUnitSoundSet("Rifleman")
         setScalingValue(1.)
-        setGroundTexture("")
+        setGroundTexture("EMDA")
         
         // ------------------------------------
         // ========== Attack damage ==========
@@ -36,8 +37,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------
         // ========== Spells  ========== 
         // ------------------------------------
-                // TODO: Sell ability
-        // setNormalAbilities("A00O,Avul")
+        setNormalAbilities(ID2S(ID_SELL_TOWER))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
