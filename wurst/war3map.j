@@ -55,7 +55,6 @@ endfunction
 
 //***************************************************************************
 //*
-=======
 //*  Triggers
 //*
 //***************************************************************************
@@ -136,6 +135,7 @@ function main takes nothing returns nothing
 
 
     call InitGlobals()
+    call InitCustomTriggers()
 
 endfunction
 
