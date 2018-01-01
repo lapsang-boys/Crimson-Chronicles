@@ -75,7 +75,7 @@ function act()
         colorA grey = colorA(30, 30, 30, 60)
         if GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING
             setItemStyle(mb, i, 0, true)
-            setItemIcon(mb, i, 0, "ReplaceableTextures\\WorldEditUI\\Editor-Random-Unit.blp")
+            setItemIcon(mb, i, 0, Textures.editor_Random_Unit)
             setItemValue(mb, i, 1, GetPlayerName(p))
             setItemColor(mb, i, 1, pc)
             setItemValue(mb, i, 2, I2S(STARTING_LIFE))
