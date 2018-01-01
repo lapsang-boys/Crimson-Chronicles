@@ -11,6 +11,12 @@ init
     A0P0.add(rectToIndex(gg_rct_A0P0Node3))
     A0P0.add(rectToIndex(gg_rct_A0P0End))
 
+    A0P1.add(rectToIndex(gg_rct_A0P1Spawn))
+    A0P1.add(rectToIndex(gg_rct_A0P1Node1))
+    A0P1.add(rectToIndex(gg_rct_A0P1Node2))
+    A0P1.add(rectToIndex(gg_rct_A0P1Node3))
+    A0P1.add(rectToIndex(gg_rct_A0P1End))
+
     playerArea.add(rectToIndex(gg_rct_A0P0Region))
 
     for p = 0 to NUMBER_OF_PLAYERS-1

@@ -7,35 +7,34 @@ import Constants
 
 class Raccoon extends UnitDefinition
     construct(int id)
-        super(id, 'uaco')
+        super(id, ID_MOB_BASE_UNIT)
 
-        setNormalAbilities("")
-        setStructuresBuilt("")
-        setButtonPositionX(3)
-        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNHeroArchMage.blp")
-        setMaximumPitchAngledegrees(0.)
-        setMaximumRollAngledegrees(0.)
+        // ---------------------------------------------
+        // ========== Model file, bounty etc. ========== 
+        // ---------------------------------------------
+        setName("Raccon")
         setModelFile(Units.raccoon1)
-        setSelectionCircleHeight(0.)
-        setAttacksEnabled(0)
-        setSpeedBase(300)
-        setUnitSoundSet("Peasant")
-        setFoodCost(0)
-        setGoldCost(0)
+        // setUnitSoundSet("Peasant")
+        setGoldBountyAwardedBase(1)
+
+        // ------------------------------------
+        // ========== Abilities ===============
+        // ------------------------------------
+        setNormalAbilities("")
+       
+        // -------------------------------------------------
+        // ========== Stats (hp, reg, speed, etc) ==========
+        // -------------------------------------------------
         setHitPointsMaximumBase(20)
-        setHitPointsRegenerationType("none")
-        setLumberCost(0)
+        setHitPointsRegenerationRate(0)
+        
+        setSpeedBase(300)
+
         setManaInitialAmount(0)
         setManaMaximum(0)
         setManaRegeneration(0.)
-        setRace(Race.Undead)
-        setStockReplenishInterval(0)
-        setStockStartDelay(0)
-        setUnitClassification("peon")        
-        setHotkey("R")
-        setName("Builder |cffffcc00(Beer)|r")
-        setTooltipBasic("Choose |cffffcc00Beer|r [|cffffcc00R|r]")
-        setTooltipExtended("A drunken race that focuses on flavor rather than damage.")
 
+        setAttacksEnabled(0)
+        
 @compiletime function racoon()
     new Raccoon(ID_RACCOON)

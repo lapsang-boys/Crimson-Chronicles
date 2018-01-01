@@ -1,6 +1,6 @@
 package Constants
 
-public constant int NUMBER_OF_PLAYERS = 1
+public constant int NUMBER_OF_PLAYERS = 2
 public constant int MAX_AREAS = 1
 public constant int STARTING_LIFE = 10
 
@@ -10,6 +10,7 @@ public constant player PLAYER_BROWN = Player(11)
 public constant ID_BUILDER = 'd000'
 
 // Mobs
+public constant ID_MOB_BASE_UNIT = 'earc'
 public constant ID_RACCOON = 'd001'
 
 // Towers

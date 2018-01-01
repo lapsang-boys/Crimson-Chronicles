@@ -12,6 +12,9 @@ import Movement
 import Levels
 import PlayerData
 
+let LEAK_FX = "Abilities\\Spells\\Items\\AIil\\AIilTarget.mdl"
+let LEAK_SOUND = "Sound\\Interface\\CreepAggroWhat1.wav"
+
 class UnitWrapper
     unit u
     int playerNum
@@ -21,22 +24,21 @@ class UnitWrapper
     ondestroy
         u.remove()
         PlayerData pd = playerData.get(this.playerNum)
-        pd.registerLeak()
+        pd.registerMobDeath()
 
-function acta()
+function leak()
     let u = GetTriggerUnit()
     int n = getPlayerN(u)
     UnitWrapper uw = new UnitWrapper(u)
     player p = Player(n)
     
     PlayerData pd = playerData.get(n)
-    int levelIndex = pd.level
-    Level l = levels.get(levelIndex)
-    p.addGold(l.bounty)
-    pd.loseLife(l.lifeLost)
+    pd.registerLeak()
     
-    SoundDefinition sd = new SoundDefinition("Sound\\Interface\\CreepAggroWhat1.wav", false)
+    SoundDefinition sd = new SoundDefinition(LEAK_SOUND, false)
     sd.playForPlayer(p)
+
+    flashEffect(LEAK_FX, u.getPos())
 
     destroy uw
     
@@ -52,7 +54,7 @@ trigger endEnter = CreateTrigger()
 
 init
     endEnter.addCondition(Condition(function isUnitOwnedByPlayerBrown))
-    endEnter.addAction(function acta)
+    endEnter.addAction(function leak)
 
     for i in ends
         let r = rectFromIndex(i)

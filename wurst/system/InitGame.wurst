@@ -7,6 +7,8 @@ import PlayerData
 function startGameFirstTime(player p)
     print("Welcome!")
     startGame(p)
+    FogEnableOff()
+    FogMaskEnableOff()
 
 public function startGame(player p)
     let pos = getSpawn(p).randomPoint()
@@ -27,4 +29,5 @@ trigger leaderTrig = CreateTrigger()
 init 
     TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
     TriggerAddAction(leaderTrig, function initGame)
+
 
