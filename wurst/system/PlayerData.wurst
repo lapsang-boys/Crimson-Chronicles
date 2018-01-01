@@ -15,6 +15,11 @@ class Remover implements ForGroupCallback
     function callback(unit u)
         u.remove()
 
+class Winner implements ForGroupCallback
+    function callback(unit u)
+        u.setAnimation("stand victory")
+        u.addEffect("Objects\\Spawnmodels\\Other\\ToonBoom\\ToonBoom.mdl", "origin")
+
 public class PlayerData
     int playerNum
     player p
@@ -52,6 +57,14 @@ public class PlayerData
         this.levelInProgress = false
         this.cleanse()
 
+    function winGame()
+        print("You won!")
+        SoundDefinition sd = new SoundDefinition("Sound\\Interface\\NewTournament.wav", false)
+        sd.playForPlayer(this.p)
+        rect r = rectFromIndex(playerArea.get(this.playerNum))
+        Winner w = new Winner()
+        forUnitsInRect(r, w)
+
     function cleanse()
         rect r = rectFromIndex(playerArea.get(this.playerNum))
         Remover rem = new Remover()
@@ -75,14 +88,21 @@ public class PlayerData
 
         this.levelInProgress = false
         this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
-        this.builder.addAbility(ID_NEXT_LEVEL)
-        this.p.addGold(l.bonus)
-
+        
         this.level++
         this.mobsRemoved = 0
         
-        SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
-        sd.playForPlayer(this.p)
+        // Win game
+        if not this.level == levels.getSize()
+            this.winGame()
+        // Next level
+        else
+            print("Level finished!")
+            this.builder.addAbility(ID_NEXT_LEVEL)
+            this.p.addGold(l.bonus)
+            SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
+            sd.playForPlayer(this.p)
+        
         // might change area later.
 
     function registerMobDeath()
