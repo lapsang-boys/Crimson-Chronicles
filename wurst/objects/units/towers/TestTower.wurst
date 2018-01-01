@@ -10,9 +10,9 @@ class TestTower extends TowerDefinition
     construct(int id)
         super(id)
 
-        // ------------------------------------
-        // ========== Model file etc ========== 
-        // ------------------------------------
+        // -------------------------------------
+        // ========== Model file etc. ========== 
+        // -------------------------------------
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
         setModelFile("units\\Human\\Rifleman\\Rifleman.mdx")
         setTintingColorRed(255)
@@ -31,7 +31,7 @@ class TestTower extends TowerDefinition
         setAttack1DamageBase(3)
         setAttack1DamageSidesperDie(6)
         setAttack1DamageNumberofDice(1)
-        // If non air attacking?
+        // Only ground tower? I.e can't attack air?
         // setAttack1TargetsAllowed("enemies,ground,vulnerable")
 
         // ------------------------------------
@@ -56,9 +56,9 @@ class TestTower extends TowerDefinition
         // If other tower should be required
         // setRequirements("")
 
-        // ------------------------------------
-        // ========== Desctiption ==========
-        // ------------------------------------
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
         setHotkey("Q")
         setName("Test Tower")
         setTooltipBasic("[|cff999999Q|r] Test Tower")
