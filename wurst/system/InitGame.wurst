@@ -13,11 +13,11 @@ function startGameFirstTime(player p)
 
 
 public function startGame(player p)
-    let pos = getSpawn(p).randomPoint()
-    let u = createUnit(p, ID_BUILDER_BLACK, pos, angle(PI/2))
-    playerData.get(p.getId()).setBuilder(u)
-    p.setGold(35)
-    p.setLumber(10)
+    let pos = p.getStartLocation()
+    let tavern = createUnit(p, ID_TAVERN, pos, angle(PI/2))
+    SelectUnitForPlayerSingle(tavern, p)
+    p.setGold(STARTING_GOLD)
+    p.setLumber(STARTING_LUMBER)
 
 function initGame()
     SetTimeOfDay(23)

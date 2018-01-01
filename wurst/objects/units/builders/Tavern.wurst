@@ -1,0 +1,49 @@
+package Tavern
+
+import Constants
+import UnitObjEditing
+
+import TowerDefinition
+import ID2S
+
+class Tavern extends TowerDefinition
+    construct(int id)
+        super(id)
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
+        setModelFile("units\\Human\\Rifleman\\Rifleman.mdx")
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet("Rifleman")
+        setScalingValue(2.)
+        setGroundTexture("")
+        setMovementType(MovementType.None)
+
+        setUnitsSold(ID2S(ID_BUILDER_BLACK) + "," + ID2S(ID_BUILDER_REG))
+
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
+        setAttacksEnabled(0)
+
+        // ------------------------------------
+        // ========== Spells ==================
+        // ------------------------------------
+        setNormalAbilities("avul")
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
+        setUpgradesTo("")
+
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
+        setName("Tavern")
+
+
+@compiletime function tavern()
+    new Tavern(ID_TAVERN)
