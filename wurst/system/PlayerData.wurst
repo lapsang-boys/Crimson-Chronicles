@@ -20,7 +20,6 @@ class Winner implements ForGroupCallback
     function callback(unit u)
         u.setAnimation("stand victory")
         u.addEffect(Objects.toonBoom, "origin")
-        // u.addEffect("Objects\\Spawnmodels\\Other\\ToonBoom\\ToonBoom.mdl", "origin")
 
 public class PlayerData
     int playerNum
@@ -90,7 +89,7 @@ public class PlayerData
         this.mobsRemoved = 0
 
         // Win game
-        if not this.level == levels.getSize()
+        if this.level == levels.getSize()
             this.winGame()
             return
 
