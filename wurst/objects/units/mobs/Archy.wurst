@@ -1,0 +1,41 @@
+package Archy
+
+import Assets
+import UnitObjEditing
+
+import Constants
+
+class Archy extends UnitDefinition
+    construct(int id)
+        super(id, ID_MOB_BASE_UNIT)
+
+        // ---------------------------------------------
+        // ========== Model file, bounty etc. ========== 
+        // ---------------------------------------------
+        setName("Archy")
+        setModelFile(Units.archer)
+        // setUnitSoundSet("Peasant")
+        setGoldBountyAwardedBase(1)
+        setGoldBountyAwardedNumberofDice(0)
+
+        // ------------------------------------
+        // ========== Abilities ===============
+        // ------------------------------------
+        setNormalAbilities("")
+       
+        // -------------------------------------------------
+        // ========== Stats (hp, reg, speed, etc) ==========
+        // -------------------------------------------------
+        setHitPointsMaximumBase(20)
+        setHitPointsRegenerationRate(0)
+        
+        setSpeedBase(300)
+
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+
+        setAttacksEnabled(0)
+        
+@compiletime function archy()
+    new Archy(ID_ARCHY)

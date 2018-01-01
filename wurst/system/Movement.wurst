@@ -10,10 +10,10 @@ import PlayerData
 
 public function getPlayerN(unit u) returns int
     let pos = u.getPos()
-    for i in playerArea
-        let r = rectFromIndex(i)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        let r = rectFromIndex(playerArea.get(i))
         if pos.isInRect(r)
-            return i mod NUMBER_OF_PLAYERS
+            return i
 
     error("This creature is not in any player's area.")
     return 0

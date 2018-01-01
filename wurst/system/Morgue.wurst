@@ -9,6 +9,7 @@ function cleanUp()
     int playerNum = getPlayerN(u)
     PlayerData pd = playerData.get(playerNum)
     pd.registerMobDeath()
+    u.remove()
 
 trigger diesTrigger = CreateTrigger()
 

@@ -41,12 +41,12 @@ init
     "Description")
     levels.add(L1)
 
-    Level L2 = new Level(ID_RACCOON, 20, spawnInterval(1.4, 3.), 1, 10, 1,
+    Level L2 = new Level(ID_ACCO, 20, spawnInterval(1.4, 3.), 1, 10, 1,
     "[Level 2] - Ape",
     "Description")
     levels.add(L2)
 
-    Level L3 = new Level(ID_RACCOON, 20, spawnInterval(1.4, 3.), 1, 10, 1,
+    Level L3 = new Level(ID_ARCHY, 20, spawnInterval(1.4, 3.), 1, 10, 1,
     "[Level 3] - Ape",
     "Description")
     levels.add(L3)

@@ -18,6 +18,7 @@ init
     A0P1.add(rectToIndex(gg_rct_A0P1End))
 
     playerArea.add(rectToIndex(gg_rct_A0P0Region))
+    playerArea.add(rectToIndex(gg_rct_A0P1Region))
 
     for p = 0 to NUMBER_OF_PLAYERS-1
         nodes1.add(A0[p].get(1))
