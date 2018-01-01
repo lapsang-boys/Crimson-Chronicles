@@ -38,11 +38,10 @@ constant string stringabc = "abcdefghijklmnopqrstuvwxyz"
 
 public function ID2S(int id) returns string
     string target = ""
-    integer n = 0
-    integer dis = 0
+    int dis
     var i = id
     while i != 0
-        n = ModuloInteger(i, 256)
+        int n = ModuloInteger(i, 256)
         if n>= '0' and n <= '9'
             dis = n - '0'
             target = SubString(stringNum, dis, dis+1)+target

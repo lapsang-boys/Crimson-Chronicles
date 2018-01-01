@@ -1,0 +1,118 @@
+package ColUtil
+
+tuple col (real r, real g, real b)
+
+function col.toColor() returns color
+    return color(R2I(this.r*255), R2I(this.g*255), R2I(this.b*255))
+
+// Hsl creates a new color given a Hue in [0..360], a Saturation [0..1], and a Luminance (lightness) in [0..1]
+public function fromHsl(real h, real s, real l) returns color
+    if s == 0 
+        return col(l, l, l).toColor()
+    
+    real r
+    real g
+    real b
+    real t1
+    real t2
+    real tr
+    real tg
+    real tb
+
+    if l < 0.5
+        t1 = l * (1.0 + s)
+    else
+        t1 = l + s - l*s
+    
+    t2 = 2*l - t1
+    tr = h/360 + 1.0/3.0
+    tg = h/360
+    tb = h/360 - 1.0/3.0
+
+    if tr < 0
+        tr += 1
+    
+    if tr > 1
+        tr -= 1
+    
+    if tg < 0
+        tg += 1
+    
+    if tg > 1
+        tg -= 1
+    
+    if tb < 0
+        tb += 1
+    
+    if tb > 1
+        tb -= 1
+    
+
+    // Red
+    if 6*tr < 1
+        r = t2 + (t1-t2)*6*tr
+    else if 2*tr < 1
+        r = t1
+    else if 3*tr < 2
+        r = t2 + (t1-t2)*(2.0/3.0-tr)*6
+    else
+        r = t2
+    
+
+    // Green
+    if 6*tg < 1
+        g = t2 + (t1-t2)*6*tg
+    else if 2*tg < 1
+        g = t1
+    else if 3*tg < 2
+        g = t2 + (t1-t2)*(2.0/3.0-tg)*6
+    else
+        g = t2
+    
+
+    // Blue
+    if 6*tb < 1
+        b = t2 + (t1-t2)*6*tb
+    else if 2*tb < 1
+        b = t1
+    else if 3*tb < 2
+        b = t2 + (t1-t2)*(2.0/3.0-tb)*6
+    else
+        b = t2
+    
+    return col(r, g, b).toColor()
+
+public tuple hsl (real h, real s, real l)
+
+public function toHsl(color c) returns hsl
+    real r = I2R(c.red)/255
+    real g = I2R(c.green)/255
+    real b = I2R(c.blue)/255
+    real min = min(r, g, b)
+    real max = max(r, g, b)
+
+    real h
+    real l = (max + min) / 2
+    real s
+    if min == max 
+        s = 0
+        h = 0
+    else 
+        if l < 0.5 
+            s = (max - min) / (max + min)
+        else 
+            s = (max - min) / (2.0 - max - min)
+        
+        if max == r
+            h = (g - b) / (max - min)
+        else if max == g 
+            h = 2.0 + (b-r)/(max-min)
+        else 
+            h = 4.0 + (r-g)/(max-min)
+        
+        h *= 60
+
+        if h < 0 
+            h += 360
+            
+    return hsl(h, s, l)

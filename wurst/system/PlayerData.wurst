@@ -93,8 +93,7 @@ public class PlayerData
         let i = l.lifeLost
         loseLife(i)
         updateLife(this.p, this.life)
-        
-        
+
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
 init

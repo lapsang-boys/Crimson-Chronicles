@@ -1,7 +1,5 @@
 package Leaderboard
 
-import Colors
-
 import Constants
 
 multiboard mb
@@ -42,7 +40,6 @@ function act()
     MultiboardSetColumnCount(mb, 4)
     MultiboardSetTitleText(mb, "")
     MultiboardDisplay(mb, false)
-    multiboarditem mbitem
 
     for i = 0 to NUMBER_OF_PLAYERS
         for j = 0 to 5

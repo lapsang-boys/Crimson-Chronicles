@@ -1,0 +1,29 @@
+package ColorScheme
+
+import Colors
+import LinkedList
+
+import ColUtil
+
+public color base0 = fromHsl(214., 35./100, 37./100)
+public color base1 = fromHsl(202., 46./100, 72./100)
+public color base2 = fromHsl(182., 82./100, 93./100)
+public color base3 = fromHsl(12., 83./100, 62./100)
+public color base4 = fromHsl(218., 23./100, 21./100)
+
+color array bases = [base0, base1, base2, base3, base4]
+
+color base0_hex = color(61, 90, 128)
+color base1_hex = color(152, 193, 217)
+color base2_hex = color(224, 251, 252)
+color base3_hex = color(238, 108, 77)
+color base4_hex = color(41, 50, 65)
+
+function accent(color c, int index) returns color
+    hsl cHsl = toHsl(c)
+    real l = cHsl.l+I2R(index)*(5/100)
+    if l > 1
+        l = 1
+    if l < 0
+        l = 0
+    return fromHsl(cHsl.h, cHsl.s, l)

@@ -21,8 +21,8 @@ class UnitWrapper
     construct(unit u)
         this.u = u
 
-	ondestroy
-		u.remove()
+    ondestroy
+        u.remove()
         PlayerData pd = playerData.get(this.playerNum)
         pd.registerMobDeath()
 
