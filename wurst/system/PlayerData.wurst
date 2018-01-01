@@ -1,6 +1,7 @@
 package PlayerData
 
 import LinkedList
+import SoundUtils
 
 import Levels
 import Constants
@@ -47,7 +48,11 @@ public class PlayerData
         	
             Player(this.playerNum).addGold(l.bonus)
             this.level++
-	        this.mobsRemoved = 0
+            this.mobsRemoved = 0
+            
+            SoundDefinition sd = new SoundDefinition("Sound\\Interface\\QuestCompleted.wav", false)
+            sd.playForPlayer(p)
+
             // might change area later.
 
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
