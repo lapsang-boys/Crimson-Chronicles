@@ -3,7 +3,8 @@ package Leaderboard
 import Colors
 
 import Constants
-import PlayerData
+
+multiboard mb
 
 function setItemStyle(multiboard mb, int i, int j, bool showIcon)
     multiboarditem mbitem = MultiboardGetItem(mb, i, j)
@@ -30,9 +31,12 @@ function setItemColor(multiboard mb, int i, int j, colorA c)
     MultiboardSetItemValueColor(mbitem, c.red, c.green, c.blue, c.alpha)
     MultiboardReleaseItem(mbitem)
 
+public function updateLife(player p, int life)
+    setItemValue(mb, p.getId()+1, 2, I2S(life))
+
 function act()
     // Title
-    multiboard mb = CreateMultiboard()
+    mb = CreateMultiboard()
 
     MultiboardSetRowCount(mb, NUMBER_OF_PLAYERS+1)
     MultiboardSetColumnCount(mb, 4)
@@ -70,7 +74,7 @@ function act()
             setItemValue(mb, i, 1, GetPlayerName(p))
             setItemColor(mb, i, 1, pc)
             setItemValue(mb, i, 2, I2S(STARTING_LIFE))
-            setItemValue(mb, i, 3, I2S(playerData.get(i).level))
+            setItemValue(mb, i, 3, I2S(0))
         else
             setItemValue(mb, i, 1, "-empty-")
             setItemValue(mb, i, 2, "-")
