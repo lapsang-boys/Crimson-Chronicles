@@ -20,7 +20,7 @@ class TestTower extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
-        // ========== Model file etc. ========== 
+        // ========== Model file etc. ==========
         // -------------------------------------
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
         setModelFile("units\\Human\\Rifleman\\Rifleman.mdx")
@@ -30,7 +30,7 @@ class TestTower extends TowerDefinition
         setUnitSoundSet("Rifleman")
         setScalingValue(1.)
         setGroundTexture("HSMA")
-        
+
         // ------------------------------------
         // ========== Attack damage ==========
         // ------------------------------------
@@ -44,7 +44,7 @@ class TestTower extends TowerDefinition
         // setAttack1TargetsAllowed("enemies,ground,vulnerable")
 
         // ------------------------------------
-        // ========== Spells ================== 
+        // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(ID2S(ID_SELL_TOWER))
 
@@ -78,5 +78,5 @@ class TestTower extends TowerDefinition
             "",
             "Haha nej."))
 
-@compiletime function testTower()
+@compiletime function tower()
     new TestTower(ID_TEST_TOWER)

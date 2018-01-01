@@ -8,19 +8,21 @@ public constant int STARTING_LIFE = 10
 public constant player PLAYER_BROWN = Player(11)
 
 // Builders
-public constant ID_BUILDER = 'd000'
+public constant ID_BUILDER = 'b000'
+public constant ID_BUILDER_BLACK = 'b001'
+public constant ID_BUILDER_REG = 'b002'
 
 // Mobs
 public constant ID_MOB_BASE_UNIT = 'earc'
-public constant ID_RACCOON = 'd001'
-public constant ID_ACCO = 'd002'
-public constant ID_ARCHY = 'd003'
+public constant ID_RACCOON = 'm001'
+public constant ID_ACCO = 'm002'
+public constant ID_ARCHY = 'm003'
 
 // Towers
-public constant ID_TEST_TOWER = 'f000'
+public constant ID_TEST_TOWER = 't000'
 
 // Abilities
-public constant ID_NEXT_LEVEL = 'g000'
-public constant ID_LEVEL_IN_PROGRESS = 'g001'
+public constant ID_NEXT_LEVEL = 'a000'
+public constant ID_LEVEL_IN_PROGRESS = 'a001'
 
-public constant ID_SELL_TOWER = 'g002'
+public constant ID_SELL_TOWER = 'a002'

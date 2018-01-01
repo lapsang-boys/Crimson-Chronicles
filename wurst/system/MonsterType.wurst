@@ -1,0 +1,82 @@
+package MonsterType
+
+import Colorscheme
+import Constants
+
+public enum MonsterType
+    INVULNERABLE
+    MECHANICAL
+    BOSS
+    UNDEAD
+    FLYING
+    AGILE
+    SPECIAL
+    FAITH
+    DEMON
+    BENDER
+    BANISHED
+    LASTSTAND
+    CHARGER
+
+public function monsterColor(MonsterType mt) returns color
+    switch mt
+        case MonsterType.INVULNERABLE
+            return color(88, 88, 88)
+        case MonsterType.BOSS
+            return color(0xcc, 0x11, 0x00)
+        case MonsterType.UNDEAD
+            return color(0x66, 0x11, 0x55)
+        case MonsterType.FLYING
+            return color(0xcc, 0xff, 0xff)
+        case MonsterType.AGILE
+            return color(0x99, 0xcc, 0x00)
+        case MonsterType.SPECIAL
+            return color(0xff, 0x00, 0xee)
+        case MonsterType.FAITH
+            return color(0xff, 0xee, 0x00)
+        case MonsterType.DEMON
+            return color(0x99, 0x11, 0x22)
+        case MonsterType.BENDER
+            return color(0x00, 0x88, 0xff)
+        case MonsterType.BANISHED
+            return color(0xff, 0x66, 0x22)
+        case MonsterType.LASTSTAND
+            return color(0x66, 0x66, 0x33)
+        case MonsterType.CHARGER
+            return color(0xcc, 0x33, 0x66)
+        default
+            print("Monster type not implemented")
+            return color(0, 0, 0)
+
+public function monsterHint(MonsterType mt) returns string
+    color c = monsterColor(mt)
+    switch mt
+        case MonsterType.INVULNERABLE
+            return c.colorize("(Invulnerable)") + textColor.colorize(" - this is creature will show you which path the enemies will take.")
+        case MonsterType.MECHANICAL
+            return c.colorize("(Mechanical)") + textColor.colorize(" - immune to slowing effects.")
+        case MonsterType.BOSS
+            return c.colorize("(Boss)") + textColor.colorize(" - you are on your own!")
+        case MonsterType.UNDEAD
+            return c.colorize("(Undead)") + textColor.colorize(" - higher health regeneration abilities.")
+        case MonsterType.FLYING
+            return c.colorize("(Flying)") + textColor.colorize(" - capable of flying over your maze.")
+        case MonsterType.AGILE
+            return c.colorize("(Agile)") + textColor.colorize(" - becomes faster for a few seconds when reaching a node.")
+        case MonsterType.SPECIAL
+            return c.colorize("(Special)") + textColor.colorize(" - this creature isn't in the encyclopedia of wild monsters.")
+        case MonsterType.FAITH
+            return c.colorize("(Faith)") + textColor.colorize(" - becomes invulnerable for a few seconds when reaching a node.")
+        case MonsterType.DEMON
+            return c.colorize("(Demon)") + textColor.colorize(" - gives a health boost to surounding monsters when it dies.")
+        case MonsterType.BENDER
+            return c.colorize("(Bender)") + textColor.colorize(" - has the ability of moving through certain elements when reaching a node.")
+        case MonsterType.BANISHED
+            return c.colorize("(Banished)") + textColor.colorize(" - takes constant damage while in this realm.")
+        case MonsterType.LASTSTAND
+            return c.colorize("(Last Stand)") + textColor.colorize(" - this monster refuses to give up the first time around.")
+        case MonsterType.CHARGER
+            return c.colorize("(Charger)") + textColor.colorize(" - these guys might seem courageous at first but one a few of them 'drop' they start to lose thier moral.")
+        default
+            print("Monster type not implemented")
+            return ""
