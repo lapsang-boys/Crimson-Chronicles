@@ -9,4 +9,6 @@ public LinkedList<int> nodes3 = new LinkedList<int>
 public LinkedList<int> ends = new LinkedList<int>
 
 public LinkedList<int> A0P0 = new LinkedList<int>
-public LinkedList<int> array A0 = [A0P0]
+public LinkedList<int> A0P1 = new LinkedList<int>
+
+public LinkedList<int> array A0 = [A0P0, A0P1]

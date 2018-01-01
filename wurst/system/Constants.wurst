@@ -1,6 +1,6 @@
 package Constants
 
-public constant int NUMBER_OF_PLAYERS = 1
+public constant int NUMBER_OF_PLAYERS = 2
 public constant int MAX_AREAS = 1
 public constant int STARTING_LIFE = 10
 
