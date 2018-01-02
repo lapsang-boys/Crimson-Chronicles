@@ -52,7 +52,7 @@ public function monsterHint(MonsterType mt) returns string
     color c = monsterColor(mt)
     switch mt
         case MonsterType.INVULNERABLE
-            return c.colorize("(Invulnerable)") + textColor.colorize(" - this is creature will show you which path the enemies will take.")
+            return c.colorize("(Invulnerable)") + textColor.colorize(" - this creature will show you which path the enemies will take.")
         case MonsterType.MECHANICAL
             return c.colorize("(Mechanical)") + textColor.colorize(" - immune to slowing effects.")
         case MonsterType.BOSS

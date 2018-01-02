@@ -1,17 +1,17 @@
 package InitGame
 
+import TypeCasting
+
 import GameplayConstants
 import BuilderConstants
-import Movement
-import PlayerData
+import Regions
 
 function startGameFirstTime(player p)
     printTimedToPlayer("Welcome!", DISPLAY_TIME, p)
     startGame(p)
-    FogEnableOff()
-    FogMaskEnableOff()
+    fogmodifier fog = CreateFogModifierRect(p, FOG_OF_WAR_VISIBLE, rectFromIndex(playerArea.get(p.getId())), true, false)
+    fog.start()
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
-
 
 public function startGame(player p)
     let pos = p.getStartLocation()
@@ -32,5 +32,3 @@ trigger leaderTrig = CreateTrigger()
 init
     TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
     TriggerAddAction(leaderTrig, function initGame)
-
-

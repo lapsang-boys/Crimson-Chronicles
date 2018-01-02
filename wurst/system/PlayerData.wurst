@@ -104,7 +104,7 @@ public class PlayerData
             return
 
         if this.level == 1
-            printTimedToPlayer(infoColor.colorize("You completed level info level."), DISPLAY_TIME, this.p)
+            printTimedToPlayer(infoColor.colorize("You have completed the info level."), DISPLAY_TIME, this.p)
         else
             printTimedToPlayer(infoColor.colorize("You completed level ")
             + numberColor.colorize(I2S(this.level))
