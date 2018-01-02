@@ -71,13 +71,13 @@ class TestTower extends TowerDefinition
         // ---------------------------------
         setHotkey("Q")
         setName("Test Tower")
-        setTooltipBasic(tooltipBasic("Q", "Test Tower", false))
-        setTooltipExtended(tooltipExtended(
+        setTooltipBasic(tooltipBuild("Q", "Test Tower"))
+        setTooltipExtended(tooltipTowerExtended("Well rounded tower.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Haha nej."))
+            "Searing arrows leaves no wounds on the fallen. Only ashed marks of failure."))
 
 @compiletime function tower()
     new TestTower(ID_TOWER_TEST)

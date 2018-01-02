@@ -3,6 +3,7 @@ package NextLevel
 import Assets
 import AbilityObjEditing
 
+import Tooltip
 import BuilderConstants
 
 class NextLevel extends AbilityDefinitionWindWalk
@@ -10,8 +11,8 @@ class NextLevel extends AbilityDefinitionWindWalk
         super(id)
 
         setHotkeyNormal("R")
-        setTooltipNormal(1, "[|cffffcc00R|r] Summon next level")
-        setTooltipNormalExtended(1, "Are you prepared to meet your maker jajajaja.")
+        setTooltipNormal(1, tooltipCustomBasic("R", "Summon next level", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("This spell summons the next level immediately. Be prepared.", "Charge, and we shall stand our ground. Fight, and we shall battle till the very last drop of blood."))
         setIconNormal(Icons.bTNReincarnation)
 
         setButtonPositionNormalX(3)
