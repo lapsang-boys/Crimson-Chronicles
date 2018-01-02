@@ -8,10 +8,6 @@ package TowerConstants
 
 // All towers are separated into teams
 
-// -------------- Hashmaps -----------
-//                    .... (put sound in sound hashmap)
-//                    .... (put icon in icon hashmap)
-
 // Sell tower ability (for all towers)
 public constant ID_SELL_TOWER = 'a002'
 
