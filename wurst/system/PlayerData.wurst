@@ -21,7 +21,9 @@ class Remover implements ForGroupCallback
         this.p = p
 
     function callback(unit u)
-        if not removePlayerUnits and not u.getOwner() == p
+        if removePlayerUnits
+            u.remove()
+        else if not u.getOwner() == p
             u.remove()
 
 class Winner implements ForGroupCallback
