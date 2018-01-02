@@ -2,29 +2,28 @@ package Levels
 
 import LinkedList
 
+import Squad
 import Constants
 import MonsterType
 import Colorscheme
 
 tuple spawnInterval (real low, real high)
 public class Level
-    int uID
+    LinkedList<int> unitChain
     int num
     spawnInterval si
     int bounty
     int bonus
-    int lifeLost
     string levelName
     LinkedList<MonsterType> types
     string desc
 
-    construct (int uID, spawnInterval si, int num, int bounty, int bonus, int lifeLost, string levelName, string desc, LinkedList<MonsterType> types)
-        this.uID = uID
+    construct (LinkedList<int> unitChain, spawnInterval si, int num, int bounty, int bonus, string levelName, string desc, LinkedList<MonsterType> types)
+        this.unitChain = unitChain
         this.num = num
         this.si = si
         this.bounty = bounty
         this.bonus = bonus
-        this.lifeLost = lifeLost
         this.levelName = levelName
         this.desc = desc
         this.types = types
@@ -50,51 +49,68 @@ function levelDescriptionMsg(string desc) returns string
 
 init
     // ============== Area 1 ==============
+    LinkedList<int> L0Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_PATH_SHOWER, 3)).toUnitChain()
     Level L0 = new Level(
-        ID_PATH_SHOWER,
+        L0Chain,
         spawnInterval(1.35, 1.35),
         3, // Num
         0, // Bounty
         0, // Bonus
-        0, // Life lost
         levelNameMsg(0, "Path shower"),
         levelDescriptionMsg(""),
         new LinkedList<MonsterType>..add(MonsterType.INVULNERABLE))
     levels.add(L0)
 
+    LinkedList<int> L1Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_RACCOON, 10)).toUnitChain()
     Level L1 = new Level(
-        ID_RACCOON,
+        L1Chain,
         spawnInterval(1.35, 1.35),
         10, // Num
         1, // Bounty
         10, // Bonus
-        1, // Life lost
         levelNameMsg(1, "Raccoon"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L1)
 
+    LinkedList<int> L2Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_ACCO, 10)).toUnitChain()
     Level L2 = new Level(
-        ID_ACCO,
+        L2Chain,
         spawnInterval(1.35, 1.35),
         10, // Num
         1, // Bounty
         10, // Bonus
-        1, // Life lost
         levelNameMsg(2, "Acolyte"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L2)
 
+    LinkedList<int> L3Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_ARCHY, 10)).toUnitChain()
     Level L3 = new Level(
-        ID_ARCHY,
+        L3Chain,
         spawnInterval(1.35, 1.35),
         10, // Num
         1, // Bounty
         10, // Bonus
-        1, // Life lost
         levelNameMsg(3, "Archer"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L3)
+
+    LinkedList<int> L4Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_RACCOON, 2))
+    ..add(new SquadMember(ID_ACCO, 3))
+    ..add(new SquadMember(ID_RACCOON, 2))
+    ..add(new SquadMember(ID_ARCHY, 1))
+    ..add(new SquadMember(ID_RACCOON, 2)).toUnitChain()
+    Level L4 = new Level(
+        L4Chain,
+        spawnInterval(1.35, 1.35),
+        10, // Num
+        1, // Bounty
+        10, // Bonus
+        levelNameMsg(4, "Squaden"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MonsterType>)
+    levels.add(L4)
 

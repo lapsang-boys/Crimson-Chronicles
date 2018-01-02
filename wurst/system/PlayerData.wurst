@@ -118,10 +118,10 @@ public class PlayerData
         if this.mobsRemoved == levels.get(this.level).num
             levelComplete()
 
-    function registerLeak()
+    function registerLeak(int lifeTaken)
         Level l = levels.get(this.level)
         this.p.addGold(l.bounty)
-        loseLife(l.lifeLost)
+        loseLife(lifeTaken)
         updateLife(this.p, this.life)
 
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>

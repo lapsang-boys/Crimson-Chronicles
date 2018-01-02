@@ -1,0 +1,28 @@
+package Squad
+
+import LinkedList
+
+import Constants
+
+public class SquadMember
+    int u_id
+    int num
+    construct(int u_id, int num)
+        this.u_id = u_id
+        this.num = num
+
+public function LinkedList<SquadMember>.toUnitChain() returns LinkedList<int>
+    LinkedList<int> unitChain = new LinkedList<int>
+    for sm in this
+        // createUnit(sm.u_id
+        for i = 0 to sm.num-1
+            unitChain.add(sm.u_id)
+    return unitChain
+
+init
+    LinkedList<SquadMember> s = new LinkedList<SquadMember>
+    s..add(new SquadMember(ID_RACCOON, 2))
+    ..add(new SquadMember(ID_ACCO, 3))
+    ..add(new SquadMember(ID_RACCOON, 2))
+    ..add(new SquadMember(ID_ARCHY, 1))
+    ..add(new SquadMember(ID_RACCOON, 2))

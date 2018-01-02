@@ -31,7 +31,8 @@ function leak()
     player p = Player(n)
 
     PlayerData pd = playerData.get(n)
-    pd.registerLeak()
+    int lifeTaken = u.getFoodUsed()
+    pd.registerLeak(lifeTaken)
 
     SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
     sd.playForPlayer(p)
