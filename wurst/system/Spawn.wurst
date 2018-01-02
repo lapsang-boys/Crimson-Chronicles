@@ -44,7 +44,7 @@ function spawnLevel()
 	t.setData(lt castTo int)
 	t.start(l.getDuration(), function summonMobs)
 	l.printInfo(p)
-	updateLevel(p, pd.level+1)
+	updateLevel(p, pd.level)
 
 function summonMobs()
 	let t = GetExpiredTimer()
