@@ -2,22 +2,29 @@ package Colorscheme
 
 import ColUtil
 
-public color base0 = fromHsl(208, 53/100, 32/100)
-public color base1 = fromHsl(346, 84/100, 61/100)
-public color base2 = fromHsl(42, 100/100, 70/100)
-public color base3 = fromHsl(164, 95/100, 43/100)
-public color base4 = fromHsl(0, 0/100, 99/100)
+public color base0 = rgba(229, 231, 227, 1)
+public color base1 = rgba(83, 83, 91, 1)
+public color base2 = rgba(35, 133, 185, 1)
+public color base3 = rgba(239, 98, 108, 1)
+public color base4 = rgba(244, 155, 73, 1)
 
-public color infoColor = base2
-public color warningColor = base0
-public color numberColor = base3
-public color flavorColor = base2
-public color fieldColor = base0.accent(2)
-public color valueColor = base1
+public color infoColor = rgba(151, 249, 127, 1)
+public color warningColor = fromHsl(208, 53/100, 32/100)
+public color numberColor = fromHsl(164, 95/100, 43/100)
+
+function rgba(int r, int g, int b, int _) returns color
+    return color(r, g, b)
+
+// First row on tooltip.
+public color discreetColor = base1.accent(1)
 public color hotkeyColor = base3
-public color nameColor = base2
-public color textColor = base4
-public color discreetColor = base4
+public color textColor = base0.accent(2)
+public color nameColor = rgba(0xf9, 0xe7, 0x84, 1)
+
+// Tooltip colors.
+public color fieldColor = textColor
+public color valueColor = base2.accent(2)
+public color flavorColor = base4.accent(3)
 
 public function color.colorize(string s) returns string
     return this.toColorString()+s+"|r"

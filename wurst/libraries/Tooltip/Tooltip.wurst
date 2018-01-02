@@ -3,25 +3,36 @@ package Tooltip
 import Colorscheme
 import Damage
 
-public function tooltipBasic(string hotkey, string towerName, bool upgrade) returns string
-    if upgrade
-        return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
-                + textColor.colorize(" Upgrade to ")
-                + nameColor.colorize(towerName)
-    else
-        return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
-                + textColor.colorize(" Build ")
-                + nameColor.colorize(towerName)
+public function tooltipBuild(string hotkey, string towerName) returns string
+    return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
+            + textColor.colorize(" Build ")
+            + nameColor.colorize(towerName)
 
-public function tooltipExtended(damage dmg, real speed, int range, string abilities, string flavor) returns string
-    string tooltip = flavorColor.colorize(flavor) + "|n|n"
+public function tooltipUpgrade(string hotkey, string towerName) returns string
+    return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
+            + textColor.colorize(" Upgrade to ")
+            + nameColor.colorize(towerName)
+
+public function tooltipCustomBasic(string hotkey, string subject, string verb) returns string
+    return discreetColor.colorize("[")+hotkeyColor.colorize(hotkey)+discreetColor.colorize("]")
+            + textColor.colorize(" "+ verb +" ")
+            + nameColor.colorize(subject)
+
+public function tooltipTextFlavor(string text, string flavor) returns string
+    return textColor.colorize(text) + "|n|n"
+           + flavorColor.colorize(flavor)
+
+public function tooltipTowerExtended(string text, damage dmg, real speed, int range, string abilities, string flavor) returns string
+    string tooltip = textColor.colorize(text) + "|n|n"
            + fieldColor.colorize("Damage:  ") + valueColor.colorize(dmg.toString()) + "|n"
            + fieldColor.colorize("Speed:      ") + valueColor.colorize(speed.toString()) + "|n"
            + fieldColor.colorize("Range:      ") + valueColor.colorize(range.toString()) + "|n"
-    
+
     if abilities.length() > 0
-        tooltip += fieldColor.colorize("Abilities:   ") + valueColor.colorize(abilities)
-        
+        tooltip += fieldColor.colorize("Abilities:   ") + valueColor.colorize(abilities) + "|n"
+
+    tooltip += "|n" + flavorColor.colorize(flavor)
+
     return tooltip
 
 public function tooltipBuilder()
