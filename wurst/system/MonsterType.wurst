@@ -1,7 +1,7 @@
 package MonsterType
 
 import Colorscheme
-import Constants
+import GameplayConstants
 
 public enum MonsterType
     INVULNERABLE

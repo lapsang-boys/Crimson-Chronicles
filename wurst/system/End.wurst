@@ -8,7 +8,7 @@ import SoundUtils
 import LinkedList
 
 import Regions
-import Constants
+import GameplayConstants
 import Movement
 import Levels
 import PlayerData

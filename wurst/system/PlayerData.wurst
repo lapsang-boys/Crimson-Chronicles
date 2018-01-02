@@ -10,7 +10,7 @@ import Levels
 import Colorscheme
 import Regions
 import Leaderboard
-import Constants
+import GameplayConstants
 
 class Remover implements ForGroupCallback
     bool removePlayerUnits

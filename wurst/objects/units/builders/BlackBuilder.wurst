@@ -3,7 +3,8 @@ package BlackBuilder
 import Assets
 import UnitObjEditing
 
-import Constants
+import BuilderConstants
+import GameplayConstants
 import ID2S
 
 class Builder extends UnitDefinition

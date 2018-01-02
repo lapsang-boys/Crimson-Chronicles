@@ -4,7 +4,7 @@ import LinkedList
 import HashMap
 
 import Squad
-import Constants
+import GameplayConstants
 import MonsterType
 import Colorscheme
 

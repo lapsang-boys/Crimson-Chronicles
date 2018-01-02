@@ -1,0 +1,45 @@
+package BuilderConstants
+
+import Assets
+import HashMap
+
+// Format:
+// -------------- XX builder -----------
+// ID_BUILDER_XX    = .... (unit id)
+// SOUND_BUILDER_XX = .... (sound played when level summoned)
+// ICON_BUILDER_XX  = .... (builder icon in tavern and leaderboard)
+
+// -------------- Hashmaps -----------
+//                    .... (put sound in sound hashmap)
+//                    .... (put icon in icon hashmap)
+
+// ------------------------------------------
+// ================ Builders ================
+// ------------------------------------------
+
+// Tavern
+public constant ID_TAVERN = 't999'
+
+// -------------- Black builder -----------
+public constant ID_BUILDER_BLACK = 'b001'
+public constant SOUND_BUILDER_BLACK = Sounds.acolyteYesAttack1
+public constant ICON_BUILDER_BLACK = Icons.bTNAcolyte
+
+// -------------- Reg builder -----------
+public constant ID_BUILDER_REG = 'b002'
+public constant SOUND_BUILDER_REG = Sounds.taurenYesAttack1
+public constant ICON_BUILDER_REG = Icons.bTNTauren
+
+// ------------------------------------------
+// ================ Hashmaps ================
+// ------------------------------------------
+
+// Summon level sound hashmap
+public HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
+..put(ID_BUILDER_BLACK, SOUND_BUILDER_BLACK)
+..put(ID_BUILDER_REG, SOUND_BUILDER_REG)
+
+// Builder icon hashmap
+public HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
+..put(ID_BUILDER_BLACK, ICON_BUILDER_BLACK)
+..put(ID_BUILDER_REG, ICON_BUILDER_REG)

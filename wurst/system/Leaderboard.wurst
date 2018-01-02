@@ -2,7 +2,7 @@ package Leaderboard
 
 import Assets
 
-import Constants
+import GameplayConstants
 
 multiboard mb
 

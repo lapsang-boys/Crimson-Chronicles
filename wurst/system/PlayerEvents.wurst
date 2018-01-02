@@ -1,6 +1,6 @@
 package PlayerEvents
 
-import Constants
+import GameplayConstants
 import Colorscheme
 
 function playerLeaves()

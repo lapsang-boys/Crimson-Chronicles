@@ -2,7 +2,7 @@ package Squad
 
 import LinkedList
 
-import Constants
+import GameplayConstants
 
 public constant DEFAULT_SPAWN_INTERVAL = spawnInterval(1.35, 1.35)
 public tuple spawnInterval (real low, real high)

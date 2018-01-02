@@ -1,7 +1,7 @@
 package Movement
 
 import Regions
-import Constants
+import GameplayConstants
 import TypeCasting
 import ErrorHandling
 import LinkedList
@@ -28,7 +28,7 @@ public function getNext(unit u) returns vec2
     if cv >= path.size()
         error("Invalid custom value for unit: "+u.getName())
         return vec2(0, 0)
-    
+
     let rectIndex = path.get(cv)
     return rectFromIndex(rectIndex).getCenter()
 

@@ -4,7 +4,7 @@ import Assets
 import RegisterEvents
 import SoundUtils
 
-import Constants
+import GameplayConstants
 import Colorscheme
 
 function sellTower()

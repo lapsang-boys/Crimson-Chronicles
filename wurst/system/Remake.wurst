@@ -2,7 +2,7 @@ package Remake
 
 import Colors
 
-import Constants
+import GameplayConstants
 import Colorscheme
 import PlayerData
 import InitGame

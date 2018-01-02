@@ -1,6 +1,6 @@
 package Tavern
 
-import Constants
+import BuilderConstants
 import UnitObjEditing
 
 import TowerDefinition

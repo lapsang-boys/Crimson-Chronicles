@@ -1,6 +1,6 @@
 package Morgue
 
-import Constants
+import GameplayConstants
 import Movement
 import PlayerData
 

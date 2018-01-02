@@ -1,0 +1,34 @@
+package GameplayConstants
+
+// ------------------------------------------
+// ========= Gameplay settings ==============
+// ------------------------------------------
+public constant int STARTING_LIFE = 10
+public constant int STARTING_GOLD = 35
+public constant int STARTING_LUMBER = 10
+
+// ------------------------------------------
+// ========== Backend settings ==============
+// ------------------------------------------
+// Time player messages are displayed
+public constant real DISPLAY_TIME = 10.
+
+// Required for region init, needs all regions per player to work
+public constant int NUMBER_OF_PLAYERS = 2
+
+// TODO: Implement areas. Will work in the same way as NUMBER_OF_PLAYERS
+public constant int MAX_AREAS = 1
+
+// Enemy player number. Required for checks.
+public constant player PLAYER_BROWN = Player(11)
+
+
+
+// Towers
+public constant ID_TEST_TOWER = 't000'
+
+// Abilities
+public constant ID_NEXT_LEVEL = 'a000'
+public constant ID_LEVEL_IN_PROGRESS = 'a001'
+
+public constant ID_SELL_TOWER = 'a002'

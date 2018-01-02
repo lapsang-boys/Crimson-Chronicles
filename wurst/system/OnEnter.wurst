@@ -7,7 +7,7 @@ import LinkedList
 
 import Regions
 import Movement
-import Constants
+import GameplayConstants
 
 function act()
     let u = GetTriggerUnit()

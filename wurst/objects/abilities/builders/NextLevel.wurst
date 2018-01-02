@@ -3,7 +3,7 @@ package NextLevel
 import Assets
 import AbilityObjEditing
 
-import Constants
+import GameplayConstants
 
 class NextLevel extends AbilityDefinitionWindWalk
     construct(int id)

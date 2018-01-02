@@ -1,6 +1,7 @@
 package InitGame
 
-import Constants
+import GameplayConstants
+import BuilderConstants
 import Movement
 import PlayerData
 
