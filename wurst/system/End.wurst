@@ -16,8 +16,9 @@ import PlayerData
 class UnitWrapper
     unit u
     int playerNum
-    construct(unit u)
+    construct(unit u, int playerNum)
         this.u = u
+        this.playerNum = playerNum
 
     ondestroy
         u.remove()
@@ -27,12 +28,12 @@ class UnitWrapper
 function leak()
     let u = GetTriggerUnit()
     int n = getPlayerN(u)
-    UnitWrapper uw = new UnitWrapper(u)
+    UnitWrapper uw = new UnitWrapper(u, n)
     player p = Player(n)
 
     PlayerData pd = playerData.get(n)
     int lifeTaken = u.getFoodUsed()
-    pd.registerLeak(lifeTaken)
+    pd.registerLeak(lifeTaken, unitBounty.get(u.getTypeId()))
 
     SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
     sd.playForPlayer(p)

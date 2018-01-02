@@ -4,25 +4,47 @@ import LinkedList
 
 import Constants
 
+public constant DEFAULT_SPAWN_INTERVAL = spawnInterval(1.35, 1.35)
+public tuple spawnInterval (real low, real high)
+public function spawnInterval.getDuration() returns real
+    return GetRandomReal(this.low, this.high)
+
+public enum SpawnPosition
+    LEFT
+    CENTER
+    RIGHT
+    RANDOM
+
 public class SquadMember
     int u_id
     int num
-    construct(int u_id, int num)
+    int bounty
+    SpawnPosition sp
+    spawnInterval si
+
+    construct(int u_id, int num, int bounty, SpawnPosition sp, spawnInterval si)
         this.u_id = u_id
         this.num = num
+        this.bounty = bounty
+        this.sp = sp
+        this.si = si
 
-public function LinkedList<SquadMember>.toUnitChain() returns LinkedList<int>
-    LinkedList<int> unitChain = new LinkedList<int>
+public function LinkedList<SquadMember>.toSquadChain() returns LinkedList<SquadMember>
+    LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
     for sm in this
-        // createUnit(sm.u_id
         for i = 0 to sm.num-1
-            unitChain.add(sm.u_id)
-    return unitChain
+            SquadMember single = new SquadMember(sm.u_id, 1, sm.bounty, sm.sp, sm.si)
+            squadChain.add(single)
+    return squadChain
 
-init
-    LinkedList<SquadMember> s = new LinkedList<SquadMember>
-    s..add(new SquadMember(ID_RACCOON, 2))
-    ..add(new SquadMember(ID_ACCO, 3))
-    ..add(new SquadMember(ID_RACCOON, 2))
-    ..add(new SquadMember(ID_ARCHY, 1))
-    ..add(new SquadMember(ID_RACCOON, 2))
+public function toDefaultSquad(int u_id, int num, int bounty) returns LinkedList<SquadMember>
+    return new LinkedList<SquadMember>..add(new SquadMember(u_id, num, bounty, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
+
+public function toLeftSquad(int u_id, int num, int bounty) returns LinkedList<SquadMember>
+    return new LinkedList<SquadMember>..add(new SquadMember(u_id, num, bounty, SpawnPosition.LEFT, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
+
+public function toCenterSquad(int u_id, int num, int bounty) returns LinkedList<SquadMember>
+    return new LinkedList<SquadMember>..add(new SquadMember(u_id, num, bounty, SpawnPosition.CENTER, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
+
+public function toRightSquad(int u_id, int num, int bounty) returns LinkedList<SquadMember>
+    return new LinkedList<SquadMember>..add(new SquadMember(u_id, num, bounty, SpawnPosition.RIGHT, DEFAULT_SPAWN_INTERVAL)).toSquadChain()

@@ -13,8 +13,15 @@ import Leaderboard
 import Constants
 
 class Remover implements ForGroupCallback
+    bool removePlayerUnits
+    player p
+    construct(bool removePlayerUnits, player p)
+        this.removePlayerUnits = removePlayerUnits
+        this.p = p
+
     function callback(unit u)
-        u.remove()
+        if not removePlayerUnits and not u.getOwner() == p
+            u.remove()
 
 class Winner implements ForGroupCallback
     function callback(unit u)
@@ -56,7 +63,7 @@ public class PlayerData
     function loseGame()
         printTimedToPlayer(infoColor.colorize("You have lost the game."), DISPLAY_TIME, this.p)
         this.levelInProgress = false
-        this.cleanse()
+        this.cleanse(true)
 
     function winGame()
         printTimedToPlayer(infoColor.colorize("You won the game!"), DISPLAY_TIME, this.p)
@@ -66,9 +73,9 @@ public class PlayerData
         Winner w = new Winner()
         forUnitsInRect(r, w)
 
-    function cleanse()
+    function cleanse(bool removePlayerUnits)
         rect r = rectFromIndex(playerArea.get(this.playerNum))
-        Remover rem = new Remover()
+        Remover rem = new Remover(removePlayerUnits, this.p)
         forUnitsInRect(r, rem)
 
     function reset()
@@ -99,7 +106,7 @@ public class PlayerData
             printTimedToPlayer(infoColor.colorize("You completed level ")
             + numberColor.colorize(I2S(this.level))
             + infoColor.colorize(" and also received ")
-            + numberColor.colorize(I2S(l.bounty))
+            + numberColor.colorize(I2S(l.bonus))
             + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
 
             // Reward bonus.
@@ -115,12 +122,12 @@ public class PlayerData
 
     function registerMobDeath()
         this.mobsRemoved++
-        if this.mobsRemoved == levels.get(this.level).num
+        if this.mobsRemoved == levels.get(this.level).squadChain.size()
             levelComplete()
 
-    function registerLeak(int lifeTaken)
+    function registerLeak(int lifeTaken, int bounty)
         Level l = levels.get(this.level)
-        this.p.addGold(l.bounty)
+        this.p.addGold(bounty)
         loseLife(lifeTaken)
         updateLife(this.p, this.life)
 

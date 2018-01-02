@@ -13,8 +13,8 @@ function jumpToLevel()
     player p = GetTriggerPlayer()
     PlayerData pd = playerData.get(p.getId())
 
-    // Remove everything in region.
-    pd.cleanse()
+    // Remove all creeps in area.
+    pd.cleanse(false)
 
     // Revert values and stop spawn.
     pd.reset()

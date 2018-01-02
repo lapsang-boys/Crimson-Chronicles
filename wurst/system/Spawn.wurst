@@ -7,6 +7,7 @@ import RegisterEvents
 import HashMap
 import SoundUtils
 
+import Squad
 import Movement
 import Leaderboard
 import Constants
@@ -42,7 +43,7 @@ function spawnLevel()
 	let t = getTimer()
 
 	t.setData(lt castTo int)
-	t.start(l.getDuration(), function summonMobs)
+	t.start(0.1, function summonMobs)
 	l.printInfo(p)
 	updateLevel(p, pd.level)
 
@@ -50,19 +51,39 @@ function summonMobs()
 	let t = GetExpiredTimer()
 	let lt = t.getData() castTo TimerData
 	let p = lt.p
-	if lt.cur == lt.l.num or (not playerData.get(p.getId()).levelInProgress)
+	int num = lt.l.squadChain.size()
+
+	if lt.cur == num or (not playerData.get(p.getId()).levelInProgress)
 		t.release()
 		return
 
-	let pos = getSpawn(p).randomPoint()
-	let u = createUnit(PLAYER_BROWN, lt.l.unitChain.get(lt.cur), pos, angle(PI/2))
+	SquadMember single = lt.l.squadChain.get(lt.cur)
 	lt.cur = lt.cur + 1
+	real duration
+	if lt.cur == num
+		duration = 0.1
+	else
+		duration = lt.l.squadChain.get(lt.cur).si.getDuration()
+
+	rect spawn = getSpawn(p)
+	var pos = spawn.randomPoint()
+	switch single.sp
+		case SpawnPosition.LEFT
+			pos = vec2(spawn.getLeftBot().x+128, spawn.getCenterY())
+		case SpawnPosition.CENTER
+			pos = spawn.getCenter()
+		case SpawnPosition.RIGHT
+			pos = vec2(spawn.getRightBot().x-128, spawn.getCenterY())
+		case SpawnPosition.RANDOM
+			pos = spawn.randomPoint()
+
+	let u = createUnit(PLAYER_BROWN, single.u_id, pos, angle(PI/2))
 	flashEffect(Abilities.aIilTarget, pos)
 
 	u.setUserData(1)
 	u.issuePointOrder("move", getNext(u))
 
-	t.start(lt.l.getDuration(), function summonMobs)
+	t.start(duration, function summonMobs)
 
 function playSummonLevelSound(PlayerData pd)
 	let sp = SUMMON_LEVEL_SOUND_MAP.get(pd.builder.getTypeId())

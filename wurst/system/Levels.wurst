@@ -7,29 +7,19 @@ import Constants
 import MonsterType
 import Colorscheme
 
-tuple spawnInterval (real low, real high)
 public class Level
-    LinkedList<int> unitChain
-    int num
-    spawnInterval si
-    int bounty
+    LinkedList<SquadMember> squadChain
     int bonus
     string levelName
-    LinkedList<MonsterType> types
     string desc
+    LinkedList<MonsterType> types
 
-    construct (LinkedList<int> unitChain, spawnInterval si, int num, int bounty, int bonus, string levelName, string desc, LinkedList<MonsterType> types)
-        this.unitChain = unitChain
-        this.num = num
-        this.si = si
-        this.bounty = bounty
+    construct (LinkedList<SquadMember> squadChain, int bonus, string levelName, string desc, LinkedList<MonsterType> types)
+        this.squadChain = squadChain
         this.bonus = bonus
         this.levelName = levelName
         this.desc = desc
         this.types = types
-
-    function getDuration() returns real
-        return GetRandomReal(this.si.low, this.si.high)
 
     function printInfo(player p)
         printTimedToPlayer(this.levelName, DISPLAY_TIME, p)
@@ -49,65 +39,47 @@ function levelDescriptionMsg(string desc) returns string
 
 init
     // ============== Area 1 ==============
-    LinkedList<int> L0Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_PATH_SHOWER, 3)).toUnitChain()
     Level L0 = new Level(
-        L0Chain,
-        spawnInterval(1.35, 1.35),
-        3, // Num
-        0, // Bounty
+        toCenterSquad(ID_PATH_SHOWER, 3, 0),
         0, // Bonus
         levelNameMsg(0, "Path shower"),
         levelDescriptionMsg(""),
         new LinkedList<MonsterType>..add(MonsterType.INVULNERABLE))
     levels.add(L0)
 
-    LinkedList<int> L1Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_RACCOON, 10)).toUnitChain()
     Level L1 = new Level(
-        L1Chain,
-        spawnInterval(1.35, 1.35),
-        10, // Num
-        1, // Bounty
+        toDefaultSquad(ID_RACCOON, 10, 1),
         10, // Bonus
         levelNameMsg(1, "Raccoon"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L1)
 
-    LinkedList<int> L2Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_ACCO, 10)).toUnitChain()
     Level L2 = new Level(
-        L2Chain,
-        spawnInterval(1.35, 1.35),
-        10, // Num
-        1, // Bounty
+        toDefaultSquad(ID_ACCO, 10, 1),
         10, // Bonus
         levelNameMsg(2, "Acolyte"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L2)
 
-    LinkedList<int> L3Chain = new LinkedList<SquadMember>..add(new SquadMember(ID_ARCHY, 10)).toUnitChain()
     Level L3 = new Level(
-        L3Chain,
-        spawnInterval(1.35, 1.35),
-        10, // Num
-        1, // Bounty
+        toDefaultSquad(ID_ARCHY, 10, 1),
         10, // Bonus
         levelNameMsg(3, "Archer"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L3)
 
-    LinkedList<int> L4Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_RACCOON, 2))
-    ..add(new SquadMember(ID_ACCO, 3))
-    ..add(new SquadMember(ID_RACCOON, 2))
-    ..add(new SquadMember(ID_ARCHY, 1))
-    ..add(new SquadMember(ID_RACCOON, 2)).toUnitChain()
+    LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1)))
+    ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1)))
+    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1)))
+    ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1)))
+    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1)))
+    .toSquadChain()
     Level L4 = new Level(
         L4Chain,
-        spawnInterval(1.35, 1.35),
-        10, // Num
-        1, // Bounty
         10, // Bonus
         levelNameMsg(4, "Squaden"),
         levelDescriptionMsg("Description"),
