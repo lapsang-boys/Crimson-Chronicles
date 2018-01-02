@@ -16,17 +16,17 @@ function remake()
 
     // Revert values and stop spawn.
     pd.reset()
-    
+    pd.level = 1
+
     // color c = fromPlayer(p)
     printTimed(textColor.colorize("Player ") + fromPlayer(p).colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), DISPLAY_TIME)
 
     // Start the game again.
     startGame(p)
-    
+
 trigger remakeTrig = CreateTrigger()
 init
     TriggerAddAction(remakeTrig, function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-rmk", true)
         TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-remake", true)
-    

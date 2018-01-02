@@ -24,7 +24,7 @@ class Builder extends UnitDefinition
         // ========== Model file etc. ==========
         // -------------------------------------
         setModelFile(Units.tauren)
-        setIconGameInterface(Icons.bTNTauren)
+        setIconGameInterface(ICON_BUILDER_REG)
         setUnitSoundSet("Tauren")
 
         // --------------------------------------------

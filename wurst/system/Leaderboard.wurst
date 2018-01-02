@@ -37,6 +37,9 @@ public function updateLife(player p, int life)
 public function updateLevel(player p, int level)
     setItemValue(mb, p.getId()+1, 3, I2S(level))
 
+public function updateIcon(player p, string icon)
+    setItemIcon(mb, p.getId()+1, 0, icon)
+
 function act()
     // Title
     mb = CreateMultiboard()
