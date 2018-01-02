@@ -33,6 +33,7 @@ class PathShower extends UnitDefinition
         setSpeedBase(500)
         setMovementType(MovementType.Fly)
         setMovementHeight(128.)
+        setScalingValue(2.)
 
         setManaInitialAmount(0)
         setManaMaximum(0)

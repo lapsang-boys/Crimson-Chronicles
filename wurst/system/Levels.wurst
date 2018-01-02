@@ -65,7 +65,7 @@ init
     Level L1 = new Level(
         ID_RACCOON,
         spawnInterval(1.35, 1.35),
-        20, // Num
+        10, // Num
         1, // Bounty
         10, // Bonus
         1, // Life lost
@@ -77,11 +77,11 @@ init
     Level L2 = new Level(
         ID_ACCO,
         spawnInterval(1.35, 1.35),
-        20, // Num
+        10, // Num
         1, // Bounty
         10, // Bonus
         1, // Life lost
-        levelNameMsg(1, "Acolyte"),
+        levelNameMsg(2, "Acolyte"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L2)
@@ -89,11 +89,11 @@ init
     Level L3 = new Level(
         ID_ARCHY,
         spawnInterval(1.35, 1.35),
-        20, // Num
+        10, // Num
         1, // Bounty
         10, // Bonus
         1, // Life lost
-        levelNameMsg(1, "Archer"),
+        levelNameMsg(3, "Archer"),
         levelDescriptionMsg("Description"),
         new LinkedList<MonsterType>)
     levels.add(L3)
