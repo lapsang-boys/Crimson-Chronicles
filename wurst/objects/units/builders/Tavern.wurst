@@ -2,6 +2,7 @@ package Tavern
 
 import BuilderConstants
 import UnitObjEditing
+import Assets
 
 import TowerDefinition
 import ID2S
@@ -12,13 +13,13 @@ class Tavern extends TowerDefinition
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
-        setModelFile("units\\Human\\Rifleman\\Rifleman.mdx")
+        setIconGameInterface(Icons.bTNTavern)
+        setModelFile(Buildings.tavern1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Rifleman")
-        setScalingValue(2.)
+        setUnitSoundSet("Merchant")
+        setScalingValue(1.)
         setGroundTexture("")
         setMovementType(MovementType.None)
 
