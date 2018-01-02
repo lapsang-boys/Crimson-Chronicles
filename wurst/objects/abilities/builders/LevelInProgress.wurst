@@ -8,24 +8,18 @@ import BuilderConstants
 class NextLevel extends AbilityDefinitionCriticalStrikecreep
     construct(int id)
         super(id)
-        setButtonPositionNormalX(3)
-        setButtonPositionNormalY(2)
-        setArtCaster("")
-        setCasterAttachmentPoint("")
-        setArtEffect("")
-        setIconNormal(Icons.pASBTNBattleRoar)
-        setArtTarget("")
-        setDurationNormal(1, 0.01)
-        setTargetAttachmentPoint("")
-        setHeroAbility(false)
-        setRequirements("")
-        setLevels(1)
-        setBuffs(1, "")
-        setManaCost(1, 0)
-        setRace(Race.Human)
+
         setHotkeyNormal("R")
         setTooltipNormal(1, "Level in progress")
         setTooltipNormalExtended(1, "Can you handle it? lol")
+        setIconNormal(Icons.pASBTNReincarnation)
+
+        setButtonPositionNormalX(3)
+        setButtonPositionNormalY(2)
+
+        setArtCaster("")
+        setArtEffect("")
+        setEffectSound("")
 
 @compiletime function nanoBreweryMoveTower()
     new NextLevel(ID_LEVEL_IN_PROGRESS)
