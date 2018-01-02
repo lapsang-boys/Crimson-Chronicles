@@ -10,7 +10,7 @@ class Archy extends UnitDefinition
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
-        // ========== Model file, bounty etc. ========== 
+        // ========== Model file, bounty etc. ==========
         // ---------------------------------------------
         setName("Archy")
         setModelFile(Units.archer)
@@ -18,18 +18,20 @@ class Archy extends UnitDefinition
         setGoldBountyAwardedBase(1)
         setGoldBountyAwardedNumberofDice(0)
         setCollisionSize(1)
+        // Life lost
+        setFoodCost(1)
 
         // ------------------------------------
         // ========== Abilities ===============
         // ------------------------------------
         setNormalAbilities("")
-       
+
         // -------------------------------------------------
         // ========== Stats (hp, reg, speed, etc) ==========
         // -------------------------------------------------
         setHitPointsMaximumBase(20)
         setHitPointsRegenerationRate(0)
-        
+
         setSpeedBase(300)
 
         setManaInitialAmount(0)
@@ -37,6 +39,6 @@ class Archy extends UnitDefinition
         setManaRegeneration(0.)
 
         setAttacksEnabled(0)
-        
+
 @compiletime function archy()
     new Archy(ID_ARCHY)
