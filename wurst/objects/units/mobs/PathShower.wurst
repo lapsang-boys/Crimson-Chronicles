@@ -18,6 +18,8 @@ class PathShower extends UnitDefinition
         setGoldBountyAwardedBase(1)
         setGoldBountyAwardedNumberofDice(0)
         setCollisionSize(1)
+        // Life lost
+        setFoodCost(0)
 
         // ------------------------------------
         // ========== Abilities ===============
