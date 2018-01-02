@@ -3,7 +3,7 @@ package Acco
 import Assets
 import UnitObjEditing
 
-import Constants
+import Levels
 
 class Acco extends UnitDefinition
     construct(int id)

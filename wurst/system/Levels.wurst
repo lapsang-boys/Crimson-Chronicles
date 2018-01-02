@@ -1,11 +1,38 @@
 package Levels
 
 import LinkedList
+import HashMap
 
 import Squad
 import Constants
 import MonsterType
 import Colorscheme
+
+// ----------------------------------------------------------------------------
+// =============== Level constants (mobs and lifelost per mob) ================
+// ----------------------------------------------------------------------------
+
+// Mobs
+public constant ID_MOB_BASE_UNIT = 'earc'
+public constant ID_PATH_SHOWER = 'm000'
+public constant ID_RACCOON = 'm001'
+public constant ID_ACCO = 'm002'
+public constant ID_ARCHY = 'm003'
+
+// Hashmap storing life lost per mob
+public HashMap<int, int> unitBounty = new HashMap<int, int>
+..put(ID_PATH_SHOWER, 0)
+..put(ID_RACCOON, 1)
+..put(ID_ACCO, 1)
+..put(ID_ARCHY, 1)
+
+// TODO:
+// Map indiviual mobs to creature type
+// Map levels to description(?)
+
+// ----------------------------------------------------------------------------
+// ===================== Level class and methods ==============================
+// ----------------------------------------------------------------------------
 
 public class Level
     LinkedList<SquadMember> squadChain
@@ -36,6 +63,10 @@ function levelNameMsg(int num, string name) returns string
 
 function levelDescriptionMsg(string desc) returns string
     return textColor.colorize(desc)
+
+// ----------------------------------------------------------------------------
+// ============================= Level objects ================================
+// ----------------------------------------------------------------------------
 
 init
     // ============== Area 1 ==============

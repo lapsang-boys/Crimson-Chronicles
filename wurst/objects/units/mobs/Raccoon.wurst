@@ -3,7 +3,7 @@ package Raccoon
 import Assets
 import UnitObjEditing
 
-import Constants
+import Levels
 
 class Raccoon extends UnitDefinition
     construct(int id)

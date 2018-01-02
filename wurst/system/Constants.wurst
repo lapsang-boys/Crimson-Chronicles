@@ -22,19 +22,6 @@ public constant ID_BUILDER_REG = 'b002'
 public constant SOUND_BUILDER_REG = Sounds.taurenYesAttack1
 public constant ICON_BUILDER_REG = Icons.bTNTauren
 
-// Mobs
-public constant ID_MOB_BASE_UNIT = 'earc'
-public constant ID_PATH_SHOWER = 'm000'
-public constant ID_RACCOON = 'm001'
-public constant ID_ACCO = 'm002'
-public constant ID_ARCHY = 'm003'
-
-public HashMap<int, int> unitBounty = new HashMap<int, int>
-..put(ID_PATH_SHOWER, 0)
-..put(ID_RACCOON, 1)
-..put(ID_ACCO, 1)
-..put(ID_ARCHY, 1)
-
 // Towers
 public constant ID_TEST_TOWER = 't000'
 
