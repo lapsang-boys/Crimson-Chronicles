@@ -1,12 +1,12 @@
 package TestTower
 
 import Assets
-import GameplayConstants
 import Damage
 import UnitObjEditing
 
-import Tooltip
 import TowerDefinition
+import TowerConstants
+import Tooltip
 import ID2S
 
 constant DAMAGE_BASE = 3
@@ -80,4 +80,4 @@ class TestTower extends TowerDefinition
             "Haha nej."))
 
 @compiletime function tower()
-    new TestTower(ID_TEST_TOWER)
+    new TestTower(ID_TOWER_TEST)

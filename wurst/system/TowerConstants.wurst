@@ -1,0 +1,24 @@
+package TowerConstants
+
+// Format:
+// -------------- XX tower -----------
+// ID_TOWER_XX          = .... (unit id)
+// TOWER_XX_ABILITY_YY  = .... (id of ability yy beloning to tower xx)
+// TOWER_XX_ABILITY_ZZ  = .... (id of ability zz beloning to tower xx)
+
+// All towers are separated into teams
+
+// -------------- Hashmaps -----------
+//                    .... (put sound in sound hashmap)
+//                    .... (put icon in icon hashmap)
+
+// Sell tower ability (for all towers)
+public constant ID_SELL_TOWER = 'a002'
+
+// ---------------------------------------------
+// ================ Team asdf ==================
+// ---------------------------------------------
+
+// -------------- Test tower -----------
+public constant ID_TOWER_TEST = 't000'
+// TOWER_TEST_ABILITY_YY  = ....

@@ -3,7 +3,7 @@ package LevelInProgress
 import Assets
 import AbilityObjEditing
 
-import GameplayConstants
+import BuilderConstants
 
 class NextLevel extends AbilityDefinitionCriticalStrikecreep
     construct(int id)

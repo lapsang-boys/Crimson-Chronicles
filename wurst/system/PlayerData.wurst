@@ -11,6 +11,7 @@ import Colorscheme
 import Regions
 import Leaderboard
 import GameplayConstants
+import BuilderConstants
 
 class Remover implements ForGroupCallback
     bool removePlayerUnits

@@ -43,3 +43,12 @@ public HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
 public HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
 ..put(ID_BUILDER_BLACK, ICON_BUILDER_BLACK)
 ..put(ID_BUILDER_REG, ICON_BUILDER_REG)
+
+// ------------------------------------------------------------
+// ================ Builder specific abilities ================
+// ------------------------------------------------------------
+
+// Ability to summon next level
+public constant ID_NEXT_LEVEL = 'a000'
+// Placeholder ability when level in progress
+public constant ID_LEVEL_IN_PROGRESS = 'a001'

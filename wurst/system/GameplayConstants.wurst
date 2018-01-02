@@ -21,14 +21,3 @@ public constant int MAX_AREAS = 1
 
 // Enemy player number. Required for checks.
 public constant player PLAYER_BROWN = Player(11)
-
-
-
-// Towers
-public constant ID_TEST_TOWER = 't000'
-
-// Abilities
-public constant ID_NEXT_LEVEL = 'a000'
-public constant ID_LEVEL_IN_PROGRESS = 'a001'
-
-public constant ID_SELL_TOWER = 'a002'

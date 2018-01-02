@@ -5,6 +5,7 @@ import RegisterEvents
 import SoundUtils
 
 import GameplayConstants
+import TowerConstants
 import Colorscheme
 
 function sellTower()

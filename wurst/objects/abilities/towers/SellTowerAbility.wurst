@@ -3,7 +3,7 @@ package SellTowerAbility
 import Assets
 import AbilityObjEditing
 
-import GameplayConstants
+import TowerConstants
 
 class SellTowerAbility extends AbilityDefinitionWindWalk
     construct(int id)
