@@ -22,6 +22,8 @@ public function monsterColor(MonsterType mt) returns color
     switch mt
         case MonsterType.INVULNERABLE
             return color(88, 88, 88)
+        case MonsterType.MECHANICAL
+            return color(88, 88, 88)
         case MonsterType.BOSS
             return color(0xcc, 0x11, 0x00)
         case MonsterType.UNDEAD
@@ -44,9 +46,9 @@ public function monsterColor(MonsterType mt) returns color
             return color(0x66, 0x66, 0x33)
         case MonsterType.CHARGER
             return color(0xcc, 0x33, 0x66)
-        default
-            print("Monster type not implemented")
-            return color(0, 0, 0)
+
+    // Unreachable.
+    return color(0, 0, 0)
 
 public function monsterHint(MonsterType mt) returns string
     color c = monsterColor(mt)
@@ -56,7 +58,7 @@ public function monsterHint(MonsterType mt) returns string
         case MonsterType.MECHANICAL
             return c.colorize("(Mechanical)") + textColor.colorize(" - immune to slowing effects.")
         case MonsterType.BOSS
-            return c.colorize("(Boss)") + textColor.colorize(" - you are on your own!")
+            return c.colorize("(Boss)") + textColor.colorize(" - you are on your own. Good luck!")
         case MonsterType.UNDEAD
             return c.colorize("(Undead)") + textColor.colorize(" - higher health regeneration abilities.")
         case MonsterType.FLYING
@@ -76,7 +78,7 @@ public function monsterHint(MonsterType mt) returns string
         case MonsterType.LASTSTAND
             return c.colorize("(Last Stand)") + textColor.colorize(" - this monster refuses to give up the first time around.")
         case MonsterType.CHARGER
-            return c.colorize("(Charger)") + textColor.colorize(" - these guys might seem courageous at first but one a few of them 'drop' they start to lose thier moral.")
+            return c.colorize("(Charger)") + textColor.colorize(" - these guys might seem courageous at first, but when a few of them 'drop' they start to lose their moral.")
         default
             print("Monster type not implemented")
             return ""
