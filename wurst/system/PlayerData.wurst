@@ -44,12 +44,12 @@ public class PlayerData
         this.builder = builder
 
     function loseLife(int i)
+        this.life -= i
         if this.life >= 1
-            this.life -= i
             if i > 1
-                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives."), DISPLAY_TIME, this.p)
+                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives. You have ") + numberColor.colorize(I2S(this.life)) + warningColor.colorize(" left."), DISPLAY_TIME, this.p)
             else if i == 1
-                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life."), DISPLAY_TIME, this.p)
+                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life. You have ") + numberColor.colorize(I2S(this.life)) + warningColor.colorize(" left."), DISPLAY_TIME, this.p)
         else
             loseGame()
 
@@ -121,8 +121,7 @@ public class PlayerData
     function registerLeak()
         Level l = levels.get(this.level)
         this.p.addGold(l.bounty)
-        let i = l.lifeLost
-        loseLife(i)
+        loseLife(l.lifeLost)
         updateLife(this.p, this.life)
 
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>

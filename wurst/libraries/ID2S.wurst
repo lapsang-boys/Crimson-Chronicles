@@ -49,7 +49,7 @@ public function ID2S(int id) returns string
             dis = n - 'A'
             target = SubString(stringABC, dis, dis+1)+target
         if n >= 'a' and n <= 'z'
-            dis = n - 'a'   
+            dis = n - 'a'
             target = SubString(stringabc, dis, dis+1)+target
         i = i div 256
     return target

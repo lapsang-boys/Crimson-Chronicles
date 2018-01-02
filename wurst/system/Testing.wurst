@@ -1,0 +1,31 @@
+package Testing
+
+import Colors
+
+import Constants
+import PlayerData
+import InitGame
+
+function jumpToLevel()
+    string command = GetEventPlayerChatString()
+    int index = S2I(command.substring(4))
+
+    player p = GetTriggerPlayer()
+    PlayerData pd = playerData.get(p.getId())
+
+    // Remove everything in region.
+    pd.cleanse()
+
+    // Revert values and stop spawn.
+    pd.reset()
+
+    let builder = createUnit(p, ID_BUILDER_BLACK, p.getStartLocation(), angle(PI/2))
+    pd.level = index
+    pd.builder = builder
+    p.addGold(1000000)
+
+trigger remakeTrig = CreateTrigger()
+init
+    TriggerAddAction(remakeTrig, function jumpToLevel)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-lvl", false)
