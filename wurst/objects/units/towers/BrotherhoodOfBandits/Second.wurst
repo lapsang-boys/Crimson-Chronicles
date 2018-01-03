@@ -46,7 +46,7 @@ class Second extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER))
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_HYSTERIA_VENOM) + "," + ID2S(ID_HYSTERIA_VENOM_TOOLTIP))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

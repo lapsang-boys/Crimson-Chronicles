@@ -1,0 +1,75 @@
+package HysteriaVenom
+
+import Assets
+import AbilityObjEditing
+import BuffObjEditing
+
+import TowerConstants
+import ID2S
+import Tooltip
+
+let ARMOR_REUCED = 1
+let DURATION = 4.
+
+class HysteriaVenomBuff extends BuffDefinition
+    construct(int newBuffId, int origBuggId)
+        super(newBuffId, origBuggId)
+
+        setIcon(Icons.bTNOrbOfCorruption)
+        setTarget(1, Abilities.shadowstrike)
+        setTargetAttachmentPoint0(1, "overhead")
+        setMissileArt(1, "")
+
+        setTooltipNormal(1, "Hysteria Venom")
+        setTooltipNormalExtended(1, "Reduced armor")
+
+class AbilityTooltipDummy extends AbilityDefinitionEvasion
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+        setArtCaster("")
+        setCasterAttachmentPoint("")
+        setArtEffect("")
+        setIconNormal(Icons.bTNOrbOfCorruption)
+        setArtTarget("")
+        setChancetoEvade(1, 0)
+        setTargetAttachmentPoint("")
+        setHeroAbility(false)
+        setRequirements("")
+        setLevels(1)
+        setBuffs(1, "")
+        setManaCost(1, 0)
+        setHotkeyNormal("")
+        setName("Hysteria venom")
+
+        setTooltipNormal(1, tooltipCustomBasic("-", "Hysteria venom",""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("Enemies hit by seconds attack have their armor reduced by " + I2S(ARMOR_REUCED) + " for " + R2S(DURATION) + " seconds.",
+        "Venom stolen from the master brewers of the old traditional spiritual medicine Ayhucasa. Commonly used by the indigenous people of Quartz bay for theraputical purposes but injceted into the blood it causes horrifying visions."))
+
+
+class HysteriaVenom extends AbilityDefinitionOrbofCorruption
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+        setArtCaster("")
+        setIconNormal(Icons.bTNOrbOfCorruption)
+        setItemAbility(false)
+        setArtTarget("")
+        setDurationNormal(1, DURATION)
+        setArmorPenalty(1, ARMOR_REUCED)
+        setHeroAbility(true)
+        setRequirements("")
+
+        setLevels(1)
+        setBuffs(1, ID2S(ID_HYSTERIA_VENOM_BUFF))
+        setManaCost(1, 0)
+        setMissileArt("")
+
+@compiletime function nanoBreweryMoveTower()
+    new HysteriaVenom(ID_HYSTERIA_VENOM)
+    new HysteriaVenomBuff(ID_HYSTERIA_VENOM_BUFF, ID_HYSTERIA_VENOM_BUFF_BASE)
+    new AbilityTooltipDummy(ID_HYSTERIA_VENOM_TOOLTIP)
