@@ -1,4 +1,4 @@
-package RegBuilder
+package BrotherhoodOfBanditsBuilder
 
 import Assets
 import UnitObjEditing
@@ -14,25 +14,29 @@ class Builder extends UnitDefinition
         // ------------------------------------
         // ========== Tavern ==================
         // ------------------------------------
-        setName("Builder |cffffcc00(Reg)|r")
-        setTooltipBasic("Choose |cffffcc00Reg|r [|cffffcc00Q|r]")
-        setTooltipExtended("Reg is the shit.")
+        setName("Builder |cffffcc00(Brotherhood of bandtis)|r")
+        setTooltipBasic("Choose |cffffcc00Brotherhood of bandtis|r [|cffffcc00Q|r]")
+        setTooltipExtended("A gang of outcasts.")
         setButtonPositionX(0)
-        setButtonPositionY(2)
+        setButtonPositionY(0)
         setHotkey("Q")
 
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setModelFile(Units.tauren)
-        setIconGameInterface(ICON_BUILDER_REG)
-        setUnitSoundSet("Tauren")
+        setModelFile(Units.heroTinkerRobot)
+        setIconGameInterface(ICON_BUILDER_BROTHERHOOD)
+        setUnitSoundSet("ClockwerkGoblin")
 
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
-        // setStructuresBuilt("h01H" + "," + UnitApi.ID_TOWER_GRANARY_STR + "," + UnitApi.ID_TOWER_HOP_FARM_STR + "," + UnitApi.ID_TOWER_YEAST_LAB_STR + "," + UnitApi.ID_TOWER_HOME_BREW_KIT_STR + "," + UnitApi.ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST_STR + "," + UnitApi.ID_TOWER_BOTTLING_FACILITY_STR)
-        setStructuresBuilt(ID2S(ID_TOWER_TEST))
+        setStructuresBuilt(
+            ID2S(ID_TOWER_HENCHMAN)     + "," +
+            ID2S(ID_TOWER_SECOND)       + "," +
+            ID2S(ID_TOWER_MOLOTOV_MIKE) + "," +
+            ID2S(ID_TOWER_POACHER)      + "," +
+            ID2S(ID_TOWER_ASSASAIN))
         setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL))
 
         // ------------------------------------
@@ -55,4 +59,4 @@ class Builder extends UnitDefinition
 
 
 @compiletime function builder()
-    new Builder(ID_BUILDER_REG)
+    new Builder(ID_BUILDER_BROTHERHOOD)

@@ -1,4 +1,4 @@
-package TestTower
+package MolotovMike
 
 import Assets
 import Damage
@@ -13,38 +13,55 @@ import ID2S
 constant DAMAGE_BASE = 3
 constant DAMAGE_SIDES_PER_DIE = 6
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 550
-constant ATTACK_SPEED = 1.7
+constant RANGE = 128
+constant ATTACK_SPEED = 1.
+
+constant DAMAGE_BASE2 = 3
+constant DAMAGE_SIDES_PER_DIE2 = 6
+constant DAMAGE_NUMBER_OF_DIE2 = 1
+constant RANGE2 = 800
+constant ATTACK_SPEED2 = 2.
+
 constant GOLD_COST = 10
 constant POINT_VALUE = 10
 
-class TestTower extends TowerDefinition
+
+class MolotovMike extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNRockTower)
-        setModelFile(Units.rifleman1)
+        setIconGameInterface(Icons.bTNOgre)
+        setModelFile(Units.ogre1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Rifleman")
-        setScalingValue(1.)
+        setUnitSoundSet("Ogre")
+        setScalingValue(1.2)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
         // ------------------------------------
         // ========== Attack damage ==========
         // ------------------------------------
-        setAcquisitionRange(RANGE.toReal())
-        // Only ground tower? I.e can't attack air?
-        // setAttack1TargetsAllowed("enemies,ground,vulnerable")
+        setAcquisitionRange(RANGE2.toReal())
+        setAttacksEnabled(3)
 
+        setAttack1AttackType(AttackType.Normal)
         setAttack1Range(RANGE)
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
         setAttack1DamageNumberofDice(DAMAGE_NUMBER_OF_DIE)
+
+        setAttack2AttackType(AttackType.Siege)
+        setAttack2Range(RANGE2)
+        setAttack2CooldownTime(ATTACK_SPEED2)
+        setAttack2DamageBase(DAMAGE_BASE2)
+        setAttack2DamageSidesperDie(DAMAGE_SIDES_PER_DIE2)
+        setAttack2DamageNumberofDice(DAMAGE_NUMBER_OF_DIE2)
+        setAttack2AreaofEffectFullDamage(128)
+        setAttack2AreaofEffectSmallDamage(256)
 
         // ------------------------------------
         // ========== Spells ==================
@@ -54,10 +71,12 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.searingArrowMissile)
-        setAttack1ProjectileHomingEnabled(true)
-        setAttack1ProjectileSpeed(1200)
-        setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt("")
+        setAttack1WeaponType(WeaponType.Instant)
+
+        setAttack2ProjectileArt(Abilities.brewmasterMissile1)
+        setAttack2ProjectileSpeed(1200)
+        setAttack2WeaponType(WeaponType.MissileSplash)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
@@ -66,23 +85,21 @@ class TestTower extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-        // If other tower should be required
-        // setRequirements("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
+        setButtonPositionX(2)
         setButtonPositionY(0)
-        setHotkey("Q")
-        setName("Test Tower")
-        setTooltipBasic(tooltipBuild("Q", "Test Tower"))
-        setTooltipExtended(tooltipTowerExtended("Well rounded tower.",
+        setHotkey("E")
+        setName("Molotov Mike")
+        setTooltipBasic(tooltipBuild("E", "Molotov Miker"))
+        setTooltipExtended(tooltipTowerExtended("Tower with one melee attack and one siege molotov.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Searing arrows leaves no wounds on the fallen. Only ashed marks of failure."))
+            "Ther's notin better than a good ol' riot!"))
 
 @compiletime function tower()
-    new TestTower(ID_TOWER_TEST)
+    new MolotovMike(ID_TOWER_MOLOTOV_MIKE)

@@ -1,4 +1,4 @@
-package TestTower
+package Poacher
 
 import Assets
 import Damage
@@ -13,33 +13,30 @@ import ID2S
 constant DAMAGE_BASE = 3
 constant DAMAGE_SIDES_PER_DIE = 6
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 550
-constant ATTACK_SPEED = 1.7
+constant RANGE = 700
+constant ATTACK_SPEED = 0.8
 constant GOLD_COST = 10
 constant POINT_VALUE = 10
 
-class TestTower extends TowerDefinition
+class Poacher extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNRockTower)
-        setModelFile(Units.rifleman1)
+        setIconGameInterface(Icons.bTNTuskaarGold)
+        setModelFile(Units.tuskarRanged)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Rifleman")
-        setScalingValue(1.)
+        setUnitSoundSet("Tuskarr")
+        setScalingValue(0.85)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
         // ------------------------------------
         // ========== Attack damage ==========
         // ------------------------------------
         setAcquisitionRange(RANGE.toReal())
-        // Only ground tower? I.e can't attack air?
-        // setAttack1TargetsAllowed("enemies,ground,vulnerable")
-
         setAttack1Range(RANGE)
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
@@ -54,7 +51,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.searingArrowMissile)
+        setAttack1ProjectileArt(Abilities.tuskarSpear)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
@@ -66,23 +63,21 @@ class TestTower extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-        // If other tower should be required
-        // setRequirements("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
+        setButtonPositionX(3)
         setButtonPositionY(0)
-        setHotkey("Q")
-        setName("Test Tower")
-        setTooltipBasic(tooltipBuild("Q", "Test Tower"))
-        setTooltipExtended(tooltipTowerExtended("Well rounded tower.",
+        setHotkey("R")
+        setName("Poacher")
+        setTooltipBasic(tooltipBuild("R", "Poacher"))
+        setTooltipExtended(tooltipTowerExtended("High range tower with the ability to place traps.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Searing arrows leaves no wounds on the fallen. Only ashed marks of failure."))
+            "Poacher, hunter, trapper."))
 
 @compiletime function tower()
-    new TestTower(ID_TOWER_TEST)
+    new Poacher(ID_TOWER_POACHER)

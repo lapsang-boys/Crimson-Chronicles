@@ -25,10 +25,11 @@ public constant ID_BUILDER_BLACK = 'b001'
 public constant SOUND_BUILDER_BLACK = Sounds.acolyteYesAttack1
 public constant ICON_BUILDER_BLACK = Icons.bTNAcolyte
 
-// -------------- Reg builder -----------
-public constant ID_BUILDER_REG = 'b002'
-public constant SOUND_BUILDER_REG = Sounds.taurenYesAttack1
-public constant ICON_BUILDER_REG = Icons.bTNTauren
+// -------------- Brotherhood of bandits builder -----------
+public constant ID_BUILDER_BROTHERHOOD = 'b002'
+public constant SOUND_BUILDER_BROTHERHOOD = Sounds.tinkerMorph1
+public constant ICON_BUILDER_BROTHERHOOD = Icons.bTNClockWerkGoblin
+public constant ID_BROTHERHOOD_GROUND_TEXTURE = "HSMA"
 
 // ------------------------------------------
 // ================ Hashmaps ================
@@ -37,12 +38,12 @@ public constant ICON_BUILDER_REG = Icons.bTNTauren
 // Summon level sound hashmap
 public HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
 ..put(ID_BUILDER_BLACK, SOUND_BUILDER_BLACK)
-..put(ID_BUILDER_REG, SOUND_BUILDER_REG)
+..put(ID_BUILDER_BROTHERHOOD, SOUND_BUILDER_BROTHERHOOD)
 
 // Builder icon hashmap
 public HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
 ..put(ID_BUILDER_BLACK, ICON_BUILDER_BLACK)
-..put(ID_BUILDER_REG, ICON_BUILDER_REG)
+..put(ID_BUILDER_BROTHERHOOD, ICON_BUILDER_BROTHERHOOD)
 
 // ------------------------------------------------------------
 // ================ Builder specific abilities ================

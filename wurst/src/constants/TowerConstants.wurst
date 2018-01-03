@@ -18,3 +18,27 @@ public constant ID_SELL_TOWER = 'a002'
 // -------------- Test tower -----------
 public constant ID_TOWER_TEST = 't000'
 // TOWER_TEST_ABILITY_YY  = ....
+
+
+// ----------------------------------------------------------
+// ================ Brotherhood of bandits ==================
+// ----------------------------------------------------------
+
+// -------------- Henchman -----------
+public constant ID_TOWER_HENCHMAN = 't101'
+
+// -------------- Second tower -----------
+public constant ID_TOWER_SECOND = 't102'
+// TOWER_TEST_ABILITY_YY  = ....
+
+// -------------- Molotov Mike -----------
+public constant ID_TOWER_MOLOTOV_MIKE = 't103'
+// TOWER_TEST_ABILITY_YY  = ....
+
+// -------------- Poacher -----------
+public constant ID_TOWER_POACHER = 't104'
+// TOWER_TEST_ABILITY_YY  = ....
+
+// -------------- Assasin -----------
+public constant ID_TOWER_ASSASAIN = 't105'
+// TOWER_TEST_ABILITY_YY  = ....

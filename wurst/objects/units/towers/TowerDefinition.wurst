@@ -6,20 +6,21 @@ public class TowerDefinition extends BuildingDefinition
     construct(int id)
         super(id, 'hgtw')
 
-        setSelectionScale(1.5)
+        setSelectionScale(1.)
         setShadowTextureBuilding("")
-        
+        setAttack1TargetsAllowed("enemies,ground,air,vulnerable")
+        setAttack2TargetsAllowed("enemies,ground,air,vulnerable")
+
         setBuildTime(2)
         setLumberCost(0)
-        
+
         setHitPointsMaximumBase(10)
         setHitPointsRegenerationRate(1.)
         setAttacksEnabled(1)
         setArmorType(ArmorType.Divine)
-        
+
         setAttack1AnimationBackswingPoint(.3)
         setAttack1AnimationDamagePoint(.3)
         setProjectileLaunchZ(145.)
-        
+
         setRequirements("")
-        

@@ -18,7 +18,7 @@ class Builder extends UnitDefinition
         setTooltipBasic("Choose |cffffcc00Reg|r [|cffffcc00W|r]")
         setTooltipExtended("Blackness is the shit.")
         setButtonPositionX(1)
-        setButtonPositionY(2)
+        setButtonPositionY(0)
         setHotkey("W")
 
         // -------------------------------------

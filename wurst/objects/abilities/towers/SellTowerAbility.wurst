@@ -9,8 +9,8 @@ class SellTowerAbility extends AbilityDefinitionWindWalk
     construct(int id)
         super(id)
 
-        setButtonPositionNormalX(3)
-        setButtonPositionNormalY(2)
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(0)
         setArtCaster("")
         setCasterAttachmentPoint("")
         setArtEffect("")

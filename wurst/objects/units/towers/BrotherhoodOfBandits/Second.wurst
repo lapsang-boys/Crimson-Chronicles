@@ -1,4 +1,4 @@
-package TestTower
+package Second
 
 import Assets
 import Damage
@@ -14,22 +14,22 @@ constant DAMAGE_BASE = 3
 constant DAMAGE_SIDES_PER_DIE = 6
 constant DAMAGE_NUMBER_OF_DIE = 1
 constant RANGE = 550
-constant ATTACK_SPEED = 1.7
+constant ATTACK_SPEED = 1.5
 constant GOLD_COST = 10
 constant POINT_VALUE = 10
 
-class TestTower extends TowerDefinition
+class Second extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNRockTower)
-        setModelFile(Units.rifleman1)
+        setIconGameInterface(Icons.bTNCentaurArcher)
+        setModelFile(Units.centaurArcher)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Rifleman")
+        setUnitSoundSet("CentaurArcher")
         setScalingValue(1.)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
@@ -37,9 +37,6 @@ class TestTower extends TowerDefinition
         // ========== Attack damage ==========
         // ------------------------------------
         setAcquisitionRange(RANGE.toReal())
-        // Only ground tower? I.e can't attack air?
-        // setAttack1TargetsAllowed("enemies,ground,vulnerable")
-
         setAttack1Range(RANGE)
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
@@ -54,7 +51,7 @@ class TestTower extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.searingArrowMissile)
+        setAttack1ProjectileArt(Abilities.blackArrowMissile)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
@@ -66,23 +63,21 @@ class TestTower extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-        // If other tower should be required
-        // setRequirements("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
+        setButtonPositionX(1)
         setButtonPositionY(0)
-        setHotkey("Q")
-        setName("Test Tower")
-        setTooltipBasic(tooltipBuild("Q", "Test Tower"))
-        setTooltipExtended(tooltipTowerExtended("Well rounded tower.",
+        setHotkey("W")
+        setName("Second")
+        setTooltipBasic(tooltipBuild("W", "Second"))
+        setTooltipExtended(tooltipTowerExtended("Basic tower, reduces armor on hit.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Searing arrows leaves no wounds on the fallen. Only ashed marks of failure."))
+            "The first shot is just the warning. It's not until the enemy is terrifed the second begins the real work."))
 
 @compiletime function tower()
-    new TestTower(ID_TOWER_TEST)
+    new Second(ID_TOWER_SECOND)
