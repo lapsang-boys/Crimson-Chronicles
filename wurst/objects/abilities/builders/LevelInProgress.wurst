@@ -4,14 +4,19 @@ import Assets
 import AbilityObjEditing
 
 import BuilderConstants
+import Tooltip
 
 class NextLevel extends AbilityDefinitionCriticalStrikecreep
     construct(int id)
         super(id)
 
         setHotkeyNormal("R")
-        setTooltipNormal(1, "Level in progress")
-        setTooltipNormalExtended(1, "Can you handle it? lol")
+        setTooltipNormal(1, tooltipCustomBasic("-", "Summon next level", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("A level is currently in progress. Defeat this level to be able to summon a new level.", "Patience young one."))
+
+        // setHotkeyNormal("R")
+        // setTooltipNormal(1, "Level in progress")
+        // setTooltipNormalExtended(1, "Can you handle it? lol")
         setIconNormal(Icons.pASBTNReincarnation)
 
         setButtonPositionNormalX(3)

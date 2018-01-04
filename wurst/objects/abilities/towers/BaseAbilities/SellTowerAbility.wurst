@@ -4,10 +4,17 @@ import Assets
 import AbilityObjEditing
 
 import TowerConstants
+import Tooltip
 
 class SellTowerAbility extends AbilityDefinitionWindWalk
     construct(int id)
         super(id)
+
+        setName("Sell tower")
+        setHotkeyNormal("X")
+        setTooltipNormal(1, tooltipCustomBasic("X", "Sell tower", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("Sells the tower. You will be refundend 100% of its original cost.", "Man is so made that when anything fires his soul, impossibilities vanish."))
+
 
         setButtonPositionNormalX(0)
         setButtonPositionNormalY(0)
@@ -24,10 +31,6 @@ class SellTowerAbility extends AbilityDefinitionWindWalk
         setBuffs(1, "")
         setManaCost(1, 0)
         setRace(Race.Human)
-        setHotkeyNormal("X")
-        setName("Sell tower")
-        setTooltipNormal(1, "Sell tower")
-        setTooltipNormalExtended(1, "Mmmm.. Gold!")
 
 @compiletime function nanoBreweryMoveTower()
     new SellTowerAbility(ID_SELL_TOWER)
