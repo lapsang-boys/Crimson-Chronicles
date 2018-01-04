@@ -1,0 +1,114 @@
+package Assassination
+
+import RegisterEvents
+import Assets
+import AbilityObjEditing
+
+import TowerConstants
+import Tooltip
+
+constant STEALTH_DAMAGE = 300
+
+class Stealth extends AbilityDefinitionWindWalk
+    construct(int id)
+        super(id)
+
+        setName("Stealth")
+        setHotkeyNormal("-")
+        setTooltipNormal(1, tooltipCustomBasic("-", "Stealthed", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("The next attack made by the assassin will deal " + I2S(STEALTH_DAMAGE) + " bonus damage and break stealth.",
+        "That came from behind..."))
+
+        setBackstabDamage(1, true)
+        // setBackstabDamage1(1, STEALTH_DAMAGE)
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+        setEffectSound(Sounds.abominationDeath1)
+        //setArtCaster("")
+        //setCasterAttachmentPoint("")
+        //setArtEffect("")
+        setIconNormal(Icons.pASBTNElunesBlessing)
+
+        //setArtTarget("")
+        setDurationNormal(1, 0)
+        //setTargetAttachmentPoint("")
+        setHeroAbility(false)
+        setRequirements("")
+        setLevels(1)
+        //setBuffs(1, "")
+
+@compiletime function stealthAbility()
+    new Stealth(ID_TOWER_ASSASSIN_STEALTH)
+
+class NotStealth extends AbilityDefinitionBloodlustCreep
+    construct(int id)
+        super(id)
+
+        setHotkeyNormal("")
+        setTooltipNormal(1, tooltipCustomBasic("Q", "Stealth", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("The assassin automatically enter stealth after 15 seconds if no attacks have been made, "
+        + I2S(STEALTH_DAMAGE) + " bound damage will be dealth upon the first engagement when stealthed.",
+        "It takes time to blend in but the reward is great."))
+
+        setHotkeyNormal("Q")
+
+        setIconNormal(Icons.bTNShadowMeld)
+        setIconTurnOff(Icons.bTNShadowMeld)
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+
+        setDurationNormal(1, 0.01)
+        setArtCaster("")
+        setArtEffect("")
+        setEffectSound("")
+        setBuffs(1, "")
+        setManaCost(1, 15)
+        setTargetsAllowed(1, "self")
+
+@compiletime function notStealth()
+    new NotStealth(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
+
+function stealth()
+    print("Stealth trig: " + I2S(GetSpellAbilityId()))
+    unit u = GetTriggerUnit()
+    if u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
+        return
+
+    u.removeAbility(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
+    u.addAbility(ID_TOWER_ASSASSIN_STEALTH)
+    u.issueImmediateOrder("windwalk")
+
+function clearMana()
+    unit u = GetTriggerUnit()
+    u.setMana(0)
+
+    if not u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
+        return
+
+    u.removeAbility(ID_TOWER_ASSASSIN_STEALTH)
+    u.addAbility(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
+
+
+function isAssasain() returns bool
+    return GetAttacker().getTypeId() == ID_TOWER_ASSASSIN
+
+function isStealthSpell() returns bool
+    return GetSpellAbilityId() == ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH
+
+trigger stealthTrigger
+trigger breakStealthTrigger
+init
+    // registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function isStealthSpell, function stealth)
+    stealthTrigger = CreateTrigger()
+    stealthTrigger.addAction(function stealth)
+    stealthTrigger.addCondition(Condition(function isStealthSpell))
+    stealthTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
+
+    // registerSpellEffectEvent(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH, function stealth)
+
+    breakStealthTrigger = CreateTrigger()
+    breakStealthTrigger.addAction(function clearMana)
+    breakStealthTrigger.addCondition(Condition(function isAssasain))
+    breakStealthTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)

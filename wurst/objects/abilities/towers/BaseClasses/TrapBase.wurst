@@ -94,4 +94,4 @@ function action()
     print(tb.owner.getName())
 
 init
-    TrapBase tb = new TrapBase(getSpawn(Player(0)).getCenter(), Player(0), null, 30,  Condition(function isTest), function action)
+    TrapBase tb = new TrapBase(getSpawn(Player(0)).getCenter(), null, 30,  Condition(function isTest), function action)

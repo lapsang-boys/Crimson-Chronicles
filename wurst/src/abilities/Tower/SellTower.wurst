@@ -22,5 +22,8 @@ function sellTower()
     printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), DISPLAY_TIME, p)
     tower.remove()
 
+function isSell() returns bool
+    return GetSpellAbilityId() == ID_SELL_TOWER
+
 init
     registerSpellEffectEvent(ID_SELL_TOWER, function sellTower)

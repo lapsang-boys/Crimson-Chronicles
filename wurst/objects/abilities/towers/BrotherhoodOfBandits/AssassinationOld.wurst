@@ -1,0 +1,61 @@
+// package Assassination
+
+
+// ###################################################################
+// ###### New solution found, saved for alternative reuse later ######
+// ###################################################################
+
+
+// import TimerUtils
+
+// import TowerConstants
+
+// class Assassin
+//     unit a
+//     real stealthTime
+//     bool stealth
+
+//     timer t
+//     trigger trig
+
+//     construct(unit a, real stealthTime)
+//         this.a = a
+//         this.stealthTime = stealthTime
+//         this.stealth = falseS
+//         this.t = getTimer()
+
+//         this.trig = CreateTrigger()
+//         this.trig.addAction(function assassinate)
+//         this.trig.addCondition(Condition(function isAssasain))
+//         this.trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+
+//         this.t.setData(this castTo int)
+//         this.t.start(stealthTime, () -> begin
+//             timer t = GetExpiredTimer()
+//             Assassin as = t.getData() castTo Assassin
+//             as.a.addAbility(ID_TOWER_ASSASSIN_STEALTH)
+//             // cast ability
+//             // remove ability
+//         end)
+
+//     ondestroy
+//         print("Ondestroy")
+//         this.t.release()
+//         this.trig.destr()
+
+// function stealth()
+
+// // Check if assasain
+// function isAssasain() returns bool
+//     return GetAttacker().getTypeId() == ID_TOWER_ASSASSIN
+
+// // On attack check
+// function assassinate()
+//     unit a = GetAttacker()
+//     // restart timer
+
+//     if not a.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
+//         return
+
+//     // remove stealth
+//     // remove crit

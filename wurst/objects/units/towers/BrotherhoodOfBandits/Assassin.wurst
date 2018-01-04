@@ -1,4 +1,4 @@
-package Assasain
+package Assassin
 
 import Assets
 import Damage
@@ -18,7 +18,7 @@ constant ATTACK_SPEED = 0.5
 constant GOLD_COST = 10
 constant POINT_VALUE = 10
 
-class Assasain extends TowerDefinition
+class Assassin extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
@@ -29,7 +29,7 @@ class Assasain extends TowerDefinition
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Assasain")
+        setUnitSoundSet("Assassin")
         setScalingValue(1.)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
@@ -46,7 +46,11 @@ class Assasain extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER))
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH))
+
+        setManaInitialAmount(0)
+        setManaMaximum(15)
+        setManaRegeneration(1.)
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -70,9 +74,9 @@ class Assasain extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(1)
         setHotkey("A")
-        setName("Assasain")
-        setTooltipBasic(tooltipBuild("A", "Assasain"))
-        setTooltipExtended(tooltipTowerExtended("High damage melee tower with the ability to assasinate.",
+        setName("Assassin")
+        setTooltipBasic(tooltipBuild("A", "Assassin"))
+        setTooltipExtended(tooltipTowerExtended("High damage melee tower with the ability to assassinate.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
@@ -80,4 +84,4 @@ class Assasain extends TowerDefinition
             "Top of the line."))
 
 @compiletime function tower()
-    new Assasain(ID_TOWER_ASSASAIN)
+    new Assassin(ID_TOWER_ASSASSIN)

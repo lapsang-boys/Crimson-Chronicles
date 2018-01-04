@@ -42,6 +42,9 @@ public constant ID_TOWER_MOLOTOV_MIKE = 't103'
 public constant ID_TOWER_POACHER = 't104'
 // TOWER_TEST_ABILITY_YY  = ....
 
-// -------------- Assasin -----------
-public constant ID_TOWER_ASSASAIN = 't105'
-// TOWER_TEST_ABILITY_YY  = ....
+// -------------- Assassin -----------
+public constant ID_TOWER_ASSASSIN = 't105'
+public constant ID_TOWER_ASSASSIN_STEALTH = 'a105'
+public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = 'a115'
+
+public constant ASSASSINATE_MANA_REQ = 15.

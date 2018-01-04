@@ -6,7 +6,7 @@ import AbilityObjEditing
 import TowerConstants
 import Tooltip
 
-class SellTowerAbility extends AbilityDefinitionWindWalk
+class SellTowerAbility extends AbilityDefinitionBearform
     construct(int id)
         super(id)
 

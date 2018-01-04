@@ -36,7 +36,7 @@ class Builder extends UnitDefinition
             ID2S(ID_TOWER_SECOND)       + "," +
             ID2S(ID_TOWER_MOLOTOV_MIKE) + "," +
             ID2S(ID_TOWER_POACHER)      + "," +
-            ID2S(ID_TOWER_ASSASAIN))
+            ID2S(ID_TOWER_ASSASSIN))
         setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL))
 
         // ------------------------------------
