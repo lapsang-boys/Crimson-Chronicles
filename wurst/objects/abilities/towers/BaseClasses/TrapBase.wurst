@@ -34,13 +34,6 @@ public class TrapBase
         this.timedLife = timedLife
         setUp(cond, onEnter)
 
-    construct (vec2 pos, player owner, unit trapDummy, real timedLife, conditionfunc cond, code onEnter)
-        this.pos = pos
-        this.owner = owner
-        this.trapDummy = trapDummy
-        this.timedLife = timedLife
-        setUp(cond, onEnter)
-
     function setUp(conditionfunc cond, code onEnter)
         this.owner = this.trapDummy.getOwner()
 
