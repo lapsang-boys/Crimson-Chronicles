@@ -1,0 +1,104 @@
+package TrapBase
+
+import HashMap
+import TimerUtils
+
+import Movement
+import GameplayConstants
+
+public HashMap<int, TrapBase> trapMap = new HashMap<int, TrapBase>
+
+
+public class TrapBase
+    vec2 pos
+    player owner
+    unit trapDummy
+    unit caster
+    real timedLife
+
+    rect r
+    region reg
+    trigger trig
+    timer tim
+
+    construct (vec2 pos, unit trapDummy, real timedLife, conditionfunc cond, code onEnter)
+        this.pos = pos
+        this.trapDummy = trapDummy
+        this.timedLife = timedLife
+        setUp(cond, onEnter)
+
+    construct (vec2 pos, unit trapDummy, unit caster, real timedLife, conditionfunc cond, code onEnter)
+        this.pos = pos
+        this.trapDummy = trapDummy
+        this.caster = caster
+        this.timedLife = timedLife
+        setUp(cond, onEnter)
+
+    construct (vec2 pos, player owner, unit trapDummy, real timedLife, conditionfunc cond, code onEnter)
+        this.pos = pos
+        this.owner = owner
+        this.trapDummy = trapDummy
+        this.timedLife = timedLife
+        setUp(cond, onEnter)
+
+    function setUp(conditionfunc cond, code onEnter)
+        this.owner = this.trapDummy.getOwner()
+
+        // Quarter of a standard building block to cover an entire maze isle
+        r = Rect(pos.x-32, pos.y-32, pos.x+32, pos.y+32)
+        this.reg = CreateRegion()
+        RegionAddRect(reg, r)
+        this.trig = CreateTrigger()
+        trapMap.put(trig.getHandleId(), this)
+        this.trig.addCondition(Condition(function isEnemy))
+
+        // Event region enter (filter on custom cond)
+        this.trig.registerEnterRegion(reg, cond)
+
+        // Action when trap is triggered
+        this.trig.addAction(onEnter)
+
+        // If entered we need to release timers and remove this trigger, regions etc
+        this.trig.addAction(function cleanUp)
+
+        this.tim = getTimer()
+        // Store all trap info in timer (TrapBase object)
+        this.tim.setData(this castTo int)
+
+        // Untriggered trap clean up after time expiration
+        this.tim.start(timedLife, () -> begin
+            timer t = GetExpiredTimer()
+            TrapBase tb = t.getData() castTo TrapBase
+            destroy tb
+        end)
+
+    // TrapBase object clean up
+    ondestroy
+        trapMap.remove(this.trig.getHandleId())
+        this.trapDummy.remove()
+        this.trig.destr()
+        this.tim.release()
+        this.reg.destr()
+
+// On triggered trap activate TrapBase ondestroy
+function cleanUp()
+    trigger trig = GetTriggeringTrigger()
+    trig.disable()
+
+    TrapBase tb = trapMap.get(trig.getHandleId())
+    destroy tb
+
+function isEnemy() returns bool
+    return GetTriggerUnit().getOwner() == PLAYER_BROWN
+
+function isTest() returns bool
+    return true
+
+function action()
+    print("asdf")
+    trigger trig = GetTriggeringTrigger()
+    TrapBase tb = trapMap.get(trig.getHandleId())
+    print(tb.owner.getName())
+
+init
+    TrapBase tb = new TrapBase(getSpawn(Player(0)).getCenter(), Player(0), null, 30,  Condition(function isTest), function action)
