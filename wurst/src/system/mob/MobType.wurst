@@ -1,9 +1,9 @@
-package MonsterType
+package MobType
 
 import Colorscheme
 import GameplayConstants
 
-public enum MonsterType
+public enum MobType
     INVULNERABLE
     MECHANICAL
     BOSS
@@ -18,67 +18,67 @@ public enum MonsterType
     LASTSTAND
     CHARGER
 
-public function monsterColor(MonsterType mt) returns color
+public function mobColor(MobType mt) returns color
     switch mt
-        case MonsterType.INVULNERABLE
+        case MobType.INVULNERABLE
             return color(88, 88, 88)
-        case MonsterType.MECHANICAL
+        case MobType.MECHANICAL
             return color(88, 88, 88)
-        case MonsterType.BOSS
+        case MobType.BOSS
             return color(0xcc, 0x11, 0x00)
-        case MonsterType.UNDEAD
+        case MobType.UNDEAD
             return color(0x66, 0x11, 0x55)
-        case MonsterType.FLYING
+        case MobType.FLYING
             return color(0xcc, 0xff, 0xff)
-        case MonsterType.AGILE
+        case MobType.AGILE
             return color(0x99, 0xcc, 0x00)
-        case MonsterType.SPECIAL
+        case MobType.SPECIAL
             return color(0xff, 0x00, 0xee)
-        case MonsterType.FAITH
+        case MobType.FAITH
             return color(0xff, 0xee, 0x00)
-        case MonsterType.DEMON
+        case MobType.DEMON
             return color(0x99, 0x11, 0x22)
-        case MonsterType.BENDER
+        case MobType.BENDER
             return color(0x00, 0x88, 0xff)
-        case MonsterType.BANISHED
+        case MobType.BANISHED
             return color(0xff, 0x66, 0x22)
-        case MonsterType.LASTSTAND
+        case MobType.LASTSTAND
             return color(0x66, 0x66, 0x33)
-        case MonsterType.CHARGER
+        case MobType.CHARGER
             return color(0xcc, 0x33, 0x66)
 
     // Unreachable.
     return color(0, 0, 0)
 
-public function monsterHint(MonsterType mt) returns string
-    color c = monsterColor(mt)
+public function mobHint(MobType mt) returns string
+    color c = mobColor(mt)
     switch mt
-        case MonsterType.INVULNERABLE
+        case MobType.INVULNERABLE
             return c.colorize("(Invulnerable)") + textColor.colorize(" - this creature will show you which path the enemies will take.")
-        case MonsterType.MECHANICAL
+        case MobType.MECHANICAL
             return c.colorize("(Mechanical)") + textColor.colorize(" - immune to slowing effects.")
-        case MonsterType.BOSS
+        case MobType.BOSS
             return c.colorize("(Boss)") + textColor.colorize(" - you are on your own. Good luck!")
-        case MonsterType.UNDEAD
+        case MobType.UNDEAD
             return c.colorize("(Undead)") + textColor.colorize(" - higher health regeneration abilities.")
-        case MonsterType.FLYING
+        case MobType.FLYING
             return c.colorize("(Flying)") + textColor.colorize(" - capable of flying over your maze.")
-        case MonsterType.AGILE
+        case MobType.AGILE
             return c.colorize("(Agile)") + textColor.colorize(" - becomes faster for a few seconds when reaching a node.")
-        case MonsterType.SPECIAL
+        case MobType.SPECIAL
             return c.colorize("(Special)") + textColor.colorize(" - this creature isn't in the encyclopedia of wild monsters.")
-        case MonsterType.FAITH
+        case MobType.FAITH
             return c.colorize("(Faith)") + textColor.colorize(" - becomes invulnerable for a few seconds when reaching a node.")
-        case MonsterType.DEMON
+        case MobType.DEMON
             return c.colorize("(Demon)") + textColor.colorize(" - gives a health boost to surounding monsters when it dies.")
-        case MonsterType.BENDER
+        case MobType.BENDER
             return c.colorize("(Bender)") + textColor.colorize(" - has the ability of moving through certain elements when reaching a node.")
-        case MonsterType.BANISHED
+        case MobType.BANISHED
             return c.colorize("(Banished)") + textColor.colorize(" - takes constant damage while in this realm.")
-        case MonsterType.LASTSTAND
+        case MobType.LASTSTAND
             return c.colorize("(Last Stand)") + textColor.colorize(" - this monster refuses to give up the first time around.")
-        case MonsterType.CHARGER
+        case MobType.CHARGER
             return c.colorize("(Charger)") + textColor.colorize(" - these guys might seem courageous at first, but when a few of them 'drop' they start to lose their moral.")
         default
-            print("Monster type not implemented")
+            print("Mob type not implemented")
             return ""
