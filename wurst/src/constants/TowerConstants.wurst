@@ -11,14 +11,14 @@ import ObjectIdGenerator
 // All towers are separated into teams
 
 // Sell tower ability (for all towers)
-public constant ID_SELL_TOWER = ABIL_ID_GEN.next()
+public constant ID_SELL_TOWER = compiletime(ABIL_ID_GEN.next())
 
 // ---------------------------------------------
 // ================ Team asdf ==================
 // ---------------------------------------------
 
 // -------------- Test tower -----------
-public constant ID_TOWER_TEST = UNIT_ID_GEN.next()
+public constant ID_TOWER_TEST = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....
 
 
@@ -27,26 +27,26 @@ public constant ID_TOWER_TEST = UNIT_ID_GEN.next()
 // ----------------------------------------------------------
 
 // -------------- Henchman -----------
-public constant ID_TOWER_HENCHMAN = UNIT_ID_GEN.next()
+public constant ID_TOWER_HENCHMAN = compiletime(UNIT_ID_GEN.next())
 
 // -------------- Second tower -----------
-public constant ID_TOWER_SECOND = UNIT_ID_GEN.next()
-public constant ID_HYSTERIA_VENOM = ABIL_ID_GEN.next()
-public constant ID_HYSTERIA_VENOM_TOOLTIP = ABIL_ID_GEN.next()
-public constant ID_HYSTERIA_VENOM_BUFF = BUFF_ID_GEN.next()
+public constant ID_TOWER_SECOND = compiletime(UNIT_ID_GEN.next())
+public constant ID_HYSTERIA_VENOM = compiletime(ABIL_ID_GEN.next())
+public constant ID_HYSTERIA_VENOM_TOOLTIP = compiletime(ABIL_ID_GEN.next())
+public constant ID_HYSTERIA_VENOM_BUFF = compiletime(BUFF_ID_GEN.next())
 public constant ID_HYSTERIA_VENOM_BUFF_BASE = 'Blcb'
 
 // -------------- Molotov Mike -----------
-public constant ID_TOWER_MOLOTOV_MIKE = UNIT_ID_GEN.next()
+public constant ID_TOWER_MOLOTOV_MIKE = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....
 
 // -------------- Poacher -----------
-public constant ID_TOWER_POACHER = UNIT_ID_GEN.next()
+public constant ID_TOWER_POACHER = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....
 
 // -------------- Assassin -----------
-public constant ID_TOWER_ASSASSIN = UNIT_ID_GEN.next()
-public constant ID_TOWER_ASSASSIN_STEALTH = ABIL_ID_GEN.next()
-public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = ABIL_ID_GEN.next()
+public constant ID_TOWER_ASSASSIN = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_ASSASSIN_STEALTH = compiletime(ABIL_ID_GEN.next())
+public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = compiletime(ABIL_ID_GEN.next())
 
 public constant ASSASSINATE_MANA_REQ = 15.
