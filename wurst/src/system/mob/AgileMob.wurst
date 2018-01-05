@@ -1,0 +1,29 @@
+package AgileMob
+
+import TimerUtils
+
+import Alexandria
+
+class AgileMob extends MobWrapper implements Enterer
+    real speedBoost
+    real origSpeed
+    real duration
+    timer t
+    construct(unit u, real origSpeed, real speedBoost, real duration)
+        super(u)
+        this.origSpeed = origSpeed
+        this.speedBoost = speedBoost
+        this.duration = duration
+        this.t = getTimer()
+
+    function onEnter()
+        super.u.setMoveSpeed(origSpeed + this.speedBoost)
+        t.setData(this castTo int)
+        t.start(duration, () -> begin
+            timer t = GetExpiredTimer()
+            AgileMob am = t.getData() castTo AgileMob
+            am.getUnit().setMoveSpeed(am.origSpeed)
+        end)
+
+    ondestroy
+        this.t.release()

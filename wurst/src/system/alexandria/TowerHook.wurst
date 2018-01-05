@@ -1,0 +1,21 @@
+package TowerHook
+
+import Alexandria
+import TowerConstants
+
+// Towers we will hook on.
+import Assassination
+
+function hook()
+    print("hooked")
+    unit u = GetConstructedStructure()
+    switch u.getTypeId()
+        case ID_TOWER_ASSASSIN
+            new Assassin(u)
+        default
+            return
+
+init
+    trigger hookTrigger = CreateTrigger()
+    hookTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
+    hookTrigger.addAction(function hook)

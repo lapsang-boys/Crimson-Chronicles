@@ -17,6 +17,7 @@ public enum MobType
     BANISHED
     LASTSTAND
     CHARGER
+    // MORPHER
 
 public function mobColor(MobType mt) returns color
     switch mt

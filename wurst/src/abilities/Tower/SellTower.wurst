@@ -4,6 +4,7 @@ import Assets
 import RegisterEvents
 import SoundUtils
 
+import Alexandria
 import GameplayConstants
 import TowerConstants
 import Colorscheme
@@ -21,6 +22,10 @@ function sellTower()
 
     printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), DISPLAY_TIME, p)
     tower.remove()
+
+    let id = GetTriggerUnit().getHandleId()
+    if towerMap.has(id)
+        destroy towerMap.get(id)
 
 function isSell() returns bool
     return GetSpellAbilityId() == ID_SELL_TOWER

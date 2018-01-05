@@ -5,7 +5,7 @@ import HashMap
 
 import Squad
 import GameplayConstants
-import MonsterType
+import MobType
 import Colorscheme
 
 // ----------------------------------------------------------------------------
@@ -39,9 +39,9 @@ public class Level
     int bonus
     string levelName
     string desc
-    LinkedList<MonsterType> types
+    LinkedList<MobType> types
 
-    construct (LinkedList<SquadMember> squadChain, int bonus, string levelName, string desc, LinkedList<MonsterType> types)
+    construct (LinkedList<SquadMember> squadChain, int bonus, string levelName, string desc, LinkedList<MobType> types)
         this.squadChain = squadChain
         this.bonus = bonus
         this.levelName = levelName
@@ -53,7 +53,7 @@ public class Level
         if this.desc.length() > 0
             printTimedToPlayer(this.desc, DISPLAY_TIME, p)
         for mt in this.types
-            printTimedToPlayer(monsterHint(mt), DISPLAY_TIME, p)
+            printTimedToPlayer(mobHint(mt), DISPLAY_TIME, p)
 
 public LinkedList<Level> levels = new LinkedList<Level>
 
@@ -75,7 +75,7 @@ init
         0, // Bonus
         levelNameMsg(0, "Path shower"),
         levelDescriptionMsg(""),
-        new LinkedList<MonsterType>..add(MonsterType.INVULNERABLE))
+        new LinkedList<MobType>..add(MobType.INVULNERABLE))
     levels.add(L0)
 
     Level L1 = new Level(
@@ -83,7 +83,7 @@ init
         10, // Bonus
         levelNameMsg(1, "Raccoon"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MonsterType>)
+        new LinkedList<MobType>)
     levels.add(L1)
 
     Level L2 = new Level(
@@ -91,7 +91,7 @@ init
         10, // Bonus
         levelNameMsg(2, "Acolyte"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MonsterType>)
+        new LinkedList<MobType>)
     levels.add(L2)
 
     Level L3 = new Level(
@@ -99,7 +99,7 @@ init
         10, // Bonus
         levelNameMsg(3, "Archer"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MonsterType>)
+        new LinkedList<MobType>)
     levels.add(L3)
 
     LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
@@ -114,6 +114,6 @@ init
         10, // Bonus
         levelNameMsg(4, "Squaden"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MonsterType>)
+        new LinkedList<MobType>)
     levels.add(L4)
 

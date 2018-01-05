@@ -1,13 +1,26 @@
 package Assassination
 
 import RegisterEvents
+import TimerUtils
 import Assets
 import AbilityObjEditing
 
+import Alexandria
 import TowerConstants
 import Tooltip
 
 constant STEALTH_DAMAGE = 300
+
+public class Assassin extends TowerWrapper
+    timer t
+    construct(unit u)
+        super(u)
+        this.t = getTimer()
+        print("Created an assassin")
+
+    ondestroy
+        print("I was destroyed!")
+        this.t.release()
 
 class Stealth extends AbilityDefinitionWindWalk
     construct(int id)

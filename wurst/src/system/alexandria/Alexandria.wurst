@@ -1,0 +1,46 @@
+package Alexandria
+
+import HashMap
+
+public HashMap<int, MobWrapper> mobMap = new HashMap<int, MobWrapper>
+public HashMap<int, TowerWrapper> towerMap = new HashMap<int, TowerWrapper>
+
+public abstract class MobWrapper
+    unit u
+    construct(unit u)
+        this.u = u
+        mobMap.put(this.u.getHandleId(), this)
+    ondestroy
+        mobMap.remove(this.u.getHandleId())
+
+    function getUnit() returns unit
+        return this.u
+
+public abstract class TowerWrapper
+    unit u
+    construct(unit u)
+        this.u = u
+        towerMap.put(this.u.getHandleId(), this)
+    ondestroy
+        towerMap.remove(this.u.getHandleId())
+
+    function getUnit() returns unit
+        return this.u
+
+public interface Enterer
+    function onEnter()
+
+// public interface Deather
+//     function onDeath()
+
+// public interface Countdowner
+//     function onFinish()
+
+// public interface Perioder
+//     function onTick()
+
+// public interface Morpher
+//     function morph()
+
+// public interface Healther
+//     function onHealth()
