@@ -1,5 +1,7 @@
 package TowerConstants
 
+import ObjectIdGenerator
+
 // Format:
 // -------------- XX tower -----------
 // ID_TOWER_XX          = .... (unit id)
@@ -9,14 +11,14 @@ package TowerConstants
 // All towers are separated into teams
 
 // Sell tower ability (for all towers)
-public constant ID_SELL_TOWER = 'a002'
+public constant ID_SELL_TOWER = ABIL_ID_GEN.next()
 
 // ---------------------------------------------
 // ================ Team asdf ==================
 // ---------------------------------------------
 
 // -------------- Test tower -----------
-public constant ID_TOWER_TEST = 't000'
+public constant ID_TOWER_TEST = UNIT_ID_GEN.next()
 // TOWER_TEST_ABILITY_YY  = ....
 
 
@@ -25,26 +27,26 @@ public constant ID_TOWER_TEST = 't000'
 // ----------------------------------------------------------
 
 // -------------- Henchman -----------
-public constant ID_TOWER_HENCHMAN = 't101'
+public constant ID_TOWER_HENCHMAN = UNIT_ID_GEN.next()
 
 // -------------- Second tower -----------
-public constant ID_TOWER_SECOND = 't102'
-public constant ID_HYSTERIA_VENOM = 'a102'
-public constant ID_HYSTERIA_VENOM_TOOLTIP = 'a112'
-public constant ID_HYSTERIA_VENOM_BUFF = 'b102'
+public constant ID_TOWER_SECOND = UNIT_ID_GEN.next()
+public constant ID_HYSTERIA_VENOM = ABIL_ID_GEN.next()
+public constant ID_HYSTERIA_VENOM_TOOLTIP = ABIL_ID_GEN.next()
+public constant ID_HYSTERIA_VENOM_BUFF = BUFF_ID_GEN.next()
 public constant ID_HYSTERIA_VENOM_BUFF_BASE = 'Blcb'
 
 // -------------- Molotov Mike -----------
-public constant ID_TOWER_MOLOTOV_MIKE = 't103'
+public constant ID_TOWER_MOLOTOV_MIKE = UNIT_ID_GEN.next()
 // TOWER_TEST_ABILITY_YY  = ....
 
 // -------------- Poacher -----------
-public constant ID_TOWER_POACHER = 't104'
+public constant ID_TOWER_POACHER = UNIT_ID_GEN.next()
 // TOWER_TEST_ABILITY_YY  = ....
 
 // -------------- Assassin -----------
-public constant ID_TOWER_ASSASSIN = 't105'
-public constant ID_TOWER_ASSASSIN_STEALTH = 'a105'
-public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = 'a115'
+public constant ID_TOWER_ASSASSIN = UNIT_ID_GEN.next()
+public constant ID_TOWER_ASSASSIN_STEALTH = ABIL_ID_GEN.next()
+public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = ABIL_ID_GEN.next()
 
 public constant ASSASSINATE_MANA_REQ = 15.

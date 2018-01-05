@@ -2,6 +2,7 @@ package BuilderConstants
 
 import Assets
 import HashMap
+import ObjectIdGenerator
 
 // Format:
 // -------------- XX builder -----------
@@ -18,15 +19,15 @@ import HashMap
 // ------------------------------------------
 
 // Tavern
-public constant ID_TAVERN = 't999'
+public constant ID_TAVERN = UNIT_ID_GEN.next()
 
 // -------------- Black builder -----------
-public constant ID_BUILDER_BLACK = 'b001'
+public constant ID_BUILDER_BLACK = UNIT_ID_GEN.next()
 public constant SOUND_BUILDER_BLACK = Sounds.acolyteYesAttack1
 public constant ICON_BUILDER_BLACK = Icons.bTNAcolyte
 
 // -------------- Brotherhood of bandits builder -----------
-public constant ID_BUILDER_BROTHERHOOD = 'b002'
+public constant ID_BUILDER_BROTHERHOOD = UNIT_ID_GEN.next()
 public constant SOUND_BUILDER_BROTHERHOOD = Sounds.tinkerMorph1
 public constant ICON_BUILDER_BROTHERHOOD = Icons.bTNClockWerkGoblin
 public constant ID_BROTHERHOOD_GROUND_TEXTURE = "HSMA"
@@ -50,6 +51,6 @@ public HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
 // ------------------------------------------------------------
 
 // Ability to summon next level
-public constant ID_NEXT_LEVEL = 'a000'
+public constant ID_NEXT_LEVEL = ABIL_ID_GEN.next()
 // Placeholder ability when level in progress
-public constant ID_LEVEL_IN_PROGRESS = 'a001'
+public constant ID_LEVEL_IN_PROGRESS = ABIL_ID_GEN.next()
