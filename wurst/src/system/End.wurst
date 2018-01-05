@@ -8,6 +8,7 @@ import SoundUtils
 import LinkedList
 
 import Regions
+import Alexandria
 import GameplayConstants
 import Movement
 import Levels
@@ -21,7 +22,6 @@ class UnitWrapper
         this.playerNum = playerNum
 
     ondestroy
-        u.remove()
         PlayerData pd = playerData.get(this.playerNum)
         pd.registerMobDeath()
 
@@ -31,18 +31,20 @@ function leak()
     UnitWrapper uw = new UnitWrapper(u, n)
     player p = Player(n)
 
+    // Take player life.
     PlayerData pd = playerData.get(n)
     int lifeTaken = u.getFoodUsed()
     pd.registerLeak(lifeTaken, unitBounty.get(u.getTypeId()))
 
-    SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
-    sd.playForPlayer(p)
-
+    // SFX.
     flashEffect(Abilities.aIilTarget, u.getPos())
 
+    // Destroy MobWrapper
+    destroy mobMap.get(u.getHandleId())
+
+    // Register mob death for player
     destroy uw
 
-    // SFX
 
 function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN

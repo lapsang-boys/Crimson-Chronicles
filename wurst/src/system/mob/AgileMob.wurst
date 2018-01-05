@@ -1,14 +1,17 @@
 package AgileMob
 
 import TimerUtils
+import Assets
 
 import Alexandria
+import Squad
 
-class AgileMob extends MobWrapper implements Enterer
+public class AgileBase extends MobWrapper implements Enterer
     real speedBoost
     real origSpeed
     real duration
     timer t
+    effect e
     construct(unit u, real origSpeed, real speedBoost, real duration)
         super(u)
         this.origSpeed = origSpeed
@@ -16,14 +19,29 @@ class AgileMob extends MobWrapper implements Enterer
         this.duration = duration
         this.t = getTimer()
 
-    function onEnter()
-        super.u.setMoveSpeed(origSpeed + this.speedBoost)
+    override function onEnter()
+        super.u.setMoveSpeed(this.origSpeed + this.speedBoost)
+        this.e = super.u.addEffect(Abilities.tornado_Target, "origin")
+
         t.setData(this castTo int)
         t.start(duration, () -> begin
             timer t = GetExpiredTimer()
-            AgileMob am = t.getData() castTo AgileMob
+            AgileBase am = t.getData() castTo AgileBase
             am.getUnit().setMoveSpeed(am.origSpeed)
+            am.e.destr()
         end)
 
     ondestroy
         this.t.release()
+
+// Squad hook
+public class Agile implements Hooker
+    real origSpeed
+    real speedBoost
+    real duration
+    construct(real origSpeed, real speedBoost, real duration)
+        this.origSpeed = origSpeed
+        this.speedBoost = speedBoost
+        this.duration = duration
+    function hook(unit u)
+        new AgileBase(u, this.origSpeed, this.speedBoost, this.duration)

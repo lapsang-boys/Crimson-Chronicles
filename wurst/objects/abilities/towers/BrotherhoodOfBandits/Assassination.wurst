@@ -16,10 +16,8 @@ public class Assassin extends TowerWrapper
     construct(unit u)
         super(u)
         this.t = getTimer()
-        print("Created an assassin")
 
     ondestroy
-        print("I was destroyed!")
         this.t.release()
 
 class Stealth extends AbilityDefinitionWindWalk

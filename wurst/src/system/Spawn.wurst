@@ -76,6 +76,9 @@ function summonMobs()
 			pos = spawn.randomPoint()
 
 	let u = createUnit(PLAYER_BROWN, single.u_id, pos, angle(PI/2))
+	if not single.h == null
+		single.h.hook(u)
+
 	flashEffect(Abilities.aIilTarget, pos)
 
 	u.setUserData(1)

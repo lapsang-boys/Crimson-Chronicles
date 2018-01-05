@@ -6,6 +6,7 @@ import TypeCasting
 import LinkedList
 
 import Regions
+import Alexandria
 import Movement
 import GameplayConstants
 
@@ -13,8 +14,10 @@ function act()
     let u = GetTriggerUnit()
     let cv = u.getUserData()
     u.setUserData(cv + 1)
-    let pos = getNext(GetTriggerUnit())
-    GetTriggerUnit().issuePointOrder("move", pos)
+    let pos = getNext(u)
+    u.issuePointOrder("move", pos)
+    MobWrapper mw = mobMap.get(u.getHandleId())
+    mw.onEnter()
 
 function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN

@@ -4,6 +4,7 @@ import LinkedList
 import HashMap
 
 import Squad
+import AgileMob
 import GameplayConstants
 import MobType
 import Colorscheme
@@ -33,6 +34,8 @@ public HashMap<int, int> unitBounty = new HashMap<int, int>
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
 // ----------------------------------------------------------------------------
+
+
 
 public class Level
     LinkedList<SquadMember> squadChain
@@ -71,7 +74,7 @@ function levelDescriptionMsg(string desc) returns string
 init
     // ============== Area 1 ==============
     Level L0 = new Level(
-        toCenterSquad(ID_PATH_SHOWER, 3, 0),
+        toCenterSquad(ID_PATH_SHOWER, 3, 0, new EmptyHooker),
         0, // Bonus
         levelNameMsg(0, "Path shower"),
         levelDescriptionMsg(""),
@@ -79,7 +82,7 @@ init
     levels.add(L0)
 
     Level L1 = new Level(
-        toDefaultSquad(ID_RACCOON, 10, 1),
+        toDefaultSquad(ID_RACCOON, 10, 1, new Agile(100, 400, 1)),
         10, // Bonus
         levelNameMsg(1, "Raccoon"),
         levelDescriptionMsg("Description"),
@@ -87,7 +90,7 @@ init
     levels.add(L1)
 
     Level L2 = new Level(
-        toDefaultSquad(ID_ACCO, 10, 1),
+        toDefaultSquad(ID_ACCO, 10, 1, new EmptyHooker),
         10, // Bonus
         levelNameMsg(2, "Acolyte"),
         levelDescriptionMsg("Description"),
@@ -95,7 +98,7 @@ init
     levels.add(L2)
 
     Level L3 = new Level(
-        toDefaultSquad(ID_ARCHY, 10, 1),
+        toDefaultSquad(ID_ARCHY, 10, 1, new EmptyHooker),
         10, // Bonus
         levelNameMsg(3, "Archer"),
         levelDescriptionMsg("Description"),
@@ -103,11 +106,11 @@ init
     levels.add(L3)
 
     LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1)))
-    ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1)))
-    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1)))
-    ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1)))
-    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1)))
+    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))
+    ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1), new EmptyHooker))
+    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1), new EmptyHooker))
+    ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1), new EmptyHooker))
+    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1), new EmptyHooker))
     .toSquadChain()
     Level L4 = new Level(
         L4Chain,

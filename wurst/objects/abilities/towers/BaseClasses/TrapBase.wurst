@@ -88,10 +88,5 @@ function isTest() returns bool
     return true
 
 function action()
-    print("asdf")
     trigger trig = GetTriggeringTrigger()
     TrapBase tb = trapMap.get(trig.getHandleId())
-    print(tb.owner.getName())
-
-init
-    TrapBase tb = new TrapBase(getSpawn(Player(0)).getCenter(), null, 30,  Condition(function isTest), function action)

@@ -5,16 +5,25 @@ import HashMap
 public HashMap<int, MobWrapper> mobMap = new HashMap<int, MobWrapper>
 public HashMap<int, TowerWrapper> towerMap = new HashMap<int, TowerWrapper>
 
-public abstract class MobWrapper
+public class EmptyMobWrapper extends MobWrapper
+    construct(unit u)
+        super(u)
+
+public abstract class MobWrapper implements Enterer
     unit u
     construct(unit u)
         this.u = u
         mobMap.put(this.u.getHandleId(), this)
-    ondestroy
-        mobMap.remove(this.u.getHandleId())
 
     function getUnit() returns unit
         return this.u
+
+    function onEnter()
+        skip
+
+    ondestroy
+        mobMap.remove(this.u.getHandleId())
+        u.remove()
 
 public abstract class TowerWrapper
     unit u
@@ -36,11 +45,9 @@ public interface Enterer
 // public interface Countdowner
 //     function onFinish()
 
+// Might be used for healther!
 // public interface Perioder
 //     function onTick()
-
-// public interface Morpher
-//     function morph()
 
 // public interface Healther
 //     function onHealth()

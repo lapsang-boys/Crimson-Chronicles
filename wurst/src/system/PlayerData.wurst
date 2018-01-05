@@ -55,12 +55,15 @@ public class PlayerData
 
     function loseLife(int i)
         this.life -= i
-        if this.life >= 1
+        if this.life >= 1 and i > 0
+            SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
+            sd.playForPlayer(p)
             if i > 1
                 printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives. You have ") + numberColor.colorize(I2S(this.life)) + warningColor.colorize(" left."), DISPLAY_TIME, this.p)
             else if i == 1
                 printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life. You have ") + numberColor.colorize(I2S(this.life)) + warningColor.colorize(" left."), DISPLAY_TIME, this.p)
-        else
+
+        if life <= 0
             loseGame()
 
     function loseGame()
@@ -95,6 +98,7 @@ public class PlayerData
         this.levelInProgress = false
         this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
 
+        let finishedLevel = this.level
         this.level++
         this.mobsRemoved = 0
 
@@ -103,11 +107,11 @@ public class PlayerData
             this.winGame()
             return
 
-        if this.level == 1
+        if finishedLevel == 0
             printTimedToPlayer(infoColor.colorize("You have completed the info level."), DISPLAY_TIME, this.p)
         else
             printTimedToPlayer(infoColor.colorize("You completed level ")
-            + numberColor.colorize(I2S(this.level))
+            + numberColor.colorize(I2S(finishedLevel))
             + infoColor.colorize(" and also received ")
             + numberColor.colorize(I2S(l.bonus))
             + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)

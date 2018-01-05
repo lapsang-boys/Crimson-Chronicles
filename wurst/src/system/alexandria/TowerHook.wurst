@@ -7,7 +7,6 @@ import TowerConstants
 import Assassination
 
 function hook()
-    print("hooked")
     unit u = GetConstructedStructure()
     switch u.getTypeId()
         case ID_TOWER_ASSASSIN
