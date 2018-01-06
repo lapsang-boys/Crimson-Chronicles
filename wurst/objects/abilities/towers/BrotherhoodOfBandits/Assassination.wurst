@@ -111,7 +111,7 @@ function toggleAbility(unit u)
         u.addAbility(ID_TOWER_ASSASSIN_STEALTH)
         u.setVertexColor(stealth_color)
 
-// Check if assassain
+// Check if assassin
 function isAssasain() returns bool
     return GetAttacker().getTypeId() == ID_TOWER_ASSASSIN
 
