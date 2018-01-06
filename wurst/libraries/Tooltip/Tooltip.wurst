@@ -35,4 +35,13 @@ public function tooltipTowerExtended(string text, damage dmg, real speed, int ra
 
     return tooltip
 
+public function tooltipBuffName(string text, bool positive) returns string
+    if positive
+        return positiveBuffColor.colorize(text)
+    else
+        return negativeBuffColor.colorize(text)
+
+public function tooltipBuffText(string text) returns string
+        return textColor.colorize(text)
+
 public function tooltipBuilder()

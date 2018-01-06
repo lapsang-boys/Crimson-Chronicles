@@ -12,6 +12,9 @@ public color infoColor = rgba(151, 249, 127, 1)
 public color warningColor = fromHsl(208, 53/100, 32/100)
 public color numberColor = fromHsl(164, 95/100, 43/100)
 
+public color positiveBuffColor = fromHsl(112, 29/100, 48/100)
+public color negativeBuffColor = fromHsl(1, 66/100, 53/100)
+
 function rgba(int r, int g, int b, int _) returns color
     return color(r, g, b)
 
