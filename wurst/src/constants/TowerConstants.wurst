@@ -48,5 +48,5 @@ public constant ID_TOWER_POACHER = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH = compiletime(ABIL_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = compiletime(ABIL_ID_GEN.next())
-
-public constant ASSASSINATE_MANA_REQ = 15.
+public constant ASSASSINATE_STEALTH_TIME = 15.
+public constant ASSASSINATE_STEALTH_BONUS_DMG = 6

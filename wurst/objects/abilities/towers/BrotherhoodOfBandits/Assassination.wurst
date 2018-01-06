@@ -1,125 +1,143 @@
 package Assassination
 
-import RegisterEvents
 import TimerUtils
-import Assets
 import AbilityObjEditing
+import Assets
 
 import Alexandria
 import TowerConstants
 import Tooltip
 
-constant STEALTH_DAMAGE = 300
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
 
-public class Assassin extends TowerWrapper
-    timer t
-    construct(unit u)
-        super(u)
-        this.t = getTimer()
+colorA stealth_color = colorA(255, 255, 255, 100)
+colorA normal_color = colorA(255, 255, 255, 255)
 
-    ondestroy
-        this.t.release()
-
-class Stealth extends AbilityDefinitionWindWalk
+class Stealth extends AbilityDefinitionCriticalStrikecreep
     construct(int id)
         super(id)
 
-        setName("Stealth")
+        setName("Stealthed")
         setHotkeyNormal("-")
         setTooltipNormal(1, tooltipCustomBasic("-", "Stealthed", ""))
-        setTooltipNormalExtended(1, tooltipTextFlavor("The next attack made by the assassin will deal " + I2S(STEALTH_DAMAGE) + " bonus damage and break stealth.",
+        setTooltipNormalExtended(1, tooltipTextFlavor("The next attack made by the assassin will deal " + I2S(ASSASSINATE_STEALTH_BONUS_DMG) + " times the normal damage and break stealth.",
         "That came from behind..."))
+        setIconNormal(Icons.bTNTheBlackArrow)
 
-        setBackstabDamage(1, true)
-        // setBackstabDamage1(1, STEALTH_DAMAGE)
+        setDamageMultiplier(1, I2R(ASSASSINATE_STEALTH_BONUS_DMG))
+        setChancetoCriticalStrike(1, 100.)
+        setNeverMiss(1, true)
+        setTargetsAllowed(1, "air,ground,enemy")
+        setHeroAbility(false)
 
         setButtonPositionNormalX(0)
         setButtonPositionNormalY(2)
-        setEffectSound(Sounds.abominationDeath1)
-        //setArtCaster("")
-        //setCasterAttachmentPoint("")
-        //setArtEffect("")
-        setIconNormal(Icons.pASBTNElunesBlessing)
 
-        //setArtTarget("")
-        setDurationNormal(1, 0)
-        //setTargetAttachmentPoint("")
-        setHeroAbility(false)
-        setRequirements("")
-        setLevels(1)
-        //setBuffs(1, "")
 
 @compiletime function stealthAbility()
     new Stealth(ID_TOWER_ASSASSIN_STEALTH)
 
-class NotStealth extends AbilityDefinitionBloodlustCreep
+
+class NotStealth extends AbilityDefinitionEvasion
     construct(int id)
         super(id)
 
         setHotkeyNormal("")
-        setTooltipNormal(1, tooltipCustomBasic("Q", "Stealth", ""))
-        setTooltipNormalExtended(1, tooltipTextFlavor("The assassin automatically enter stealth after 15 seconds if no attacks have been made, "
-        + I2S(STEALTH_DAMAGE) + " bound damage will be dealth upon the first engagement when stealthed.",
-        "It takes time to blend in but the reward is great."))
+        setTooltipNormal(1, tooltipCustomBasic("-", "Stealth", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("The assassin automatically enter stealth after "
+        + R2S(ASSASSINATE_STEALTH_TIME) + " seconds if no attacks have been made. The first attack from stealth will deal "
+        + I2S(ASSASSINATE_STEALTH_BONUS_DMG) + "x the normal damage.",
+        "Some argue that chameleoning your way through life gets you to a point where nothing is real. I beg to differ."))
 
-        setHotkeyNormal("Q")
-
-        setIconNormal(Icons.bTNShadowMeld)
-        setIconTurnOff(Icons.bTNShadowMeld)
-
+        setIconNormal(Icons.bTNAmbush)
         setButtonPositionNormalX(0)
         setButtonPositionNormalY(2)
-
-        setDurationNormal(1, 0.01)
         setArtCaster("")
         setArtEffect("")
         setEffectSound("")
-        setBuffs(1, "")
-        setManaCost(1, 15)
-        setTargetsAllowed(1, "self")
 
 @compiletime function notStealth()
     new NotStealth(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
 
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+public class Assassin extends TowerWrapper
+    unit a
+    real stealthTime
+    bool leavingStealth
+
+    timer t
+    trigger trig
+
+    construct(unit a)
+        super(a)
+        this.a = a
+        this.stealthTime = ASSASSINATE_STEALTH_TIME
+        this.leavingStealth = false
+        this.t = getTimer()
+
+        // More efficient to have a constant trigger?
+        this.trig = CreateTrigger()
+        this.trig.addAction(function assassinate)
+        this.trig.addCondition(Condition(function isAssasain))
+        this.trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+
+        this.t.setData(this castTo int)
+        this.t.start(stealthTime, function stealth)
+
+    ondestroy
+        this.t.release()
+        this.trig.destr()
+
+// When timer expires activate (enter) stealth
 function stealth()
-    print("Stealth trig: " + I2S(GetSpellAbilityId()))
-    unit u = GetTriggerUnit()
+    timer t = GetExpiredTimer()
+    Assassin as = t.getData() castTo Assassin
+    toggleAbility(as.a)
+
+// Switch abilites and color when leaving/entering stealth
+function toggleAbility(unit u)
     if u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
-        return
+        u.removeAbility(ID_TOWER_ASSASSIN_STEALTH)
+        u.addAbility(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
+        u.setVertexColor(normal_color)
+    else
+        u.removeAbility(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
+        u.addAbility(ID_TOWER_ASSASSIN_STEALTH)
+        u.setVertexColor(stealth_color)
 
-    u.removeAbility(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
-    u.addAbility(ID_TOWER_ASSASSIN_STEALTH)
-    u.issueImmediateOrder("windwalk")
-
-function clearMana()
-    unit u = GetTriggerUnit()
-    u.setMana(0)
-
-    if not u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
-        return
-
-    u.removeAbility(ID_TOWER_ASSASSIN_STEALTH)
-    u.addAbility(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
-
-
+// Check if assasain
 function isAssasain() returns bool
     return GetAttacker().getTypeId() == ID_TOWER_ASSASSIN
 
-function isStealthSpell() returns bool
-    return GetSpellAbilityId() == ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH
+// On attack check
+function assassinate()
+    unit u = GetAttacker()
+    Assassin as1 = towerMap.get(u.getHandleId()) castTo Assassin
+    // Reset timer for stealth
+    as1.t.start(as1.stealthTime, function stealth)
 
-trigger stealthTrigger
-trigger breakStealthTrigger
-init
-    // registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function isStealthSpell, function stealth)
-    stealthTrigger = CreateTrigger()
-    stealthTrigger.addAction(function stealth)
-    stealthTrigger.addCondition(Condition(function isStealthSpell))
-    stealthTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    // Remove stealth if stealthed (leav stealth)
+    if u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
+        // Check required so that multiple timers are not started since event trigger several times
+        if as1.leavingStealth
+            return
+        else
+            as1.leavingStealth = true
+            timer t = getTimer()
+            t.setData(as1 castTo int)
+            // Toggle ability after timer to not remove it before attack actually happends
+            t.start(0.4, () -> begin
+                timer tInner = GetExpiredTimer()
+                Assassin as2 = tInner.getData() castTo Assassin
+                toggleAbility(as2.a)
+                tInner.release()
+                as2.leavingStealth = false
+            end)
 
-    // registerSpellEffectEvent(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH, function stealth)
 
-    breakStealthTrigger = CreateTrigger()
-    breakStealthTrigger.addAction(function clearMana)
-    breakStealthTrigger.addCondition(Condition(function isAssasain))
-    breakStealthTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
