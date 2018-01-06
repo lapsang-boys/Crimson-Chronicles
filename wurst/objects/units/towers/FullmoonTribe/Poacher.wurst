@@ -31,7 +31,7 @@ class Poacher extends TowerDefinition
         setTintingColorBlue(255)
         setUnitSoundSet("Tuskarr")
         setScalingValue(0.85)
-        setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
+        setGroundTexture(ID_FULLMOON_TRIBE_GROUND_TEXTURE)
 
         // ------------------------------------
         // ========== Attack damage ==========

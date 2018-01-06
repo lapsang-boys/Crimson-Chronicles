@@ -28,7 +28,7 @@ class Builder extends UnitDefinition
         // ========== Model file etc. ==========
         // -------------------------------------
         setModelFile(Units.huntress)
-        setIconGameInterface(ICON_BUILDER_BROTHERHOOD)
+        setIconGameInterface(ICON_BUILDER_FULLMOON_TRIBE)
         setUnitSoundSet("Naisha")
 
         // --------------------------------------------
@@ -62,4 +62,4 @@ class Builder extends UnitDefinition
 
 
 @compiletime function builder()
-    new Builder(ID_BUILDER_BROTHERHOOD)
+    new Builder(ID_BUILDER_FULLMOON_TRIBE)

@@ -31,7 +31,7 @@ class Assassin extends TowerDefinition
         setTintingColorBlue(255)
         setUnitSoundSet("Assassin")
         setScalingValue(1.)
-        setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
+        setGroundTexture(ID_FULLMOON_TRIBE_GROUND_TEXTURE)
 
         // ------------------------------------
         // ========== Attack damage ==========
