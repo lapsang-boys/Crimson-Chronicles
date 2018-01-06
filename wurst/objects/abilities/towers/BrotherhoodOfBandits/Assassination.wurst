@@ -84,7 +84,7 @@ public class Assassin extends TowerWrapper
         // More efficient to have a constant trigger?
         this.trig = CreateTrigger()
         this.trig.addAction(function assassinate)
-        this.trig.addCondition(Condition(function isAssasain))
+        this.trig.addCondition(Condition(function isAssassin))
         this.trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
 
         this.t.setData(this castTo int)
@@ -112,7 +112,7 @@ function toggleAbility(unit u)
         u.setVertexColor(stealth_color)
 
 // Check if assassin
-function isAssasain() returns bool
+function isAssassin() returns bool
     return GetAttacker().getTypeId() == ID_TOWER_ASSASSIN
 
 // On attack check
