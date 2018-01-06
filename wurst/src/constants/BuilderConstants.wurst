@@ -30,7 +30,7 @@ public constant ICON_BUILDER_BLACK = Icons.bTNAcolyte
 public constant ID_BUILDER_BROTHERHOOD = compiletime(UNIT_ID_GEN.next())
 public constant SOUND_BUILDER_BROTHERHOOD = Sounds.naishaWarcry1
 public constant ICON_BUILDER_BROTHERHOOD = Icons.bTNHuntress
-public constant ID_BROTHERHOOD_GROUND_TEXTURE = "HSMA"
+public constant ID_BROTHERHOOD_GROUND_TEXTURE = "ESMB"
 
 // ------------------------------------------
 // ================ Hashmaps ================
