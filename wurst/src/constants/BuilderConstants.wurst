@@ -28,8 +28,8 @@ public constant ICON_BUILDER_BLACK = Icons.bTNAcolyte
 
 // -------------- Brotherhood of bandits builder -----------
 public constant ID_BUILDER_BROTHERHOOD = compiletime(UNIT_ID_GEN.next())
-public constant SOUND_BUILDER_BROTHERHOOD = Sounds.tinkerMorph1
-public constant ICON_BUILDER_BROTHERHOOD = Icons.bTNClockWerkGoblin
+public constant SOUND_BUILDER_BROTHERHOOD = Sounds.naishaWarcry1
+public constant ICON_BUILDER_BROTHERHOOD = Icons.bTNHuntress
 public constant ID_BROTHERHOOD_GROUND_TEXTURE = "HSMA"
 
 // ------------------------------------------

@@ -22,19 +22,19 @@ public constant ID_TOWER_TEST = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....
 
 
-// ----------------------------------------------------------
-// ================ Brotherhood of bandits ==================
-// ----------------------------------------------------------
+// ------------------------------------------------------
+// ================ The fullmoon tribe ==================
+// ------------------------------------------------------
 
 // -------------- Henchman -----------
-public constant ID_TOWER_HENCHMAN = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_AMBER_SCOUT = compiletime(UNIT_ID_GEN.next())
 
-// -------------- Second tower -----------
-public constant ID_TOWER_SECOND = compiletime(UNIT_ID_GEN.next())
-public constant ID_HYSTERIA_VENOM = compiletime(ABIL_ID_GEN.next())
-public constant ID_HYSTERIA_VENOM_TOOLTIP = compiletime(ABIL_ID_GEN.next())
-public constant ID_HYSTERIA_VENOM_BUFF = compiletime(BUFF_ID_GEN.next())
-public constant ID_HYSTERIA_VENOM_BUFF_BASE = 'Blcb'
+// -------------- Oracle tower -----------
+public constant ID_TOWER_ORACLE = compiletime(UNIT_ID_GEN.next())
+public constant ID_EMERALD_SPEAR = compiletime(ABIL_ID_GEN.next())
+public constant ID_EMERALD_SPEAR_TOOLTIP = compiletime(ABIL_ID_GEN.next())
+public constant ID_EMERALD_SPEAR_BUFF = compiletime(BUFF_ID_GEN.next())
+public constant ID_EMERALD_SPEAR_BUFF_BASE = 'Blcb'
 
 // -------------- Molotov Mike -----------
 public constant ID_TOWER_MOLOTOV_MIKE = compiletime(UNIT_ID_GEN.next())
@@ -48,5 +48,5 @@ public constant ID_TOWER_POACHER = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH = compiletime(ABIL_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = compiletime(ABIL_ID_GEN.next())
-public constant ASSASSINATE_STEALTH_TIME = 15.
+public constant ASSASSINATE_STEALTH_TIME = 10.
 public constant ASSASSINATE_STEALTH_BONUS_DMG = 6

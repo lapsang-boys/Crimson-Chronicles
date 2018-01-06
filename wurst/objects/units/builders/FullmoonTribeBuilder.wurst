@@ -1,4 +1,4 @@
-package BrotherhoodOfBanditsBuilder
+package FullmoonTribeBuilder
 
 import Assets
 import UnitObjEditing
@@ -6,6 +6,7 @@ import UnitObjEditing
 import BuilderConstants
 import TowerConstants
 import ID2S
+import Tooltip
 
 class Builder extends UnitDefinition
     construct(int id)
@@ -14,9 +15,13 @@ class Builder extends UnitDefinition
         // ------------------------------------
         // ========== Tavern ==================
         // ------------------------------------
-        setName("Builder |cffffcc00(Brotherhood of bandtis)|r")
-        setTooltipBasic("Choose |cffffcc00Brotherhood of bandtis|r [|cffffcc00Q|r]")
-        setTooltipExtended("A gang of outcasts.")
+        setName("Alara")
+        setTooltipBasic(tooltipCustomBasic("Q", "Fullmoon tribe", "Select"))
+        setTooltipExtended(tooltipTextFlavor(
+            "TODO: Team description",
+            "Even at the darkest of times, Elune shines light and gives hope to all followers of Cenarius."))
+        // setTooltipBasic("Choose |cffffcc00Brotherhood of bandtis|r [|cffffcc00Q|r]")
+        // setTooltipExtended("A gang of outcasts.")
         setButtonPositionX(0)
         setButtonPositionY(0)
         setHotkey("Q")
@@ -24,16 +29,16 @@ class Builder extends UnitDefinition
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setModelFile(Units.heroTinkerRobot)
+        setModelFile(Units.huntress)
         setIconGameInterface(ICON_BUILDER_BROTHERHOOD)
-        setUnitSoundSet("ClockwerkGoblin")
+        setUnitSoundSet("Naisha")
 
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
         setStructuresBuilt(
-            ID2S(ID_TOWER_HENCHMAN)     + "," +
-            ID2S(ID_TOWER_SECOND)       + "," +
+            ID2S(ID_TOWER_AMBER_SCOUT)     + "," +
+            ID2S(ID_TOWER_ORACLE)       + "," +
             ID2S(ID_TOWER_MOLOTOV_MIKE) + "," +
             ID2S(ID_TOWER_POACHER)      + "," +
             ID2S(ID_TOWER_ASSASSIN))

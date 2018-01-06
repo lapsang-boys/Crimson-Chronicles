@@ -20,8 +20,8 @@ class Stealth extends AbilityDefinitionCriticalStrikecreep
         super(id)
 
         setName("Stealthed")
-        setHotkeyNormal("-")
-        setTooltipNormal(1, tooltipCustomBasic("-", "Stealthed", ""))
+        setHotkeyNormal("")
+        setTooltipNormal(1, tooltipCustomBasic("Passive", "Stealthed", ""))
         setTooltipNormalExtended(1, tooltipTextFlavor("The next attack made by the assassin will deal " + I2S(ASSASSINATE_STEALTH_BONUS_DMG) + " times the normal damage and break stealth.",
         "That came from behind..."))
         setIconNormal(Icons.bTNTheBlackArrow)
@@ -45,11 +45,11 @@ class NotStealth extends AbilityDefinitionEvasion
         super(id)
 
         setHotkeyNormal("")
-        setTooltipNormal(1, tooltipCustomBasic("-", "Stealth", ""))
+        setTooltipNormal(1, tooltipCustomBasic("Passive", "Stealth", ""))
         setTooltipNormalExtended(1, tooltipTextFlavor("The assassin automatically enter stealth after "
         + R2S(ASSASSINATE_STEALTH_TIME) + " seconds if no attacks have been made. The first attack from stealth will deal "
         + I2S(ASSASSINATE_STEALTH_BONUS_DMG) + "x the normal damage.",
-        "Some argue that chameleoning your way through life gets you to a point where nothing is real. I beg to differ."))
+        "Being able to blend in so well that you you cannot be seen is something only master assassins are able to."))
 
         setIconNormal(Icons.bTNAmbush)
         setButtonPositionNormalX(0)

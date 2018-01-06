@@ -1,4 +1,4 @@
-package Second
+package Assassin
 
 import Assets
 import Damage
@@ -10,26 +10,26 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant DAMAGE_BASE = 3
-constant DAMAGE_SIDES_PER_DIE = 6
+constant DAMAGE_BASE = 278
+constant DAMAGE_SIDES_PER_DIE = 40
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 550
-constant ATTACK_SPEED = 1.5
+constant RANGE = 128
+constant ATTACK_SPEED = 0.5
 constant GOLD_COST = 10
 constant POINT_VALUE = 10
 
-class Second extends TowerDefinition
+class Assassin extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNCentaurArcher)
-        setModelFile(Units.centaurArcher)
+        setIconGameInterface(Icons.bTNAssassin)
+        setModelFile(Units.assassin1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("CentaurArcher")
+        setUnitSoundSet("Assassin")
         setScalingValue(1.)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
@@ -46,14 +46,14 @@ class Second extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_HYSTERIA_VENOM) + "," + ID2S(ID_HYSTERIA_VENOM_TOOLTIP))
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.blackArrowMissile)
+        setAttack1ProjectileArt(Objects.critterBloodAlbatross)
         setAttack1ProjectileHomingEnabled(true)
-        setAttack1ProjectileSpeed(1200)
+        setAttack1ProjectileSpeed(5000)
         setAttack1WeaponType(WeaponType.Missile)
 
         // ----------------------------------------------------------
@@ -67,17 +67,17 @@ class Second extends TowerDefinition
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(1)
-        setButtonPositionY(0)
-        setHotkey("W")
-        setName("Second")
-        setTooltipBasic(tooltipBuild("W", "Second"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, reduces armor on hit.",
+        setButtonPositionX(0)
+        setButtonPositionY(1)
+        setHotkey("A")
+        setName("Assassin")
+        setTooltipBasic(tooltipBuild("A", "Assassin"))
+        setTooltipExtended(tooltipTowerExtended("High damage melee tower with the ability to assassinate.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "The first shot is just the warning. It's not until the enemy is terrifed the second begins the real work."))
+            "Why be the sheep when you can be the wolf?"))
 
 @compiletime function tower()
-    new Second(ID_TOWER_SECOND)
+    new Assassin(ID_TOWER_ASSASSIN)

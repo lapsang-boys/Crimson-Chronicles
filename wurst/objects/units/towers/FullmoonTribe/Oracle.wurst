@@ -1,4 +1,4 @@
-package Assassin
+package Oracle
 
 import Assets
 import Damage
@@ -10,26 +10,26 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant DAMAGE_BASE = 5
-constant DAMAGE_SIDES_PER_DIE = 20
+constant DAMAGE_BASE = 3
+constant DAMAGE_SIDES_PER_DIE = 8
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 128
-constant ATTACK_SPEED = 0.5
-constant GOLD_COST = 10
-constant POINT_VALUE = 10
+constant RANGE = 600
+constant ATTACK_SPEED = 1.
+constant GOLD_COST = 40
+constant POINT_VALUE = 40
 
-class Assassin extends TowerDefinition
+class Oracle extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNAssassin)
-        setModelFile(Units.assassin1)
+        setIconGameInterface(Icons.bTNDryad)
+        setModelFile(Units.dryad1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Assassin")
+        setUnitSoundSet("Dryad")
         setScalingValue(1.)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
@@ -46,16 +46,12 @@ class Assassin extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH))
-
-        setManaInitialAmount(0)
-        setManaMaximum(15)
-        setManaRegeneration(1.)
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_EMERALD_SPEAR) + "," + ID2S(ID_EMERALD_SPEAR_TOOLTIP))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Objects.critterBloodAlbatross)
+        setAttack1ProjectileArt(Abilities.dryadmissile)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
@@ -71,17 +67,17 @@ class Assassin extends TowerDefinition
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
-        setButtonPositionY(1)
-        setHotkey("A")
-        setName("Assassin")
-        setTooltipBasic(tooltipBuild("A", "Assassin"))
-        setTooltipExtended(tooltipTowerExtended("High damage melee tower with the ability to assassinate.",
+        setButtonPositionX(1)
+        setButtonPositionY(0)
+        setHotkey("W")
+        setName("Oracle")
+        setTooltipBasic(tooltipBuild("W", "Oracle"))
+        setTooltipExtended(tooltipTowerExtended("Basic tower, reduces armor on hit.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Top of the line."))
+            "Being daughters of the demigod Cenarius the Oracles of the Fullmoon tribe are born with the wisdom of a thousand men."))
 
 @compiletime function tower()
-    new Assassin(ID_TOWER_ASSASSIN)
+    new Oracle(ID_TOWER_ORACLE)

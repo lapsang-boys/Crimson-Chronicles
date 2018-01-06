@@ -1,4 +1,4 @@
-package Henchman
+package AmberScout
 
 import Assets
 import Damage
@@ -10,26 +10,26 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant DAMAGE_BASE = 3
-constant DAMAGE_SIDES_PER_DIE = 6
+constant DAMAGE_BASE = 7
+constant DAMAGE_SIDES_PER_DIE = 4
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 425
+constant RANGE = 400
 constant ATTACK_SPEED = 1.7
-constant GOLD_COST = 10
-constant POINT_VALUE = 10
+constant GOLD_COST = 12
+constant POINT_VALUE = 12
 
-class Henchman extends TowerDefinition
+class AmberScout extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNRazorback)
-        setModelFile(Units.razorMane)
+        setIconGameInterface(Icons.bTNNightElfRunner)
+        setModelFile(Units.runner)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Bristleback")
+        setUnitSoundSet("Runner")
         setScalingValue(1.)
         setGroundTexture(ID_BROTHERHOOD_GROUND_TEXTURE)
 
@@ -51,7 +51,7 @@ class Henchman extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.bristleBackMissile)
+        setAttack1ProjectileArt(Abilities.huntermissile)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
@@ -63,8 +63,6 @@ class Henchman extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-        // If other tower should be required
-        // setRequirements("")
 
         // ---------------------------------
         // ========== Description ==========
@@ -72,14 +70,14 @@ class Henchman extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(0)
         setHotkey("Q")
-        setName("Henchman")
-        setTooltipBasic(tooltipBuild("Q", "Henchman"))
+        setName("Amber-eyed Scout")
+        setTooltipBasic(tooltipBuild("Q", "Amber-eyed Scout"))
         setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "When you want something done but dont have the money for it.. You get the Henchman."))
+            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
 
 @compiletime function tower()
-    new Henchman(ID_TOWER_HENCHMAN)
+    new AmberScout(ID_TOWER_AMBER_SCOUT)
