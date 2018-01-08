@@ -27,8 +27,5 @@ function sellTower()
     if towerMap.has(id)
         destroy towerMap.get(id)
 
-function isSell() returns bool
-    return GetSpellAbilityId() == ID_SELL_TOWER
-
 init
     registerSpellEffectEvent(ID_SELL_TOWER, function sellTower)

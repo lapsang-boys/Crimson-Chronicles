@@ -3,7 +3,6 @@ package TrapBase
 import HashMap
 import TimerUtils
 
-import Movement
 import GameplayConstants
 
 public HashMap<int, TrapBase> trapMap = new HashMap<int, TrapBase>
@@ -15,6 +14,7 @@ public class TrapBase
     unit trapDummy
     unit caster
     real timedLife
+    string deathEffect
 
     rect r
     region reg
@@ -25,13 +25,15 @@ public class TrapBase
         this.pos = pos
         this.trapDummy = trapDummy
         this.timedLife = timedLife
+        this.deathEffect = null
         setUp(cond, onEnter)
 
-    construct (vec2 pos, unit trapDummy, unit caster, real timedLife, conditionfunc cond, code onEnter)
+    construct (vec2 pos, unit trapDummy, unit caster, real timedLife, conditionfunc cond, code onEnter, string deathEffect)
         this.pos = pos
         this.trapDummy = trapDummy
         this.caster = caster
         this.timedLife = timedLife
+        this.deathEffect = deathEffect
         setUp(cond, onEnter)
 
     function setUp(conditionfunc cond, code onEnter)
@@ -43,7 +45,7 @@ public class TrapBase
         RegionAddRect(reg, r)
         this.trig = CreateTrigger()
         trapMap.put(trig.getHandleId(), this)
-        this.trig.addCondition(Condition(function isEnemy))
+        //this.trig.addCondition(Condition(function isEnemy))
 
         // Event region enter (filter on custom cond)
         this.trig.registerEnterRegion(reg, cond)
@@ -68,6 +70,8 @@ public class TrapBase
     // TrapBase object clean up
     ondestroy
         trapMap.remove(this.trig.getHandleId())
+        if this.deathEffect != null
+            flashEffect(this.deathEffect, this.pos)
         this.trapDummy.remove()
         this.trig.destr()
         this.tim.release()

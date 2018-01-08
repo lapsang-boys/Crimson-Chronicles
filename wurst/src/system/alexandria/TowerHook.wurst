@@ -1,16 +1,18 @@
 package TowerHook
 
-import Alexandria
 import TowerConstants
 
 // Towers we will hook on.
 import Assassination
+import SnareTrap
 
 function hook()
     unit u = GetConstructedStructure()
     switch u.getTypeId()
         case ID_TOWER_ASSASSIN
             new Assassin(u)
+        case ID_TOWER_UREN
+            new TowerUren(u)
         default
             return
 

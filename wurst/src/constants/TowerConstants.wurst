@@ -40,9 +40,13 @@ public constant ID_EMERALD_SPEAR_BUFF_BASE = 'Blcb'
 public constant ID_TOWER_MOLOTOV_MIKE = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....
 
-// -------------- Poacher -----------
-public constant ID_TOWER_POACHER = compiletime(UNIT_ID_GEN.next())
-// TOWER_TEST_ABILITY_YY  = ....
+// -------------- Uren -----------
+public constant ID_TOWER_UREN = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_UREN_SET_TRAP = compiletime(ABIL_ID_GEN.next())
+public constant ID_TOWER_UREN_DISMANTLE_TRAP = compiletime(ABIL_ID_GEN.next())
+public constant ID_TOWER_UREN_TRAP_COOLDOWN = compiletime(ABIL_ID_GEN.next())
+public constant ID_DUMMY_SNARE_TRAP = compiletime(UNIT_ID_GEN.next())
+
 
 // -------------- Assassin -----------
 public constant ID_TOWER_ASSASSIN = compiletime(UNIT_ID_GEN.next())

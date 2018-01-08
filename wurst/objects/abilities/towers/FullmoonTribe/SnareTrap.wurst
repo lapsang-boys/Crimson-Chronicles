@@ -1,0 +1,234 @@
+package SnareTrap
+
+import RegisterEvents
+import Assets
+import ChannelAbilityPreset
+import TimerUtils
+
+import Alexandria
+import TowerConstants
+import Tooltip
+
+
+import TrapBase
+
+constant ENSNARE_DURATION = 3.
+constant TRAP_COOLDOWN = 5.
+constant ENSNARE_FX = Abilities.ensnareTarget
+constant TRAP_EFFECT = Objects.entBirthTarget
+
+constant COOLDOWN_ORDER = "channel"
+constant SET_TRAP_ORDER = "cripple"
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+@compiletime function generateSetTrap()
+    new ChannelAbilityPreset(ID_TOWER_UREN_SET_TRAP, 1, true)
+        ..setName("Set trap")
+        ..setHotkeyNormal("Q")
+        ..setTooltipNormal(1, tooltipCustomBasic("Q", "Set trap", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Set at loction",
+        "Flavor."))
+        ..setIconNormal(Icons.bTNEnsnare)
+
+        ..presetTargetTypes(Targettype.POINT)
+        ..setAreaofEffect(1, 64)
+        ..setManaCost(1, 0)
+        ..setHeroAbility(false)
+
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+        ..setBaseOrderID(1, SET_TRAP_ORDER)
+
+@compiletime function generateDismantleTrap()
+    new ChannelAbilityPreset(ID_TOWER_UREN_DISMANTLE_TRAP, 1, true)
+        ..setName("Dismantle trap")
+        ..setHotkeyNormal("Q")
+        ..setTooltipNormal(1, tooltipCustomBasic("Q", "Dismantle trap", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Dismantles the currently set trap. Please not that you will not be able to place a new one for 30 seconds.",
+        "Flavor."))
+        ..setIconNormal(Icons.pASBTNDemolish)
+
+        ..presetTargetTypes(Targettype.NONE)
+        ..setManaCost(1, 0)
+        ..setHeroAbility(false)
+
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+
+ChannelAbilityPreset trapCoolDownAbility
+
+@compiletime function generateTrapOnCooldown()
+    trapCoolDownAbility = new ChannelAbilityPreset(ID_TOWER_UREN_TRAP_COOLDOWN, 1, true)
+        ..setName("Set trap")
+        ..setHotkeyNormal("Q")
+        ..setTooltipNormal(1, tooltipCustomBasic("Q", "Set trap", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Set at loction",
+        "Flavor."))
+        ..setIconNormal(Icons.bTNEnsnare)
+
+        ..presetTargetTypes(Targettype.NONE)
+        ..setCooldown(1, TRAP_COOLDOWN)
+        ..setManaCost(1, 0)
+        ..setHeroAbility(false)
+
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+        ..setBaseOrderID(1, COOLDOWN_ORDER)
+
+// ##################################################################
+// ###################### Trap object ###############################
+// ##################################################################
+
+class SnareTrapDummy extends UnitDefinition
+    construct(int id)
+        super(id, 'hfoo')
+
+        setName("Snare trap")
+        setModelFile("Doodads\\Cinematic\\GlowingRunes\\GlowingRunes4.mdl")
+        setScalingValue(0.5)
+        setIconGameInterface(Icons.bTNAcorn)
+        setUnitSoundSet("")
+        setNormalAbilities("Avul")
+
+        setAttacksEnabled(0)
+        setSpeedBase(0)
+        setMovementType(MovementType.None)
+        setCollisionSize(0)
+        setFoodCost(0)
+        setHitPointsMaximumBase(1)
+        setHitPointsRegenerationType("none")
+        setManaMaximum(0)
+
+@compiletime function generateSnareTrapDummy()
+    new SnareTrapDummy(ID_DUMMY_SNARE_TRAP)
+
+// ##################################################################
+// ######################### Ensnare ################################
+// ##################################################################
+
+class EnsnareContainer
+    unit u
+    real ms
+    effect e
+    construct(unit u, real ms, effect e)
+        this.u = u
+        this.ms = ms
+        this.e = e
+
+    ondestroy
+        this.e.destr()
+
+function ensnare(unit u)
+    real ms = u.getMoveSpeed()
+    effect e = u.addEffect(ENSNARE_FX, "origin")
+    u.setMoveSpeed(1.)
+    EnsnareContainer ec1 = new EnsnareContainer(u, ms, e)
+
+    timer t = getTimer()
+    t.setData(ec1 castTo int)
+    t.start(ENSNARE_DURATION, () -> begin
+        timer tInner = GetExpiredTimer()
+        EnsnareContainer ec2 = tInner.getData() castTo EnsnareContainer
+        ec2.u.setMoveSpeed(ec2.ms)
+        tInner.release()
+        destroy ec2
+    end)
+
+
+// ##################################################################
+// ###################### Tower handle class ########################
+// ##################################################################
+
+public class TowerUren extends TowerWrapper
+    unit caster
+    TrapBase trap
+    vec2 trapLoc
+
+    construct(unit caster)
+        super(caster)
+        this.caster = caster
+        this.trap = null
+        this.trapLoc = caster.getPos()
+        simulateCooldown(this.caster)
+
+    ondestroy
+        if this.trap != null
+            destroy this.trap
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+function setTrap()
+    unit caster = GetTriggerUnit()
+    TowerUren trapper = towerMap.get(caster.getHandleId()) castTo TowerUren
+
+    vec2 loc = vec2(GetSpellTargetX(), GetSpellTargetY())
+    trapper.trapLoc = loc
+    player owner = GetTriggerUnit().getOwner()
+    unit trapDummy = CreateUnit(owner, ID_DUMMY_SNARE_TRAP, loc.x, loc.y, 180.)
+
+    TrapBase tb = new TrapBase(loc, trapDummy, caster, 9999., null, function onTrapTrigger, TRAP_EFFECT)
+    trapper.trap = tb
+
+    toggleAbility(caster)
+
+function disMantleTrap()
+    unit caster = GetTriggerUnit()
+    TowerUren trapper = towerMap.get(caster.getHandleId()) castTo TowerUren
+    destroy trapper.trap
+    trapper.trap = null
+    // Used to prevent trap from being set in the same loc
+    trapper.trapLoc = trapper.caster.getPos()
+    toggleAbility(caster)
+
+// Actions when unit walks on trap
+function onTrapTrigger()
+    trigger trig = GetTriggeringTrigger()
+    TrapBase tb = trapMap.get(trig.getHandleId())
+
+    TowerUren trapper = towerMap.get(tb.caster.getHandleId()) castTo TowerUren
+    trapper.trap = null
+
+    toggleAbility(trapper.caster)
+    ensnare(GetTriggerUnit())
+
+function toggleAbility(unit u)
+    // Set trap (trap not placed)
+    if u.hasAbility(ID_TOWER_UREN_SET_TRAP)
+        u.removeAbility(ID_TOWER_UREN_SET_TRAP)
+        u.addAbility(ID_TOWER_UREN_DISMANTLE_TRAP)
+    // Dismantle trap (trap placed)
+    else
+        u.removeAbility(ID_TOWER_UREN_DISMANTLE_TRAP)
+        u.addAbility(ID_TOWER_UREN_TRAP_COOLDOWN)
+        simulateCooldown(u)
+
+function simulateCooldown(unit u)
+    u.issueImmediateOrder(COOLDOWN_ORDER)
+
+    timer t = getTimer()
+    TowerUren trapper = towerMap.get(u.getHandleId()) castTo TowerUren
+    t.setData(trapper castTo int)
+    // Need to destroy timer on trapper destroy
+    t.start(TRAP_COOLDOWN, () -> begin
+        timer ti = GetExpiredTimer()
+        TowerUren tr = ti.getData() castTo TowerUren
+        tr.caster.removeAbility(ID_TOWER_UREN_TRAP_COOLDOWN)
+        tr.caster.addAbility(ID_TOWER_UREN_SET_TRAP)
+        // If trap has been placed before autoplace in the same loc
+        if tr.caster.getPos() != tr.trapLoc
+            tr.caster.issuePointOrder(SET_TRAP_ORDER, tr.trapLoc)
+        ti.release()
+    end)
+
+init
+    registerSpellEffectEvent(ID_TOWER_UREN_SET_TRAP, function setTrap)
+    registerSpellEffectEvent(ID_TOWER_UREN_DISMANTLE_TRAP, function disMantleTrap)
+    generateTrapOnCooldown()

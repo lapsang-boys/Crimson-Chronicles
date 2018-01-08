@@ -1,4 +1,4 @@
-package Poacher
+package Uren
 
 import Assets
 import Damage
@@ -13,24 +13,24 @@ import ID2S
 constant DAMAGE_BASE = 3
 constant DAMAGE_SIDES_PER_DIE = 6
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 700
-constant ATTACK_SPEED = 0.8
+constant RANGE = 500
+constant ATTACK_SPEED = 0.6
 constant GOLD_COST = 10
 constant POINT_VALUE = 10
 
-class Poacher extends TowerDefinition
+class Uren extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNTuskaarGold)
-        setModelFile(Units.tuskarRanged)
+        setIconGameInterface(Icons.bTNDruidOfTheClaw)
+        setModelFile(Units.druidoftheClaw)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Tuskarr")
-        setScalingValue(0.85)
+        setUnitSoundSet("DruidOfTheClaw")
+        setScalingValue(1.)
         setGroundTexture(ID_FULLMOON_TRIBE_GROUND_TEXTURE)
 
         // ------------------------------------
@@ -46,14 +46,14 @@ class Poacher extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER))
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_TOWER_UREN_TRAP_COOLDOWN))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.tuskarSpear)
+        setAttack1ProjectileArt(Abilities.ancientProtectorMissile)
         setAttack1ProjectileHomingEnabled(true)
-        setAttack1ProjectileSpeed(1200)
+        setAttack1ProjectileSpeed(800)
         setAttack1WeaponType(WeaponType.Missile)
 
         // ----------------------------------------------------------
@@ -70,14 +70,14 @@ class Poacher extends TowerDefinition
         setButtonPositionX(3)
         setButtonPositionY(0)
         setHotkey("R")
-        setName("Poacher")
-        setTooltipBasic(tooltipBuild("R", "Poacher"))
-        setTooltipExtended(tooltipTowerExtended("High range tower with the ability to place traps.",
+        setName("Uren Blacktooth")
+        setTooltipBasic(tooltipBuild("R", "Uren Blacktooth"))
+        setTooltipExtended(tooltipTowerExtended("High damage tower with the ability to place traps.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
-            "Poacher, hunter, trapper."))
+            "Trap",
+            "As the apprentice of Lea Stoneclaw herself Uren is fearless hunter that knows every trick there is in the huners arsenal."))
 
 @compiletime function tower()
-    new Poacher(ID_TOWER_POACHER)
+    new Uren(ID_TOWER_UREN)
