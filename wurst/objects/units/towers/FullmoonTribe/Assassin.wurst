@@ -76,8 +76,8 @@ class Assassin extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
-            "Why be the sheep when you can be the wolf?"))
+            "Stealth",
+            "\"Why be the sheep when you can be the wolf?\" - Sira Moonwarden"))
 
 @compiletime function tower()
     new Assassin(ID_TOWER_ASSASSIN)

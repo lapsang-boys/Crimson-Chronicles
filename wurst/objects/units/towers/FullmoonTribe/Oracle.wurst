@@ -76,7 +76,7 @@ class Oracle extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Emerald spear",
             "Being daughters of the demigod Cenarius the Oracles of the Fullmoon tribe are born with the wisdom of a thousand men."))
 
 @compiletime function tower()

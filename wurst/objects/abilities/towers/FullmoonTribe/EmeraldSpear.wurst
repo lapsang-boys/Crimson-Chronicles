@@ -1,8 +1,8 @@
 package EmeraldSpear
 
 import Assets
-import AbilityObjEditing
 import BuffObjEditing
+import ChannelAbilityPreset
 
 import TowerConstants
 import ID2S
@@ -23,31 +23,17 @@ class EmeraldSpearBuff extends BuffDefinition
         setTooltipNormal(1, tooltipBuffName("Emerald magic", false))
         setTooltipNormalExtended(1, tooltipBuffText("This unit has reduced armor."))
 
-class AbilityTooltipDummy extends AbilityDefinitionEvasion
-    construct(int id)
-        super(id)
-
-        setButtonPositionNormalX(0)
-        setButtonPositionNormalY(2)
-        setArtCaster("")
-        setCasterAttachmentPoint("")
-        setArtEffect("")
-        setIconNormal(Icons.pASBTNMagicImmunity)
-        setArtTarget("")
-        setChancetoEvade(1, 0)
-        setTargetAttachmentPoint("")
-        setHeroAbility(false)
-        setRequirements("")
-        setLevels(1)
-        setBuffs(1, "")
-        setManaCost(1, 0)
-        setHotkeyNormal("")
-        setName("Emerald Spear")
-
-        setTooltipNormal(1, tooltipCustomBasic("Passive", "Emerald Spear",""))
-        setTooltipNormalExtended(1, tooltipTextFlavor("The Oracles attacks reduce the armor of enemies by " + I2S(ARMOR_REUCED) + " for " + R2S(DURATION) + " seconds.",
+@compiletime function generateEmeraldSpearDummy()
+    new ChannelAbilityPreset(ID_EMERALD_SPEAR_TOOLTIP, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Emerald Spear",""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("The Oracles attacks reduce the armor of enemies by " + I2S(ARMOR_REUCED) + " for " + R2S(DURATION) + " seconds.",
         "Blessed by Ysera the Oracles spears are embeded with emeral magic used in the fight against the nightmare. Emerald magic in the blood of other creatures causes horrifying visions."))
 
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNAmbush)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
 
 class EmeraldSpear extends AbilityDefinitionOrbofCorruption
     construct(int id)
@@ -73,4 +59,3 @@ class EmeraldSpear extends AbilityDefinitionOrbofCorruption
 @compiletime function nanoBreweryMoveTower()
     new EmeraldSpear(ID_EMERALD_SPEAR)
     new EmeraldSpearBuff(ID_EMERALD_SPEAR_BUFF, ID_EMERALD_SPEAR_BUFF_BASE)
-    new AbilityTooltipDummy(ID_EMERALD_SPEAR_TOOLTIP)

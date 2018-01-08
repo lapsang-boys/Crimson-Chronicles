@@ -1,8 +1,8 @@
 package Assassination
 
 import TimerUtils
-import AbilityObjEditing
 import Assets
+import ChannelAbilityPreset
 
 import Alexandria
 import TowerConstants
@@ -23,8 +23,8 @@ class Stealth extends AbilityDefinitionCriticalStrikecreep
         setHotkeyNormal("")
         setTooltipNormal(1, tooltipCustomBasic("Passive", "Stealthed", ""))
         setTooltipNormalExtended(1, tooltipTextFlavor("The next attack made by the assassin will deal " + I2S(ASSASSINATE_STEALTH_BONUS_DMG) + " times the normal damage and break stealth.",
-        "That came from behind..."))
-        setIconNormal(Icons.bTNTheBlackArrow)
+        "\"That came from behind...\" - Unknown famous last words"))
+        setIconNormal(Icons.pASBTNElunesBlessing)
 
         setDamageMultiplier(1, I2R(ASSASSINATE_STEALTH_BONUS_DMG))
         setChancetoCriticalStrike(1, 100.)
@@ -35,31 +35,23 @@ class Stealth extends AbilityDefinitionCriticalStrikecreep
         setButtonPositionNormalX(0)
         setButtonPositionNormalY(2)
 
-
 @compiletime function stealthAbility()
     new Stealth(ID_TOWER_ASSASSIN_STEALTH)
 
 
-class NotStealth extends AbilityDefinitionEvasion
-    construct(int id)
-        super(id)
-
-        setHotkeyNormal("")
-        setTooltipNormal(1, tooltipCustomBasic("Passive", "Stealth", ""))
-        setTooltipNormalExtended(1, tooltipTextFlavor("The assassin automatically enter stealth after "
+@compiletime function generateNotStealth()
+    new ChannelAbilityPreset(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Stealth", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("The assassin automatically enter stealth after "
         + R2S(ASSASSINATE_STEALTH_TIME) + " seconds if no attacks have been made. The first attack from stealth will deal "
         + I2S(ASSASSINATE_STEALTH_BONUS_DMG) + "x the normal damage.",
         "Being able to blend in so well that you you cannot be seen is something only master assassins are able to."))
 
-        setIconNormal(Icons.bTNAmbush)
-        setButtonPositionNormalX(0)
-        setButtonPositionNormalY(2)
-        setArtCaster("")
-        setArtEffect("")
-        setEffectSound("")
-
-@compiletime function notStealth()
-    new NotStealth(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH)
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNAmbush)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
 
 
 // ##################################################################
