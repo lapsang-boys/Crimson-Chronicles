@@ -45,7 +45,7 @@ public class TrapBase
         RegionAddRect(reg, r)
         this.trig = CreateTrigger()
         trapMap.put(trig.getHandleId(), this)
-        //this.trig.addCondition(Condition(function isEnemy))
+        this.trig.addCondition(Condition(function isEnemy))
 
         // Event region enter (filter on custom cond)
         this.trig.registerEnterRegion(reg, cond)
@@ -88,9 +88,3 @@ function cleanUp()
 function isEnemy() returns bool
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
-function isTest() returns bool
-    return true
-
-function action()
-    trigger trig = GetTriggeringTrigger()
-    TrapBase tb = trapMap.get(trig.getHandleId())
