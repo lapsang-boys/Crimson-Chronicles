@@ -2,6 +2,7 @@ package MobType
 
 import Colorscheme
 import GameplayConstants
+import ErrorHandling
 
 public enum MobType
     INVULNERABLE

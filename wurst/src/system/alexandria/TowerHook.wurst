@@ -1,10 +1,12 @@
 package TowerHook
 
 import TowerConstants
+import TrapBase
 
-// Towers we will hook on.
+// Towers/abilities we will hook on.
 import Assassination
 import SnareTrap
+
 
 function hook()
     unit u = GetConstructedStructure()
@@ -12,7 +14,9 @@ function hook()
         case ID_TOWER_ASSASSIN
             new Assassin(u)
         case ID_TOWER_UREN
-            new TowerUren(u)
+            Trapper tr = new Trapper(u)
+            tr.setIDs(ID_DUMMY_SNARE_TRAP, ID_TOWER_UREN_SET_TRAP, ID_TOWER_UREN_DISMANTLE_TRAP, ID_TOWER_UREN_TRAP_COOLDOWN)
+            tr.setCooldown(SNARE_TRAP_COOLDOWN)
         default
             return
 

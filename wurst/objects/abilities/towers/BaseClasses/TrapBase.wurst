@@ -3,37 +3,35 @@ package TrapBase
 import HashMap
 import TimerUtils
 
+import Alexandria
 import GameplayConstants
 
 public HashMap<int, TrapBase> trapMap = new HashMap<int, TrapBase>
 
+public constant TRAP_COOLDOWN_ORDER = "channel"
+public constant SET_TRAP_ORDER = "cripple"
+
+// ##################################################################
+// ###################### Trap base (the trap) ######################
+// ##################################################################
 
 public class TrapBase
     vec2 pos
     player owner
     unit trapDummy
     unit caster
-    real timedLife
-    string deathEffect
+    string deathFxPath
 
     rect r
     region reg
     trigger trig
     timer tim
 
-    construct (vec2 pos, unit trapDummy, real timedLife, conditionfunc cond, code onEnter)
-        this.pos = pos
-        this.trapDummy = trapDummy
-        this.timedLife = timedLife
-        this.deathEffect = null
-        setUp(cond, onEnter)
-
-    construct (vec2 pos, unit trapDummy, unit caster, real timedLife, conditionfunc cond, code onEnter, string deathEffect)
+    construct (vec2 pos, unit trapDummy, unit caster, conditionfunc cond, code onEnter, string deathFxPath)
         this.pos = pos
         this.trapDummy = trapDummy
         this.caster = caster
-        this.timedLife = timedLife
-        this.deathEffect = deathEffect
+        this.deathFxPath = deathFxPath
         setUp(cond, onEnter)
 
     function setUp(conditionfunc cond, code onEnter)
@@ -60,18 +58,11 @@ public class TrapBase
         // Store all trap info in timer (TrapBase object)
         this.tim.setData(this castTo int)
 
-        // Untriggered trap clean up after time expiration
-        this.tim.start(timedLife, () -> begin
-            timer t = GetExpiredTimer()
-            TrapBase tb = t.getData() castTo TrapBase
-            destroy tb
-        end)
-
     // TrapBase object clean up
     ondestroy
         trapMap.remove(this.trig.getHandleId())
-        if this.deathEffect != null
-            flashEffect(this.deathEffect, this.pos)
+        if this.deathFxPath != null
+            flashEffect(this.deathFxPath, this.pos)
         this.trapDummy.remove()
         this.trig.destr()
         this.tim.release()
@@ -87,4 +78,96 @@ function cleanUp()
 
 function isEnemy() returns bool
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
+
+// ##################################################################
+// ###################### Trapper class (the tower) #################
+// ##################################################################
+
+public class Trapper extends TowerWrapper
+    unit caster
+    TrapBase trap
+    vec2 trapLoc
+
+    int trapDummyID
+    int setTrapID
+    int dismantleTrapID
+    int simCooldownID
+
+    real cooldown
+
+    construct(unit caster)
+        super(caster)
+        this.caster = caster
+        this.trap = null
+        this.trapLoc = caster.getPos()
+
+        // Needs to be set in TowerHook through setIDs
+        this.trapDummyID = '0000'
+        this.setTrapID = '0000'
+        this.dismantleTrapID = '0000'
+        this.simCooldownID = '0000'
+
+        // Needs to be set in TowerHook through setCooldown
+        this.cooldown = 30.
+
+        // TODO: Add buff for not placed trap
+
+    function setIDs(int trapDummyID, int setTrapID, int dismantleTrapID, int simCooldownID)
+        this.trapDummyID = trapDummyID
+        this.setTrapID = setTrapID
+        this.dismantleTrapID = dismantleTrapID
+        this.simCooldownID = simCooldownID
+
+    function setCooldown(real cooldown)
+        this.cooldown = cooldown
+        this.simulateCooldown()
+
+    function setTrap(vec2 loc, conditionfunc cond, code onEnter, string deathFxPath)
+        this.trapLoc = loc
+        player owner = GetTriggerUnit().getOwner()
+        unit trapDummy = CreateUnit(owner, this.trapDummyID, loc.x, loc.y, 180.)
+
+        TrapBase tb = new TrapBase(loc, trapDummy, this.caster, cond, onEnter, deathFxPath)
+        this.trap = tb
+
+        this.toggleAbility()
+
+    function disMantleTrap()
+        destroy this.trap
+        this.trap = null
+        // Used to prevent trap from automatically being set in the same loc
+        this.trapLoc = this.caster.getPos()
+        this.toggleAbility()
+
+    function toggleAbility()
+        // Set trap (trap not placed)
+        if this.caster.hasAbility(this.setTrapID)
+            this.caster.removeAbility(this.setTrapID)
+            this.caster.addAbility(this.dismantleTrapID)
+        // Dismantle trap (trap placed)
+        else
+            this.caster.removeAbility(this.dismantleTrapID)
+            this.caster.addAbility(this.simCooldownID)
+            this.simulateCooldown()
+
+    function simulateCooldown()
+        this.caster.issueImmediateOrder(TRAP_COOLDOWN_ORDER)
+
+        timer t = getTimer()
+        t.setData(this castTo int)
+        t.start(this.cooldown, () -> begin
+            timer ti = GetExpiredTimer()
+            Trapper tr = ti.getData() castTo Trapper
+            tr.caster.removeAbility(tr.simCooldownID)
+            tr.caster.addAbility(tr.setTrapID)
+            // If trap has been placed before autoplace in the same loc
+            if tr.caster.getPos() != tr.trapLoc
+                tr.caster.issuePointOrder(SET_TRAP_ORDER, tr.trapLoc)
+            ti.release()
+        end)
+
+    ondestroy
+        if this.trap != null
+            destroy this.trap
+
 
