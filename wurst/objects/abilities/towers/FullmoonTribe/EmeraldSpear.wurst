@@ -56,6 +56,6 @@ class EmeraldSpear extends AbilityDefinitionOrbofCorruption
         setManaCost(1, 0)
         setMissileArt("")
 
-@compiletime function nanoBreweryMoveTower()
+@compiletime function generateSpell()
     new EmeraldSpear(ID_EMERALD_SPEAR)
     new EmeraldSpearBuff(ID_EMERALD_SPEAR_BUFF, ID_EMERALD_SPEAR_BUFF_BASE)

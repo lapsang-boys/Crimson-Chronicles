@@ -8,6 +8,7 @@ import HashMap
 import SoundUtils
 
 import Squad
+import ID2S
 import Movement
 import Leaderboard
 import GameplayConstants

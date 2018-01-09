@@ -1,0 +1,80 @@
+package TreantMob
+
+import DummyRecycler
+import Assets
+import BuffObjEditing
+import ChannelAbilityPreset
+
+import Tooltip
+import GameplayConstants
+import ID2S
+import Alexandria
+import Squad
+
+public class TreantBase extends MobWrapper implements Deather
+    unit u
+    real duration
+    int abilityId
+    string fxDeathPath
+    construct(unit u, int abilityId, real duration, string fxDeathPath)
+        super(u)
+        this.u = u
+        this.abilityId = abilityId
+        this.duration = duration
+        this.fxDeathPath = fxDeathPath
+
+    override function onDeath()
+        flashEffect(this.fxDeathPath, this.u.getPos())
+
+        // unit dummy = DummyRecycler.get(this.u.getPos(), angle(0.))
+        unit dummy = createUnit(PLAYER_BROWN, 'hfoo', this.u.getPos(), angle(0.))
+        dummy.addAbility(this.abilityId)
+        // DummyRecycler.recycle(dummy, this.duration)
+
+// Squad hook
+public class Treant implements Hooker
+    int abilityId
+    real duration
+    string fxDeathPath
+
+    construct(int abilityId, real duration, string fxDeathPath)
+        this.abilityId = abilityId
+        this.duration = duration
+        this.fxDeathPath = fxDeathPath
+    function hook(unit u)
+        new TreantBase(u, this.abilityId, this.duration, this.fxDeathPath)
+
+public constant ID_FEL_SMOG_BUFF_BASE = 'Blcb'
+public constant ID_FEL_SMOG_BUFF = 'Blzq'
+public constant ID_FEL_SMOG = 'Asdg'
+
+class FelSmogBuff extends BuffDefinition
+    construct(int newBuffId, int origBuffId)
+        super(newBuffId, origBuffId)
+
+        setIcon(Icons.bTNCarrionSwarm)
+        setTarget(1, Units.plagueCloudTarget)
+
+        setTargetAttachmentPoint0(1, "foot")
+        setMissileArt(1, "")
+
+        setTooltipNormal(1, tooltipBuffName("Fel smog ###", false))
+        setTooltipNormalExtended(1, tooltipBuffText("This unit is poisoned. ###"))
+
+class FelSmog extends AbilityDefinitionAuraEnduranceCreep
+    construct(int id)
+        super(id)
+        setAttackSpeedIncrease(1, -.8)
+        setMovementSpeedIncrease(1, 0)
+        setAreaofEffect(1, 256)
+
+        setArtCaster(Abilities.brilliance)
+        setArtTarget("")
+        setRequirements("")
+        setLevels(1)
+        setTargetsAllowed(1, "enemies,structure,ground,air,invulnerable")
+        setBuffs(1, ID2S(ID_FEL_SMOG))
+
+@compiletime function generateFelSmog()
+    new FelSmog(ID_FEL_SMOG)
+    new FelSmogBuff(ID_FEL_SMOG_BUFF, ID_FEL_SMOG_BUFF_BASE)

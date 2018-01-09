@@ -1,0 +1,38 @@
+package FelwoodMobList
+
+import Assets
+
+import ObjectIdGenerator
+import MobDefinition
+import UnitObjEditing
+
+public constant ID_MOB_STAG = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_PATH_SHOWER = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_DIRE_WOLF = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_DEMONIC_SATYR = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_FEL_TREANT = compiletime(UNIT_ID_GEN.next())
+
+public MobDefinition PATH_SHOWER
+public MobDefinition STAG
+public MobDefinition DIRE_WOLF
+public MobDefinition DEMONIC_SATYR
+public MobDefinition FEL_TREANT
+
+public constant real DIRE_WOLF_MS = 300
+
+@compiletime function generateLevels()
+    // Level 0 - Info level
+    PATH_SHOWER = new MobDefinition(ID_MOB_PATH_SHOWER, "Path Shower", Abilities.murgulMagicMissile, "", 0, 0, 20, 0, 500)
+    ..setMovementType(MovementType.Fly)
+    ..setMovementHeight(128.)
+    ..setNormalAbilities("Avul")
+    ..setScalingValue(2.)
+
+    // Level 1
+    STAG = new MobDefinition(ID_MOB_STAG, "Stag", Units.blackStagMale, "", 1, 1, 20, 0, 250)
+    // Level 2
+    DIRE_WOLF = new MobDefinition(ID_MOB_DIRE_WOLF, "Dire Wolf", Units.direWolf1, "direwolf", 1, 1, 35, 0, R2I(DIRE_WOLF_MS))
+    // Level 3
+    DEMONIC_SATYR = new MobDefinition(ID_MOB_DEMONIC_SATYR, "Demonic Satyr", Units.satyr1, "satyr", 1, 1, 55, 0, 280)
+    // Level 4
+    FEL_TREANT = new MobDefinition(ID_MOB_FEL_TREANT, "Fel Treants", Units.corruptedEnt1, "CorruptedEnt", 1, 1, 105, 0, 200)

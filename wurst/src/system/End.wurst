@@ -34,7 +34,9 @@ function leak()
     // Take player life.
     PlayerData pd = playerData.get(n)
     int lifeTaken = u.getFoodUsed()
-    pd.registerLeak(lifeTaken, unitBounty.get(u.getTypeId()))
+
+    // Point value is interpreted as bounty.
+    pd.registerLeak(lifeTaken, GetUnitPointValue(u))
 
     // SFX.
     flashEffect(Abilities.aIilTarget, u.getPos())

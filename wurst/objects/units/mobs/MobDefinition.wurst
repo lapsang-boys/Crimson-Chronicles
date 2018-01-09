@@ -1,25 +1,33 @@
-package Raccoon
+package MobDefinition
 
-import Assets
 import UnitObjEditing
 
-import Levels
+import ID2S
 
-class Raccoon extends UnitDefinition
-    construct(int id)
+public constant ID_MOB_BASE_UNIT = 'earc'
+
+public class MobDefinition extends UnitDefinition
+    construct(int id, string name, string model, string soundSet, int bounty, int lifeTaken, int maxhp, real hpReg, int ms)
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
         // ========== Model file, bounty etc. ==========
         // ---------------------------------------------
-        setName("Raccon")
-        setModelFile(Units.raccoon1)
-        // setUnitSoundSet("Peasant")
-        setGoldBountyAwardedBase(1)
+        setName(name)
+        setModelFile(model)
+
+        // Life lost
+        setFoodCost(lifeTaken)
+
+        // Reward bounty on leak.
+        setPointValue(bounty)
+        setGoldBountyAwardedBase(bounty)
         setGoldBountyAwardedNumberofDice(0)
         setCollisionSize(1)
-        // Life lost
-        setFoodCost(1)
+
+        setUnitSoundSet(soundSet)
+        setCollisionSize(1)
+
 
         // ------------------------------------
         // ========== Abilities ===============
@@ -29,16 +37,13 @@ class Raccoon extends UnitDefinition
         // -------------------------------------------------
         // ========== Stats (hp, reg, speed, etc) ==========
         // -------------------------------------------------
-        setHitPointsMaximumBase(20)
-        setHitPointsRegenerationRate(0)
+        setHitPointsMaximumBase(maxhp)
+        setHitPointsRegenerationRate(hpReg)
 
-        setSpeedBase(300)
+        setSpeedBase(ms)
 
         setManaInitialAmount(0)
         setManaMaximum(0)
         setManaRegeneration(0.)
 
         setAttacksEnabled(0)
-
-@compiletime function racoon()
-    new Raccoon(ID_RACCOON)

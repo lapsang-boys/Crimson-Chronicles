@@ -1,41 +1,22 @@
 package Levels
 
 import LinkedList
-import HashMap
+import Assets
 
 import Squad
-import AgileMob
 import GameplayConstants
 import MobType
 import Colorscheme
 
-// ----------------------------------------------------------------------------
-// =============== Level constants (mobs and lifelost per mob) ================
-// ----------------------------------------------------------------------------
-
-// Mobs
-public constant ID_MOB_BASE_UNIT = 'earc'
-public constant ID_PATH_SHOWER = 'm000'
-public constant ID_RACCOON = 'm001'
-public constant ID_ACCO = 'm002'
-public constant ID_ARCHY = 'm003'
-
-// Hashmap storing life lost per mob
-public HashMap<int, int> unitBounty = new HashMap<int, int>
-..put(ID_PATH_SHOWER, 0)
-..put(ID_RACCOON, 1)
-..put(ID_ACCO, 1)
-..put(ID_ARCHY, 1)
-
-// TODO:
-// Map indiviual mobs to creature type
-// Map levels to description(?)
+// Felwood
+import FelwoodMobList
+import AgileMob
+import DemonMob
+import TreantMob
 
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
 // ----------------------------------------------------------------------------
-
-
 
 public class Level
     LinkedList<SquadMember> squadChain
@@ -74,49 +55,58 @@ function levelDescriptionMsg(string desc) returns string
 init
     // ============== Area 1 ==============
     Level L0 = new Level(
-        toCenterSquad(ID_PATH_SHOWER, 3, 0, new EmptyHooker),
+        toCenterSquad(ID_MOB_PATH_SHOWER, 3, new EmptyHooker),
         0, // Bonus
         levelNameMsg(0, "Path shower"),
         levelDescriptionMsg(""),
         new LinkedList<MobType>..add(MobType.INVULNERABLE))
     levels.add(L0)
 
+    // Do we need squad member bounty?
     Level L1 = new Level(
-        toDefaultSquad(ID_RACCOON, 10, 1, new Agile(100, 400, 1)),
+        toDefaultSquad(ID_MOB_STAG, 10, new EmptyHooker),
         10, // Bonus
-        levelNameMsg(1, "Raccoon"),
-        levelDescriptionMsg("Description"),
+        levelNameMsg(1, "Stag"),
+        levelDescriptionMsg("Terrified stags escaping in a stampede."),
         new LinkedList<MobType>)
     levels.add(L1)
 
     Level L2 = new Level(
-        toDefaultSquad(ID_ACCO, 10, 1, new EmptyHooker),
+        toDefaultSquad(ID_MOB_DIRE_WOLF, 10, new Agile(DIRE_WOLF_MS, 100, 1.5)),
         10, // Bonus
-        levelNameMsg(2, "Acolyte"),
+        levelNameMsg(2, "Dire Wolf"),
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>)
     levels.add(L2)
 
     Level L3 = new Level(
-        toDefaultSquad(ID_ARCHY, 10, 1, new EmptyHooker),
+        toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10, new Demon(0.15, 256, Abilities.howlCaster, Abilities.avengerMissile)),
         10, // Bonus
-        levelNameMsg(3, "Archer"),
+        levelNameMsg(3, "Demonic satyrs"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MobType>)
+        new LinkedList<MobType>..add(MobType.DEMON))
     levels.add(L3)
 
-    LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))
-    ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1), new EmptyHooker))
-    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1), new EmptyHooker))
-    ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1), new EmptyHooker))
-    ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1), new EmptyHooker))
-    .toSquadChain()
     Level L4 = new Level(
-        L4Chain,
+        toDefaultSquad(ID_MOB_FEL_TREANT, 6, new Treant(ID_FEL_SMOG, 3.0, Abilities.howlCaster)),
         10, // Bonus
-        levelNameMsg(4, "Squaden"),
+        levelNameMsg(4, "Fel Treants"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MobType>)
+        new LinkedList<MobType>..add(MobType.DEMON))
     levels.add(L4)
+
+    // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
+    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))
+    // ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1), new EmptyHooker))
+    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1), new EmptyHooker))
+    // ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1), new EmptyHooker))
+    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1), new EmptyHooker))
+    // .toSquadChain()
+    // Level L4 = new Level(
+    //     L4Chain,
+    //     10, // Bonus
+    //     levelNameMsg(4, "Squaden"),
+    //     levelDescriptionMsg("Description"),
+    //     new LinkedList<MobType>)
+    // levels.add(L4)
 

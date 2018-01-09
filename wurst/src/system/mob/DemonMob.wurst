@@ -1,0 +1,54 @@
+package DemonMob
+
+import ClosureForGroups
+
+import GameplayConstants
+import Alexandria
+import Squad
+
+class DemonGroup implements ForGroupCallback
+    real amount
+    string fxPath
+    construct(real amount, string fxPath)
+        this.amount = amount
+        this.fxPath = fxPath
+    function callback(unit u)
+        if u.getOwner() != PLAYER_BROWN
+            return
+
+        u.setHP(u.getHP() + amount)
+        flashEffect(fxPath, u.getPos())
+
+public class DemonBase extends MobWrapper implements Deather
+    real percent
+    real radius
+    unit u
+    string fxDeathPath
+    string fxHealPath
+    construct(unit u, real percent, real radius, string fxDeathPath, string fxHealPath)
+        super(u)
+        this.percent = percent
+        this.radius = radius
+        this.u = u
+        this.fxDeathPath = fxDeathPath
+        this.fxHealPath = fxHealPath
+
+    override function onDeath()
+        flashEffect(this.fxDeathPath, this.u.getPos())
+        DemonGroup dg = new DemonGroup(this.u.getMaxHP()*this.percent, this.fxHealPath)
+        forUnitsInRange(this.u.getPos(), this.radius, dg)
+
+// Squad hook
+public class Demon implements Hooker
+    real percent
+    real range
+    string fxDeathPath
+    string fxHealPath
+
+    construct(real percent, real range, string fxDeathPath, string fxHealPath)
+        this.percent = percent
+        this.range = range
+        this.fxDeathPath = fxDeathPath
+        this.fxHealPath = fxHealPath
+    function hook(unit u)
+        new DemonBase(u, this.percent, this.range, this.fxDeathPath, this.fxHealPath)

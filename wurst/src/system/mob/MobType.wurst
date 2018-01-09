@@ -81,5 +81,5 @@ public function mobHint(MobType mt) returns string
         case MobType.CHARGER
             return c.colorize("(Charger)") + textColor.colorize(" - these guys might seem courageous at first, but when a few of them 'drop' they start to lose their moral.")
         default
-            print("Mob type not implemented")
+            error("Mob type not implemented")
             return ""

@@ -10,10 +10,16 @@ function cleanUp()
     int playerNum = getPlayerN(u)
     PlayerData pd = playerData.get(playerNum)
     pd.registerMobDeath()
+    let id = u.getHandleId()
 
-    // Destroy MobWrapper
-    destroy mobMap.get(u.getHandleId())
+    if mobMap.has(id)
+        MobWrapper mw = mobMap.get(id)
+        mw.onDeath()
 
+        destroy mw
+    else
+        // Timer for cleanup?
+        u.remove()
 
 trigger diesTrigger = CreateTrigger()
 
