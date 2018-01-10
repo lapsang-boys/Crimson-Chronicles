@@ -88,7 +88,7 @@ init
     levels.add(L3)
 
     Level L4 = new Level(
-        toDefaultSquad(ID_MOB_FEL_TREANT, 6, new Treant(ID_FEL_SMOG, 3.0, Abilities.howlCaster)),
+        toDefaultSquad(ID_MOB_FEL_TREANT, 6, new Treant(ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)),
         10, // Bonus
         levelNameMsg(4, "Fel Treants"),
         levelDescriptionMsg("Description"),
