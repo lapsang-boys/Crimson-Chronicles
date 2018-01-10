@@ -1,0 +1,95 @@
+package PowerFaithMob
+
+import TimerUtils
+import Assets
+import ClosureForGroups
+
+import Alexandria
+import Squad
+import GameplayConstants
+
+public class PowerFaithBase extends MobWrapper implements Enterer
+    real healAmount
+    real healRadius
+    real duration
+    int itterations
+    int i
+    timer t
+    effect e
+    string healFx
+    string healAnimationName
+    construct(unit u, real healAmount, real healRadius, real duration, int itterations, string healFx, string healAnimationName)
+        super(u)
+        this.healAmount = healAmount
+        this.healRadius = healRadius
+        this.itterations = itterations
+        this.duration = duration
+        this.healFx = healFx
+        this.healAnimationName = healAnimationName
+
+        this.i = 0
+        this.t = getTimer()
+
+    override function onEnter()
+        super.u.setInvulnerable(true)
+        super.u.pause()
+        super.u.setAnimation(this.healAnimationName)
+        this.e = super.u.addEffect(Abilities.divineShieldTarget, "origin")
+
+        this.t.setData(this castTo int)
+        this.t.start(duration, function periodicHeal)
+
+    ondestroy
+        this.t.release()
+
+function periodicHeal()
+    timer t = GetExpiredTimer()
+    PowerFaithBase pf = t.getData() castTo PowerFaithBase
+
+    HealTarget ht = new HealTarget(pf)
+    forUnitsInRange(pf.getUnit().getPos(), pf.healRadius, ht)
+    pf.i++
+
+    if pf.i <= pf.itterations
+        t.start(pf.duration, function periodicHeal)
+    else
+        pf.getUnit().setInvulnerable(false)
+        pf.getUnit().unpause()
+        pf.e.destr()
+        pf.i = 0
+
+// Squad hook
+public class PowerFaith implements Hooker
+    real healAmount
+    real healRadius
+    real duration
+    int itterations
+
+    string healFx
+    string healAnimationName
+
+    construct(real healAmount, real healRadius, real duration, int itterations, string healFx, string healAnimationName)
+        this.healAmount = healAmount
+        this.healRadius = healRadius
+        this.duration = duration
+        this.itterations = itterations
+        this.healFx = healFx
+        this.healAnimationName = healAnimationName
+    function hook(unit u)
+        new PowerFaithBase(u, this.healAmount, this.healRadius, this.duration, this.itterations, this.healFx, this.healAnimationName)
+
+// ##################################################################
+// ###################### Group callback ############################
+// ##################################################################
+
+class HealTarget implements ForGroupCallback
+    PowerFaithBase priest
+
+    construct(PowerFaithBase priest)
+        this.priest = priest
+
+    function callback(unit u)
+        if u.getOwner() == PLAYER_BROWN
+            u.setHP(u.getHP() + this.priest.healAmount)
+            flashEffect(this.priest.healFx, u.getPos())
+
