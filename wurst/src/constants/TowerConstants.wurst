@@ -36,6 +36,15 @@ public constant ID_EMERALD_SPEAR_TOOLTIP = compiletime(ABIL_ID_GEN.next())
 public constant ID_EMERALD_SPEAR_BUFF = compiletime(BUFF_ID_GEN.next())
 public constant ID_EMERALD_SPEAR_BUFF_BASE = 'Blcb'
 
+
+// -------------- Cenarius tower (upg from Oracle) -----------
+public constant ID_TOWER_CENARIUS = compiletime(UNIT_ID_GEN.next())
+public constant ID_DREAMWORLD_ATTACK_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
+public constant ID_DREAMWORLD_ATTACK = compiletime(ABIL_ID_GEN.next())
+public constant ID_DREAMWORLD_BUFF = compiletime(BUFF_ID_GEN.next())
+public constant ID_DREAMWORLD_BUFF_BASE = 'Blcb'
+
+
 // -------------- Molotov Mike -----------
 public constant ID_TOWER_MOLOTOV_MIKE = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....

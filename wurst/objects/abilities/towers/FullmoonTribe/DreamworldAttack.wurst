@@ -1,0 +1,166 @@
+package DreamworldAttack
+
+import TimerUtils
+import Assets
+import ChannelAbilityPreset
+import InstantDummyCaster
+import ClosureForGroups
+import BuffObjEditing
+
+import GameplayConstants
+import TowerConstants
+import Tooltip
+import ID2S
+
+constant PROC_CHANCE = 50  // (Percentage)
+constant DUMMY_ORDER = "parasite"
+constant RANGE = 700.
+constant SPEED_REDUCTION = 0.15
+constant DURATION = 2.5
+constant DAMAGE_PER_SEC = 40.
+constant CONE_ANGLE = 30.
+constant ANIMATION_TIME = DURATION
+
+colorA emerald_color = colorA(150, 255, 150, 180)
+
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+class DreamworldBuff extends BuffDefinition
+    construct(int newBuffId, int origBuggId)
+        super(newBuffId, origBuggId)
+
+        setIcon(Icons.bTNCharm)
+        setTarget(1, Abilities.tranquilityTarget)
+        setTargetAttachmentPoint0(1, "origin")
+        setMissileArt(1, "")
+
+        setTooltipNormal(1, tooltipBuffName("Drfting in dreams", false))
+        setTooltipNormalExtended(1, tooltipBuffText("This unit has reduced movementspeed."))
+
+@compiletime function generateDreamworldBuff()
+        new DreamworldBuff(ID_DREAMWORLD_BUFF, ID_DREAMWORLD_BUFF_BASE)
+
+class DreamworldAttackSpell extends AbilityDefinitionParasite
+    construct(int id)
+        super(id)
+        setBuffs(1, ID2S(ID_DREAMWORLD_BUFF))
+        setDurationNormal(1, DURATION)
+
+        setSummonedUnitCount(1, 0)
+        setAttackSpeedFactor(1, 0)
+        setDamageperSecond(1, DAMAGE_PER_SEC)
+        setMovementSpeedFactor(1, SPEED_REDUCTION)
+        setUnitType(1, "")
+
+        setMissileArc(0.5)
+        setMissileArt(Abilities.corrosiveBreathMissile)
+        setMissileHomingEnabled(true)
+        setMissileSpeed(800)
+
+        // Dummy requirements
+        setManaCost(1, 0)
+        setCastRange(1, 92083)
+        setCooldown(1, 0)
+        setCastingTime(1, 0)
+        setAnimationNames("")
+
+        setTargetsAllowed(1, "air,ground,enemy")
+        setHeroAbility(false)
+        setOrderStringActivate(DUMMY_ORDER)
+        setRequirements("")
+
+@compiletime function generateDreamworldAttackSpell()
+    new DreamworldAttackSpell(ID_DREAMWORLD_ATTACK)
+
+
+@compiletime function generateDreamworldPassive()
+    new ChannelAbilityPreset(ID_DREAMWORLD_ATTACK_DUMMY_ICON, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Plane Shift", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Give a " + I2S(PROC_CHANCE) + "% chance to hit all units in a " +
+        R2S(RANGE) + " cone with Emerald magic dealing " + R2S(DAMAGE_PER_SEC) + " per second and slowing them by " +
+        R2S(SPEED_REDUCTION) + "% for " + R2S(DURATION) + " seconds.",
+        "Keeper Remulos suffers from Nightmare Phantasms, drifting between the Emeral Dream and the mortal plane. While " +
+        "in the Emerald dream Remulos can connect with multiple beeings in the mortal plane at once. Enemies caught by Remulos" +
+        " have parts of their physical bodies temporarily draged into the Emerald Dream causing great harm."))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNCharm)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+// ##################################################################
+// ###################### Support classes ###########################
+// ##################################################################
+
+class DreamTarget implements ForGroupCallback
+    unit attacker
+    unit attacked
+    real facingAngle
+
+    construct(unit attacker, unit attacked)
+        this.attacker = attacker
+        this.attacked = attacked
+        this.facingAngle = attacker.getPos().angleTo(attacked.getPos()).degrees()
+
+    function callback(unit u)
+        real unitFacing = this.attacker.getPos().angleTo(u.getPos()).degrees()
+
+        if u.getOwner() != PLAYER_BROWN
+            return
+
+        // Cast if in cone
+        if RAbsBJ(this.facingAngle - unitFacing) < CONE_ANGLE
+            InstantDummyCaster.castTarget(this.attacker.getOwner(), ID_DREAMWORLD_ATTACK, 1, DUMMY_ORDER, u, this.attacker.getPos())
+
+class Remulos
+    unit u
+    construct(unit u)
+        this.u = u
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+function isCenarius() returns bool
+    return GetAttacker().getTypeId() == ID_TOWER_CENARIUS
+
+// On attack check
+function dreamAttack()
+    int i = GetRandomInt(1, 100)
+    if i >= PROC_CHANCE
+        return
+
+    unit attacker = GetAttacker()
+
+    attacker.pause()
+    attacker.setAnimation("Stand Victory")
+    attacker.setVertexColor(emerald_color)
+
+    Remulos rem = new Remulos(attacker)
+    timer t = getTimer()
+    t.setData(rem castTo int)
+    t.start(ANIMATION_TIME, () -> begin
+        timer ti = GetExpiredTimer()
+        Remulos remI = ti.getData() castTo Remulos
+        remI.u.unpause()
+        remI.u.setAnimation("Stand")
+        remI.u.setVertexColor(255, 255, 255, 255)
+        destroy remI
+        ti.release()
+    end)
+
+    DreamTarget dt = new DreamTarget(attacker, GetAttackedUnitBJ())
+    forUnitsInRange(attacker.getPos(), RANGE, dt)
+
+
+
+
+init
+    trigger trig = CreateTrigger()
+    trig.addAction(function dreamAttack)
+    trig.addCondition(Condition(function isCenarius))
+    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)

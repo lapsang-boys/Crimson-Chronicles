@@ -1,4 +1,4 @@
-package Oracle
+package Cenarius
 
 import Assets
 import Damage
@@ -10,26 +10,26 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant DAMAGE_BASE = 3
-constant DAMAGE_SIDES_PER_DIE = 8
+constant DAMAGE_BASE = 67
+constant DAMAGE_SIDES_PER_DIE = 43
 constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 600
+constant RANGE = 800
 constant ATTACK_SPEED = 1.
 constant GOLD_COST = 40
 constant POINT_VALUE = 40
 
-class Oracle extends TowerDefinition
+class Malorne extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNDryad)
-        setModelFile(Units.dryad1)
+        setIconGameInterface(Icons.bTNKeeperOfTheGrove)
+        setModelFile(Units.heroKeeperoftheGrove)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet("Dryad")
+        setUnitSoundSet("HeroKeeperOfTheGrove")
         setScalingValue(1.)
         setGroundTexture(ID_FULLMOON_TRIBE_GROUND_TEXTURE)
 
@@ -46,12 +46,12 @@ class Oracle extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_EMERALD_SPEAR) + "," + ID2S(ID_EMERALD_SPEAR_TOOLTIP))
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_DREAMWORLD_ATTACK_DUMMY_ICON))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.dryadmissile)
+        setAttack1ProjectileArt(Abilities.keeperGroveMissile)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileSpeed(1200)
         setAttack1WeaponType(WeaponType.Missile)
@@ -61,23 +61,23 @@ class Oracle extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_CENARIUS))
+        setUpgradesTo("")
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(1)
-        setButtonPositionY(0)
-        setHotkey("W")
-        setName("Oracle")
-        setTooltipBasic(tooltipBuild("W", "Oracle"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, reduces armor on hit.",
+        setButtonPositionX(3)
+        setButtonPositionY(2)
+        setHotkey("Q")
+        setName("Remulos")
+        setTooltipBasic(tooltipUpgrade("Q", "Remulos"))
+        setTooltipExtended(tooltipTowerExtended("Tower with AOE potential.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
             ATTACK_SPEED,
             RANGE,
-            "Emerald spear",
-            "Being daughters of the demigod Cenarius the Oracles of the Fullmoon tribe are born with the wisdom of a thousand men."))
+            "Plane Shift",
+            "Brave enough to defy the might Fandral Staghelm, but he still suffers from nightmares."))
 
-@compiletime function tower()
-    new Oracle(ID_TOWER_ORACLE)
+@compiletime function generateMalorne()
+    new Malorne(ID_TOWER_CENARIUS)

@@ -16,7 +16,7 @@ class EmeraldSpearBuff extends BuffDefinition
         super(newBuffId, origBuggId)
 
         setIcon(Icons.bTNCharm)
-        setTarget(1, Abilities.tranquilityTarget)
+        setTarget(1, Abilities.faerieFireTarget)
         setTargetAttachmentPoint0(1, "foot")
         setMissileArt(1, "")
 
