@@ -1,0 +1,36 @@
+package FoucsFire
+
+import RegisterEvents
+import ClosureForGroups
+import Assets
+
+import GameplayConstants
+import TowerConstants
+import TimedEffect
+import Movement
+import Regions
+
+class AttackTarget implements ForGroupCallback
+    unit target
+
+    construct(unit target)
+        this.target = target
+
+    function callback(unit u)
+        if u.getOwner() != PLAYER_BROWN
+            u.issueTargetOrder("attack", target)
+
+function focusFire()
+    let u = GetSpellTargetUnit()
+    let p = getPlayerN(u)
+
+    let r = rectFromIndex(playerArea.get(p))
+    AttackTarget target = new AttackTarget(u)
+
+
+    forUnitsInRect(r, target)
+
+    attatchTimedEffect(u, 3., Abilities.talkToMe, "overhead")
+
+init
+    registerSpellEffectEvent(ID_FOCUS_FIRE, function focusFire)
