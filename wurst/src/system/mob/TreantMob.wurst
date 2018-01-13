@@ -11,6 +11,7 @@ import GameplayConstants
 import ID2S
 import Alexandria
 import Squad
+import TimedEffect
 
 constant DURATION = 2.
 constant AS_SLOW = 0.5
@@ -30,7 +31,7 @@ public class TreantBase extends MobWrapper implements Deather
         this.fxDeathPath = fxDeathPath
 
     override function onDeath()
-        flashEffect(this.fxDeathPath, this.u.getPos())
+        createTimedEffect(this.u.getPos(), 1.5, this.fxDeathPath)
         SmogTarget st = new SmogTarget(this.u)
         forUnitsInRange(this.u.getPos(), this.radius, st)
 

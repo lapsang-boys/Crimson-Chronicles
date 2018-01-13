@@ -11,6 +11,7 @@ import Regions
 import Alexandria
 import GameplayConstants
 import Movement
+import TimedEffect
 import Levels
 import PlayerData
 
@@ -39,7 +40,7 @@ function leak()
     pd.registerLeak(lifeTaken, GetUnitPointValue(u))
 
     // SFX.
-    flashEffect(Abilities.aIilTarget, u.getPos())
+    createTimedEffect(u.getPos(), 1., Abilities.aIilTarget)
 
     // Destroy MobWrapper
     destroy mobMap.get(u.getHandleId())

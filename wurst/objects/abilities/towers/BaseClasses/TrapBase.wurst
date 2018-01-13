@@ -5,6 +5,7 @@ import TimerUtils
 
 import Alexandria
 import GameplayConstants
+import TimedEffect
 
 public HashMap<int, TrapBase> trapMap = new HashMap<int, TrapBase>
 
@@ -62,7 +63,7 @@ public class TrapBase
     ondestroy
         trapMap.remove(this.trig.getHandleId())
         if this.deathFxPath != null
-            flashEffect(this.deathFxPath, this.pos)
+            createTimedEffect(this.pos, 1., this.deathFxPath)
         this.trapDummy.remove()
         this.trig.destr()
         this.tim.release()
