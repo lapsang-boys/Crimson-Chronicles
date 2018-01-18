@@ -1,6 +1,12 @@
 
 # Todo
 
+## General fixes
+
+* Fix tilesets in MPQ
+  - Decide final tilesets 
+  - Fix area 1 terrain
+
 ## Golden grails
 
  - Anti-block system
