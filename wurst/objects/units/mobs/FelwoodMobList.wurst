@@ -11,12 +11,16 @@ public constant ID_MOB_PATH_SHOWER = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_DIRE_WOLF = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_DEMONIC_SATYR = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_FEL_TREANT = compiletime(UNIT_ID_GEN.next())
+public constant ID_DARK_TROLL_SHADOW_PRIEST = compiletime(UNIT_ID_GEN.next())
+public constant ID_DARK_TROLL_WARRIOR = compiletime(UNIT_ID_GEN.next())
 
 public MobDefinition PATH_SHOWER
 public MobDefinition STAG
 public MobDefinition DIRE_WOLF
 public MobDefinition DEMONIC_SATYR
 public MobDefinition FEL_TREANT
+public MobDefinition DARK_TROLL_SHADOW_PRIEST
+public MobDefinition DARK_TROLL_WARRIOR
 
 public constant real DIRE_WOLF_MS = 300
 
@@ -36,3 +40,6 @@ public constant real DIRE_WOLF_MS = 300
     DEMONIC_SATYR = new MobDefinition(ID_MOB_DEMONIC_SATYR, "Demonic Satyr", Units.satyr1, "satyr", 1, 1, 55, 0, 280)
     // Level 4
     FEL_TREANT = new MobDefinition(ID_MOB_FEL_TREANT, "Fel Treants", Units.corruptedEnt1, "CorruptedEnt", 1, 1, 105, 0, 200)
+    // Level 5
+    DARK_TROLL_SHADOW_PRIEST = new MobDefinition(ID_DARK_TROLL_SHADOW_PRIEST, "Dark troll Shadow priest", Units.darkTrollShadowPriest1, "CorruptedEnt", 2, 1, 75, 0, 150)
+    DARK_TROLL_WARRIOR = new MobDefinition(ID_DARK_TROLL_WARRIOR, "Dark troll Warrior", Units.darkTroll1, "CorruptedEnt", 1, 1, 135, 0, 150)

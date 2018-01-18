@@ -12,6 +12,7 @@ import ObjectIdGenerator
 
 // Sell tower ability (for all towers)
 public constant ID_SELL_TOWER = compiletime(ABIL_ID_GEN.next())
+public constant ID_FOCUS_FIRE = compiletime(ABIL_ID_GEN.next())
 
 // ---------------------------------------------
 // ================ Team asdf ==================
@@ -19,6 +20,7 @@ public constant ID_SELL_TOWER = compiletime(ABIL_ID_GEN.next())
 
 // -------------- Test tower -----------
 public constant ID_TOWER_TEST = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_MAZE_ROCK = compiletime(UNIT_ID_GEN.next())
 // TOWER_TEST_ABILITY_YY  = ....
 
 

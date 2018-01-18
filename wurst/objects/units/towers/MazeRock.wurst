@@ -1,0 +1,62 @@
+package MazeRock
+
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import TowerConstants
+import BuilderConstants
+import Tooltip
+import ID2S
+
+constant GOLD_COST = 2
+constant LUMBER_COST = 1
+constant POINT_VALUE = 2
+
+class MazeRock extends TowerDefinition
+    construct(int id)
+        super(id)
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setIconGameInterface(Icons.bTNResStone)
+        setModelFile(Doodads.felwoodRuinsBlocks)
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet("")
+        setScalingValue(1.)
+        setGroundTexture(ID_FULLMOON_TRIBE_GROUND_TEXTURE)
+
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
+        setAttacksEnabled(0)
+
+        // ------------------------------------
+        // ========== Spells ==================
+        // ------------------------------------
+        setNormalAbilities(ID2S(ID_SELL_TOWER))
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
+        setGoldCost(GOLD_COST)
+        setLumberCost(LUMBER_COST)
+        setPointValue(POINT_VALUE)
+        setUpgradesTo("")
+        setUpgradesUsed("")
+
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
+        setButtonPositionX(3)
+        setButtonPositionY(1)
+        setHotkey("F")
+        setName("Maze rock")
+        setTooltipBasic(tooltipBuild("F", "Maze rock"))
+        setTooltipExtended(tooltipTextFlavor("Warning this tower cannot attack it's solely used for mazing",
+        "Most imbaincarnated tower of doom. It does not have attack nor an imba spell just pure awesomness."))
+
+@compiletime function tower()
+    new MazeRock(ID_TOWER_MAZE_ROCK)

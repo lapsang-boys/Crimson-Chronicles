@@ -5,6 +5,7 @@ import ClosureForGroups
 import GameplayConstants
 import Alexandria
 import Squad
+import TimedEffect
 
 class DemonGroup implements ForGroupCallback
     real amount
@@ -16,8 +17,8 @@ class DemonGroup implements ForGroupCallback
         if u.getOwner() != PLAYER_BROWN
             return
 
-        u.setHP(u.getHP() + amount)
-        flashEffect(fxPath, u.getPos())
+        u.setHP(u.getHP() + this.amount)
+        createTimedEffect(u.getPos(), 1.5, this.fxPath)
 
 public class DemonBase extends MobWrapper implements Deather
     real percent
@@ -34,7 +35,7 @@ public class DemonBase extends MobWrapper implements Deather
         this.fxHealPath = fxHealPath
 
     override function onDeath()
-        flashEffect(this.fxDeathPath, this.u.getPos())
+        createTimedEffect(this.u.getPos(), 1.5, this.fxDeathPath)
         DemonGroup dg = new DemonGroup(this.u.getMaxHP()*this.percent, this.fxHealPath)
         forUnitsInRange(this.u.getPos(), this.radius, dg)
 

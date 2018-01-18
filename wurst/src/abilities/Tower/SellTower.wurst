@@ -8,13 +8,14 @@ import Alexandria
 import GameplayConstants
 import TowerConstants
 import Colorscheme
+import TimedEffect
 
 function sellTower()
     let tower = GetTriggerUnit()
     let pos = tower.getPos()
     let p = tower.getOwner()
     let gold = GetUnitPointValue(tower)
-    flashEffect(UI.goldCredit, pos)
+    createTimedEffect(pos, 1., UI.goldCredit)
     p.setGold(p.getGold() + gold)
 
     SoundDefinition sd = new SoundDefinition(Sounds.receiveGold1, false)

@@ -13,6 +13,7 @@ import FelwoodMobList
 import AgileMob
 import DemonMob
 import TreantMob
+import PowerFaithMob
 
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
@@ -94,6 +95,24 @@ init
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>..add(MobType.DEMON))
     levels.add(L4)
+
+    LinkedList<SquadMember> L5Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3.), new EmptyHooker))
+    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1),
+    new PowerFaith(20., 512., 1., 3,  Abilities.healTarget, "Spell")))
+    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3), new EmptyHooker))
+    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1),
+    new PowerFaith(20., 512., 1., 3,  Abilities.healTarget, "Spell")))
+    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 1, SpawnPosition.RANDOM, spawnInterval(1.5, 3), new EmptyHooker))
+    .toSquadChain()
+
+    Level L5 = new Level(
+        L5Chain,
+        10, // Bonus
+        levelNameMsg(5, "Dark trolls"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MobType>..add(MobType.DEMON))
+    levels.add(L5)
 
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
     // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))
