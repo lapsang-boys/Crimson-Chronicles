@@ -14,6 +14,7 @@ import AgileMob
 import DemonMob
 import TreantMob
 import PowerFaithMob
+import BenderMob
 
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
@@ -113,6 +114,14 @@ init
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>..add(MobType.DEMON))
     levels.add(L5)
+
+    Level L6 = new Level(
+        toDefaultSquad(ID_MOB_FEL_TREANT, 6, new Treant(ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)),
+        10, // Bonus
+        levelNameMsg(4, "Fel Treants"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MobType>..add(MobType.DEMON))
+    levels.add(L6)
 
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
     // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))

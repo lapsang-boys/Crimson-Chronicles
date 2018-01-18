@@ -1,0 +1,64 @@
+package BenderMob
+
+import TimerUtils
+import Assets
+
+import Alexandria
+import Squad
+// import Movement
+import TimedEffect
+
+public class BenderBase extends MobWrapper implements Enterer
+    real bendDistance
+    string bendFx
+    string bendAnimation
+    real bendAnimationDuration
+
+    timer t
+    construct(unit u, real bendDistance, string bendAnimation, string bendFx, real bendAnimationDuration)
+        super(u)
+        this.bendDistance = bendDistance
+        this.bendAnimation = bendAnimation
+        this.bendFx = bendFx
+        this.bendAnimationDuration = bendAnimationDuration
+        this.t = getTimer()
+
+    override function onEnter()
+        super.u.pause()
+        super.u.setAnimation(this.bendAnimation)
+        this.t.setData(this castTo int)
+        this.t.start(bendAnimationDuration, function bend)
+
+    ondestroy
+        this.t.release()
+
+function bend()
+    timer t = GetExpiredTimer()
+    BenderBase bb = t.getData() castTo BenderBase
+
+    vec2 origPos = bb.u.getPos()
+    vec2 nextNode = getNext(bb.u)
+    angle agl = origPos.angleTo(nextNode)
+    vec2 newPos = origPos.polarOffset(agl, bb.bendDistance)
+
+    createTimedEffect(origPos, 1., bb.bendFx)
+    createTimedEffect(newPos, 1., bb.bendFx)
+
+    bb.u.setPos(newPos)
+
+
+// Squad hook
+public class Bender implements Hooker
+    real bendDistance
+    string bendFx
+    string bendAnimation
+    real bendAnimationDuration
+
+    construct(real bendDistance, string bendFx, string bendAnimation, real bendAnimationDuration)
+        this.bendDistance = bendDistance
+        this.bendFx = bendFx
+        this.bendAnimation = bendAnimation
+        this.bendAnimationDuration = bendAnimationDuration
+
+    function hook(unit u)
+        new BenderBase(u, this.bendDistance, this.bendFx, this.bendAnimation, this.bendAnimationDuration)
