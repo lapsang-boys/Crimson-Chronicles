@@ -1,17 +1,11 @@
 package PlayerData
 
 import LinkedList
-import TypeCasting
-import Assets
-import SoundUtils
 import ClosureForGroups
 
-import Levels
-import Colorscheme
 import Regions
 import Leaderboard
 import GameplayConstants
-import BuilderConstants
 
 class Remover implements ForGroupCallback
     bool removePlayerUnits
@@ -25,11 +19,6 @@ class Remover implements ForGroupCallback
             u.remove()
         else if not u.getOwner() == p
             u.remove()
-
-class Winner implements ForGroupCallback
-    function callback(unit u)
-        u.setAnimation("stand victory")
-        u.addEffect(Objects.toonBoom, "origin")
 
 public class PlayerData
     int playerNum
@@ -53,32 +42,6 @@ public class PlayerData
     function setBuilder(unit builder)
         this.builder = builder
 
-    function loseLife(int i)
-        this.life -= i
-        if this.life >= 1 and i > 0
-            SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
-            sd.playForPlayer(p)
-            if i > 1
-                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives. You have ") + numberColor.colorize(I2S(this.life)) + warningColor.colorize(" left."), DISPLAY_TIME, this.p)
-            else if i == 1
-                printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life. You have ") + numberColor.colorize(I2S(this.life)) + warningColor.colorize(" left."), DISPLAY_TIME, this.p)
-
-        if life <= 0
-            loseGame()
-
-    function loseGame()
-        printTimedToPlayer(infoColor.colorize("You have lost the game."), DISPLAY_TIME, this.p)
-        this.levelInProgress = false
-        this.cleanse(true)
-
-    function winGame()
-        printTimedToPlayer(infoColor.colorize("You won the game!"), DISPLAY_TIME, this.p)
-        SoundDefinition sd = new SoundDefinition(Sounds.newTournament, false)
-        sd.playForPlayer(this.p)
-        rect r = rectFromIndex(playerArea.get(this.playerNum))
-        Winner w = new Winner()
-        forUnitsInRect(r, w)
-
     function cleanse(bool removePlayerUnits)
         rect r = rectFromIndex(playerArea.get(this.playerNum))
         Remover rem = new Remover(removePlayerUnits, this.p)
@@ -90,52 +53,6 @@ public class PlayerData
         this.life = STARTING_LIFE
         this.mobsRemoved = 0
         this.level = 0
-        updateLife(this.p, this.life)
-
-    function levelComplete()
-        Level l = levels.get(this.level)
-
-        this.levelInProgress = false
-        this.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
-
-        let finishedLevel = this.level
-        this.level++
-        this.mobsRemoved = 0
-
-        // Win game
-        if this.level == levels.getSize()
-            this.winGame()
-            return
-
-        if finishedLevel == 0
-            printTimedToPlayer(infoColor.colorize("You have completed the info level."), DISPLAY_TIME, this.p)
-        else
-            printTimedToPlayer(infoColor.colorize("You completed level ")
-            + numberColor.colorize(I2S(finishedLevel))
-            + infoColor.colorize(" and also received ")
-            + numberColor.colorize(I2S(l.bonus))
-            + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, this.p)
-
-            // Reward bonus.
-            this.p.addGold(l.bonus)
-
-            // Play victory sound.
-            SoundDefinition sd = new SoundDefinition(Sounds.questCompleted, false)
-            sd.playForPlayer(this.p)
-
-        this.builder.addAbility(ID_NEXT_LEVEL)
-
-        // might change area later.
-
-    function registerMobDeath()
-        this.mobsRemoved++
-        if this.mobsRemoved == levels.get(this.level).squadChain.size()
-            levelComplete()
-
-    function registerLeak(int lifeTaken, int bounty)
-        Level l = levels.get(this.level)
-        this.p.addGold(bounty)
-        loseLife(lifeTaken)
         updateLife(this.p, this.life)
 
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>

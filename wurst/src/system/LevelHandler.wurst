@@ -1,0 +1,92 @@
+package LevelHandler
+
+import LinkedList
+import Assets
+import SoundUtils
+import ClosureForGroups
+
+import Colorscheme
+import Regions
+import Leaderboard
+import GameplayConstants
+import BuilderConstants
+import PlayerData
+import Levels
+
+class Winner implements ForGroupCallback
+    function callback(unit u)
+        u.setAnimation("stand victory")
+        u.addEffect(Objects.toonBoom, "origin")
+
+function loseLife(PlayerData pd, int i)
+    pd.life -= i
+    if pd.life >= 1 and i > 0
+        SoundDefinition sd = new SoundDefinition(Sounds.creepAggroWhat1, false)
+        sd.playForPlayer(pd.p)
+        if i > 1
+            printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" lives. You have ") + numberColor.colorize(I2S(pd.life)) + warningColor.colorize(" left."), DISPLAY_TIME, pd.p)
+        else if i == 1
+            printTimedToPlayer(warningColor.colorize("You lost ") + numberColor.colorize(I2S(i)) + warningColor.colorize(" life. You have ") + numberColor.colorize(I2S(pd.life)) + warningColor.colorize(" left."), DISPLAY_TIME, pd.p)
+
+    if pd.life <= 0
+        loseGame(pd)
+
+function loseGame(PlayerData pd)
+    printTimedToPlayer(infoColor.colorize("You have lost the game."), DISPLAY_TIME, pd.p)
+    pd.levelInProgress = false
+    pd.cleanse(true)
+
+function winGame(PlayerData pd)
+    printTimedToPlayer(infoColor.colorize("You won the game!"), DISPLAY_TIME, pd.p)
+    SoundDefinition sd = new SoundDefinition(Sounds.newTournament, false)
+    sd.playForPlayer(pd.p)
+    rect r = rectFromIndex(playerArea.get(pd.playerNum))
+    Winner w = new Winner()
+    forUnitsInRect(r, w)
+
+function levelComplete(PlayerData pd)
+    Level l = levels.get(pd.level)
+
+    pd.levelInProgress = false
+    pd.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
+
+    let finishedLevel = pd.level
+    pd.level++
+    pd.mobsRemoved = 0
+
+    // Win game
+    if pd.level == levels.getSize()
+        winGame(pd)
+        return
+
+    if finishedLevel == 0
+        printTimedToPlayer(infoColor.colorize("You have completed the info level."), DISPLAY_TIME, pd.p)
+    else
+        printTimedToPlayer(infoColor.colorize("You completed level ")
+        + numberColor.colorize(I2S(finishedLevel))
+        + infoColor.colorize(" and also received ")
+        + numberColor.colorize(I2S(l.bonus))
+        + infoColor.colorize(" gold as bounty!"), DISPLAY_TIME, pd.p)
+
+        // Reward bonus.
+        pd.p.addGold(l.bonus)
+
+        // Play victory sound.
+        SoundDefinition sd = new SoundDefinition(Sounds.questCompleted, false)
+        sd.playForPlayer(pd.p)
+
+    pd.builder.addAbility(ID_NEXT_LEVEL)
+
+    // might change area later.
+
+public function registerMobDeath(player p)
+    PlayerData pd = playerData.get(p.getId())
+    pd.mobsRemoved++
+    if pd.mobsRemoved == levels.get(pd.level).squadChain.size()
+        levelComplete(pd)
+
+public function registerLeak(player p, int lifeTaken, int bounty)
+    PlayerData pd = playerData.get(p.getId())
+    pd.p.addGold(bounty)
+    loseLife(pd, lifeTaken)
+    updateLife(pd.p, pd.life)

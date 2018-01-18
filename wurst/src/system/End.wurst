@@ -12,32 +12,30 @@ import Alexandria
 import GameplayConstants
 import Movement
 import TimedEffect
-import Levels
+import LevelHandler
 import PlayerData
 
 class UnitWrapper
     unit u
-    int playerNum
-    construct(unit u, int playerNum)
+    player p
+    construct(unit u, player p)
         this.u = u
-        this.playerNum = playerNum
+        this.p = p
 
     ondestroy
-        PlayerData pd = playerData.get(this.playerNum)
-        pd.registerMobDeath()
+        registerMobDeath(this.p)
 
 function leak()
     let u = GetTriggerUnit()
     int n = getPlayerN(u)
-    UnitWrapper uw = new UnitWrapper(u, n)
     player p = Player(n)
+    UnitWrapper uw = new UnitWrapper(u, p)
 
     // Take player life.
-    PlayerData pd = playerData.get(n)
     int lifeTaken = u.getFoodUsed()
 
     // Point value is interpreted as bounty.
-    pd.registerLeak(lifeTaken, GetUnitPointValue(u))
+    registerLeak(p, lifeTaken, GetUnitPointValue(u))
 
     // SFX.
     createTimedEffect(u.getPos(), 1., Abilities.aIilTarget)

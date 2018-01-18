@@ -2,14 +2,13 @@ package Morgue
 
 import GameplayConstants
 import Movement
-import PlayerData
 import Alexandria
+import LevelHandler
 
 function cleanUp()
     let u = GetTriggerUnit()
     int playerNum = getPlayerN(u)
-    PlayerData pd = playerData.get(playerNum)
-    pd.registerMobDeath()
+    registerMobDeath(Player(playerNum))
     let id = u.getHandleId()
 
     if mobMap.has(id)
