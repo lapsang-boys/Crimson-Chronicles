@@ -1,11 +1,10 @@
 package BenderMob
 
 import TimerUtils
-import Assets
 
 import Alexandria
 import Squad
-// import Movement
+import Movement
 import TimedEffect
 
 public class BenderBase extends MobWrapper implements Enterer
@@ -14,18 +13,32 @@ public class BenderBase extends MobWrapper implements Enterer
     string bendAnimation
     real bendAnimationDuration
 
+    angle direction
+    vec2 nextNode
+    vec2 newPos
+
+
     timer t
-    construct(unit u, real bendDistance, string bendAnimation, string bendFx, real bendAnimationDuration)
+    construct(unit u, real bendDistance, string bendFx, string bendAnimation, real bendAnimationDuration)
         super(u)
         this.bendDistance = bendDistance
-        this.bendAnimation = bendAnimation
         this.bendFx = bendFx
+        this.bendAnimation = bendAnimation
         this.bendAnimationDuration = bendAnimationDuration
         this.t = getTimer()
 
     override function onEnter()
         super.u.pause()
         super.u.setAnimation(this.bendAnimation)
+
+        vec2 origPos = super.u.getPos()
+        this.nextNode = getNext(super.u)
+        this.direction = origPos.angleTo(nextNode)
+        this.newPos = origPos.polarOffset(this.direction, this.bendDistance)
+
+        // createTimedEffect(origPos, 2., this.bendFx)
+        super.u.setFacing(this.direction)
+
         this.t.setData(this castTo int)
         this.t.start(bendAnimationDuration, function bend)
 
@@ -36,15 +49,13 @@ function bend()
     timer t = GetExpiredTimer()
     BenderBase bb = t.getData() castTo BenderBase
 
-    vec2 origPos = bb.u.getPos()
-    vec2 nextNode = getNext(bb.u)
-    angle agl = origPos.angleTo(nextNode)
-    vec2 newPos = origPos.polarOffset(agl, bb.bendDistance)
+    createTimedEffect(bb.u.getPos(), 2., bb.bendFx)
 
-    createTimedEffect(origPos, 1., bb.bendFx)
-    createTimedEffect(newPos, 1., bb.bendFx)
+    bb.u.setPos(bb.newPos)
+    bb.u.unpause()
+    bb.u.issuePointOrder("move", bb.nextNode)
 
-    bb.u.setPos(newPos)
+    createTimedEffect(bb.u.getPos(), 2., bb.bendFx)
 
 
 // Squad hook

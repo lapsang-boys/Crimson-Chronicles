@@ -116,9 +116,9 @@ init
     levels.add(L5)
 
     Level L6 = new Level(
-        toDefaultSquad(ID_MOB_FEL_TREANT, 6, new Treant(ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)),
+        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 6, new Bender(256, Abilities.feralspiritdone, "spell", 0.6)),
         10, // Bonus
-        levelNameMsg(4, "Fel Treants"),
+        levelNameMsg(6, "Bendy mac Bend"),
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>..add(MobType.DEMON))
     levels.add(L6)
