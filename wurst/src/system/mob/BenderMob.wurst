@@ -17,8 +17,8 @@ public class BenderBase extends MobWrapper implements Enterer
     vec2 nextNode
     vec2 newPos
 
-
     timer t
+
     construct(unit u, real bendDistance, string bendFx, string bendAnimation, real bendAnimationDuration)
         super(u)
         this.bendDistance = bendDistance

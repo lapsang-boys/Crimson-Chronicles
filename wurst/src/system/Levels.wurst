@@ -14,6 +14,7 @@ import AgileMob
 import DemonMob
 import TreantMob
 import PowerFaithMob
+import FaithMob
 import BenderMob
 
 // ----------------------------------------------------------------------------
@@ -94,7 +95,7 @@ init
         10, // Bonus
         levelNameMsg(4, "Fel Treants"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.DEMON))
+        new LinkedList<MobType>..add(MobType.BANISHED))
     levels.add(L4)
 
     LinkedList<SquadMember> L5Chain = new LinkedList<SquadMember>
@@ -112,16 +113,33 @@ init
         10, // Bonus
         levelNameMsg(5, "Dark trolls"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.DEMON))
+        new LinkedList<MobType>..add(MobType.FAITH))
     levels.add(L5)
 
+    LinkedList<SquadMember> L6Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), new EmptyHooker))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6),
+    new Faith(3., Abilities.drainCaster)))
+    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), new EmptyHooker))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6),
+    new Faith(3., Abilities.drainCaster)))
+    .toSquadChain()
+
     Level L6 = new Level(
-        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 6, new Bender(256, Abilities.feralspiritdone, "spell", 0.6)),
+        L6Chain,
         10, // Bonus
-        levelNameMsg(6, "Bendy mac Bend"),
+        levelNameMsg(6, "Furbolgs"),
         levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.DEMON))
+        new LinkedList<MobType>..add(MobType.UNDEAD))
     levels.add(L6)
+
+    Level L7 = new Level(
+        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7, new Bender(256, Abilities.feralspiritdone, "spell", 0.6)),
+        10, // Bonus
+        levelNameMsg(7, "Bendy mac Bend"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MobType>..add(MobType.BENDER))
+    levels.add(L7)
 
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
     // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))

@@ -7,7 +7,7 @@ import ID2S
 public constant ID_MOB_BASE_UNIT = 'earc'
 
 public class MobDefinition extends UnitDefinition
-    construct(int id, string name, string model, string soundSet, int bounty, int lifeTaken, int maxhp, real hpReg, int ms)
+    construct(int id, string name, string model, string soundSet, int bounty, int lifeTaken, int maxhp, real hpReg, int ms, real scaling)
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
@@ -15,6 +15,7 @@ public class MobDefinition extends UnitDefinition
         // ---------------------------------------------
         setName(name)
         setModelFile(model)
+        setScalingValue(scaling)
 
         // Life lost
         setFoodCost(lifeTaken)
@@ -23,11 +24,8 @@ public class MobDefinition extends UnitDefinition
         setPointValue(bounty)
         setGoldBountyAwardedBase(bounty)
         setGoldBountyAwardedNumberofDice(0)
-        setCollisionSize(1)
 
         setUnitSoundSet(soundSet)
-        setCollisionSize(1)
-
 
         // ------------------------------------
         // ========== Abilities ===============
@@ -42,6 +40,7 @@ public class MobDefinition extends UnitDefinition
 
         setSpeedBase(ms)
 
+        setCollisionSize(1)
         setManaInitialAmount(0)
         setManaMaximum(0)
         setManaRegeneration(0.)

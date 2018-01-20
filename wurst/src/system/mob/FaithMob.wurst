@@ -1,0 +1,48 @@
+package FaithMob
+
+import TimerUtils
+
+import Alexandria
+import Squad
+
+public class FaithBase extends MobWrapper implements Enterer
+    real duration
+    string invulFx
+
+    timer t
+    effect e
+    construct(unit u, real duration, string invulFx)
+        super(u)
+        this.duration = duration
+        this.invulFx = invulFx
+
+        this.t = getTimer()
+
+    override function onEnter()
+        super.u.setInvulnerable(true)
+        this.e = super.u.addEffect(invulFx, "origin")
+
+        this.t.setData(this castTo int)
+        this.t.start(duration, function goNormal)
+
+    ondestroy
+        this.t.release()
+
+function goNormal()
+    timer t = GetExpiredTimer()
+    FaithBase fb = t.getData() castTo FaithBase
+    fb.getUnit().setInvulnerable(false)
+    fb.e.destr()
+
+// Squad hook
+public class Faith implements Hooker
+    real duration
+    string invulFx
+
+    construct(real duration, string invulFx)
+        this.duration = duration
+        this.invulFx = invulFx
+    function hook(unit u)
+        new FaithBase(u, this.duration, this.invulFx)
+
+
