@@ -116,7 +116,10 @@ init
         new LinkedList<MobType>..add(MobType.FAITH))
     levels.add(L5)
 
-    LinkedList<SquadMember> L6Chain = new LinkedList<SquadMember>
+    // TODO:
+    // Add level 6 ooze
+
+    LinkedList<SquadMember> L7Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), new EmptyHooker))
     ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6),
     new Faith(3., Abilities.drainCaster)))
@@ -125,21 +128,21 @@ init
     new Faith(3., Abilities.drainCaster)))
     .toSquadChain()
 
-    Level L6 = new Level(
-        L6Chain,
+    Level L7 = new Level(
+        L7Chain,
         10, // Bonus
-        levelNameMsg(6, "Furbolgs"),
+        levelNameMsg(7, "Furbolgs"),
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>..add(MobType.UNDEAD))
-    levels.add(L6)
+    levels.add(L7)
 
-    Level L7 = new Level(
+    Level L8 = new Level(
         toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7, new Bender(256, Abilities.feralspiritdone, "spell", 0.6)),
         10, // Bonus
-        levelNameMsg(7, "Bendy mac Bend"),
+        levelNameMsg(8, "Bendy mac Bend"),
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>..add(MobType.BENDER))
-    levels.add(L7)
+    levels.add(L8)
 
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
     // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))
