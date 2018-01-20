@@ -6,6 +6,8 @@
 * Fix tilesets in MPQ
   - Decide final tilesets 
   - Fix area 1 terrain
+ * Add armor to mobdefinition 
+ 
 
 ## Golden grails
 
