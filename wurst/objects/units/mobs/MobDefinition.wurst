@@ -37,6 +37,7 @@ public class MobDefinition extends UnitDefinition
         // -------------------------------------------------
         setHitPointsMaximumBase(maxhp)
         setHitPointsRegenerationRate(hpReg)
+        setHitPointsRegenerationType("always")
 
         setSpeedBase(ms)
 
