@@ -58,47 +58,11 @@ placed into _Alexandria_ in `TowerHook.wurst`.
 
 ## New Mechanics
 
-### Score system
-
-### NPC defenses at the end zones
-
-Imagine that a few NPCs are placed out as rear guard around the end-zone,
-desperately trying to stop the mobs.
-
-Of course the player will get the money, but annoying 1 hp left leaks will be
-prevented and it would look quite badass. It could also be lore related which
-NPCs help with the defenses.
-
-The Sentinels preventing the rampaging Fel Corruption from entering their
-beloved Ashenvale. The Scarlet Crusade hindering the Scourge from leaving
-Stratholme and kill any civilian humans trying to escape. But, you'll be alone
-when holding the last stand against the waves of historical armies emerging from
-the Caverns of Time.
-
 ### Disenchant / Dispel
 
 Enable some towers to prevent some units from triggering their mechanics. For
 example prevent benders teleports, unsummon etc. It's worth discussing for
 making the TD more tactical.
-
-### Bosses
-
-Bosses will halve your life when they leak and will return to your spawn until
-you or they've died.
-
-Table 1.
-
-Showing how many starting lives at a boss level and which wave will kill you
-after 1, 2, 3, 4 and respectively 5 leaks from a boss depending on which leaking
-system you use.
-
-  | Round down | Round up   | Solid 3
---+------------+------------+---------
-1 | 1          | 1          | 1, 2, 3
-2 | 2, 3       | 2          | 4, 5, 6
-3 | 5, 6, 7    | 3, 4       | 7, 8, 9
-4 | 8, 9, 10   | 5, 6, 7, 8 | 10
-5 |            | 9, 10      |
 
 ## Zones
 
