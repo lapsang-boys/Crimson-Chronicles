@@ -1,17 +1,6 @@
 
 # TD documentation
 
-## Name
-
-Since we chose just recently to establish the map inside the Warcraft lore, we
-should perhaps think about a new name.
-
-Argent Crusade's Resistance 
-Defense of the Argent Crusade
-Argent Crusade's Defense (TD)
-Argent Crusade TD
-Argent Crusade 
-
 ## Terminology
 
 __Zones:__
