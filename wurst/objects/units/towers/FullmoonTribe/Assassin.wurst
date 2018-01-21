@@ -10,13 +10,13 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant DAMAGE_BASE = 278
-constant DAMAGE_SIDES_PER_DIE = 40
-constant DAMAGE_NUMBER_OF_DIE = 1
+constant GOLD_COST = 240
 constant RANGE = 128
-constant ATTACK_SPEED = 0.5
-constant GOLD_COST = 10
-constant POINT_VALUE = 10
+constant ATTACK_SPEED = 0.4
+constant DAMAGE_BASE = 310
+constant DAMAGE_SIDES_PER_DIE = 31
+
+constant POINT_VALUE = GOLD_COST
 
 class Assassin extends TowerDefinition
     construct(int id)
@@ -41,7 +41,6 @@ class Assassin extends TowerDefinition
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
-        setAttack1DamageNumberofDice(DAMAGE_NUMBER_OF_DIE)
 
         // ------------------------------------
         // ========== Spells ==================
@@ -73,7 +72,7 @@ class Assassin extends TowerDefinition
         setName("Assassin")
         setTooltipBasic(tooltipBuild("A", "Assassin"))
         setTooltipExtended(tooltipTowerExtended("High damage melee tower with the ability to assassinate.",
-            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "Stealth",

@@ -1,8 +1,8 @@
 package Damage
 
 public tuple damage (int low, int high)
-public function damageBoundary(int baseDmg, int sides, int num) returns damage
-    return damage(baseDmg + 1*num, baseDmg+sides*num)
+public function damageBoundary(int baseDmg, int num) returns damage
+    return damage(baseDmg + 1, baseDmg + num)
 
 public function damage.toString() returns string
     return I2S(this.low) + " - " + I2S(this.high)

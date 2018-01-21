@@ -10,13 +10,13 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant DAMAGE_BASE = 3
-constant DAMAGE_SIDES_PER_DIE = 6
-constant DAMAGE_NUMBER_OF_DIE = 1
-constant RANGE = 550
-constant ATTACK_SPEED = 1.7
-constant GOLD_COST = 10
-constant POINT_VALUE = 10
+constant GOLD_COST = 12
+constant RANGE = 400
+constant ATTACK_SPEED = 1.2
+constant DAMAGE_BASE = 9
+constant DAMAGE_SIDES_PER_DIE = 4
+
+constant POINT_VALUE = GOLD_COST
 
 class TestTower extends TowerDefinition
     construct(int id)
@@ -44,7 +44,6 @@ class TestTower extends TowerDefinition
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
-        setAttack1DamageNumberofDice(DAMAGE_NUMBER_OF_DIE)
 
         // ------------------------------------
         // ========== Spells ==================
@@ -78,7 +77,7 @@ class TestTower extends TowerDefinition
         setName("Test Tower")
         setTooltipBasic(tooltipBuild("Q", "Test Tower"))
         setTooltipExtended(tooltipTowerExtended("Well rounded tower.",
-            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE, DAMAGE_NUMBER_OF_DIE),
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",

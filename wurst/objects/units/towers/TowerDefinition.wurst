@@ -14,6 +14,8 @@ public class TowerDefinition extends BuildingDefinition
         setBuildTime(2)
         setLumberCost(0)
 
+        setAttack1DamageNumberofDice(1)
+
         setHitPointsMaximumBase(10)
         setHitPointsRegenerationRate(1.)
         setAttacksEnabled(1)
