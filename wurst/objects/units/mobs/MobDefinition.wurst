@@ -7,7 +7,7 @@ import ID2S
 public constant ID_MOB_BASE_UNIT = 'earc'
 
 public class MobDefinition extends UnitDefinition
-    construct(int id, string name, string model, string soundSet, int bounty, int lifeTaken, int maxhp, real hpReg, int ms, real scaling)
+    construct(int id, string name, string model, string soundSet, int bounty, int lifeTaken, int maxhp, real hpReg, int ms, int armor, real scaling)
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
@@ -40,6 +40,9 @@ public class MobDefinition extends UnitDefinition
         setHitPointsRegenerationType("always")
 
         setSpeedBase(ms)
+
+        setDefenseBase(armor)
+
 
         setCollisionSize(1)
         setManaInitialAmount(0)

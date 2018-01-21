@@ -33,27 +33,27 @@ public constant real DIRE_WOLF_MS = 310
 
 @compiletime function generateLevels()
     // Level 0 - Info level
-    PATH_SHOWER = new MobDefinition(ID_MOB_PATH_SHOWER, "Path Shower", Abilities.murgulMagicMissile, "", 0, 0, 20, 0, 500, 1.)
+    PATH_SHOWER = new MobDefinition(ID_MOB_PATH_SHOWER, "Path Shower", Abilities.murgulMagicMissile, "", 0, 0, 20, 0, 500, 0, 1.)
     ..setMovementType(MovementType.Fly)
     ..setMovementHeight(128.)
     ..setNormalAbilities("Avul")
     ..setScalingValue(2.)
 
     // Level 1
-    STAG = new MobDefinition(ID_MOB_STAG, "Stag", Units.blackStagMale, "", 1, 1, 20, 0, 250, 1.)
+    STAG = new MobDefinition(ID_MOB_STAG, "Stag", Units.blackStagMale, "", 1, 1, 20, 0, 250, 1, 1.)
     // Level 2
-    DIRE_WOLF = new MobDefinition(ID_MOB_DIRE_WOLF, "Dire Wolf", Units.direWolf1, "direwolf", 1, 1, 38, 0, R2I(DIRE_WOLF_MS), 0.8)
+    DIRE_WOLF = new MobDefinition(ID_MOB_DIRE_WOLF, "Dire Wolf", Units.direWolf1, "direwolf", 1, 1, 38, 0, R2I(DIRE_WOLF_MS), 1, 0.8)
     // Level 3
-    DEMONIC_SATYR = new MobDefinition(ID_MOB_DEMONIC_SATYR, "Demonic Satyr", Units.satyr1, "satyr", 1, 1, 55, 0, 280, 1.)
+    DEMONIC_SATYR = new MobDefinition(ID_MOB_DEMONIC_SATYR, "Demonic Satyr", Units.satyr1, "satyr", 1, 1, 55, 0, 280, 1, 1.)
     // Level 4
-    FEL_TREANT = new MobDefinition(ID_MOB_FEL_TREANT, "Fel Treants", Units.corruptedEnt1, "CorruptedEnt", 1, 1, 105, 0, 185, 1.1)
+    FEL_TREANT = new MobDefinition(ID_MOB_FEL_TREANT, "Fel Treants", Units.corruptedEnt1, "CorruptedEnt", 1, 1, 95, 0, 175, 3, 1.1)
     // Level 5
-    DARK_TROLL_SHADOW_PRIEST = new MobDefinition(ID_DARK_TROLL_SHADOW_PRIEST, "Dark troll Shadow priest", Units.darkTrollShadowPriest1, "ForestTrollShadowPriest", 2, 1, 100, 2, 170, 1.1)
-    DARK_TROLL_WARRIOR = new MobDefinition(ID_DARK_TROLL_WARRIOR, "Dark troll Warrior", Units.darkTroll1, "ForestTroll", 1, 1, 145, 0, 170, 0.95)
+    DARK_TROLL_SHADOW_PRIEST = new MobDefinition(ID_DARK_TROLL_SHADOW_PRIEST, "Dark troll Shadow priest", Units.darkTrollShadowPriest1, "ForestTrollShadowPriest", 2, 1, 100, 2, 170, 2, 1.1)
+    DARK_TROLL_WARRIOR = new MobDefinition(ID_DARK_TROLL_WARRIOR, "Dark troll Warrior", Units.darkTroll1, "ForestTroll", 1, 1, 145, 0, 170, 1, 0.95)
     // Level 6
     // TODO: Ooze
     // Level 7
-    FURBOLG = new MobDefinition(ID_MOB_FURBOLG, "Furbolg", Units.furbolgTracker1, "Furbolg", 1, 1, 125, 0, 190, 0.9)
-    FURBOLG_WARRIOR = new MobDefinition(ID_MOB_FURBOLG_WARRIOR, "Furbolg Warrior", Units.furbolgElder, "Furbolg", 2, 1, 220, 10, 170, 1.3)
+    FURBOLG = new MobDefinition(ID_MOB_FURBOLG, "Furbolg", Units.furbolgTracker1, "Furbolg", 1, 1, 125, 0, 190, 1, 0.9)
+    FURBOLG_WARRIOR = new MobDefinition(ID_MOB_FURBOLG_WARRIOR, "Furbolg Warrior", Units.furbolgElder, "Furbolg", 2, 1, 200, 10, 170, 4, 1.3)
     // Level 8
-    FURBOLG_BENDER = new MobDefinition(ID_MOB_FURBOLG_BENDER, "Furbolg Earth Bender", Units.furbolg1, "Furbolg", 2, 1, 185, 0, 240, 1.)
+    FURBOLG_BENDER = new MobDefinition(ID_MOB_FURBOLG_BENDER, "Furbolg Earth Bender", Units.furbolg1, "Furbolg", 2, 1, 185, 0, 240, 1, 1.)
