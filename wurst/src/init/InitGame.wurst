@@ -1,5 +1,7 @@
 package InitGame
 
+import TimerUtils
+
 import GameplayConstants
 import BuilderConstants
 import Regions
@@ -11,12 +13,30 @@ function startGameFirstTime(player p)
     fog.start()
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
 
+class TavernInfo
+    unit tavern
+    player p
+
+    construct(unit tavern, player p)
+        this.tavern = tavern
+        this.p = p
+
 public function startGame(player p)
     let pos = p.getStartLocation()
-    let tavern = createUnit(p, ID_TAVERN, pos, angle(PI/2))
-    SelectUnitForPlayerSingle(tavern, p)
     p.setGold(STARTING_GOLD)
     p.setLumber(STARTING_LUMBER)
+
+    let tavern = createUnit(p, ID_TAVERN, pos, angle(PI/2))
+    TavernInfo ti = new TavernInfo(tavern, p)
+
+    timer t = getTimer()
+    t.setData(ti castTo int)
+    t.start(0.1, () -> begin
+        timer tInner = GetExpiredTimer()
+        TavernInfo tiInner = tInner.getData() castTo TavernInfo
+        SelectUnitForPlayerSingle(tiInner.tavern, tiInner.p)
+        tInner.release()
+    end)
 
 function initGame()
     SetTimeOfDay(23)
