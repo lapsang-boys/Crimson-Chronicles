@@ -1,0 +1,55 @@
+package TrapBaseObjects
+
+import AbilityObjEditing
+import ObjectIdGenerator
+// import ChannelAbilityPreset
+import BuffObjEditing
+import Assets
+
+import Tooltip
+import ID2S
+
+public constant ID_DUMMY_TRAP_NOT_SET = compiletime(ABIL_ID_GEN.next())
+
+public constant ID_DUMMY_TRAP_NOT_BUFF = compiletime(BUFF_ID_GEN.next())
+public constant ID_DUMMY_TRAP_NOT_BUFF_BASE = 'Blcb'
+
+
+// ##################################################################
+// ###################### Dummy ability trap not placed #############
+// ##################################################################
+
+class TrapNotSetAbil extends AbilityDefinitionFaerieFire
+    construct(int id)
+        super(id)
+
+        setManaCost(1, 0)
+        setCastRange(1, 9000)
+        setHeroAbility(false)
+        setTargetsAllowed(1, "structure")
+
+        setDefenseReduction(1, 0)
+
+        setIconNormal(Icons.bTNCharm)
+
+        setBuffs(1, ID2S(ID_DUMMY_TRAP_NOT_BUFF))
+        setDurationNormal(1, 999)
+
+// ##################################################################
+// ###################### Dummy buff trap not placed ################
+// ##################################################################
+
+class TrapNotSetBuff extends BuffDefinition
+    construct(int newBuffId, int origBuggId)
+        super(newBuffId, origBuggId)
+
+        setIcon(Icons.bTNCharm)
+        setTarget(1, Objects.randomObject1)
+        setTargetAttachmentPoint0(1, "overhead")
+
+        setTooltipNormal(1, tooltipBuffName("Trap not set", false))
+        setTooltipNormalExtended(1, tooltipBuffText("Choose a location and set this units trap."))
+
+@compiletime function generateSpell()
+    new TrapNotSetAbil(ID_DUMMY_TRAP_NOT_SET)
+    new TrapNotSetBuff(ID_DUMMY_TRAP_NOT_BUFF, ID_DUMMY_TRAP_NOT_BUFF_BASE)

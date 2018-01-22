@@ -2,10 +2,12 @@ package TrapBase
 
 import HashMap
 import TimerUtils
+import InstantDummyCaster
 
 import Alexandria
 import GameplayConstants
 import TimedEffect
+import TrapBaseObjects
 
 public HashMap<int, TrapBase> trapMap = new HashMap<int, TrapBase>
 
@@ -145,6 +147,7 @@ public class Trapper extends TowerWrapper
         if this.caster.hasAbility(this.setTrapID)
             this.caster.removeAbility(this.setTrapID)
             this.caster.addAbility(this.dismantleTrapID)
+            this.caster.removeAbility(ID_DUMMY_TRAP_NOT_BUFF)
         // Dismantle trap (trap placed)
         else
             this.caster.removeAbility(this.dismantleTrapID)
@@ -164,6 +167,8 @@ public class Trapper extends TowerWrapper
             // If trap has been placed before autoplace in the same loc
             if tr.caster.getPos() != tr.trapLoc
                 tr.caster.issuePointOrder(SET_TRAP_ORDER, tr.trapLoc)
+            else // Add buff to indicate trap needs to be set
+                InstantDummyCaster.castTarget(tr.caster.getOwner(), ID_DUMMY_TRAP_NOT_SET, 1, "faeriefire", tr.caster)
             ti.release()
         end)
 
