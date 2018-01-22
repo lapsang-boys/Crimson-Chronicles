@@ -2,7 +2,6 @@ package InitRegions
 
 import Regions
 import GameplayConstants
-import TypeCasting
 
 init
     A0P0..add(rectToIndex(gg_rct_A0P0Spawn))

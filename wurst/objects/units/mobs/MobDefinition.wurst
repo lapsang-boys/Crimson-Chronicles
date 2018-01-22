@@ -2,8 +2,6 @@ package MobDefinition
 
 import UnitObjEditing
 
-import ID2S
-
 public constant ID_MOB_BASE_UNIT = 'earc'
 
 public class MobDefinition extends UnitDefinition

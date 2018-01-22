@@ -4,44 +4,45 @@ import TimerUtils
 import Assets
 
 import Alexandria
-import Squad
 
-public class AgileBase extends MobWrapper implements Enterer
+public class AgileMob extends MobWrapper implements Enterer
     real speedBoost
     real origSpeed
-    real duration
+    real agileDuration
     timer t
     effect e
-    construct(unit u, real origSpeed, real speedBoost, real duration)
+    construct(unit u, real origSpeed, real speedBoost, real agileDuration)
         super(u)
         this.origSpeed = origSpeed
         this.speedBoost = speedBoost
-        this.duration = duration
+        this.agileDuration = agileDuration
         this.t = getTimer()
 
     override function onEnter()
-        super.u.setMoveSpeed(this.origSpeed + this.speedBoost)
-        this.e = super.u.addEffect(Abilities.tornado_Target, "origin")
-
-        t.setData(this castTo int)
-        t.start(duration, () -> begin
-            timer t = GetExpiredTimer()
-            AgileBase am = t.getData() castTo AgileBase
-            am.getUnit().setMoveSpeed(am.origSpeed)
-            am.e.destr()
-        end)
+        startAgile(this.u, this.origSpeed, this.speedBoost, this.agileDuration)
 
     ondestroy
         this.t.release()
 
-// Squad hook
-public class Agile implements Hooker
+class AgileInfo
+    unit u
+    effect e
     real origSpeed
-    real speedBoost
-    real duration
-    construct(real origSpeed, real speedBoost, real duration)
-        this.origSpeed = origSpeed
-        this.speedBoost = speedBoost
-        this.duration = duration
-    function hook(unit u)
-        new AgileBase(u, this.origSpeed, this.speedBoost, this.duration)
+
+public function startAgile(unit u, real origSpeed, real speedBoost, real agileDuration)
+    AgileInfo ai = new AgileInfo()
+    ai.u = u
+    ai.origSpeed = origSpeed
+
+    u.setMoveSpeed(origSpeed + speedBoost)
+    ai.e = u.addEffect(Abilities.tornado_Target, "origin")
+
+    timer t = getTimer()
+    t.setData(ai castTo int)
+    t.start(agileDuration, () -> begin
+        timer tInner = GetExpiredTimer()
+        AgileInfo aiInner = tInner.getData() castTo AgileInfo
+        aiInner.u.setMoveSpeed(aiInner.origSpeed)
+        aiInner.e.destr()
+        tInner.release()
+    end)

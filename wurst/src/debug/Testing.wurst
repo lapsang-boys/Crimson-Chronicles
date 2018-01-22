@@ -1,11 +1,8 @@
 package Testing
 
-import Colors
-
 import GameplayConstants
 import BuilderConstants
 import PlayerData
-import InitGame
 
 function jumpToLevel()
     string command = GetEventPlayerChatString()

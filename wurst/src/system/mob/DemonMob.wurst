@@ -4,7 +4,6 @@ import ClosureForGroups
 
 import GameplayConstants
 import Alexandria
-import Squad
 import TimedEffect
 
 class DemonGroup implements ForGroupCallback
@@ -20,7 +19,7 @@ class DemonGroup implements ForGroupCallback
         u.setHP(u.getHP() + this.amount)
         createTimedEffect(u.getPos(), 1.5, this.fxPath)
 
-public class DemonBase extends MobWrapper implements Deather
+public class DemonMob extends MobWrapper implements Deather
     real percent
     real radius
     unit u
@@ -38,18 +37,3 @@ public class DemonBase extends MobWrapper implements Deather
         createTimedEffect(this.u.getPos(), 1.5, this.fxDeathPath)
         DemonGroup dg = new DemonGroup(this.u.getMaxHP()*this.percent, this.fxHealPath)
         forUnitsInRange(this.u.getPos(), this.radius, dg)
-
-// Squad hook
-public class Demon implements Hooker
-    real percent
-    real range
-    string fxDeathPath
-    string fxHealPath
-
-    construct(real percent, real range, string fxDeathPath, string fxHealPath)
-        this.percent = percent
-        this.range = range
-        this.fxDeathPath = fxDeathPath
-        this.fxHealPath = fxHealPath
-    function hook(unit u)
-        new DemonBase(u, this.percent, this.range, this.fxDeathPath, this.fxHealPath)

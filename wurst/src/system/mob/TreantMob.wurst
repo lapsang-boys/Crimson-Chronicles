@@ -10,13 +10,12 @@ import Tooltip
 import GameplayConstants
 import ID2S
 import Alexandria
-import Squad
 import TimedEffect
 
 constant DURATION = 2.
 constant AS_SLOW = 0.5
 
-public class TreantBase extends MobWrapper implements Deather
+public class TreantMob extends MobWrapper implements Deather
     unit u
     int abilityId
     real duration
@@ -35,22 +34,6 @@ public class TreantBase extends MobWrapper implements Deather
         SmogTarget st = new SmogTarget(this.u)
         forUnitsInRange(this.u.getPos(), this.radius, st)
 
-
-
-// Squad hook
-public class Treant implements Hooker
-    int abilityId
-    real duration
-    real radius
-    string fxDeathPath
-
-    construct(int abilityId, real duration, real radius, string fxDeathPath)
-        this.abilityId = abilityId
-        this.duration = duration
-        this.radius = radius
-        this.fxDeathPath = fxDeathPath
-    function hook(unit u)
-        new TreantBase(u, this.abilityId, this.duration, this.radius, this.fxDeathPath)
 
 public constant ID_FEL_SMOG_BUFF_BASE = 'Blcb'
 public constant ID_FEL_SMOG_BUFF = 'Blzq'

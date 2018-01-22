@@ -3,46 +3,37 @@ package FaithMob
 import TimerUtils
 
 import Alexandria
-import Squad
 
-public class FaithBase extends MobWrapper implements Enterer
-    real duration
+public class FaithMob extends MobWrapper implements Enterer
+    real faithDuration
     string invulFx
 
-    timer t
-    effect e
-    construct(unit u, real duration, string invulFx)
+    construct(unit u, real faithDuration, string invulFx)
         super(u)
-        this.duration = duration
+        this.faithDuration = faithDuration
         this.invulFx = invulFx
 
-        this.t = getTimer()
-
     override function onEnter()
-        super.u.setInvulnerable(true)
-        this.e = super.u.addEffect(invulFx, "origin")
+        startFaith(this.u, this.invulFx, this.faithDuration)
 
-        this.t.setData(this castTo int)
-        this.t.start(duration, function goNormal)
+class FaithInfo
+    unit u
+    effect e
 
-    ondestroy
-        this.t.release()
+public function startFaith(unit u, string invulFx, real faithDuration)
+    FaithInfo fi = new FaithInfo()
+    fi.u = u
+
+    u.setInvulnerable(true)
+    fi.e = u.addEffect(invulFx, "origin")
+
+    timer t = getTimer()
+    t.setData(fi castTo int)
+    t.start(faithDuration, function goNormal)
 
 function goNormal()
     timer t = GetExpiredTimer()
-    FaithBase fb = t.getData() castTo FaithBase
-    fb.getUnit().setInvulnerable(false)
-    fb.e.destr()
-
-// Squad hook
-public class Faith implements Hooker
-    real duration
-    string invulFx
-
-    construct(real duration, string invulFx)
-        this.duration = duration
-        this.invulFx = invulFx
-    function hook(unit u)
-        new FaithBase(u, this.duration, this.invulFx)
-
-
+    FaithInfo fi = t.getData() castTo FaithInfo
+    fi.u.setInvulnerable(false)
+    fi.e.destr()
+    t.release()

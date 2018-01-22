@@ -1,0 +1,32 @@
+package BenderFaithMob
+
+import Alexandria
+import BenderMob
+import FaithMob
+
+public class BenderFaithMob extends MobWrapper implements Enterer
+    real bendDistance
+    string bendFx
+    string bendAnimation
+    real bendAnimationDuration
+
+    angle direction
+    vec2 nextNode
+    vec2 newPos
+
+    real faithDuration
+    string invulFx
+
+    construct(unit u, real bendDistance, string bendFx, string bendAnimation, real bendAnimationDuration, real faithDuration, string invulFx)
+        super(u)
+        this.bendDistance = bendDistance
+        this.bendFx = bendFx
+        this.bendAnimation = bendAnimation
+        this.bendAnimationDuration = bendAnimationDuration
+
+        this.faithDuration = faithDuration
+        this.invulFx = invulFx
+
+    override function onEnter()
+        startFaith(this.u, this.invulFx, this.faithDuration)
+        startBend(this.u, this.bendAnimation, this.bendAnimationDuration, this.bendDistance, this.bendFx)

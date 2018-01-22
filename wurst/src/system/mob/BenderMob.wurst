@@ -3,11 +3,10 @@ package BenderMob
 import TimerUtils
 
 import Alexandria
-import Squad
 import Movement
 import TimedEffect
 
-public class BenderBase extends MobWrapper implements Enterer
+public class BenderMob extends MobWrapper implements Enterer
     real bendDistance
     string bendFx
     string bendAnimation
@@ -17,59 +16,50 @@ public class BenderBase extends MobWrapper implements Enterer
     vec2 nextNode
     vec2 newPos
 
-    timer t
-
     construct(unit u, real bendDistance, string bendFx, string bendAnimation, real bendAnimationDuration)
         super(u)
         this.bendDistance = bendDistance
         this.bendFx = bendFx
         this.bendAnimation = bendAnimation
         this.bendAnimationDuration = bendAnimationDuration
-        this.t = getTimer()
 
     override function onEnter()
-        super.u.pause()
-        super.u.setAnimation(this.bendAnimation)
-
-        vec2 origPos = super.u.getPos()
-        this.nextNode = getNext(super.u)
-        this.direction = origPos.angleTo(nextNode)
-        this.newPos = origPos.polarOffset(this.direction, this.bendDistance)
-
-        // createTimedEffect(origPos, 2., this.bendFx)
-        super.u.setFacing(this.direction)
-
-        this.t.setData(this castTo int)
-        this.t.start(bendAnimationDuration, function bend)
-
-    ondestroy
-        this.t.release()
+        startBend(this.u, this.bendAnimation, this.bendAnimationDuration, this.bendDistance, this.bendFx)
 
 function bend()
     timer t = GetExpiredTimer()
-    BenderBase bb = t.getData() castTo BenderBase
+    BendInfo bi = t.getData() castTo BendInfo
 
-    createTimedEffect(bb.u.getPos(), 2., bb.bendFx)
+    createTimedEffect(bi.u.getPos(), 2., bi.bendFx)
 
-    bb.u.setPos(bb.newPos)
-    bb.u.unpause()
-    bb.u.issuePointOrder("move", bb.nextNode)
+    bi.u.setPos(bi.newPos)
+    bi.u.unpause()
+    bi.u.issuePointOrder("move", bi.nextNode)
 
-    createTimedEffect(bb.u.getPos(), 2., bb.bendFx)
+    createTimedEffect(bi.u.getPos(), 2., bi.bendFx)
 
-
-// Squad hook
-public class Bender implements Hooker
-    real bendDistance
+class BendInfo
+    unit u
+    vec2 nextNode
+    vec2 newPos
     string bendFx
-    string bendAnimation
-    real bendAnimationDuration
 
-    construct(real bendDistance, string bendFx, string bendAnimation, real bendAnimationDuration)
-        this.bendDistance = bendDistance
-        this.bendFx = bendFx
-        this.bendAnimation = bendAnimation
-        this.bendAnimationDuration = bendAnimationDuration
+public function startBend(unit u, string bendAnimation, real bendAnimationDuration, real bendDistance, string bendFx)
+    u.pause()
+    u.setAnimation(bendAnimation)
 
-    function hook(unit u)
-        new BenderBase(u, this.bendDistance, this.bendFx, this.bendAnimation, this.bendAnimationDuration)
+    BendInfo bi = new BendInfo()
+    bi.u = u
+    bi.bendFx = bendFx
+
+    vec2 origPos = u.getPos()
+    bi.nextNode = getNext(u)
+    angle direction = origPos.angleTo(bi.nextNode)
+    bi.newPos = origPos.polarOffset(direction, bendDistance)
+
+    createTimedEffect(origPos, 2., bendFx)
+    u.setFacing(direction)
+
+    timer t = getTimer()
+    t.setData(bi castTo int)
+    t.start(bendAnimationDuration, function bend)

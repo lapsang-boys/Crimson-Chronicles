@@ -5,11 +5,10 @@ import Assets
 import ClosureForGroups
 
 import Alexandria
-import Squad
 import GameplayConstants
 import TimedEffect
 
-public class PowerFaithBase extends MobWrapper implements Enterer
+public class PowerFaithMob extends MobWrapper implements Enterer
     real healAmount
     real healRadius
     real duration
@@ -45,7 +44,7 @@ public class PowerFaithBase extends MobWrapper implements Enterer
 
 function periodicHeal()
     timer t = GetExpiredTimer()
-    PowerFaithBase pf = t.getData() castTo PowerFaithBase
+    PowerFaithMob pf = t.getData() castTo PowerFaithMob
 
     HealTarget ht = new HealTarget(pf)
     forUnitsInRange(pf.getUnit().getPos(), pf.healRadius, ht)
@@ -60,34 +59,14 @@ function periodicHeal()
         pf.e.destr()
         pf.i = 0
 
-// Squad hook
-public class PowerFaith implements Hooker
-    real healAmount
-    real healRadius
-    real duration
-    int itterations
-
-    string healFx
-    string healAnimationName
-
-    construct(real healAmount, real healRadius, real duration, int itterations, string healFx, string healAnimationName)
-        this.healAmount = healAmount
-        this.healRadius = healRadius
-        this.duration = duration
-        this.itterations = itterations
-        this.healFx = healFx
-        this.healAnimationName = healAnimationName
-    function hook(unit u)
-        new PowerFaithBase(u, this.healAmount, this.healRadius, this.duration, this.itterations, this.healFx, this.healAnimationName)
-
 // ##################################################################
 // ###################### Group callback ############################
 // ##################################################################
 
 class HealTarget implements ForGroupCallback
-    PowerFaithBase priest
+    PowerFaithMob priest
 
-    construct(PowerFaithBase priest)
+    construct(PowerFaithMob priest)
         this.priest = priest
 
     function callback(unit u)

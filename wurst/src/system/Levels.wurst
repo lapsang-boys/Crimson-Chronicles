@@ -1,7 +1,6 @@
 package Levels
 
 import LinkedList
-import Assets
 
 import Squad
 import GameplayConstants
@@ -10,12 +9,6 @@ import Colorscheme
 
 // Felwood
 import FelwoodMobList
-import AgileMob
-import DemonMob
-import TreantMob
-import PowerFaithMob
-import FaithMob
-import BenderMob
 
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
@@ -58,7 +51,7 @@ function levelDescriptionMsg(string desc) returns string
 init
     // ============== Area 1 ==============
     Level L0 = new Level(
-        toCenterSquad(ID_MOB_PATH_SHOWER, 3, new EmptyHooker),
+        toCenterSquad(ID_MOB_PATH_SHOWER, 3),
         0, // Bonus
         levelNameMsg(0, "Path shower"),
         levelDescriptionMsg(""),
@@ -67,7 +60,7 @@ init
 
     // Do we need squad member bounty?
     Level L1 = new Level(
-        toDefaultSquad(ID_MOB_STAG, 10, new EmptyHooker),
+        toDefaultSquad(ID_MOB_STAG, 10),
         10, // Bonus
         levelNameMsg(1, "Stag"),
         levelDescriptionMsg("Terrified stags escaping in a stampede."),
@@ -75,7 +68,7 @@ init
     levels.add(L1)
 
     Level L2 = new Level(
-        toDefaultSquad(ID_MOB_DIRE_WOLF, 10, new Agile(DIRE_WOLF_MS, 100, 1.5)),
+        toDefaultSquad(ID_MOB_DIRE_WOLF, 10),
         10, // Bonus
         levelNameMsg(2, "Dire Wolf"),
         levelDescriptionMsg("Description"),
@@ -83,7 +76,7 @@ init
     levels.add(L2)
 
     Level L3 = new Level(
-        toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10, new Demon(0.15, 256, Abilities.howlCaster, Abilities.avengerMissile)),
+        toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10),
         10, // Bonus
         levelNameMsg(3, "Demonic satyrs"),
         levelDescriptionMsg("Description"),
@@ -91,7 +84,7 @@ init
     levels.add(L3)
 
     Level L4 = new Level(
-        toDefaultSquad(ID_MOB_FEL_TREANT, 6, new Treant(ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)),
+        toDefaultSquad(ID_MOB_FEL_TREANT, 6),
         10, // Bonus
         levelNameMsg(4, "Fel Treants"),
         levelDescriptionMsg("Description"),
@@ -99,13 +92,11 @@ init
     levels.add(L4)
 
     LinkedList<SquadMember> L5Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3.), new EmptyHooker))
-    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1),
-    new PowerFaith(20., 512., 1., 3,  Abilities.healTarget, "Spell")))
-    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3), new EmptyHooker))
-    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1),
-    new PowerFaith(20., 512., 1., 3,  Abilities.healTarget, "Spell")))
-    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 1, SpawnPosition.RANDOM, spawnInterval(1.5, 3), new EmptyHooker))
+    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3.)))
+    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
+    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
+    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
+    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 1, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
     .toSquadChain()
 
     Level L5 = new Level(
@@ -120,12 +111,10 @@ init
     // Add level 6 ooze
 
     LinkedList<SquadMember> L7Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), new EmptyHooker))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6),
-    new Faith(3., Abilities.drainCaster)))
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), new EmptyHooker))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6),
-    new Faith(3., Abilities.drainCaster)))
+    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6)))
+    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6)))
     .toSquadChain()
 
     Level L7 = new Level(
@@ -137,19 +126,27 @@ init
     levels.add(L7)
 
     Level L8 = new Level(
-        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7, new Bender(256, Abilities.feralspiritdone, "spell", 0.6)),
+        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7),
         10, // Bonus
         levelNameMsg(8, "Bendy mac Bend"),
         levelDescriptionMsg("Description"),
         new LinkedList<MobType>..add(MobType.BENDER))
     levels.add(L8)
 
+    Level L9 = new Level(
+        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7),
+        10, // Bonus
+        levelNameMsg(9, "Bendy mac Bend"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MobType>..add(MobType.BENDER))
+    levels.add(L9)
+
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
-    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1), new EmptyHooker))
-    // ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1), new EmptyHooker))
-    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1), new EmptyHooker))
-    // ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1), new EmptyHooker))
-    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1), new EmptyHooker))
+    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1)))
+    // ..add(new SquadMember(ID_ACCO, 3, 1, SpawnPosition.CENTER, spawnInterval(0.1, 0.1)))
+    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RIGHT, spawnInterval(0.1, 0.1)))
+    // ..add(new SquadMember(ID_ARCHY, 1, 1, SpawnPosition.CENTER, spawnInterval(3.1, 3.1)))
+    // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.RANDOM, spawnInterval(5.1, 5.1)))
     // .toSquadChain()
     // Level L4 = new Level(
     //     L4Chain,

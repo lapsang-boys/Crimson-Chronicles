@@ -2,7 +2,6 @@ package OnEnter
 
 import InitRegions
 
-import TypeCasting
 import LinkedList
 
 import Regions
@@ -16,8 +15,9 @@ function act()
     u.setUserData(cv + 1)
     let pos = getNext(u)
     u.issuePointOrder("move", pos)
-    MobWrapper mw = mobMap.get(u.getHandleId())
-    mw.onEnter()
+
+    if mobMap.has(u.getHandleId())
+        mobMap.get(u.getHandleId()).onEnter()
 
 function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN

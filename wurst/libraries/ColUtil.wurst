@@ -7,9 +7,9 @@ function col.toColor() returns color
 
 // Hsl creates a new color given a Hue in [0..360], a Saturation [0..1], and a Luminance (lightness) in [0..1]
 public function fromHsl(real h, real s, real l) returns color
-    if s == 0 
+    if s == 0
         return col(l, l, l).toColor()
-    
+
     real r
     real g
     real b
@@ -23,7 +23,7 @@ public function fromHsl(real h, real s, real l) returns color
         t1 = l * (1.0 + s)
     else
         t1 = l + s - l*s
-    
+
     t2 = 2*l - t1
     tr = h/360 + 1.0/3.0
     tg = h/360
@@ -31,22 +31,22 @@ public function fromHsl(real h, real s, real l) returns color
 
     if tr < 0
         tr += 1
-    
+
     if tr > 1
         tr -= 1
-    
+
     if tg < 0
         tg += 1
-    
+
     if tg > 1
         tg -= 1
-    
+
     if tb < 0
         tb += 1
-    
+
     if tb > 1
         tb -= 1
-    
+
 
     // Red
     if 6*tr < 1
@@ -57,7 +57,7 @@ public function fromHsl(real h, real s, real l) returns color
         r = t2 + (t1-t2)*(2.0/3.0-tr)*6
     else
         r = t2
-    
+
 
     // Green
     if 6*tg < 1
@@ -68,7 +68,7 @@ public function fromHsl(real h, real s, real l) returns color
         g = t2 + (t1-t2)*(2.0/3.0-tg)*6
     else
         g = t2
-    
+
 
     // Blue
     if 6*tb < 1
@@ -79,7 +79,7 @@ public function fromHsl(real h, real s, real l) returns color
         b = t2 + (t1-t2)*(2.0/3.0-tb)*6
     else
         b = t2
-    
+
     return col(r, g, b).toColor()
 
 public tuple hsl (real h, real s, real l)
@@ -94,25 +94,25 @@ public function toHsl(color c) returns hsl
     real h
     real l = (max + min) / 2
     real s
-    if min == max 
+    if min == max
         s = 0
         h = 0
-    else 
-        if l < 0.5 
+    else
+        if l < 0.5
             s = (max - min) / (max + min)
-        else 
+        else
             s = (max - min) / (2.0 - max - min)
-        
+
         if max == r
             h = (g - b) / (max - min)
-        else if max == g 
+        else if max == g
             h = 2.0 + (b-r)/(max-min)
-        else 
+        else
             h = 4.0 + (r-g)/(max-min)
-        
+
         h *= 60
 
-        if h < 0 
+        if h < 0
             h += 360
-            
+
     return hsl(h, s, l)
