@@ -16,6 +16,8 @@ import Tooltip
         ..setIconNormal(Icons.bTNAdvancedCreatureAttack)
 
         ..presetTargetTypes(Targettype.UNIT)
+        ..setTargetsAllowed(1, "enemy")
+        ..setCastRange(1, 1000)
         ..setManaCost(1, 0)
         ..setHeroAbility(false)
 

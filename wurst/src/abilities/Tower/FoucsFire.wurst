@@ -12,25 +12,28 @@ import Regions
 
 class AttackTarget implements ForGroupCallback
     unit target
+    unit caster
 
-    construct(unit target)
+    construct(unit caster, unit target)
+        this.caster = caster
         this.target = target
 
     function callback(unit u)
-        if u.getOwner() != PLAYER_BROWN
-            u.issueTargetOrder("attack", target)
+        if u.getOwner() != PLAYER_BROWN and u != this.caster
+            u.issueTargetOrder("attack", this.target)
 
 function focusFire()
-    let u = GetSpellTargetUnit()
-    let p = getPlayerN(u)
+    let target = GetSpellTargetUnit()
+    let caster = GetTriggerUnit()
+    let p = getPlayerN(target)
 
     let r = rectFromIndex(playerArea.get(p))
-    AttackTarget target = new AttackTarget(u)
+    AttackTarget at = new AttackTarget(caster, target)
 
 
-    forUnitsInRect(r, target)
+    forUnitsInRect(r, at)
 
-    attatchTimedEffect(u, 3., Abilities.talkToMe, "overhead")
+    attatchTimedEffect(target, 3., Abilities.talkToMe, "overhead")
 
 init
     registerSpellEffectEvent(ID_FOCUS_FIRE, function focusFire)
