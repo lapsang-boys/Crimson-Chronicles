@@ -44,7 +44,7 @@ class Builder extends UnitDefinition
             ID2S(ID_TOWER_UREN)             + "," +
             ID2S(ID_TOWER_ASSASSIN))
 
-        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE) + "," + ID2S(ID_DUMMY_TRAP_NOT_SET))
+        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE))
 
         // ------------------------------------
         // ========== Other constants =========

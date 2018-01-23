@@ -1,0 +1,70 @@
+package PeriodicSpawnerMob
+
+import TimerUtils
+
+import Movement
+import LevelHandler
+import TimedEffect
+import GameplayConstants
+import Alexandria
+
+public class PeriodicSpawnerMob extends MobWrapper implements Ticker
+    timer t
+    int spawnId
+    real spawnInterval
+    int maxIterations
+    string spawnFx
+
+    construct(unit u, string spawnFx, real spawnInterval, int maxIterations, int spawnId)
+        super(u)
+        this.t = getTimer()
+        this.spawnInterval = spawnInterval
+        this.spawnId = spawnId
+        this.maxIterations = maxIterations
+        this.spawnFx = spawnFx
+
+    override function startTick()
+        periodicSpawn(this.u, this.spawnFx, this.spawnId, this.spawnInterval, this.maxIterations, this.t, function spawn)
+
+    ondestroy
+        this.t.release()
+
+class PeriodicSpawnInfo
+    int spawnId
+    int maxIterations
+    int iteration
+    string spawnFx
+    unit spawner
+
+public function periodicSpawn(unit u, string spawnFx, int spawnId, real spawnInterval, int maxIterations, timer t, code func)
+    PeriodicSpawnInfo pi = new PeriodicSpawnInfo()
+    pi.spawnId = spawnId
+    pi.spawnFx = spawnFx
+    pi.maxIterations = maxIterations
+    pi.iteration = 0
+    pi.spawner = u
+
+    t.setData(pi castTo int)
+    t.startPeriodic(spawnInterval, func)
+
+function spawn()
+    timer t = GetExpiredTimer()
+    PeriodicSpawnInfo pi = t.getData() castTo PeriodicSpawnInfo
+    if pi.maxIterations == pi.iteration
+        t.pause()
+        return
+
+    let spawnPos = pi.spawner.getPos()
+    let facing = pi.spawner.getFacingAngle()
+    let spawn = createUnit(PLAYER_BROWN, pi.spawnId, spawnPos, facing)
+    createTimedEffect(spawn.getPos(), 1, pi.spawnFx)
+
+    spawn.setUserData(pi.spawner.getUserData())
+    let nextNode = getNext(spawn)
+    spawn.issuePointOrder("move", nextNode)
+
+    player p = Player(getPlayerN(spawn))
+    registerMobCreation(p)
+
+    pi.iteration++
+    t.setData(pi castTo int)

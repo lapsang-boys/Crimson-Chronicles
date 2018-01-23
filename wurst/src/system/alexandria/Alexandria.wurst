@@ -20,11 +20,12 @@ public class EmptyMobWrapper extends MobWrapper
     construct(unit u)
         super(u)
 
-public abstract class MobWrapper implements Enterer, Deather
+public abstract class MobWrapper implements Enterer, Deather, Ender, Ticker
     unit u
     construct(unit u)
         this.u = u
         mobMap.put(this.u.getHandleId(), this)
+        this.startTick()
 
     function getUnit() returns unit
         return this.u
@@ -32,7 +33,13 @@ public abstract class MobWrapper implements Enterer, Deather
     function onEnter()
         skip
 
+    function onEnd() returns bool
+        return false
+
     function onDeath()
+        skip
+
+    function startTick()
         skip
 
     ondestroy
@@ -45,12 +52,14 @@ public interface Enterer
 public interface Deather
     function onDeath()
 
+public interface Ender
+    function onEnd() returns bool
+
 // public interface Countdowner
 //     function onFinish()
 
-// Might be used for healther!
-// public interface Perioder
-//     function onTick()
+public interface Ticker
+    function startTick()
 
 // public interface Healther
 //     function onHealth()

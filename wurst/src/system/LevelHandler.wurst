@@ -85,6 +85,10 @@ public function registerMobDeath(player p)
     if pd.mobsRemoved == levels.get(pd.level).squadChain.size()
         levelComplete(pd)
 
+public function registerMobCreation(player p)
+    PlayerData pd = playerData.get(p.getId())
+    pd.mobsRemoved--
+
 public function registerLeak(player p, int lifeTaken, int bounty)
     PlayerData pd = playerData.get(p.getId())
     pd.p.addGold(bounty)

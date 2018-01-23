@@ -12,37 +12,34 @@ import Movement
 import TimedEffect
 import LevelHandler
 
-class UnitWrapper
-    unit u
-    player p
-    construct(unit u, player p)
-        this.u = u
-        this.p = p
-
-    ondestroy
-        registerMobDeath(this.p)
-
 function leak()
     let u = GetTriggerUnit()
+    // Enders
+    if mobMap.has(u.getHandleId())
+        MobWrapper mw = mobMap.get(u.getHandleId())
+        // Otherwise continue as normal.
+        if mw.onEnd()
+            return
+
     int n = getPlayerN(u)
     player p = Player(n)
-    UnitWrapper uw = new UnitWrapper(u, p)
 
     // Take player life.
     int lifeTaken = u.getFoodUsed()
 
-    // Point value is interpreted as bounty.
-    registerLeak(p, lifeTaken, GetUnitPointValue(u))
-
     // SFX.
     createTimedEffect(u.getPos(), 1., Abilities.aIilTarget)
 
+    // Point value is interpreted as bounty.
+    registerLeak(p, lifeTaken, GetUnitPointValue(u))
+
+    registerMobDeath(p)
+    u.remove()
+
     // Destroy MobWrapper
-    destroy mobMap.get(u.getHandleId())
-
-    // Register mob death for player
-    destroy uw
-
+    // maybe here
+    if mobMap.has(u.getHandleId())
+        destroy mobMap.get(u.getHandleId())
 
 function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN

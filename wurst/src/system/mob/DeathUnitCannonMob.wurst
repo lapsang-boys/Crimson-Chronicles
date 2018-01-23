@@ -1,0 +1,39 @@
+package DeathUnitCannonMob
+
+import TimerUtils
+
+import Alexandria
+import Movement
+import TimedEffect
+import MobMissile
+import GameplayConstants
+import LevelHandler
+
+public class DeathUnitCannonMob extends MobWrapper implements Deather
+    int spawnId
+    real shootDistance
+    string impactFx
+    string deathFx
+
+    construct(unit u, real shootDistance, string deathFx, int spawnId)
+        super(u)
+        this.shootDistance = shootDistance
+        this.deathFx = deathFx
+        this.spawnId = spawnId
+
+    override function onDeath()
+        createTimedEffect(this.u.getPos(), 1, this.deathFx)
+        let missileU = createUnit(PLAYER_BROWN, this.spawnId, this.u.getPos(), this.u.getFacingAngle())
+
+        missileU.setUserData(this.u.getUserData())
+        // let nextNode = getNext(missileU)
+        // missileU.issuePointOrder("move", nextNode)
+
+        player p = Player(getPlayerN(missileU))
+        registerMobCreation(p)
+
+        vec2 endpos = missileU.getPos().polarOffset(this.u.getFacingAngle(), this.shootDistance)
+        MobMissile mm = new MobMissile(missileU, endpos, 100, 256)
+        mm.launch()
+
+// function

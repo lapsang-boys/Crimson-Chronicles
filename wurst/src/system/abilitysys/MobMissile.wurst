@@ -1,0 +1,76 @@
+package MobMissile
+
+import TimerUtils
+
+
+public class MobMissile
+    unit u
+    real speed
+    real arc
+
+    real distance
+
+    int i
+    int itterations
+
+    vec2 origin
+    vec2 endpos
+    vec2 midPos
+    vec2 currentPos
+    real currentHeigth
+
+    construct(unit u, vec2 endpos, real speed, real arc)
+        this.u = u
+        this.origin = u.getPos()
+        this.endpos = endpos
+        this.speed = speed
+        this.arc = arc
+
+    function launch()
+        print("In launch")
+        this.distance = this.origin.distanceTo(this.endpos)
+        real duration = distance/this.speed
+        this.itterations = R2I(duration/0.05)
+
+        this.currentPos = this.u.getPos()
+        this.currentHeigth = this.u.getFlyHeight()
+        this.midPos = origin.moveTowards(endpos, distance/2)
+
+        // Add storm crow to be able to modify flyheight (...)
+        this.u.addAbility('Arav')
+
+        timer t = getTimer()
+        t.setData(this castTo int)
+        t.start(0.05, function moveMissile)
+
+
+function moveMissile()
+    timer t = GetExpiredTimer()
+    MobMissile mm = t.getData() castTo MobMissile
+    if mm.i == mm.itterations
+        mm.u.removeAbility('Arav')
+        t.release()
+        return
+
+    print(mm.i)
+
+    vec2 nextPos
+    real nextHeight
+    if mm.i < mm.itterations / 2
+        nextPos = mm.currentPos.moveTowards(mm.midPos, mm.distance/mm.itterations)
+        nextHeight = mm.currentHeigth + mm.arc/(mm.itterations/2)
+    else
+        nextPos = mm.currentPos.moveTowards(mm.endpos, mm.distance/mm.itterations)
+        nextHeight = mm.currentHeigth - mm.arc/(mm.itterations/2)
+
+    mm.u.setPos(nextPos)
+    mm.u.setFlyHeight(nextHeight, 999)
+    print("current heigth: " + R2S(mm.u.getFlyHeight()))
+    print("target heigth: " + R2S(nextHeight))
+    mm.currentPos = nextPos
+    mm.currentHeigth = nextHeight
+    mm.i++
+    t.start(0.05, function moveMissile)
+
+
+

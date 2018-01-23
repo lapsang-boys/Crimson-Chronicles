@@ -92,11 +92,11 @@ init
     levels.add(L4)
 
     LinkedList<SquadMember> L5Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3.)))
-    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
-    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
-    ..add(new SquadMember(ID_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
-    ..add(new SquadMember(ID_DARK_TROLL_WARRIOR, 1, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3.)))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 1, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
     .toSquadChain()
 
     Level L5 = new Level(
@@ -107,8 +107,13 @@ init
         new LinkedList<MobType>..add(MobType.FAITH))
     levels.add(L5)
 
-    // TODO:
-    // Add level 6 ooze
+    Level L6 = new Level(
+        toDefaultSquad(ID_MOB_GOBLIN_WAR_MACHINE, 1),
+        10, // Bonus
+        levelNameMsg(6, "goblin Warmachine"),
+        levelDescriptionMsg("Description"),
+        new LinkedList<MobType>..add(MobType.FAITH))
+    levels.add(L6)
 
     LinkedList<SquadMember> L7Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))

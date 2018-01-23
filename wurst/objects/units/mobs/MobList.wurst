@@ -6,9 +6,11 @@ import FelwoodMobList
 
 import AgileMob
 import BenderMob
+import DeathUnitCannonMob
 import DemonMob
 import FaithMob
 import PowerFaithMob
+// import PeriodicSpawnerMob
 import TreantMob
 
 public function shelfMob(unit u)
@@ -23,8 +25,11 @@ public function shelfMob(unit u)
         case ID_MOB_FEL_TREANT
             new TreantMob(u, ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)
         // Level 5
-        case ID_DARK_TROLL_SHADOW_PRIEST
+        case ID_MOB_DARK_TROLL_SHADOW_PRIEST
             new PowerFaithMob(u, 20., 512., 1., 3,  Abilities.healTarget, "Spell")
+        // Level 6
+        case ID_MOB_GOBLIN_WAR_MACHINE
+            new DeathUnitCannonMob(u, 512, Abilities.howlCaster, ID_MOB_GOBLIN_MACHINIST)
         // Level 7
         case ID_MOB_FURBOLG_WARRIOR
             new FaithMob(u, 3., Abilities.drainCaster)
