@@ -1,9 +1,7 @@
 <p align="center">
   <b>Crimson Chronicles</b>
   <img src="https://i.imgur.com/9m1sdS0.jpg">
-  <hr>
 </p>
-
 Desperate times calls for desperate measures. Our hope lies in the brilliance of inexperienced strategists leading the vanguard against the looming threats. 
 
 In Ashenvale the Sentinels are drawing their last breath; Felwood spreads its corrpution in an unending invasion. Mysterious and mutated beasts alongside devilish satyrs welcome the Sentinels call for aid with renewed bloodlust. 
