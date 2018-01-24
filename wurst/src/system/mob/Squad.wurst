@@ -33,6 +33,10 @@ public function LinkedList<SquadMember>.toSquadChain() returns LinkedList<SquadM
             squadChain.add(single)
     return squadChain
 
+public function toSquad(int u_id, int num, real low, real high) returns LinkedList<SquadMember>
+    let si = spawnInterval(low, high)
+    return new LinkedList<SquadMember>..add(new SquadMember(u_id, num, SpawnPosition.RANDOM, si)).toSquadChain()
+
 public function toDefaultSquad(int u_id, int num) returns LinkedList<SquadMember>
     return new LinkedList<SquadMember>..add(new SquadMember(u_id, num, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
 

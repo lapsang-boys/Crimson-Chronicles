@@ -2,72 +2,101 @@ package MobMissile
 
 import TimerUtils
 
+import Regions
+import Movement
+import TimedEffect
+
+constant ITERATION_TIME = 0.01
+constant GRAVITY = -1280.
 
 public class MobMissile
     unit u
-    real speed
-    real arc
+    real v0
+    real alpha
+    string impactFx
 
-    real distance
+    real velocityX
+    real velocityZ
+    angle direction
 
-    int i
-    int itterations
+    real t
+    real flyTime
+    real acceleartionZ = GRAVITY
 
-    vec2 origin
-    vec2 endpos
-    vec2 midPos
-    vec2 currentPos
-    real currentHeigth
-
-    construct(unit u, vec2 endpos, real speed, real arc)
+    construct(unit u, real v0, real alpha, string impactFx)
         this.u = u
-        this.origin = u.getPos()
-        this.endpos = endpos
-        this.speed = speed
-        this.arc = arc
+        this.v0 = v0
+        this.alpha = Deg2Rad(alpha)
+        this.impactFx = impactFx
+
+        this.direction = u.getFacingAngle()
+        this.velocityX = this.v0*Cos(this.alpha)
+        this.velocityZ = this.v0*Sin(this.alpha)
+
+        this.flyTime = -1*(this.velocityZ/this.acceleartionZ)*2
+        this.t = 0
+        this.acceleartionZ *= ITERATION_TIME
 
     function launch()
-        print("In launch")
-        this.distance = this.origin.distanceTo(this.endpos)
-        real duration = distance/this.speed
-        this.itterations = R2I(duration/0.05)
+        // Make sure landing is not out of bounds
+        this.calcLandingSpot()
 
-        this.currentPos = this.u.getPos()
-        this.currentHeigth = this.u.getFlyHeight()
-        this.midPos = origin.moveTowards(endpos, distance/2)
-
+        this.u.pause()
         // Add storm crow to be able to modify flyheight (...)
         this.u.addAbility('Arav')
+        this.u.setPathing(false)
+        this.u.setInvulnerable(true)
 
         timer t = getTimer()
         t.setData(this castTo int)
-        t.start(0.05, function moveMissile)
+        t.start(ITERATION_TIME, function moveMissile)
+
+    function moveX()
+        vec2 newPos = this.u.getPos().polarOffset(this.direction, this.velocityX*ITERATION_TIME)
+        this.u.setPos(newPos)
+
+    function moveZ()
+        this.calcZveolcity()
+        real zMove = this.velocityZ*ITERATION_TIME
+
+        this.u.setFlyHeight(this.u.getFlyHeight() + zMove, 999)
+
+    function calcZveolcity()
+        this.velocityZ += this.acceleartionZ
+
+    function calcLandingSpot()
+        vec2 origin = this.u.getPos()
+
+        for i = 0 to 10
+            vec2 landingSpot = origin.polarOffset(this.direction, this.velocityX*this.flyTime)
+
+            if validSpot(landingSpot)
+                u.setFacing(this.direction)
+                return
+            else
+                this.direction += angle(PI/9)
+
+
+    function validSpot(vec2 landingSpot) returns bool
+        return landingSpot.isInRect(rectFromIndex(playerArea.get(this.u.getPlayerN())))
 
 
 function moveMissile()
     timer t = GetExpiredTimer()
     MobMissile mm = t.getData() castTo MobMissile
-    if mm.i == mm.itterations
+
+    if mm.t > mm.flyTime
+        mm.u.setPathing(true)
+        mm.u.setInvulnerable(false)
+        mm.u.unpause()
         mm.u.removeAbility('Arav')
+        mm.u.issuePointOrder("move", mm.u.getNext())
+        createTimedEffect(mm.u.getPos(), 1., mm.impactFx)
         t.release()
         return
 
-    print(mm.i)
+    mm.moveX()
+    mm.moveZ()
+    mm.t += ITERATION_TIME
 
-    vec2 nextPos
-    real nextHeight
-    if mm.i < mm.itterations / 2
-        nextPos = mm.currentPos.moveTowards(mm.midPos, mm.distance/mm.itterations)
-        nextHeight = mm.currentHeigth + mm.arc/(mm.itterations/2)
-    else
-        nextPos = mm.currentPos.moveTowards(mm.endpos, mm.distance/mm.itterations)
-        nextHeight = mm.currentHeigth - mm.arc/(mm.itterations/2)
-
-    mm.u.setPos(nextPos)
-    mm.u.setFlyHeight(nextHeight, 999)
-    print("current heigth: " + R2S(mm.u.getFlyHeight()))
-    print("target heigth: " + R2S(nextHeight))
-    mm.currentPos = nextPos
-    mm.currentHeigth = nextHeight
-    mm.i++
-    t.start(0.05, function moveMissile)
+    t.start(ITERATION_TIME, function moveMissile)

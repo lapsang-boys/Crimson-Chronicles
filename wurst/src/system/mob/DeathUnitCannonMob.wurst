@@ -8,30 +8,30 @@ import GameplayConstants
 import LevelHandler
 
 public class DeathUnitCannonMob extends MobWrapper implements Deather
-    int spawnId
-    real shootDistance
-    string impactFx
+    real v0
+    real alpha
     string deathFx
+    string impactFx
+    int spawnId
 
-    construct(unit u, real shootDistance, string deathFx, int spawnId)
+
+    construct(unit u, real v0, real alpha, string deathFx, string impactFx, int spawnId)
         super(u)
-        this.shootDistance = shootDistance
+        this.v0 = v0
+        this.alpha = alpha
         this.deathFx = deathFx
+        this.impactFx = impactFx
         this.spawnId = spawnId
 
-    override function onDeath()
-        createTimedEffect(this.u.getPos(), 1, this.deathFx)
-        let missileU = createUnit(PLAYER_BROWN, this.spawnId, this.u.getPos(), this.u.getFacingAngle())
-
-        missileU.setUserData(this.u.getUserData())
-        // let nextNode = getNext(missileU)
-        // missileU.issuePointOrder("move", nextNode)
-
-        player p = Player(getPlayerN(missileU))
+        player p = Player(super.u.getPlayerN())
         registerMobCreation(p)
 
-        vec2 endpos = missileU.getPos().polarOffset(this.u.getFacingAngle(), this.shootDistance)
-        MobMissile mm = new MobMissile(missileU, endpos, 100, 256)
+    override function onDeath()
+        let missileU = createUnit(PLAYER_BROWN, this.spawnId, this.u.getPos(), this.u.getPos().angleTo(u.getNext()))
+        missileU.setUserData(this.u.getUserData())
+
+        createTimedEffect(this.u.getPos(), 1, this.deathFx)
+        MobMissile mm = new MobMissile(missileU, this.v0, this.alpha, this.impactFx)
         mm.launch()
 
 // function
