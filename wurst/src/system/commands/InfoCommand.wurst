@@ -1,0 +1,21 @@
+package InfoCommand
+
+import GameplayConstants
+import PlayerData
+import Levels
+
+function remake()
+    player p = GetTriggerPlayer()
+    PlayerData pd = playerData.get(p.getId())
+
+    for i = pd.level to pd.level+3-1
+        if i >= levels.size()
+            break
+        levels.get(i).printShortInfo(p)
+
+trigger infoCommandTrig = CreateTrigger()
+init
+    TriggerAddAction(infoCommandTrig, function remake)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerChatEvent(infoCommandTrig, Player(i), "-info", true)
+        TriggerRegisterPlayerChatEvent(infoCommandTrig, Player(i), "-i", true)

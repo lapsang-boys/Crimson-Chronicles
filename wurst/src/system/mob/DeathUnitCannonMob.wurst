@@ -1,7 +1,5 @@
 package DeathUnitCannonMob
 
-import TimerUtils
-
 import Alexandria
 import Movement
 import TimedEffect

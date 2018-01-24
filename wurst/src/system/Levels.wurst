@@ -21,27 +21,31 @@ public class Level
     string desc
     LinkedList<MobType> types
 
-    construct (LinkedList<SquadMember> squadChain, int bonus, string levelName, string desc, LinkedList<MobType> types)
+    construct (LinkedList<SquadMember> squadChain, int bonus, string levelName, LinkedList<MobType> types, string desc)
         this.squadChain = squadChain
         this.bonus = bonus
         this.levelName = levelName
         this.desc = desc
         this.types = types
 
-    function printInfo(player p)
+    function printShortInfo(player p)
         printTimedToPlayer(this.levelName, DISPLAY_TIME, p)
-        if this.desc.length() > 0
-            printTimedToPlayer(this.desc, DISPLAY_TIME, p)
         for mt in this.types
             printTimedToPlayer(mobHint(mt), DISPLAY_TIME, p)
+        printTimedToPlayer(" ", DISPLAY_TIME, p)
+
+    function printInfo(player p)
+        this.printShortInfo(p)
+        if this.desc.length() > 0
+            printTimedToPlayer(this.desc, DISPLAY_TIME, p)
 
 public LinkedList<Level> levels = new LinkedList<Level>
 
-function levelNameMsg(int num, string name) returns string
+function levelInfoMsg(int num, string name) returns string
     return discreetColor.colorize("[") + textColor.colorize("Level ") + numberColor.colorize(I2S(num)) + discreetColor.colorize("]")
             + textColor.colorize(" - ") + nameColor.colorize(name)
 
-function levelDescriptionMsg(string desc) returns string
+function loreMessage(string desc) returns string
     return textColor.colorize(desc)
 
 // ----------------------------------------------------------------------------
@@ -53,45 +57,45 @@ init
     Level L0 = new Level(
         toCenterSquad(ID_MOB_PATH_SHOWER, 3),
         0, // Bonus
-        levelNameMsg(0, "Path shower"),
-        levelDescriptionMsg(""),
-        new LinkedList<MobType>..add(MobType.INVULNERABLE))
+        levelInfoMsg(0, "Path shower"),
+        new LinkedList<MobType>..add(MobType.INVULNERABLE),
+        loreMessage(""))
     levels.add(L0)
 
     // Do we need squad member bounty?
     Level L1 = new Level(
         toDefaultSquad(ID_MOB_STAG, 10),
         10, // Bonus
-        levelNameMsg(1, "Stag"),
-        levelDescriptionMsg("Terrified stags escaping in a stampede."),
-        new LinkedList<MobType>)
+        levelInfoMsg(1, "Stag"),
+        new LinkedList<MobType>,
+        loreMessage("Terrified stags escaping in a stampede."))
     levels.add(L1)
 
     Level L2 = new Level(
         toDefaultSquad(ID_MOB_DIRE_WOLF, 10),
         10, // Bonus
-        levelNameMsg(2, "Dire Wolf"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>)
+        levelInfoMsg(2, "Dire Wolf"),
+        new LinkedList<MobType>,
+        loreMessage("Description"))
     levels.add(L2)
 
     Level L3 = new Level(
         toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10),
         10, // Bonus
-        levelNameMsg(3, "Demonic satyrs"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.DEMON))
+        levelInfoMsg(3, "Demonic satyrs"),
+        new LinkedList<MobType>..add(MobType.DEMON),
+        loreMessage("Description"))
     levels.add(L3)
 
     Level L4 = new Level(
         toDefaultSquad(ID_MOB_FEL_TREANT, 6),
         10, // Bonus
-        levelNameMsg(4, "Fel Treants"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.BANISHED))
+        levelInfoMsg(4, "Fel Treants"),
+        new LinkedList<MobType>..add(MobType.BANISHED),
+        loreMessage("Description"))
     levels.add(L4)
 
-    LinkedList<SquadMember> L5Chain = new LinkedList<SquadMember>
+    LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3.)))
     ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
     ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
@@ -100,50 +104,50 @@ init
     .toSquadChain()
 
     Level L5 = new Level(
-        L5Chain,
+        level5Chain,
         10, // Bonus
-        levelNameMsg(5, "Dark trolls"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.FAITH))
+        levelInfoMsg(5, "Dark trolls"),
+        new LinkedList<MobType>..add(MobType.FAITH),
+        loreMessage("Description"))
     levels.add(L5)
 
     Level L6 = new Level(
         toDefaultSquad(ID_MOB_GOBLIN_WAR_MACHINE, 1),
         10, // Bonus
-        levelNameMsg(6, "goblin Warmachine"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.FAITH))
+        levelInfoMsg(6, "goblin Warmachine"),
+        new LinkedList<MobType>..add(MobType.FAITH),
+        loreMessage("Description"))
     levels.add(L6)
 
-    LinkedList<SquadMember> L7Chain = new LinkedList<SquadMember>
+    LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))
     ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6)))
     ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))
     ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(3, 6)))
     .toSquadChain()
 
-    Level L7 = new Level(
-        L7Chain,
+    Level level7 = new Level(
+        level7Chain,
         10, // Bonus
-        levelNameMsg(7, "Furbolgs"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.UNDEAD))
-    levels.add(L7)
+        levelInfoMsg(7, "Furbolgs"),
+        new LinkedList<MobType>..add(MobType.UNDEAD),
+        loreMessage("Description"))
+    levels.add(level7)
 
     Level L8 = new Level(
         toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7),
         10, // Bonus
-        levelNameMsg(8, "Bendy mac Bend"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.BENDER))
+        levelInfoMsg(8, "Bendy mac Bend"),
+        new LinkedList<MobType>..add(MobType.BENDER),
+        loreMessage("Description"))
     levels.add(L8)
 
     Level L9 = new Level(
         toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7),
         10, // Bonus
-        levelNameMsg(9, "Bendy mac Bend"),
-        levelDescriptionMsg("Description"),
-        new LinkedList<MobType>..add(MobType.BENDER))
+        levelInfoMsg(9, "Bendy mac Bend"),
+        new LinkedList<MobType>..add(MobType.BENDER),
+        loreMessage("Description"))
     levels.add(L9)
 
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
@@ -156,8 +160,8 @@ init
     // Level L4 = new Level(
     //     L4Chain,
     //     10, // Bonus
-    //     levelNameMsg(4, "Squaden"),
-    //     levelDescriptionMsg("Description"),
+    //     levelInfoMsg(4, "Squaden"),
+    //     loreMessage("Description"),
     //     new LinkedList<MobType>)
     // levels.add(L4)
 

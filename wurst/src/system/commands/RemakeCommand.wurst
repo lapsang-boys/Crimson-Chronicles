@@ -1,6 +1,4 @@
-package Remake
-
-import Colors
+package RemakeCommand
 
 import GameplayConstants
 import Colorscheme
@@ -18,7 +16,6 @@ function remake()
     pd.reset()
     pd.level = 1
 
-    // color c = fromPlayer(p)
     printTimed(textColor.colorize("Player ") + fromPlayer(p).colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), DISPLAY_TIME)
 
     // Start the game again.

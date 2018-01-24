@@ -48,6 +48,6 @@ public function getSpawn(player p) returns rect
 public function getEnd(player p) returns rect
     PlayerData pd = playerData.get(p.getId())
     let path = getPath(pd.area, p.getId())
-    let last = path.getSize()-1
+    let last = path.size()-1
     let endReg = path.get(last)
     return rectFromIndex(endReg)

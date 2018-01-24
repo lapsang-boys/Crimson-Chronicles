@@ -1,7 +1,6 @@
 package FelwoodMobList
 
 import Assets
-import Soundsets
 import ObjectIdGenerator
 import MobDefinition
 import UnitObjEditing

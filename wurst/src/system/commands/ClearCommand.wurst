@@ -1,0 +1,15 @@
+package ClearCommand
+
+import GameplayConstants
+
+function remake()
+    player p = GetTriggerPlayer()
+    if localPlayer == p
+        ClearTextMessages()
+
+trigger clearCommandTrig = CreateTrigger()
+init
+    TriggerAddAction(clearCommandTrig, function remake)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerChatEvent(clearCommandTrig, Player(i), "-clear", true)
+        TriggerRegisterPlayerChatEvent(clearCommandTrig, Player(i), "-c", true)

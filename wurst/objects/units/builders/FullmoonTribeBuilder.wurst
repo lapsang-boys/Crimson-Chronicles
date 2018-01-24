@@ -8,8 +8,6 @@ import TowerConstants
 import ID2S
 import Tooltip
 
-import TrapBaseObjects
-
 class Builder extends UnitDefinition
     construct(int id)
         super(id, 'uaco')

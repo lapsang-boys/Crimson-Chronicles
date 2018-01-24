@@ -55,7 +55,7 @@ function levelComplete(PlayerData pd)
     pd.mobsRemoved = 0
 
     // Win game
-    if pd.level == levels.getSize()
+    if pd.level == levels.size()
         winGame(pd)
         return
 
