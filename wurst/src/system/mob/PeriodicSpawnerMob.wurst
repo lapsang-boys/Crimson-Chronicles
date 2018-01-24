@@ -60,10 +60,10 @@ function spawn()
     createTimedEffect(spawn.getPos(), 1, pi.spawnFx)
 
     spawn.setUserData(pi.spawner.getUserData())
-    let nextNode = getNext(spawn)
+    let nextNode = spawn.getNext()
     spawn.issuePointOrder("move", nextNode)
 
-    player p = Player(getPlayerN(spawn))
+    player p = Player(spawn.getPlayerN())
     registerMobCreation(p)
 
     pi.iteration++

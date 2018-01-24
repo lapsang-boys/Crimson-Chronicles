@@ -7,8 +7,8 @@ import LinkedList
 
 import PlayerData
 
-public function getPlayerN(unit u) returns int
-    let pos = u.getPos()
+public function unit.getPlayerN() returns int
+    let pos = this.getPos()
     for i = 0 to NUMBER_OF_PLAYERS-1
         let r = rectFromIndex(playerArea.get(i))
         if pos.isInRect(r)
@@ -18,14 +18,14 @@ public function getPlayerN(unit u) returns int
     return 0
 
 // Pre-condition: unit arrives at correct node => increase custom value on unit u before calling GetNext.
-public function getNext(unit u) returns vec2
-    var p = getPlayerN(u)
+public function unit.getNext() returns vec2
+    var p = this.getPlayerN()
     PlayerData pd = playerData.get(p)
     let path = getPath(pd.area, p)
 
-    var cv = u.getUserData()
+    var cv = this.getUserData()
     if cv >= path.size()
-        error("Invalid custom value for unit: "+u.getName())
+        error("Invalid custom value for unit: "+this.getName())
         return vec2(0, 0)
 
     let rectIndex = path.get(cv)

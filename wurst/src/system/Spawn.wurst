@@ -82,7 +82,7 @@ function summonMobs()
 	createTimedEffect(pos, 1., Abilities.aIilTarget)
 
 	u.setUserData(1)
-	u.issuePointOrder("move", getNext(u))
+	u.issuePointOrder("move", u.getNext())
 
 	t.start(duration, function summonMobs)
 

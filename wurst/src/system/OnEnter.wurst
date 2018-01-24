@@ -13,7 +13,7 @@ function act()
     let u = GetTriggerUnit()
     let cv = u.getUserData()
     u.setUserData(cv + 1)
-    let pos = getNext(u)
+    let pos = u.getNext()
     u.issuePointOrder("move", pos)
 
     if mobMap.has(u.getHandleId())

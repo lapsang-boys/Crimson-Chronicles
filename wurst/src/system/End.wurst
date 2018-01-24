@@ -21,7 +21,7 @@ function leak()
         if mw.onEnd()
             return
 
-    int n = getPlayerN(u)
+    int n = u.getPlayerN()
     player p = Player(n)
 
     // Take player life.

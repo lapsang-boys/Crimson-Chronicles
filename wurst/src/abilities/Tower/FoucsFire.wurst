@@ -25,7 +25,7 @@ class AttackTarget implements ForGroupCallback
 function focusFire()
     let target = GetSpellTargetUnit()
     let caster = GetTriggerUnit()
-    let p = getPlayerN(target)
+    let p = target.getPlayerN()
 
     let r = rectFromIndex(playerArea.get(p))
     AttackTarget at = new AttackTarget(caster, target)

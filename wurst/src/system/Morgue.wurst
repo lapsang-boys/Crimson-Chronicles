@@ -7,7 +7,7 @@ import LevelHandler
 
 function cleanUp()
     let u = GetTriggerUnit()
-    int playerNum = getPlayerN(u)
+    int playerNum = u.getPlayerN()
     registerMobDeath(Player(playerNum))
     let id = u.getHandleId()
 
