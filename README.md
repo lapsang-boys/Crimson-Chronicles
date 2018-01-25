@@ -1,6 +1,5 @@
 <p align="center">
-  <b>Crimson Chronicles</b>
-  <img src="https://i.imgur.com/9m1sdS0.jpg">
+  <img src="https://i.imgur.com/v08jhrY.jpg">
 </p>
 
 _Desperate times calls for desperate measures. Our hope lies in the brilliance of inexperienced tacticians leading the vanguard against the looming threats in the horizon._
