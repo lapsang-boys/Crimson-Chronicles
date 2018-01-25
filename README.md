@@ -17,9 +17,9 @@ _In the midst of these calamities, the drums of war thunders over the desert pla
 
 # Crimson Chronicles [TD]
 
-Welcome to the project page of Crimson Chronicles, a tower defense set in the Warcraft lore. It will feature a polished game experience with many new mechanics for tower defense connoisseurs to enjoy, for instance we boast of (soon to be) three separate zones in different biomes and layouts with increasing difficulty.
+Welcome to the project page of Crimson Chronicles (CCTD for short), a tower defense set in the Warcraft lore. It will feature a polished game experience with many new mechanics for tower defense connoisseurs to enjoy, for instance we boast of (soon to be) three separate zones in different biomes and layouts with increasing difficulty and tactical elements.
 
-Crimson Chronicles [TD] in a few keywords: mazing, 100% sell, polish, unique mobs, hard, innovative and fun.
+Crimson Chronicles [TD] in a few keywords: mazing, node-based, 100% sell, polish, unique mobs, hard, innovative and fun.
 
 This map has been in the development for many years now, where the first iteration of the map started around 2007. The names have varied throughout the years (in chronological order): Pirate TD, Trocadero TD, Defense of the Deserted, Dictator's Execution and finally Crimson Chronicles which is actually the first map we've ever published.
 
@@ -41,6 +41,6 @@ $ git clone git@github.com:lapsang-boys/exicon.git
 $ python exicon/update.py
 ```
 
-### Authors
+## Authors
 
 Karlek & Kranx
