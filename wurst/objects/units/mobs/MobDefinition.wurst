@@ -29,6 +29,7 @@ public class MobDefinition extends UnitDefinition
         // ========== Abilities ===============
         // ------------------------------------
         setNormalAbilities("")
+        setUpgradesUsed("")
 
         // -------------------------------------------------
         // ========== Stats (hp, reg, speed, etc) ==========
