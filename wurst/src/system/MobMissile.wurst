@@ -13,28 +13,28 @@ public class MobMissile
     unit u
     real v0
     real alpha
+    real z0
     string impactFx
 
     real velocityX
     real velocityZ
     angle direction
 
-    real t
     real flyTime
     real acceleartionZ = GRAVITY
 
-    construct(unit u, real v0, real alpha, string impactFx)
+    construct(unit u, real v0, real alpha, real z0, string impactFx)
         this.u = u
         this.v0 = v0
         this.alpha = Deg2Rad(alpha)
+        this.z0 = z0
         this.impactFx = impactFx
 
         this.direction = u.getFacingAngle()
         this.velocityX = this.v0*Cos(this.alpha)
         this.velocityZ = this.v0*Sin(this.alpha)
 
-        this.flyTime = -1*(this.velocityZ/this.acceleartionZ)*2
-        this.t = 0
+        this.flyTime = computeFlyTime()
         this.acceleartionZ *= ITERATION_TIME
 
     function launch()
@@ -44,6 +44,7 @@ public class MobMissile
         this.u.pause()
         // Add storm crow to be able to modify flyheight (...)
         this.u.addAbility('Arav')
+        this.u.setFlyHeight(this.z0, 99999)
         this.u.setPathing(false)
         this.u.setInvulnerable(true)
 
@@ -56,13 +57,20 @@ public class MobMissile
         this.u.setPos(newPos)
 
     function moveZ()
-        this.calcZveolcity()
+        this.updateZveolcity()
         real zMove = this.velocityZ*ITERATION_TIME
 
         this.u.setFlyHeight(this.u.getFlyHeight() + zMove, 999)
 
-    function calcZveolcity()
+    function updateZveolcity()
         this.velocityZ += this.acceleartionZ
+
+    function computeFlyTime() returns real
+        real timeToTop = (this.velocityZ/this.acceleartionZ).abs()
+        real topHeight = this.z0 + this.velocityZ*timeToTop + (this.acceleartionZ*timeToTop.squared())/2
+        real timeToGround = SquareRoot(2*topHeight/this.acceleartionZ.abs())
+
+        return timeToTop + timeToGround
 
     function calcLandingSpot()
         vec2 origin = this.u.getPos()
@@ -78,14 +86,33 @@ public class MobMissile
 
 
     function validSpot(vec2 landingSpot) returns bool
-        return landingSpot.isInRect(rectFromIndex(playerArea.get(this.u.getPlayerN())))
+        rect pArea = rectFromIndex(playerArea.get(this.u.getPlayerN()))
+
+        vec2 l1 = landingSpot.add(128, 0)
+        vec2 l2 = landingSpot.add(0, 128)
+        vec2 l3 = landingSpot.add(-128, 0)
+        vec2 l4 = landingSpot.add(0, -128)
+
+        if not l1.isInRect(pArea)
+            return false
+        if not l2.isInRect(pArea)
+            return false
+        if not l3.isInRect(pArea)
+            return false
+        if not l4.isInRect(pArea)
+            return false
+        else
+            return true
 
 
 function moveMissile()
     timer t = GetExpiredTimer()
     MobMissile mm = t.getData() castTo MobMissile
 
-    if mm.t > mm.flyTime
+    mm.moveX()
+    mm.moveZ()
+
+    if mm.u.getFlyHeight() <= 0.1
         mm.u.setPathing(true)
         mm.u.setInvulnerable(false)
         mm.u.unpause()
@@ -94,9 +121,5 @@ function moveMissile()
         createTimedEffect(mm.u.getPos(), 1., mm.impactFx)
         t.release()
         return
-
-    mm.moveX()
-    mm.moveZ()
-    mm.t += ITERATION_TIME
 
     t.start(ITERATION_TIME, function moveMissile)

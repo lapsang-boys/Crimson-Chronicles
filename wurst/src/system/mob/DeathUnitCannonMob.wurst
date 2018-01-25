@@ -10,15 +10,17 @@ import LevelHandler
 public class DeathUnitCannonMob extends MobWrapper implements Deather
     real v0
     real alpha
+    real z0
     string deathFx
     string impactFx
     int spawnId
 
 
-    construct(unit u, real v0, real alpha, string deathFx, string impactFx, int spawnId)
+    construct(unit u, real v0, real alpha, real z0, string deathFx, string impactFx, int spawnId)
         super(u)
         this.v0 = v0
         this.alpha = alpha
+        this.z0 = z0
         this.deathFx = deathFx
         this.impactFx = impactFx
         this.spawnId = spawnId
@@ -31,7 +33,7 @@ public class DeathUnitCannonMob extends MobWrapper implements Deather
         missileU.setUserData(this.u.getUserData())
 
         createTimedEffect(this.u.getPos(), 1, this.deathFx)
-        MobMissile mm = new MobMissile(missileU, this.v0, this.alpha, this.impactFx)
+        MobMissile mm = new MobMissile(missileU, this.v0, this.alpha, this.z0, this.impactFx)
         mm.launch()
 
 // function
