@@ -25,7 +25,6 @@ public abstract class MobWrapper implements Enterer, Deather, Ender, Ticker
     construct(unit u)
         this.u = u
         mobMap.put(this.u.getHandleId(), this)
-        this.startTick()
 
     function getUnit() returns unit
         return this.u

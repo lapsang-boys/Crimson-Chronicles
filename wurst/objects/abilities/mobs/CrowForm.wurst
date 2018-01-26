@@ -1,0 +1,23 @@
+package CrowForm
+
+import AbilityObjEditing
+
+import FelwoodMobList
+import ID2S
+
+class CrowForm extends AbilityDefinitionRavenFormDruidoftheTalon
+    construct(int id)
+        super(id)
+
+        setArtCaster("")
+        setCastingTime(1, 1.2)
+        setAlternateFormUnit(1, ID2S(ID_MOB_CROW_CROW))
+
+        setDurationNormal(1, 1.2)
+        setHeroAbility(false)
+        setRequirements("")
+        setLevels(1)
+        setManaCost(1, 0)
+
+@compiletime function generateSpell()
+    new CrowForm(ID_SPELL_CROW_MORPH)

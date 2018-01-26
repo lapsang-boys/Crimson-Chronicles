@@ -135,7 +135,7 @@ init
     levels.add(level7)
 
     Level L8 = new Level(
-        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7),
+        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 8),
         10, // Bonus
         levelInfoMsg(8, "Bendy mac Bend"),
         new LinkedList<MobType>..add(MobType.BENDER),
@@ -143,10 +143,11 @@ init
     levels.add(L8)
 
     Level L9 = new Level(
-        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 7),
+        // toDefaultSquad(ID_MOB_CROW_DRUID, 3),
+        toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7),
         10, // Bonus
-        levelInfoMsg(9, "Bendy mac Bend"),
-        new LinkedList<MobType>..add(MobType.BENDER),
+        levelInfoMsg(9, "Crowy"),
+        new LinkedList<MobType>..add(MobType.LASTSTAND),
         loreMessage("Description"))
     levels.add(L9)
 

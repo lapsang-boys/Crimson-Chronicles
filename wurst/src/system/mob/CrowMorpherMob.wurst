@@ -1,0 +1,50 @@
+package CrowMorpherMob
+
+import TimerUtils
+
+import Alexandria
+import Movement
+import TimedEffect
+
+public class CrowMorpherMob extends MobWrapper implements Ticker
+    timer t
+    real morphPercent
+
+    string morphFx
+
+    construct(unit u, real morphPercent, string morphFx)
+        super(u)
+        this.t = getTimer()
+        this.morphPercent = morphPercent
+
+        this.morphFx = morphFx
+
+        startTick()
+
+    override function startTick()
+        t.setData(this castTo int)
+        t.startPeriodic(0.25, function healthCheck)
+
+    ondestroy
+        this.t.release()
+
+
+function healthCheck()
+    timer t = GetExpiredTimer()
+    CrowMorpherMob mhm = t.getData() castTo CrowMorpherMob
+
+    if mhm.u.getHP()/mhm.u.getMaxHP() <= mhm.morphPercent
+        morph(mhm)
+        t.pause()
+
+function morph(CrowMorpherMob mhm)
+    attatchTimedEffect(mhm.u, 2, mhm.morphFx, "origin")
+    mhm.u.issueImmediateOrder("ravenform")
+    timer t = getTimer()
+    t.setData(mhm castTo int)
+    t.start(1.65, function moveBird)
+
+function moveBird()
+    timer t = GetExpiredTimer()
+    CrowMorpherMob mhm = t.getData() castTo CrowMorpherMob
+    mhm.u.issuePointOrder("move", mhm.u.getNext())

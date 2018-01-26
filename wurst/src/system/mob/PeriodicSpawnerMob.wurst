@@ -23,6 +23,8 @@ public class PeriodicSpawnerMob extends MobWrapper implements Ticker
         this.maxIterations = maxIterations
         this.spawnFx = spawnFx
 
+        startTick()
+
     override function startTick()
         periodicSpawn(this.u, this.spawnFx, this.spawnId, this.spawnInterval, this.maxIterations, this.t, function spawn)
 

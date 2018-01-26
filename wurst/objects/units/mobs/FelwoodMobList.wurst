@@ -6,6 +6,10 @@ import ObjectIdGenerator
 import MobDefinition
 import UnitObjEditing
 
+import ID2S
+
+public constant ID_SPELL_CROW_MORPH = compiletime(ABIL_ID_GEN.next())
+
 public constant ID_MOB_STAG = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_PATH_SHOWER = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_DIRE_WOLF = compiletime(UNIT_ID_GEN.next())
@@ -13,11 +17,13 @@ public constant ID_MOB_DEMONIC_SATYR = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_FEL_TREANT = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_DARK_TROLL_SHADOW_PRIEST = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_DARK_TROLL_WARRIOR = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_GOBLIN_WAR_MACHINE = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_GOBLIN_MACHINIST = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_FURBOLG = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_FURBOLG_WARRIOR = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_FURBOLG_BENDER = compiletime(UNIT_ID_GEN.next())
-public constant ID_MOB_GOBLIN_WAR_MACHINE = compiletime(UNIT_ID_GEN.next())
-public constant ID_MOB_GOBLIN_MACHINIST = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_CROW_DRUID = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOB_CROW_CROW = compiletime(UNIT_ID_GEN.next())
 
 
 
@@ -28,11 +34,14 @@ public MobDefinition DEMONIC_SATYR
 public MobDefinition FEL_TREANT
 public MobDefinition DARK_TROLL_SHADOW_PRIEST
 public MobDefinition DARK_TROLL_WARRIOR
+public MobDefinition GOBLIN_WAR_MACHINE
+public MobDefinition GOBLIN_MACHINIST
 public MobDefinition FURBOLG
 public MobDefinition FURBOLG_WARRIOR
 public MobDefinition FURBOLG_BENDER
-public MobDefinition GOBLIN_WAR_MACHINE
-public MobDefinition GOBLIN_MACHINIST
+public MobDefinition CROW_DRUID
+public MobDefinition CROW_CROW
+
 
 
 public constant real DIRE_WOLF_MS = 310
@@ -60,8 +69,15 @@ public constant real DIRE_WOLF_MS = 310
     GOBLIN_WAR_MACHINE = new MobDefinition(ID_MOB_GOBLIN_WAR_MACHINE, "Goblin War Machine", Units.ironGolem1, Soundsets.ironGolem, 7, 2, 400, 0, 180, 3, 1.3)
     GOBLIN_MACHINIST = new MobDefinition(ID_MOB_GOBLIN_MACHINIST, "Goblin Machinist", Units.goblinSapper1, Soundsets.goblinSapper, 3, 1, 135, 0, 390, 0, 1.)
     // Level 7
-    FURBOLG = new MobDefinition(ID_MOB_FURBOLG, "Furbolg", Units.furbolgTracker1, "Furbolg", 1, 1, 125, 0, 190, 1, 0.9)
-    FURBOLG_WARRIOR = new MobDefinition(ID_MOB_FURBOLG_WARRIOR, "Furbolg Warrior", Units.furbolgElder, "Furbolg", 2, 1, 200, 10, 170, 4, 1.3)
+    FURBOLG = new MobDefinition(ID_MOB_FURBOLG, "Furbolg", Units.furbolgTracker1, Soundsets.furbolg, 1, 1, 125, 0, 190, 1, 0.9)
+    FURBOLG_WARRIOR = new MobDefinition(ID_MOB_FURBOLG_WARRIOR, "Furbolg Warrior", Units.furbolgElder, Soundsets.furbolg, 2, 1, 200, 10, 170, 4, 1.3)
     // Level 8
-    FURBOLG_BENDER = new MobDefinition(ID_MOB_FURBOLG_BENDER, "Furbolg Earth Bender", Units.furbolg1, "Furbolg", 2, 1, 185, 0, 240, 1, 1.)
+    FURBOLG_BENDER = new MobDefinition(ID_MOB_FURBOLG_BENDER, "Furbolg Earth Bender", Units.furbolg1, Soundsets.furbolg, 2, 1, 185, 0, 240, 1, 1.)
+    // Level 9
+    CROW_DRUID = new MobDefinition(ID_MOB_CROW_DRUID, "Crow Druid", Units.druidoftheTalon, Soundsets.druidOfTheTalon, 2, 1, 240, 0, 280, 1, 1.)
+    CROW_DRUID.setNormalAbilities(ID2S(ID_SPELL_CROW_MORPH))
+    CROW_CROW = new MobDefinition(ID_MOB_CROW_CROW, "Crow", Units.druidoftheTalon1, Soundsets.druidOfTheTalon, 2, 1, 240, 0, 280, 1, 1.)
+    CROW_CROW.setNormalAbilities(ID2S(ID_SPELL_CROW_MORPH))
+    CROW_CROW.setMovementType(MovementType.Fly)
+    CROW_CROW.setMovementHeight(240)
 
