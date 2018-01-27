@@ -151,7 +151,7 @@ init
     levels.add(L9)
 
     Level L10 = new Level(
-        toSquad(ID_MOB_ROBIN_TEST, 1, 4.5, 7),
+        toSquad(ID_MOB_ROBIN_TEST, 1, 2, 2),
         10, // Bonus
         levelInfoMsg(10, "Health state mob"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),

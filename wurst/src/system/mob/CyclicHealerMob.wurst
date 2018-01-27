@@ -21,7 +21,6 @@ public class CyclicHealerMob extends MobWrapper implements Ticker
 
         this.trig = CreateTrigger()
         this.trig.addAction(function stateAction)
-        // this.trig.addCondition(Condition(function isAssassin))
         this.trig.registerUnitEvent(u, EVENT_UNIT_DAMAGED)
 
         startTick()
@@ -29,9 +28,6 @@ public class CyclicHealerMob extends MobWrapper implements Ticker
     override function startTick()
         t.setData(this castTo int)
         t.startPeriodic(this.period, function switchState)
-
-        // More efficient to have a constant trigger?
-
 
     ondestroy
         this.t.release()
@@ -41,25 +37,35 @@ function switchState()
     timer t = GetExpiredTimer()
     CyclicHealerMob chm = t.getData() castTo CyclicHealerMob
     chm.iterations ++
+    switch chm.iterations.moduloInt(chm.numStates)
+        case 0
+            // Normal state
+            chm.u.setVertexColor(255, 255, 255, 255)
+        case 1
+            // More dmg state
+            chm.u.setVertexColor(255, 200, 200, 255)
+        case 2
+            // Heal state
+            chm.u.setVertexColor(200, 255, 200, 255)
 
-    // If not working check this
-    // t.setData(chm castTo int)
 
 function stateAction()
     let u = GetTriggerUnit()
+    unit attacker = GetEventDamageSource()
     CyclicHealerMob chm = mobMap.get(u.getHandleId()) castTo CyclicHealerMob
-    print("Damage detect - " + u.getName())
+
+    real dmg = GetEventDamage()
+    real scaling = 0.25
 
     switch chm.iterations.moduloInt(chm.numStates)
         case 0
-            print("noraml")
+            // Normal state
+            return
         case 1
-            // 25% more dmg state
-            print("25% more")
+            // More dmg state
+            chm.trig.disable()
+            attacker.damageTarget(chm.u, dmg*scaling)
+            chm.trig.enable()
         case 2
-            print("heal state")
             // Heal state
-
-
-
-
+            chm.u.setHP(chm.u.getHP() + dmg*2)
