@@ -6,6 +6,7 @@ import FelwoodMobList
 
 import AgileMob
 import BenderMob
+import CyclicHealerMob
 import DeathUnitCannonMob
 import DemonMob
 import FaithMob
@@ -39,7 +40,8 @@ public function shelfMob(unit u)
             new BenderMob(u, 256, Abilities.feralspiritdone, "spell", 0.6)
         // Level 9
         case ID_MOB_CROW_DRUID
-        // Abilities.deathPactTarget
             new CrowMorpherMob(u, 0.3, Abilities.aIreTarget)
+        case ID_MOB_ROBIN_TEST
+            new CyclicHealerMob(u, 2, 3)
         default
             skip

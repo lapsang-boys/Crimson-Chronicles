@@ -1,0 +1,65 @@
+package CyclicHealerMob
+
+import TimerUtils
+
+import Alexandria
+
+
+public class CyclicHealerMob extends MobWrapper implements Ticker
+    timer t
+    real period
+    int numStates
+    int iterations
+    trigger trig
+
+    construct(unit u, real period, int numStates)
+        super(u)
+        this.t = getTimer()
+        this.period = period
+        this.iterations = 0
+        this.numStates = numStates
+
+        this.trig = CreateTrigger()
+        this.trig.addAction(function stateAction)
+        // this.trig.addCondition(Condition(function isAssassin))
+        this.trig.registerUnitEvent(u, EVENT_UNIT_DAMAGED)
+
+        startTick()
+
+    override function startTick()
+        t.setData(this castTo int)
+        t.startPeriodic(this.period, function switchState)
+
+        // More efficient to have a constant trigger?
+
+
+    ondestroy
+        this.t.release()
+        this.trig.destr()
+
+function switchState()
+    timer t = GetExpiredTimer()
+    CyclicHealerMob chm = t.getData() castTo CyclicHealerMob
+    chm.iterations ++
+
+    // If not working check this
+    // t.setData(chm castTo int)
+
+function stateAction()
+    let u = GetTriggerUnit()
+    CyclicHealerMob chm = mobMap.get(u.getHandleId()) castTo CyclicHealerMob
+    print("Damage detect - " + u.getName())
+
+    switch chm.iterations.moduloInt(chm.numStates)
+        case 0
+            print("noraml")
+        case 1
+            // 25% more dmg state
+            print("25% more")
+        case 2
+            print("heal state")
+            // Heal state
+
+
+
+

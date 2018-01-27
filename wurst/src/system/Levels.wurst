@@ -143,13 +143,20 @@ init
     levels.add(L8)
 
     Level L9 = new Level(
-        // toDefaultSquad(ID_MOB_CROW_DRUID, 3),
         toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7),
         10, // Bonus
         levelInfoMsg(9, "Crowy"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),
         loreMessage("Description"))
     levels.add(L9)
+
+    Level L10 = new Level(
+        toSquad(ID_MOB_ROBIN_TEST, 1, 4.5, 7),
+        10, // Bonus
+        levelInfoMsg(10, "Health state mob"),
+        new LinkedList<MobType>..add(MobType.LASTSTAND),
+        loreMessage("Description"))
+    levels.add(L10)
 
     // LinkedList<SquadMember> L4Chain = new LinkedList<SquadMember>
     // ..add(new SquadMember(ID_RACCOON, 2, 1, SpawnPosition.LEFT, spawnInterval(0.1, 0.1)))

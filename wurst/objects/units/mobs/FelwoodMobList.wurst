@@ -24,7 +24,7 @@ public constant ID_MOB_FURBOLG_WARRIOR = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_FURBOLG_BENDER = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_CROW_DRUID = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOB_CROW_CROW = compiletime(UNIT_ID_GEN.next())
-
+public constant ID_MOB_ROBIN_TEST = compiletime(UNIT_ID_GEN.next())
 
 
 public MobDefinition PATH_SHOWER
@@ -41,6 +41,7 @@ public MobDefinition FURBOLG_WARRIOR
 public MobDefinition FURBOLG_BENDER
 public MobDefinition CROW_DRUID
 public MobDefinition CROW_CROW
+public MobDefinition MOB_ROBIN_TEST
 
 
 
@@ -80,4 +81,6 @@ public constant real DIRE_WOLF_MS = 310
     CROW_CROW.setNormalAbilities(ID2S(ID_SPELL_CROW_MORPH))
     CROW_CROW.setMovementType(MovementType.Fly)
     CROW_CROW.setMovementHeight(240)
+    // Level 10
+    MOB_ROBIN_TEST = new MobDefinition(ID_MOB_ROBIN_TEST, "Robin", Units.abomination1, Soundsets.furbolg, 2, 1, 800, 0, 240, 1, 1.)
 
