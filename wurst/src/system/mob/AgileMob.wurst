@@ -4,45 +4,42 @@ import TimerUtils
 import Assets
 
 import Alexandria
+import TimedEffect
 
 public class AgileMob extends MobWrapper implements Enterer
     real speedBoost
-    real origSpeed
     real agileDuration
     timer t
-    effect e
-    construct(unit u, real origSpeed, real speedBoost, real agileDuration)
+
+    construct(unit u, real speedBoost, real agileDuration)
         super(u)
-        this.origSpeed = origSpeed
         this.speedBoost = speedBoost
         this.agileDuration = agileDuration
         this.t = getTimer()
 
     override function onEnter()
-        startAgile(this.u, this.origSpeed, this.speedBoost, this.agileDuration)
+        startAgile(this.u, this.speedBoost, this.agileDuration)
 
     ondestroy
         this.t.release()
 
 class AgileInfo
     unit u
-    effect e
-    real origSpeed
+    real speedBoost
 
-public function startAgile(unit u, real origSpeed, real speedBoost, real agileDuration)
+public function startAgile(unit u, real speedBoost, real agileDuration)
     AgileInfo ai = new AgileInfo()
     ai.u = u
-    ai.origSpeed = origSpeed
+    ai.speedBoost = speedBoost
 
-    u.setMoveSpeed(origSpeed + speedBoost)
-    ai.e = u.addEffect(Abilities.tornado_Target, "origin")
+    u.setMoveSpeed(u.getMoveSpeed() + speedBoost)
+    attatchTimedEffect(u, agileDuration, Abilities.tornado_Target, "origin")
 
     timer t = getTimer()
     t.setData(ai castTo int)
     t.start(agileDuration, () -> begin
         timer tInner = GetExpiredTimer()
         AgileInfo aiInner = tInner.getData() castTo AgileInfo
-        aiInner.u.setMoveSpeed(aiInner.origSpeed)
-        aiInner.e.destr()
+        aiInner.u.setMoveSpeed(aiInner.u.getMoveSpeed() - aiInner.speedBoost)
         tInner.release()
     end)

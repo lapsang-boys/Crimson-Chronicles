@@ -19,7 +19,7 @@ public function shelfMob(unit u)
     switch u.getTypeId()
         // Level 2
         case ID_MOB_DIRE_WOLF
-            new AgileMob(u, DIRE_WOLF_MS, 100, 1.5)
+            new AgileMob(u, 150, 1.75)
         // Level 3
         case ID_MOB_DEMONIC_SATYR
             new DemonMob(u, 0.15, 256, Abilities.howlCaster, Abilities.avengerMissile)
