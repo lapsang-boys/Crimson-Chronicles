@@ -3,7 +3,7 @@ package Squad
 import LinkedList
 
 public constant DEFAULT_SPAWN_INTERVAL = spawnInterval(1.75, 1.75)
-public tuple spawnInterval (real low, real high)
+public tuple spawnInterval(real low, real high)
 public function spawnInterval.getDuration() returns real
     return GetRandomReal(this.low, this.high)
 

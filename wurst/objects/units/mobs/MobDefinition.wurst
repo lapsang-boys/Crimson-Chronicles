@@ -4,8 +4,17 @@ import UnitObjEditing
 
 public constant ID_MOB_BASE_UNIT = 'earc'
 
+public tuple bounty(int bounty)
+public tuple lifeTaken(int lifeTaken)
+public tuple maxHp(int maxHp)
+public tuple hpReg(real hpReg)
+public tuple movementSpeed(int movementSpeed)
+public tuple armor(int armor)
+public tuple scaling(real scaling)
+
+
 public class MobDefinition extends UnitDefinition
-    construct(int id, string name, string model, string soundSet, int bounty, int lifeTaken, int maxhp, real hpReg, int ms, int armor, real scaling)
+    construct(int id, string name, string model, string soundSet, bounty b, lifeTaken lt, maxHp mh, hpReg hr, movementSpeed ms, armor a, scaling sc)
         super(id, ID_MOB_BASE_UNIT)
 
         // ---------------------------------------------
@@ -13,14 +22,14 @@ public class MobDefinition extends UnitDefinition
         // ---------------------------------------------
         setName(name)
         setModelFile(model)
-        setScalingValue(scaling)
+        setScalingValue(sc.scaling)
 
         // Life lost
-        setFoodCost(lifeTaken)
+        setFoodCost(lt.lifeTaken)
 
         // Reward bounty on leak.
-        setPointValue(bounty)
-        setGoldBountyAwardedBase(bounty)
+        setPointValue(b.bounty)
+        setGoldBountyAwardedBase(b.bounty)
         setGoldBountyAwardedNumberofDice(0)
 
         setUnitSoundSet(soundSet)
@@ -34,13 +43,13 @@ public class MobDefinition extends UnitDefinition
         // -------------------------------------------------
         // ========== Stats (hp, reg, speed, etc) ==========
         // -------------------------------------------------
-        setHitPointsMaximumBase(maxhp)
-        setHitPointsRegenerationRate(hpReg)
+        setHitPointsMaximumBase(mh.maxHp)
+        setHitPointsRegenerationRate(hr.hpReg)
         setHitPointsRegenerationType("always")
 
-        setSpeedBase(ms)
+        setSpeedBase(ms.movementSpeed)
 
-        setDefenseBase(armor)
+        setDefenseBase(a.armor)
 
 
         setCollisionSize(1)
