@@ -44,9 +44,6 @@ public MobDefinition CROW_CROW
 public MobDefinition MOB_ROBIN_TEST
 
 
-
-public constant real DIRE_WOLF_MS = 310
-
 @compiletime function generateLevels()
     // Level 0 - Info level
     PATH_SHOWER = new MobDefinition(ID_MOB_PATH_SHOWER, "Path Shower", Abilities.murgulMagicMissile, "", 0, 0, 20, 0, 500, 0, 1.)
