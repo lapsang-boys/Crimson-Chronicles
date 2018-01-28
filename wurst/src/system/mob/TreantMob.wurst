@@ -12,7 +12,7 @@ import ID2S
 import Alexandria
 import TimedEffect
 
-constant DURATION = 2.
+constant DURATION = 2.5
 constant AS_SLOW = 0.5
 
 public class TreantMob extends MobWrapper implements Deather
@@ -64,7 +64,7 @@ class FelSmogBuff extends BuffDefinition
         setIcon(Icons.bTNCarrionSwarm)
         setTarget(1, Units.plagueCloudTarget)
 
-        setTargetAttachmentPoint0(1, "origin")
+        setTargetAttachmentPoint0(1, "head")
         setMissileArt(1, "")
 
         setTooltipNormal(1, tooltipBuffName("Fel smog ###", false))
