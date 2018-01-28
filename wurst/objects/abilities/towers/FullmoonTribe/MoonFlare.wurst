@@ -2,7 +2,6 @@ package MoonFlare
 
 import Assets
 import ChannelAbilityPreset
-import InstantDummyCaster
 import TimerUtils
 
 import TowerConstants
@@ -11,7 +10,7 @@ import Tooltip
 real DAMAGE_1 = 50
 real DAMAGE_2 = 75
 int TARGETS_HIT_2 = 4
-real ANIMATION_TIME = 1.167
+real ANIMATION_TIME = 0.7
 
 // ##################################################################
 // ###################### Ability objects ###########################
@@ -50,7 +49,7 @@ class MoonFlare extends AbilityDefinitionChainLightningcreep
         super(id)
 
         setArtCaster("")
-        setArtTarget(Abilities.blinkCaster + "," + Units.owl)
+        setArtTarget(Abilities.blinkTarget)
         setLightningEffects("DRAM")
 
         setDamageperTarget(1, DAMAGE_1)
@@ -109,17 +108,11 @@ function moonAttack()
     unit target = GetAttackedUnitBJ()
     int abilityLvl
 
-    if attacker.getMana() > 0
-        attacker.issueImmediateOrder("stop")
-        print("Should stop")
-        return
-
     if attacker.hasAbility(ID_MOON_FLARE_TOOLTIP_1)
         abilityLvl = 1
     else
         abilityLvl = 2
 
-    attacker.setMana(1)
     MoonFlareInfo mfi = new MoonFlareInfo(attacker, target, abilityLvl)
     mfi.t.setData(mfi castTo int)
     mfi.t.startPeriodic(ANIMATION_TIME, function flare)
@@ -135,12 +128,10 @@ function flare()
     mfi.attacker.addAbility(ID_MOON_FLARE)
     mfi.attacker.setAbilityLevel(ID_MOON_FLARE, mfi.abilityLvl)
     mfi.attacker.issueTargetOrder("chainlightning", mfi.target)
-    mfi.attacker.removeAbility(ID_MOON_FLARE)
-    // InstantDummyCaster.castTarget(mfi.attacker.getOwner(), ID_MOON_FLARE, mfi.abilityLvl, "chainlightning", mfi.target, mfi.attacker.getPos())
     mfi.iterations ++
 
 function stopFlare(MoonFlareInfo mfi)
-    mfi.attacker.setMana(0)
+    mfi.attacker.removeAbility(ID_MOON_FLARE)
     destroy mfi
 
 
