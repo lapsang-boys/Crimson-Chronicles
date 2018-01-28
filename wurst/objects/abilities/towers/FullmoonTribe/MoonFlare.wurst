@@ -1,0 +1,67 @@
+package MoonFlare
+
+import Assets
+import ChannelAbilityPreset
+
+import TowerConstants
+import Tooltip
+
+real DAMAGE_1 = 50
+real DAMAGE_2 = 75
+int TARGETS_HIT_2 = 4
+
+@compiletime function generateMoonFlareDummy1()
+    new ChannelAbilityPreset(ID_MOON_FLARE_TOOLTIP_1, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Moon Flare",""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("The Lunar Adept has " + I2S(MOON_FLARE_PROC) + "% chance to " +
+        "unleash " + I2S(MOON_FLARE_NUM_BURSTS) + " bursts of lunar energy, each dealing " + R2S(DAMAGE_1) + " damage to the target.",
+        "Even Adepts can cause serious harm once they learn to harness the leaking energy from the Well of Eternity."))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNWispSplode)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+@compiletime function generateMoonFlareDummy2()
+    new ChannelAbilityPreset(ID_MOON_FLARE_TOOLTIP_2, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Moon Storm",""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("The Lunar Guaridan has " + I2S(MOON_FLARE_PROC) + "% chance to " +
+        "unleash " + I2S(MOON_FLARE_NUM_BURSTS) + " storm surges of lunar energy, each dealing " + R2S(DAMAGE_1) +
+        " damage and has to possibility to bounce to a total of " + I2S(TARGETS_HIT_2) + " targets.",
+        "The ancient Guardians of Moonglade have connections with the cosmic energy so strong that they are able" +
+        " to channel it through several mortal creatures without it dissipating."))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNMoonStone)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+class MoonFlare extends AbilityDefinitionChainLightningcreep
+    construct(int id)
+        super(id)
+
+        setArtCaster("")
+        setArtTarget(Abilities.blinkCaster)
+        setMissileArt(Units.owl)
+        setLightningEffects("DRAM")
+
+        setDamageperTarget(1, DAMAGE_1)
+        setDamageperTarget(2, DAMAGE_2)
+        setNumberofTargetsHit(1, 1)
+        setNumberofTargetsHit(2, TARGETS_HIT_2)
+
+        setLevels(2)
+        presetManaCost((int _) -> 0)
+        presetCooldown((int _) -> 0)
+        presetCastRange((int _) -> 0)
+        presetCastRange((int _) -> 2000)
+        setAreaofEffect(1, 50)
+        setAreaofEffect(1, 500)
+        setHeroAbility(false)
+        setRequirements("")
+
+
+@compiletime function generateSpell()
+    new MoonFlare(ID_MOON_FLARE)

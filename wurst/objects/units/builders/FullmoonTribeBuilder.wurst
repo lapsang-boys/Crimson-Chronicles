@@ -38,11 +38,11 @@ class Builder extends UnitDefinition
             ID2S(ID_TOWER_MAZE_ROCK)        + "," +
             ID2S(ID_TOWER_AMBER_SCOUT)      + "," +
             ID2S(ID_TOWER_ORACLE)           + "," +
-            ID2S(ID_TOWER_MOLOTOV_MIKE)     + "," +
+            ID2S(ID_TOWER_LUNAR_ADEPT)      + "," +
             ID2S(ID_TOWER_UREN)             + "," +
             ID2S(ID_TOWER_ASSASSIN))
 
-        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE))
+        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE) + "," + ID2S(ID_MOON_FLARE))
 
         // ------------------------------------
         // ========== Other constants =========

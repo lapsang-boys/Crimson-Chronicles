@@ -28,7 +28,7 @@ public constant ID_TOWER_MAZE_ROCK = compiletime(UNIT_ID_GEN.next())
 // ================ The fullmoon tribe ==================
 // ------------------------------------------------------
 
-// -------------- Henchman -----------
+// -------------- Amber scout -----------
 public constant ID_TOWER_AMBER_SCOUT = compiletime(UNIT_ID_GEN.next())
 
 // -------------- Oracle tower -----------
@@ -38,7 +38,6 @@ public constant ID_EMERALD_SPEAR_TOOLTIP = compiletime(ABIL_ID_GEN.next())
 public constant ID_EMERALD_SPEAR_BUFF = compiletime(BUFF_ID_GEN.next())
 public constant ID_EMERALD_SPEAR_BUFF_BASE = 'Blcb'
 
-
 // -------------- Cenarius tower (upg from Oracle) -----------
 public constant ID_TOWER_CENARIUS = compiletime(UNIT_ID_GEN.next())
 public constant ID_DREAMWORLD_ATTACK_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
@@ -46,10 +45,17 @@ public constant ID_DREAMWORLD_ATTACK = compiletime(ABIL_ID_GEN.next())
 public constant ID_DREAMWORLD_BUFF = compiletime(BUFF_ID_GEN.next())
 public constant ID_DREAMWORLD_BUFF_BASE = 'Blcb'
 
+// -------------- Lunar Guardian -----------
+public constant ID_TOWER_LUNAR_ADEPT = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOON_FLARE = compiletime(ABIL_ID_GEN.next())
+public constant ID_MOON_FLARE_TOOLTIP_1 = compiletime(ABIL_ID_GEN.next())
 
-// -------------- Molotov Mike -----------
-public constant ID_TOWER_MOLOTOV_MIKE = compiletime(UNIT_ID_GEN.next())
-// TOWER_TEST_ABILITY_YY  = ....
+public constant MOON_FLARE_PROC = 10 //(%)
+public constant MOON_FLARE_NUM_BURSTS = 3
+
+// -------------- Lunar Guardian -----------
+public constant ID_TOWER_LUNAR_GUARDIAN = compiletime(UNIT_ID_GEN.next())
+public constant ID_MOON_FLARE_TOOLTIP_2 = compiletime(ABIL_ID_GEN.next())
 
 // -------------- Uren -----------
 public constant ID_TOWER_UREN = compiletime(UNIT_ID_GEN.next())
