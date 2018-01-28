@@ -2,6 +2,8 @@ package MoonFlare
 
 import Assets
 import ChannelAbilityPreset
+import InstantDummyCaster
+import TimerUtils
 
 import TowerConstants
 import Tooltip
@@ -9,6 +11,11 @@ import Tooltip
 real DAMAGE_1 = 50
 real DAMAGE_2 = 75
 int TARGETS_HIT_2 = 4
+real ANIMATION_TIME = 1.167
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
 
 @compiletime function generateMoonFlareDummy1()
     new ChannelAbilityPreset(ID_MOON_FLARE_TOOLTIP_1, 1, true)
@@ -43,8 +50,7 @@ class MoonFlare extends AbilityDefinitionChainLightningcreep
         super(id)
 
         setArtCaster("")
-        setArtTarget(Abilities.blinkCaster)
-        setMissileArt(Units.owl)
+        setArtTarget(Abilities.blinkCaster + "," + Units.owl)
         setLightningEffects("DRAM")
 
         setDamageperTarget(1, DAMAGE_1)
@@ -55,13 +61,91 @@ class MoonFlare extends AbilityDefinitionChainLightningcreep
         setLevels(2)
         presetManaCost((int _) -> 0)
         presetCooldown((int _) -> 0)
-        presetCastRange((int _) -> 0)
         presetCastRange((int _) -> 2000)
-        setAreaofEffect(1, 50)
         setAreaofEffect(1, 500)
+        setAreaofEffect(2, 500)
         setHeroAbility(false)
         setRequirements("")
 
 
 @compiletime function generateSpell()
     new MoonFlare(ID_MOON_FLARE)
+
+// ##################################################################
+// ###################### Support classes ###########################
+// ##################################################################
+
+class MoonFlareInfo
+    unit attacker
+    unit target
+    int abilityLvl
+    int iterations
+    timer t
+
+    construct(unit attacker, unit target, int abilityLvl)
+        this.attacker = attacker
+        this.target = target
+        this.abilityLvl = abilityLvl
+        this.iterations = 0
+        this.t = getTimer()
+
+    ondestroy
+        this.t.release()
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+function isLunar() returns bool
+    return GetAttacker().getTypeId() == ID_TOWER_LUNAR_ADEPT or GetAttacker().getTypeId() == ID_TOWER_LUNAR_GUARDIAN
+
+// On attack check
+function moonAttack()
+    int i = GetRandomInt(1, 100)
+    if i >= MOON_FLARE_PROC
+        return
+
+    unit attacker = GetAttacker()
+    unit target = GetAttackedUnitBJ()
+    int abilityLvl
+
+    if attacker.getMana() > 0
+        attacker.issueImmediateOrder("stop")
+        print("Should stop")
+        return
+
+    if attacker.hasAbility(ID_MOON_FLARE_TOOLTIP_1)
+        abilityLvl = 1
+    else
+        abilityLvl = 2
+
+    attacker.setMana(1)
+    MoonFlareInfo mfi = new MoonFlareInfo(attacker, target, abilityLvl)
+    mfi.t.setData(mfi castTo int)
+    mfi.t.startPeriodic(ANIMATION_TIME, function flare)
+
+function flare()
+    timer t = GetExpiredTimer()
+    MoonFlareInfo mfi = t.getData() castTo MoonFlareInfo
+
+    if not mfi.target.isAlive() or mfi.iterations >= MOON_FLARE_NUM_BURSTS
+        stopFlare(mfi)
+        return
+
+    mfi.attacker.addAbility(ID_MOON_FLARE)
+    mfi.attacker.setAbilityLevel(ID_MOON_FLARE, mfi.abilityLvl)
+    mfi.attacker.issueTargetOrder("chainlightning", mfi.target)
+    mfi.attacker.removeAbility(ID_MOON_FLARE)
+    // InstantDummyCaster.castTarget(mfi.attacker.getOwner(), ID_MOON_FLARE, mfi.abilityLvl, "chainlightning", mfi.target, mfi.attacker.getPos())
+    mfi.iterations ++
+
+function stopFlare(MoonFlareInfo mfi)
+    mfi.attacker.setMana(0)
+    destroy mfi
+
+
+init
+    trigger trig = CreateTrigger()
+    trig.addAction(function moonAttack)
+    trig.addCondition(Condition(function isLunar))
+    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)

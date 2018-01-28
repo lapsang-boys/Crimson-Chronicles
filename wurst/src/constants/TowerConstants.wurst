@@ -50,7 +50,7 @@ public constant ID_TOWER_LUNAR_ADEPT = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOON_FLARE = compiletime(ABIL_ID_GEN.next())
 public constant ID_MOON_FLARE_TOOLTIP_1 = compiletime(ABIL_ID_GEN.next())
 
-public constant MOON_FLARE_PROC = 10 //(%)
+public constant MOON_FLARE_PROC = 20 //(%)
 public constant MOON_FLARE_NUM_BURSTS = 3
 
 // -------------- Lunar Guardian -----------

@@ -46,6 +46,10 @@ class LunarAdept extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_MOON_FLARE_TOOLTIP_1))
+        // Used to keep track of in casting spell state
+        setManaMaximum(1)
+        setManaInitialAmount(0)
+        setManaRegeneration(0)
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
