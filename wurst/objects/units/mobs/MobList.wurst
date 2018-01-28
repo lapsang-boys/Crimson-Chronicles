@@ -38,14 +38,16 @@ public function shelfMob(unit u)
                 new DeathUnitCannonMob(u, 900, 60, 128, Objects.hCancelDeath, Abilities.glaiveMissileTarget, ID_MOB_GOBLIN_MACHINIST.get(i))
             // Level 7
             case ID_MOB_FURBOLG_WARRIOR.get(i)
-                new FaithMob(u, 3., Abilities.drainCaster)
+                new FaithMob(u, 3., Abilities.darkSummonTarget)
             // Level 8
             case ID_MOB_FURBOLG_BENDER.get(i)
                 new BenderMob(u, 256, Abilities.feralspiritdone, "spell", 0.6)
             // Level 9
             case ID_MOB_CROW_DRUID.get(i)
                 new CrowMorpherMob(u, 0.3, Abilities.aIreTarget)
-            case ID_MOB_ROBIN_TEST.get(i)
-                new CyclicHealerMob(u, 2, 3)
             default
                 skip
+
+            // Implement this for Zone 2
+            // case ID_MOB_ROBIN_TEST.get(i)
+                // new CyclicHealerMob(u, 2, 3)
