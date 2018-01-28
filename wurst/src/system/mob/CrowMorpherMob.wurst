@@ -52,4 +52,5 @@ function morph(CrowMorpherMob mhm)
 function moveBird()
     timer t = GetExpiredTimer()
     CrowMorpherMob mhm = t.getData() castTo CrowMorpherMob
-    mhm.u.issuePointOrder("move", mhm.u.getNext())
+    if mhm.u.isAlive()
+        mhm.u.issuePointOrder("move", mhm.u.getNext())
