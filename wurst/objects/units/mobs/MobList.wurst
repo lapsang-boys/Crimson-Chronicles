@@ -3,6 +3,8 @@ package MobList
 import Assets
 
 import FelwoodMobList
+import GameplayConstants
+import LinkedList
 
 import AgileMob
 import BenderMob
@@ -16,32 +18,34 @@ import PowerFaithMob
 import TreantMob
 
 public function shelfMob(unit u)
-    switch u.getTypeId()
-        // Level 2
-        case ID_MOB_DIRE_WOLF
-            new AgileMob(u, 150, 1.75)
-        // Level 3
-        case ID_MOB_DEMONIC_SATYR
-            new DemonMob(u, 0.15, 256, Abilities.howlCaster, Abilities.avengerMissile)
-        // Level 4
-        case ID_MOB_FEL_TREANT
-            new TreantMob(u, ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)
-        // Level 5
-        case ID_MOB_DARK_TROLL_SHADOW_PRIEST
-            new PowerFaithMob(u, 20., 512., 1., 3,  Abilities.healTarget, "Spell")
-        // Level 6
-        case ID_MOB_GOBLIN_WAR_MACHINE
-            new DeathUnitCannonMob(u, 900, 60, 128, Objects.hCancelDeath, Abilities.glaiveMissileTarget, ID_MOB_GOBLIN_MACHINIST)
-        // Level 7
-        case ID_MOB_FURBOLG_WARRIOR
-            new FaithMob(u, 3., Abilities.drainCaster)
-        // Level 8
-        case ID_MOB_FURBOLG_BENDER
-            new BenderMob(u, 256, Abilities.feralspiritdone, "spell", 0.6)
-        // Level 9
-        case ID_MOB_CROW_DRUID
-            new CrowMorpherMob(u, 0.3, Abilities.aIreTarget)
-        case ID_MOB_ROBIN_TEST
-            new CyclicHealerMob(u, 2, 3)
-        default
-            skip
+
+    for i=0 to NUM_DIFFICULTIES-1
+        switch u.getTypeId()
+            // Level 2
+            case ID_MOB_DIRE_WOLF.get(i)
+                new AgileMob(u, 150, 1.75)
+            // Level 3
+            case ID_MOB_DEMONIC_SATYR.get(i)
+                new DemonMob(u, 0.15, 256, Abilities.howlCaster, Abilities.avengerMissile)
+            // Level 4
+            case ID_MOB_FEL_TREANT.get(i)
+                new TreantMob(u, ID_FEL_SMOG, 3.0, 512., Abilities.howlCaster)
+            // Level 5
+            case ID_MOB_DARK_TROLL_SHADOW_PRIEST.get(i)
+                new PowerFaithMob(u, 20., 512., 1., 3,  Abilities.healTarget, "Spell")
+            // Level 6
+            case ID_MOB_GOBLIN_WAR_MACHINE.get(i)
+                new DeathUnitCannonMob(u, 900, 60, 128, Objects.hCancelDeath, Abilities.glaiveMissileTarget, ID_MOB_GOBLIN_MACHINIST.get(i))
+            // Level 7
+            case ID_MOB_FURBOLG_WARRIOR.get(i)
+                new FaithMob(u, 3., Abilities.drainCaster)
+            // Level 8
+            case ID_MOB_FURBOLG_BENDER.get(i)
+                new BenderMob(u, 256, Abilities.feralspiritdone, "spell", 0.6)
+            // Level 9
+            case ID_MOB_CROW_DRUID.get(i)
+                new CrowMorpherMob(u, 0.3, Abilities.aIreTarget)
+            case ID_MOB_ROBIN_TEST.get(i)
+                new CyclicHealerMob(u, 2, 3)
+            default
+                skip

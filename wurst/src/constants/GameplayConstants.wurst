@@ -8,6 +8,19 @@ public constant int STARTING_GOLD = 35
 public constant int STARTING_LUMBER = 10
 
 // ------------------------------------------
+// ========= Difficulty settings ============
+// ------------------------------------------
+
+// Indexes in unitId arrays
+public constant NORMAL = 0
+public constant NIGHTMARE = 1
+public constant HELL = 2
+
+public constant NUM_DIFFICULTIES = 3
+
+public constant DIFFICULTY_SCALING = 0.2
+
+// ------------------------------------------
 // ========== Backend settings ==============
 // ------------------------------------------
 // Time player messages are displayed

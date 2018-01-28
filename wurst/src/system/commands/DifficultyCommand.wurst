@@ -1,0 +1,40 @@
+package DifficultyCommand
+
+import GameplayConstants
+import Colorscheme
+import PlayerData
+
+function difficulty()
+    player p = GetTriggerPlayer()
+    PlayerData pd = playerData.get(p.getId())
+
+    string msg = GetEventPlayerChatString()
+
+    if pd.level > 1 or pd.levelInProgress
+        printTimedToPlayer(warningColor.colorize("You cannot change difficult in the middle of a game."), DISPLAY_TIME, p)
+        printTimedToPlayer(infoColor.colorize("Type ") + valueColor.colorize("-rmk or -remake ") + infoColor.colorize(" to start a new game where you can choose a new difficulty.")
+        , DISPLAY_TIME, p)
+        return
+
+    switch msg
+        case "-normal"
+            pd.difficulty = NORMAL
+            printTimedToPlayer(infoColor.colorize("Normal") +
+            infoColor.colorize(" choosen. Good luck!"), DISPLAY_TIME, p)
+        case "-nightmare"
+            pd.difficulty = NIGHTMARE
+            printTimedToPlayer(infoColor.colorize("Nightmare") +
+            infoColor.colorize(" choosen. Good luck, you will need it!"), DISPLAY_TIME, p)
+        case "-hell"
+            pd.difficulty = HELL
+            printTimedToPlayer(infoColor.colorize("Hell") +
+            infoColor.colorize(" choosen. Hah.. Only a fool enters a battle he can't win."), DISPLAY_TIME, p)
+
+
+trigger difficultyTrig = CreateTrigger()
+init
+    TriggerAddAction(difficultyTrig, function difficulty)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-normal", true)
+        TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-nightmare", true)
+        TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-hell", true)

@@ -5,6 +5,8 @@ import TimerUtils
 import Alexandria
 import Movement
 import TimedEffect
+import FelwoodMobList
+import PlayerData
 
 public class CrowMorpherMob extends MobWrapper implements Ticker
     timer t
@@ -38,7 +40,10 @@ function healthCheck()
         t.pause()
 
 function morph(CrowMorpherMob mhm)
+    player p = Player(mhm.u.getPlayerN())
+    PlayerData pd = playerData.get(p.getId())
     attatchTimedEffect(mhm.u, 2, mhm.morphFx, "origin")
+    mhm.u.setAbilityLevel(ID_SPELL_CROW_MORPH, pd.difficulty + 1)
     mhm.u.issueImmediateOrder("ravenform")
     timer t = getTimer()
     t.setData(mhm castTo int)

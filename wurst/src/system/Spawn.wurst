@@ -50,9 +50,10 @@ function summonMobs()
 	let t = GetExpiredTimer()
 	let lt = t.getData() castTo TimerData
 	let p = lt.p
+	let pd = playerData.get(p.getId())
 	int num = lt.l.squadChain.size()
 
-	if lt.cur == num or (not playerData.get(p.getId()).levelInProgress)
+	if lt.cur == num or (not pd.levelInProgress)
 		t.release()
 		return
 
@@ -76,7 +77,7 @@ function summonMobs()
 		case SpawnPosition.RANDOM
 			pos = spawn.randomPoint()
 
-	let u = createUnit(PLAYER_BROWN, single.u_id, pos, angle(PI/2))
+	let u = createUnit(PLAYER_BROWN, single.u_ids.get(pd.difficulty), pos, angle(PI/2))
 	shelfMob(u)
 
 	createTimedEffect(pos, 1., Abilities.aIilTarget)

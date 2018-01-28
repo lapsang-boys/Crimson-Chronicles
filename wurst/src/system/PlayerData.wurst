@@ -29,6 +29,7 @@ public class PlayerData
     int mobsRemoved
     unit builder
     bool levelInProgress
+    int difficulty
 
     construct(int playerNum, int level, int area, int life)
         this.playerNum = playerNum
@@ -38,6 +39,7 @@ public class PlayerData
         this.life = life
         this.mobsRemoved = 0
         this.levelInProgress = false
+        this.difficulty = NORMAL
 
     function setBuilder(unit builder)
         this.builder = builder

@@ -10,14 +10,17 @@ class CrowForm extends AbilityDefinitionRavenFormDruidoftheTalon
         super(id)
 
         setArtCaster("")
-        setCastingTime(1, 1.2)
-        setAlternateFormUnit(1, ID2S(ID_MOB_CROW_CROW))
+        presetCastingTime((int _) -> 1.2)
+        setAlternateFormUnit(1, ID2S(ID_MOB_CROW_CROW.get(0)))
+        setAlternateFormUnit(2, ID2S(ID_MOB_CROW_CROW.get(1)))
+        setAlternateFormUnit(3, ID2S(ID_MOB_CROW_CROW.get(2)))
+        // presetAlternateFormUnit((int lvl) -> ID2S(ID_MOB_CROW_CROW.get(lvl-1)))
 
-        setDurationNormal(1, 1.2)
+        presetDurationNormal((int _) -> 1.2)
         setHeroAbility(false)
         setRequirements("")
-        setLevels(1)
-        setManaCost(1, 0)
+        setLevels(3)
+        presetManaCost((int _) -> 0)
 
 @compiletime function generateSpell()
     new CrowForm(ID_SPELL_CROW_MORPH)

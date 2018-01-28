@@ -1,6 +1,9 @@
 package MobDefinition
 
 import UnitObjEditing
+import ErrorHandling
+
+import GameplayConstants
 
 public constant ID_MOB_BASE_UNIT = 'earc'
 
@@ -11,6 +14,18 @@ public tuple hpReg(real hpReg)
 public tuple movementSpeed(int movementSpeed)
 public tuple armor(int armor)
 public tuple scaling(real scaling)
+
+public function scaleMaxHp(int i, int maxHp) returns maxHp
+    switch i
+        case NORMAL
+            return maxHp(maxHp - R2I(2*maxHp*DIFFICULTY_SCALING))
+        case NIGHTMARE
+            return maxHp(maxHp - R2I(maxHp*DIFFICULTY_SCALING))
+        case HELL
+            return maxHp(maxHp)
+        default
+            error("Difficulty does not exsist.")
+            return maxHp(9999)
 
 
 public class MobDefinition extends UnitDefinition
