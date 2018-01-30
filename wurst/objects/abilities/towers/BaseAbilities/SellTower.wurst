@@ -1,0 +1,71 @@
+package SellTower
+
+import Assets
+import AbilityObjEditing
+import RegisterEvents
+import SoundUtils
+
+import Alexandria
+import GameplayConstants
+import TowerConstants
+import Colorscheme
+import TimedEffect
+import Tooltip
+
+// ##################################################################
+// ###################### Ability objcet ############################
+// ##################################################################
+
+class SellTowerAbility extends AbilityDefinitionBearform
+    construct(int id)
+        super(id)
+
+        setName("Sell tower")
+        setHotkeyNormal("X")
+        setTooltipNormal(1, tooltipCustomBasic("X", "Sell tower", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("Sells the tower. You will be refundend 100% of its original cost.", "Man is so made that when anything fires his soul, impossibilities vanish."))
+
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(0)
+        setArtCaster("")
+        setCasterAttachmentPoint("")
+        setArtEffect("")
+        setIconNormal(Icons.bTNChestOfGold)
+        setArtTarget("")
+        setDurationNormal(1, 0.01)
+        setTargetAttachmentPoint("")
+        setHeroAbility(false)
+        setRequirements("")
+        setLevels(1)
+        setBuffs(1, "")
+        setManaCost(1, 0)
+        setRace(Race.Human)
+
+@compiletime function generateSellTower()
+    new SellTowerAbility(ID_SELL_TOWER)
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+function sellTower()
+    let tower = GetTriggerUnit()
+    let pos = tower.getPos()
+    let p = tower.getOwner()
+    let gold = GetUnitPointValue(tower)
+    createTimedEffect(pos, 1., UI.goldCredit)
+    p.setGold(p.getGold() + gold)
+
+    SoundDefinition sd = new SoundDefinition(Sounds.receiveGold1, false)
+    sd.playForPlayer(p)
+
+    printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), DISPLAY_TIME, p)
+    tower.remove()
+
+    let id = GetTriggerUnit().getHandleId()
+    if towerMap.has(id)
+        destroy towerMap.get(id)
+
+init
+    registerSpellEffectEvent(ID_SELL_TOWER, function sellTower)

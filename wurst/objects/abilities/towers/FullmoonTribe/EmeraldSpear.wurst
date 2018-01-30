@@ -11,6 +11,10 @@ import Tooltip
 let ARMOR_REUCED = 1
 let DURATION = 4.
 
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
 class EmeraldSpearBuff extends BuffDefinition
     construct(int newBuffId, int origBuggId)
         super(newBuffId, origBuggId)

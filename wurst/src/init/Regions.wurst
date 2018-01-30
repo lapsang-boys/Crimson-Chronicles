@@ -1,7 +1,19 @@
-package InitRegions
+package Regions
 
-import Regions
+import LinkedList
+
 import GameplayConstants
+
+public LinkedList<int> playerArea = new LinkedList<int>
+public LinkedList<int> nodes1 = new LinkedList<int>
+public LinkedList<int> nodes2 = new LinkedList<int>
+public LinkedList<int> nodes3 = new LinkedList<int>
+public LinkedList<int> ends = new LinkedList<int>
+
+public LinkedList<int> A0P0 = new LinkedList<int>
+public LinkedList<int> A0P1 = new LinkedList<int>
+
+public LinkedList<int> array A0 = [A0P0, A0P1]
 
 init
     A0P0..add(rectToIndex(gg_rct_A0P0Spawn))

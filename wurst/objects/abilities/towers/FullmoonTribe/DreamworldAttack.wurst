@@ -156,9 +156,6 @@ function dreamAttack()
     DreamTarget dt = new DreamTarget(attacker, GetAttackedUnitBJ())
     forUnitsInRange(attacker.getPos(), RANGE, dt)
 
-
-
-
 init
     trigger trig = CreateTrigger()
     trig.addAction(function dreamAttack)
