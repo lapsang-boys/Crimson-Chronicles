@@ -1,0 +1,27 @@
+package BuilderPosCommand
+
+import Assets
+
+import GameplayConstants
+import PlayerData
+import TimedEffect
+
+function remake()
+    player p = GetTriggerPlayer()
+    PlayerData pd = playerData.get(p.getId())
+
+    vec2 pos = pd.builder.getPos()
+
+    print("Builder pos: (" + R2S(pos.x) + ", " + R2S(pos.y) + ").")
+    createTimedEffect(pos, 2, Abilities.howlCaster)
+    AddSpecialEffect(Abilities.darkRitualTarget, pos.x, pos.y)
+    attatchTimedEffect(pd.builder, 2, Abilities.levelupcaster, "origin")
+
+    PingMinimap(pos.x, pos.y, 1)
+
+trigger remakeTrig = CreateTrigger()
+init
+    TriggerAddAction(remakeTrig, function remake)
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-pos", true)
+        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-p", true)

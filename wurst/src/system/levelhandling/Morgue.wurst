@@ -1,5 +1,8 @@
 package Morgue
 
+import TimerUtils
+import ClosureTimers
+
 import GameplayConstants
 import Movement
 import Alexandria
@@ -15,10 +18,13 @@ function cleanUp()
         MobWrapper mw = mobMap.get(id)
         mw.onDeath()
 
-        destroy mw
+        doAfter(MOURGE_CLEAN_TIME, () -> begin
+            destroy mw
+        end)
     else
-        // Timer for cleanup?
-        u.remove()
+        doAfter(MOURGE_CLEAN_TIME, () -> begin
+            u.remove()
+        end)
 
 trigger diesTrigger = CreateTrigger()
 
