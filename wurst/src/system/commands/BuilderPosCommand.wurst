@@ -6,7 +6,7 @@ import GameplayConstants
 import PlayerData
 import TimedEffect
 
-function remake()
+function builderPos()
     player p = GetTriggerPlayer()
     PlayerData pd = playerData.get(p.getId())
 
@@ -19,9 +19,9 @@ function remake()
 
     PingMinimap(pos.x, pos.y, 1)
 
-trigger remakeTrig = CreateTrigger()
+trigger builderPosTrig = CreateTrigger()
 init
-    TriggerAddAction(remakeTrig, function remake)
+    TriggerAddAction(builderPosTrig, function builderPos)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-pos", true)
-        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-p", true)
+        TriggerRegisterPlayerChatEvent(builderPosTrig, Player(i), "-pos", true)
+        TriggerRegisterPlayerChatEvent(builderPosTrig, Player(i), "p", true)
