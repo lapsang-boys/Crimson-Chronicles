@@ -48,9 +48,9 @@ public function shelfMob(unit u)
                 new CrowMorpherMob(u, 0.3, Abilities.aIreTarget)
             // Level 10
             case ID_MOB_FEL_BEAST.get(i)
-                new BeastMob(u, ID_MOB_FEL_HUNTER.get(i), 5, Objects.undeadDissipate, Abilities.demonBoltImpact, "DRAB")
+                new BeastMob(u, ID_MOB_FEL_HUNTER.get(i), 5, Objects.undeadDissipate, Abilities.demonBoltImpact, Abilities.darkRitualTarget, "DRAB")
             case ID_MOB_FEL_HUNTER.get(i)
-                new BeastMasterMob(u, 3.)
+                new BeastMasterMob(u, 4)
 
             default
                 skip
