@@ -45,6 +45,12 @@ public function getSpawn(player p) returns rect
     let spawn = path.getFirst()
     return rectFromIndex(spawn)
 
+public function getFirst(player p) returns rect
+    PlayerData pd = playerData.get(p.getId())
+    let path = getPath(pd.area, p.getId())
+    let first = path.get(1)
+    return rectFromIndex(first)
+
 public function getEnd(player p) returns rect
     PlayerData pd = playerData.get(p.getId())
     let path = getPath(pd.area, p.getId())

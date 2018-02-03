@@ -78,7 +78,7 @@ function summonMobs()
 		case SpawnPosition.RANDOM
 			pos = spawn.randomPoint()
 
-	let u = createUnit(PLAYER_BROWN, single.u_ids.get(pd.difficulty), pos, angle(PI/2))
+	let u = createUnit(PLAYER_BROWN, single.u_ids.get(pd.difficulty), pos, pos.angleTo(getFirst(pd.p).getCenter()))
 	createTimedEffect(pos, 1., Abilities.aIilTarget)
 	u.setUserData(1)
 	u.issuePointOrder("move", u.getNext())
