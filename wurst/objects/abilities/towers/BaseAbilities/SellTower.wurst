@@ -60,7 +60,13 @@ function sellTower()
     SoundDefinition sd = new SoundDefinition(Sounds.receiveGold1, false)
     sd.playForPlayer(p)
 
-    printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), DISPLAY_TIME, p)
+    if tower.getTypeId() == ID_TOWER_MAZE_ROCK
+        p.setLumber(p.getLumber() + 1)
+        printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold and " + numberColor.colorize("1") + infoColor.colorize(" lumber.")), DISPLAY_TIME, p)
+    else
+        printTimedToPlayer(infoColor.colorize("You have sold " + tower.getName() + " for ") + numberColor.colorize(I2S(gold)) + infoColor.colorize(" gold."), DISPLAY_TIME, p)
+
+
     tower.remove()
 
     let id = GetTriggerUnit().getHandleId()
