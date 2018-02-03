@@ -79,7 +79,7 @@ public class BeastMasterMob extends MobWrapper implements Spawner
         end)
 
 // ##################################################################
-// ####################### Pairing fucnctions #######################
+// ####################### Pairing functions ########################
 // ##################################################################
 
 // Used to identify beast master
@@ -99,7 +99,7 @@ class BeastMasterGroup implements ForGroupCallback
             bm.l = AddLightningEx(bm.lightningName, false, pos1.x, pos1.y, 100, pos2.x, pos2.y, 100)
 
             bm.t.setData(bm castTo int)
-            bm.t.startPeriodic(0.05, function upDateLightning)
+            bm.t.startPeriodic(0.05, function updateLightning)
 
 function bindToMaster()
     timer t = GetExpiredTimer()
@@ -112,7 +112,7 @@ function bindToMaster()
     BeastMasterGroup bg = new BeastMasterGroup(bm)
     forUnitsInRect(spawn, bg)
 
-function upDateLightning()
+function updateLightning()
     timer t = GetExpiredTimer()
     BeastMob bm = t.getData() castTo BeastMob
 
