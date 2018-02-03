@@ -42,4 +42,4 @@ $ python exicon/update.py
 
 ## Authors
 
-Karlek & Kranx
+Karlek & Godbit
