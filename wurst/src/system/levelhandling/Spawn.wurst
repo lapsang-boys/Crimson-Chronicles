@@ -6,6 +6,7 @@ import RegisterEvents
 import HashMap
 import SoundUtils
 
+import Alexandria
 import Squad
 import Movement
 import Leaderboard
@@ -78,12 +79,14 @@ function summonMobs()
 			pos = spawn.randomPoint()
 
 	let u = createUnit(PLAYER_BROWN, single.u_ids.get(pd.difficulty), pos, angle(PI/2))
-	shelfMob(u)
-
 	createTimedEffect(pos, 1., Abilities.aIilTarget)
-
 	u.setUserData(1)
 	u.issuePointOrder("move", u.getNext())
+
+	shelfMob(u)
+
+	if mobMap.has(u.getHandleId())
+		mobMap.get(u.getHandleId()).onSpawn()
 
 	t.start(duration, function summonMobs)
 

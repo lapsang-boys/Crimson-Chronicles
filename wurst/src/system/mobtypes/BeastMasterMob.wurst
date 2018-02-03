@@ -1,0 +1,130 @@
+package BeastMasterMob
+
+import ClosureForGroups
+import TimerUtils
+
+import PlayerData
+import Movement
+import GameplayConstants
+import Alexandria
+import TimedEffect
+
+// ##################################################################
+// ############################# Beast ##############################
+// ##################################################################
+
+public class BeastMob extends MobWrapper implements Deather
+    unit beast
+    unit master
+    int masterID
+    real holdTime
+    lightning l
+
+    timer t
+    string fxBeastDeathPath
+    string fxBeastDeathPath2
+    string lightningName
+    construct(unit beast, int masterID, real holdTime, string fxBeastDeathPath, string fxBeastDeathPath2, string lightningName)
+        super(beast)
+        this.beast = beast
+        this.masterID = masterID
+        this.holdTime = holdTime
+        this.fxBeastDeathPath = fxBeastDeathPath
+        this.fxBeastDeathPath2 = fxBeastDeathPath2
+        this.lightningName = lightningName
+
+    override function onSpawn()
+        this.u.pause()
+        this.u.setInvulnerable(true)
+
+        this.t = getTimer()
+        this.t.setData(this castTo int)
+        this.t.start(this.holdTime, function bindToMaster)
+
+    override function onDeath()
+        if not this.master.isAlive()
+            return
+
+        createTimedEffect(this.beast.getPos(), 2, this.fxBeastDeathPath)
+        attatchTimedEffect(this.master, 2, this.fxBeastDeathPath, "origin")
+        attatchTimedEffect(this.master, 2, this.fxBeastDeathPath2, "origin")
+
+        // Get player builder to deal damage for bounty
+        PlayerData pd = playerData.get(this.beast.getPlayerN())
+        pd.builder.damageTarget(this.master, this.beast.getMaxHP())
+
+// ##################################################################
+// ############################# Master #############################
+// ##################################################################
+
+public class BeastMasterMob extends MobWrapper implements Spawner
+    real holdTime
+
+    construct(unit u, real holdTime)
+        super(u)
+        this.holdTime = holdTime
+
+    override function onSpawn()
+        this.u.pause()
+        this.u.setInvulnerable(true)
+
+        timer t = getTimer()
+        t.setData(this castTo int)
+        t.start(this.holdTime, () -> begin
+            timer ti = GetExpiredTimer()
+            BeastMasterMob bmm = ti.getData() castTo BeastMasterMob
+            bmm.u.unpause()
+            bmm.u.setInvulnerable(false)
+            ti.release()
+        end)
+
+// ##################################################################
+// ####################### Pairing fucnctions #######################
+// ##################################################################
+
+// Used to identify beast master
+class BeastMasterGroup implements ForGroupCallback
+    BeastMob bm
+    construct(BeastMob bm)
+        this.bm = bm
+
+    function callback(unit u)
+        if u.getOwner() != PLAYER_BROWN
+            return
+
+        if u.getTypeId() == this.bm.masterID
+            this.bm.master = u
+            vec2 pos1 = this.bm.beast.getPos()
+            vec2 pos2 = this.bm.master.getPos()
+            bm.l = AddLightningEx(bm.lightningName, false, pos1.x, pos1.y, 100, pos2.x, pos2.y, 100)
+
+            bm.t.setData(bm castTo int)
+            bm.t.startPeriodic(0.05, function upDateLightning)
+
+function bindToMaster()
+    timer t = GetExpiredTimer()
+    BeastMob bm = t.getData() castTo BeastMob
+
+    bm.u.unpause()
+    bm.u.setInvulnerable(false)
+
+    rect spawn = getSpawn(Player(bm.u.getPlayerN()))
+    BeastMasterGroup bg = new BeastMasterGroup(bm)
+    forUnitsInRect(spawn, bg)
+
+function upDateLightning()
+    timer t = GetExpiredTimer()
+    BeastMob bm = t.getData() castTo BeastMob
+
+    if not bm.beast.isAlive() or not bm.master.isAlive()
+        DestroyLightning(bm.l)
+        t.release()
+
+    vec2 pos1 = bm.beast.getPos()
+    vec2 pos2 = bm.master.getPos()
+    MoveLightningEx(bm.l, false, pos1.x, pos1.y, 100, pos2.x, pos2.y, 100)
+
+
+
+
+

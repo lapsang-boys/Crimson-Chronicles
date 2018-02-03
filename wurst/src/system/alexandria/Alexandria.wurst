@@ -20,7 +20,7 @@ public class EmptyMobWrapper extends MobWrapper
     construct(unit u)
         super(u)
 
-public abstract class MobWrapper implements Enterer, Deather, Ender, Ticker
+public abstract class MobWrapper implements Spawner, Enterer, Deather, Ender, Ticker
     unit u
     construct(unit u)
         this.u = u
@@ -28,6 +28,9 @@ public abstract class MobWrapper implements Enterer, Deather, Ender, Ticker
 
     function getUnit() returns unit
         return this.u
+
+    function onSpawn()
+        skip
 
     function onEnter()
         skip
@@ -44,6 +47,9 @@ public abstract class MobWrapper implements Enterer, Deather, Ender, Ticker
     ondestroy
         mobMap.remove(this.u.getHandleId())
         u.remove()
+
+public interface Spawner
+    function onSpawn()
 
 public interface Enterer
     function onEnter()

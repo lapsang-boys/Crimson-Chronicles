@@ -151,6 +151,22 @@ init
         loreMessage("Description"))
     levels.add(L9)
 
+    LinkedList<SquadMember> level10Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.RANDOM, spawnInterval(1, 1)))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.RANDOM, spawnInterval(2.5, 2.5)))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.RANDOM, spawnInterval(8, 8)))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.RANDOM, spawnInterval(1, 1)))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.RANDOM, spawnInterval(2.5, 2.5)))
+    .toSquadChain()
+
+    Level level10 = new Level(
+        level10Chain,
+        10, // Bonus
+        levelInfoMsg(10, "The Fel Vanguard"),
+        new LinkedList<MobType>..add(MobType.UNDEAD),
+        loreMessage("Description"))
+    levels.add(level10)
+
     // Level L10 = new Level(
     //     toSquad(ID_MOB_ROBIN_TEST, 1, 2, 2),
     //     10, // Bonus

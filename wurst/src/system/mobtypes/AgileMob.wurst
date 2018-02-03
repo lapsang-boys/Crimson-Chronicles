@@ -20,6 +20,9 @@ public class AgileMob extends MobWrapper implements Enterer
     override function onEnter()
         startAgile(this.u, this.speedBoost, this.agileDuration)
 
+    override function onSpawn()
+        print("onSpawn")
+
     ondestroy
         this.t.release()
 

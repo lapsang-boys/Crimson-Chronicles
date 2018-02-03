@@ -7,6 +7,7 @@ import GameplayConstants
 import LinkedList
 
 import AgileMob
+import BeastMasterMob
 import BenderMob
 import CyclicHealerMob
 import DeathUnitCannonMob
@@ -45,6 +46,12 @@ public function shelfMob(unit u)
             // Level 9
             case ID_MOB_CROW_DRUID.get(i)
                 new CrowMorpherMob(u, 0.3, Abilities.aIreTarget)
+            // Level 10
+            case ID_MOB_FEL_BEAST.get(i)
+                new BeastMob(u, ID_MOB_FEL_HUNTER.get(i), 5, Objects.undeadDissipate, Abilities.demonBoltImpact, "DRAB")
+            case ID_MOB_FEL_HUNTER.get(i)
+                new BeastMasterMob(u, 3.)
+
             default
                 skip
 
