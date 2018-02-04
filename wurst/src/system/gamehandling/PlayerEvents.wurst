@@ -9,7 +9,7 @@ function playerLeaves()
 
 trigger leaveTrigger = CreateTrigger()
 
-init
+@initThird function initPlayerEvents()
     TriggerAddAction(leaveTrigger, function playerLeaves)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerEventLeave(leaveTrigger, Player(i))

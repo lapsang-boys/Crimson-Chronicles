@@ -8,7 +8,8 @@ function remake()
         ClearTextMessages()
 
 trigger clearCommandTrig = CreateTrigger()
-init
+
+@initThird function initClearCommand()
     TriggerAddAction(clearCommandTrig, function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(clearCommandTrig, Player(i), "-clear", true)

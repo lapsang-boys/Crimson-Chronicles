@@ -2,6 +2,7 @@ package PlayerData
 
 import LinkedList
 import ClosureForGroups
+import ErrorHandling
 
 import Regions
 import Leaderboard
@@ -24,18 +25,18 @@ public class PlayerData
     int playerNum
     player p
     int level
-    int area
+    int zoneNumber
     int life
     int mobsRemoved
     unit builder
     bool levelInProgress
     int difficulty
 
-    construct(int playerNum, int level, int area, int life)
+    construct(int playerNum, int level, int zoneNumber, int life)
         this.playerNum = playerNum
         this.p = Player(playerNum)
         this.level = level
-        this.area = area
+        this.zoneNumber = zoneNumber
         this.life = life
         this.mobsRemoved = 0
         this.levelInProgress = false
@@ -45,21 +46,33 @@ public class PlayerData
         this.builder = builder
 
     function cleanse(bool removePlayerUnits)
-        rect r = rectFromIndex(playerArea.get(this.playerNum))
         Remover rem = new Remover(removePlayerUnits, this.p)
-        forUnitsInRect(r, rem)
+        forUnitsInRect(this.getPlayerRegion(), rem)
 
     function reset()
         this.levelInProgress = false
-        this.area = 0
+        this.zoneNumber = 0
         this.life = STARTING_LIFE
         this.mobsRemoved = 0
         this.level = 0
         updateLife(this.p, this.life)
 
+    function getPlayerRegion() returns rect
+        return this.getArea().area
+
+    function getArea() returns Area
+        if zones.size() < this.zoneNumber
+            error("getArea#1")
+            return new Area()
+        if zones.get(this.zoneNumber).size() < this.p.getId()
+            error("getArea#2")
+            return new Area()
+
+        return zones.get(this.zoneNumber).get(this.p.getId())
+
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
-init
+@initFirst function initPlayerData()
     // Init player level tracker
     for i = 0 to NUMBER_OF_PLAYERS-1
         PlayerData pd = new PlayerData(i, 0, 0, STARTING_LIFE)

@@ -28,5 +28,5 @@ function isBuilder() returns boolean
 
 trigger builderSelect = CreateTrigger()
 
-init
+@initThird function initBuilderSelect()
     registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, null, function isBuilder, function buildingSelect)

@@ -6,7 +6,6 @@ import SoundUtils
 import ClosureForGroups
 
 import Colorscheme
-import Regions
 import Leaderboard
 import GameplayConstants
 import BuilderConstants
@@ -40,9 +39,8 @@ function winGame(PlayerData pd)
     printTimedToPlayer(infoColor.colorize("You won the game!"), DISPLAY_TIME, pd.p)
     SoundDefinition sd = new SoundDefinition(Sounds.newTournament, false)
     sd.playForPlayer(pd.p)
-    rect r = rectFromIndex(playerArea.get(pd.playerNum))
     Winner w = new Winner()
-    forUnitsInRect(r, w)
+    forUnitsInRect(pd.getPlayerRegion(), w)
 
 function levelComplete(PlayerData pd)
     Level l = levels.get(pd.level)

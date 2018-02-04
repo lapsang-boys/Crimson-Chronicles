@@ -2,7 +2,6 @@ package MobMissile
 
 import TimerUtils
 
-import Regions
 import Movement
 import TimedEffect
 
@@ -86,7 +85,7 @@ public class MobMissile
 
 
     function validSpot(vec2 landingSpot) returns bool
-        rect pArea = rectFromIndex(playerArea.get(this.u.getPlayerN()))
+        rect pArea = u.getArea()
 
         vec2 l1 = landingSpot.add(128, 0)
         vec2 l2 = landingSpot.add(0, 128)

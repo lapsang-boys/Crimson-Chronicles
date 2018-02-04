@@ -10,8 +10,8 @@ import PlayerData
 public function unit.getPlayerN() returns int
     let pos = this.getPos()
     for i = 0 to NUMBER_OF_PLAYERS-1
-        let r = rectFromIndex(playerArea.get(i))
-        if pos.isInRect(r)
+        let area = playerData.get(i).getPlayerRegion()
+        if pos.isInRect(area)
             return i
 
     error("This creature is not in any player's area.")
@@ -21,39 +21,44 @@ public function unit.getPlayerN() returns int
 public function unit.getNext() returns vec2
     var p = this.getPlayerN()
     PlayerData pd = playerData.get(p)
-    let path = getPath(pd.area, p)
+    let cv = this.getUserData()
+    let area = pd.getArea()
+    let pathId = cv.getPathId()
+    let nodeId = cv.getNodeId()
 
-    var cv = this.getUserData()
-    if cv >= path.size()
+    if pathId > area.paths.size()
         error("Invalid custom value for unit: "+this.getName())
         return vec2(0, 0)
 
-    let rectIndex = path.get(cv)
-    return rectFromIndex(rectIndex).getCenter()
+    if nodeId > area.paths.get(pathId).rects.size()
+        error("Invalid custom value for unit: "+this.getName())
+        return vec2(0, 0)
 
-public function getPath(int areaCode, int p) returns LinkedList<int>
-    switch areaCode
-        case 0
-            return A0[p]
-        default
-            error("This shouldn't happen!")
-            return null
+    return area.paths.get(pathId).rects.get(nodeId).getCenter()
 
-public function getSpawn(player p) returns rect
-    PlayerData pd = playerData.get(p.getId())
-    let path = getPath(pd.area, p.getId())
-    let spawn = path.getFirst()
-    return rectFromIndex(spawn)
+public function unit.getArea() returns rect
+    var p = this.getPlayerN()
+    PlayerData pd = playerData.get(p)
+    let area = pd.getArea()
+    return area.area
 
-public function getFirst(player p) returns rect
-    PlayerData pd = playerData.get(p.getId())
-    let path = getPath(pd.area, p.getId())
-    let first = path.get(1)
-    return rectFromIndex(first)
+public function unit.getSpawn() returns rect
+    var p = this.getPlayerN()
+    PlayerData pd = playerData.get(p)
+    let area = pd.getArea()
+    let cv = this.getUserData()
+    let pathId = cv.getPathId()
 
-public function getEnd(player p) returns rect
-    PlayerData pd = playerData.get(p.getId())
-    let path = getPath(pd.area, p.getId())
-    let last = path.size()-1
-    let endReg = path.get(last)
-    return rectFromIndex(endReg)
+    if pathId > area.paths.size()
+        error("Invalid custom value for unit: "+this.getName())
+        return null
+
+    return area.paths.get(pathId).rects.getFirst()
+
+function int.getPathId() returns int
+    let lower = this.moduloInt(10)
+    return (this-lower) div 10
+
+function int.getNodeId() returns int
+    return this.moduloInt(10)
+

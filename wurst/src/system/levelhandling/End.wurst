@@ -42,16 +42,18 @@ function leak()
 function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
+// Todo(godbit): Fix hardcoded 4.
 function isValid() returns boolean
     return GetTriggerUnit().getUserData() == 4
 
 trigger endEnter = CreateTrigger()
 
-init
+@initThird function initEnd()
     endEnter.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     endEnter.addAction(function leak)
 
-    for i in ends
-        let r = rectFromIndex(i)
-        endEnter.addCondition(Condition(function isValid))
-        TriggerRegisterEnterRectSimple(endEnter, r)
+    for i=0 to NUMBER_OF_ZONES-1
+        for p = 0 to NUMBER_OF_PLAYERS-1
+            for r in zones.get(i).get(p).ends
+                endEnter.addCondition(Condition(function isValid))
+                TriggerRegisterEnterRectSimple(endEnter, r)

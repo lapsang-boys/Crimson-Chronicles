@@ -1,6 +1,5 @@
 package Morgue
 
-import TimerUtils
 import ClosureTimers
 
 import GameplayConstants
@@ -28,6 +27,6 @@ function cleanUp()
 
 trigger diesTrigger = CreateTrigger()
 
-init
+@initThird function initMorgue()
     TriggerRegisterPlayerUnitEventSimple(diesTrigger, PLAYER_BROWN, EVENT_PLAYER_UNIT_DEATH)
     TriggerAddAction(diesTrigger, function cleanUp)

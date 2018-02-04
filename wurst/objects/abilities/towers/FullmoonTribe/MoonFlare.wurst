@@ -135,7 +135,7 @@ function stopFlare(MoonFlareInfo mfi)
     destroy mfi
 
 
-init
+@initThird function initMoonFlare()
     trigger trig = CreateTrigger()
     trig.addAction(function moonAttack)
     trig.addCondition(Condition(function isLunar))

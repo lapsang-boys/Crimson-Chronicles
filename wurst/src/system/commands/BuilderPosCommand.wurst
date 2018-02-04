@@ -20,7 +20,8 @@ function builderPos()
     PingMinimap(pos.x, pos.y, 1)
 
 trigger builderPosTrig = CreateTrigger()
-init
+
+@initThird function initBuilderPosCommand()
     TriggerAddAction(builderPosTrig, function builderPos)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(builderPosTrig, Player(i), "-pos", true)

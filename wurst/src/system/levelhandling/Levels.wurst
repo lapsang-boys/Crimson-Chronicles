@@ -52,10 +52,10 @@ function loreMessage(string desc) returns string
 // ============================= Level objects ================================
 // ----------------------------------------------------------------------------
 
-init
+@initThird function initLevels()
     // ============== Area 1 ==============
     Level L0 = new Level(
-        toCenterSquad(ID_MOB_PATH_SHOWER, 3),
+        toSquad(ID_MOB_PATH_SHOWER, 3, 1.35, 1.35, SpawnRegion.NORTH),
         0, // Bonus
         levelInfoMsg(0, "Path shower"),
         new LinkedList<MobType>..add(MobType.INVULNERABLE),
@@ -80,7 +80,7 @@ init
     levels.add(L2)
 
     Level L3 = new Level(
-        toSquad(ID_MOB_DEMONIC_SATYR, 12, 0.75, 1.5),
+        toSquad(ID_MOB_DEMONIC_SATYR, 12, 0.75, 1.5, SpawnRegion.NORTH),
         // toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10),
         10, // Bonus
         levelInfoMsg(3, "Demonic satyrs"),
@@ -97,11 +97,11 @@ init
     levels.add(L4)
 
     LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3.)))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 2, SpawnPosition.RANDOM, spawnInterval(1, 1)))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1)))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3)))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3.), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 2, SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
     .toSquadChain()
 
     Level L5 = new Level(
@@ -113,7 +113,7 @@ init
     levels.add(L5)
 
     Level L6 = new Level(
-        toSquad(ID_MOB_GOBLIN_WAR_MACHINE, 2, 4.5, 7),
+        toSquad(ID_MOB_GOBLIN_WAR_MACHINE, 2, 4.5, 7, SpawnRegion.NORTH),
         10, // Bonus
         levelInfoMsg(6, "goblin Warmachine"),
         new LinkedList<MobType>..add(MobType.FAITH),
@@ -121,10 +121,10 @@ init
     levels.add(L6)
 
     LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5)))
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5)))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5)))
+    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
     .toSquadChain()
 
     Level level7 = new Level(
@@ -144,7 +144,7 @@ init
     levels.add(L8)
 
     Level L9 = new Level(
-        toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7),
+        toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7, SpawnRegion.NORTH),
         10, // Bonus
         levelInfoMsg(9, "Crowy"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),
@@ -152,11 +152,11 @@ init
     levels.add(L9)
 
     LinkedList<SquadMember> level10Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.CENTER, spawnInterval(1.5, 1.5)))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8)))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.CENTER, spawnInterval(10, 10)))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.CENTER, spawnInterval(1.5, 1.5)))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8)))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.CENTER, spawnInterval(10, 10), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
     .toSquadChain()
 
     Level level10 = new Level(

@@ -14,7 +14,8 @@ function remake()
         levels.get(i).printShortInfo(p)
 
 trigger infoCommandTrig = CreateTrigger()
-init
+
+@initThird function initInfoCommand()
     TriggerAddAction(infoCommandTrig, function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(infoCommandTrig, Player(i), "-info", true)

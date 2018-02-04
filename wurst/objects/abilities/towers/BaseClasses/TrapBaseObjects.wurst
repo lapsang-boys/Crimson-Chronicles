@@ -44,7 +44,7 @@ class TrapNotSetBuff extends BuffDefinition
         super(newBuffId, origBuggId)
 
         setIcon(Icons.bTNCharm)
-        setTarget(1, Objects.randomObject1)
+        setArtTarget(1, Objects.randomObject1)
         setTargetAttachmentPoint0(1, "overhead")
 
         setTooltipNormal(1, tooltipBuffName("Trap not set", false))

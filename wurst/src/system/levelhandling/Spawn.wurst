@@ -9,6 +9,7 @@ import SoundUtils
 import Alexandria
 import Squad
 import Movement
+import Regions
 import Leaderboard
 import GameplayConstants
 import BuilderConstants
@@ -52,21 +53,23 @@ function summonMobs()
 	let lt = t.getData() castTo TimerData
 	let p = lt.p
 	let pd = playerData.get(p.getId())
-	int num = lt.l.squadChain.size()
+	let chain = lt.l.squadChain
+	int num = chain.size()
 
 	if lt.cur == num or (not pd.levelInProgress)
 		t.release()
 		return
 
-	SquadMember single = lt.l.squadChain.get(lt.cur)
+	SquadMember single = chain.get(lt.cur)
 	lt.cur = lt.cur + 1
 	real duration
 	if lt.cur == num
 		duration = 0.1
 	else
-		duration = lt.l.squadChain.get(lt.cur).si.getDuration()
+		duration = chain.get(lt.cur).si.getDuration()
 
-	rect spawn = getSpawn(p)
+	let path = pd.getArea().paths.get(single.sr.toIndex())
+	let spawn = path.getSpawn()
 	var pos = spawn.randomPoint()
 	switch single.sp
 		case SpawnPosition.LEFT
@@ -78,9 +81,15 @@ function summonMobs()
 		case SpawnPosition.RANDOM
 			pos = spawn.randomPoint()
 
-	let u = createUnit(PLAYER_BROWN, single.u_ids.get(pd.difficulty), pos, pos.angleTo(getFirst(pd.p).getCenter()))
+	let u = createUnit(PLAYER_BROWN,
+		single.u_ids.get(pd.difficulty),
+		pos,
+		pos.angleTo(path.getFirstNode().getCenter()))
+
 	createTimedEffect(pos, 1., Abilities.aIilTarget)
-	u.setUserData(1)
+	// Ten's place designates the path
+	let cv = single.sr.toIndex()*10 + 1
+	u.setUserData(cv)
 	u.issuePointOrder("move", u.getNext())
 
 	shelfMob(u)
@@ -95,6 +104,5 @@ function playSummonLevelSound(PlayerData pd)
 	SoundDefinition sd = new SoundDefinition(sp, false)
 	sd.playForPlayer(pd.p)
 
-
-init
+@initThird function initSpawn()
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)

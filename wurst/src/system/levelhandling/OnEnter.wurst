@@ -21,7 +21,9 @@ function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
 function hasValid(int i) returns boolean
-    return GetTriggerUnit().getUserData() == i
+    print("Unit:" + I2S(GetTriggerUnit().getUserData()))
+    print("Expected:" + I2S(i))
+    return GetTriggerUnit().getUserData() mod 10 == i
 
 function hasValid1() returns boolean
     return hasValid(1)
@@ -32,29 +34,29 @@ function hasValid2() returns boolean
 function hasValid3() returns boolean
     return hasValid(3)
 
-trigger creepEnter1 = CreateTrigger()
-trigger creepEnter2 = CreateTrigger()
-trigger creepEnter3 = CreateTrigger()
+trigger mobEnter1 = CreateTrigger()
+trigger mobEnter2 = CreateTrigger()
+trigger mobEnter3 = CreateTrigger()
 
-init
-    creepEnter1.addCondition(Condition(function isUnitOwnedByPlayerBrown))
-    creepEnter2.addCondition(Condition(function isUnitOwnedByPlayerBrown))
-    creepEnter3.addCondition(Condition(function isUnitOwnedByPlayerBrown))
-    creepEnter1.addAction(function act)
-    creepEnter2.addAction(function act)
-    creepEnter3.addAction(function act)
+@initThird function initOnEnter()
+    mobEnter1.addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    mobEnter2.addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    mobEnter3.addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    mobEnter1.addAction(function act)
+    mobEnter2.addAction(function act)
+    mobEnter3.addAction(function act)
 
-    for i in nodes1
-        let r = rectFromIndex(i)
-        creepEnter1.addCondition(Condition(function hasValid1))
-        TriggerRegisterEnterRectSimple(creepEnter1, r)
+    for i=0 to NUMBER_OF_ZONES-1
+        for p = 0 to NUMBER_OF_PLAYERS-1
+            for path in zones.get(i).get(p).paths
+                var r = path.rects.get(1)
+                mobEnter1.addCondition(Condition(function hasValid1))
+                TriggerRegisterEnterRectSimple(mobEnter1, r)
 
-    for i in nodes2
-        let r = rectFromIndex(i)
-        creepEnter2.addCondition(Condition(function hasValid2))
-        TriggerRegisterEnterRectSimple(creepEnter2, r)
+                r = path.rects.get(2)
+                mobEnter2.addCondition(Condition(function hasValid2))
+                TriggerRegisterEnterRectSimple(mobEnter2, r)
 
-    for i in nodes3
-        let r = rectFromIndex(i)
-        creepEnter3.addCondition(Condition(function hasValid3))
-        TriggerRegisterEnterRectSimple(creepEnter3, r)
+                r = path.rects.get(3)
+                mobEnter3.addCondition(Condition(function hasValid3))
+                TriggerRegisterEnterRectSimple(mobEnter3, r)

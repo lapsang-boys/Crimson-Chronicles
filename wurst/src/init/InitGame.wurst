@@ -1,15 +1,18 @@
 package InitGame
 
+import ClosureTimers
 import TimerUtils
 
 import GameplayConstants
 import BuilderConstants
-import Regions
+import PlayerData
 
 function startGameFirstTime(player p)
     printTimedToPlayer("Welcome!", DISPLAY_TIME, p)
     startGame(p)
-    fogmodifier fog = CreateFogModifierRect(p, FOG_OF_WAR_VISIBLE, rectFromIndex(playerArea.get(p.getId())), true, false)
+    let pd = playerData.get(p.getId())
+    print(I2S(pd.zoneNumber))
+    fogmodifier fog = CreateFogModifierRect(p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
     fog.start()
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
 
@@ -38,15 +41,14 @@ public function startGame(player p)
         tInner.release()
     end)
 
-function initGame()
+@initSecond function initGame()
     SetTimeOfDay(23)
 
     // Set the current level for all players to the first level.
     for i = 0 to NUMBER_OF_PLAYERS-1
         startGameFirstTime(Player(i))
 
-trigger leaderTrig = CreateTrigger()
-
 init
-    TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
-    TriggerAddAction(leaderTrig, function initGame)
+    callFunctionsWithAnnotation("@initFirst")
+    doAfter(0.1, () -> callFunctionsWithAnnotation("@initSecond"))
+    doAfter(0.2, () -> callFunctionsWithAnnotation("@initThird"))

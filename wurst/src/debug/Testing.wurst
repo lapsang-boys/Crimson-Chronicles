@@ -23,7 +23,8 @@ function jumpToLevel()
     p.addGold(1000000)
 
 trigger remakeTrig = CreateTrigger()
-init
+
+@initThird function initRemake()
     TriggerAddAction(remakeTrig, function jumpToLevel)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-lvl", false)

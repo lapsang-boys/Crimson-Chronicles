@@ -90,6 +90,5 @@ function act()
 
 trigger leaderTrig = CreateTrigger()
 
-init
-    TriggerRegisterTimerEventSingle(leaderTrig, 0.01)
-    TriggerAddAction(leaderTrig, function act)
+@initThird function initLeaderboard()
+    act()

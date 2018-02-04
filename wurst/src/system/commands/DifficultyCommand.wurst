@@ -32,7 +32,8 @@ function difficulty()
 
 
 trigger difficultyTrig = CreateTrigger()
-init
+
+@initThird function initDifficultyCommand()
     TriggerAddAction(difficultyTrig, function difficulty)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-normal", true)

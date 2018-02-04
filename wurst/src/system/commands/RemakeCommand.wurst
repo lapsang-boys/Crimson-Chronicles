@@ -22,7 +22,8 @@ function remake()
     startGame(p)
 
 trigger remakeTrig = CreateTrigger()
-init
+
+@initThird function initRemakeCommand()
     TriggerAddAction(remakeTrig, function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
         TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-rmk", true)

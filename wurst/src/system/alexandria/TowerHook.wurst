@@ -20,7 +20,7 @@ function hook()
         default
             return
 
-init
+@initThird function initTowerHook()
     trigger hookTrigger = CreateTrigger()
     hookTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
     hookTrigger.addAction(function hook)

@@ -9,7 +9,7 @@ import GameplayConstants
 import TowerConstants
 import TimedEffect
 import Movement
-import Regions
+import PlayerData
 import Tooltip
 
 // ##################################################################
@@ -54,13 +54,14 @@ function focusFire()
     let target = GetSpellTargetUnit()
     let caster = GetTriggerUnit()
     let p = target.getPlayerN()
+    let pd = playerData.get(p)
 
-    let r = rectFromIndex(playerArea.get(p))
+    let r = pd.getPlayerRegion()
     AttackTarget at = new AttackTarget(caster, target)
 
     forUnitsInRect(r, at)
 
     attatchTimedEffect(target, 3., Abilities.talkToMe, "overhead")
 
-init
+@initThird function initFocusFire()
     registerSpellEffectEvent(ID_FOCUS_FIRE, function focusFire)

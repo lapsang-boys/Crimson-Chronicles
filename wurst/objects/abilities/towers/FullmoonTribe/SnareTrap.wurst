@@ -167,6 +167,6 @@ function disMantleTrapSnare()
     Trapper tr = towerMap.get(caster.getHandleId()) castTo Trapper
     tr.disMantleTrap()
 
-init
+@initThird function initSnareTrap()
     registerSpellEffectEvent(ID_TOWER_UREN_SET_TRAP, function setTrapSnare)
     registerSpellEffectEvent(ID_TOWER_UREN_DISMANTLE_TRAP, function disMantleTrapSnare)

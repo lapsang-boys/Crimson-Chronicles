@@ -2,10 +2,33 @@ package Squad
 
 import LinkedList
 
-public constant DEFAULT_SPAWN_INTERVAL = spawnInterval(1.75, 1.75)
+public constant DEFAULT_SPAWN_INTERVAL = spawnInterval(1.80, 1.80)
 public tuple spawnInterval(real low, real high)
 public function spawnInterval.getDuration() returns real
     return GetRandomReal(this.low, this.high)
+
+public enum SpawnRegion
+    WEST
+    NORTH
+    EAST
+    SPUTNIK
+    RANDOM
+
+public function SpawnRegion.toIndex() returns int
+    switch this
+        case NORTH
+            return 0
+        case WEST
+            return 1
+        case EAST
+            return 2
+        case SPUTNIK
+            return 3
+        case RANDOM
+            return 4
+        // Not even sputnik.
+        default
+            return 0
 
 public enum SpawnPosition
     LEFT
@@ -18,33 +41,26 @@ public class SquadMember
     int num
     SpawnPosition sp
     spawnInterval si
+    SpawnRegion sr
 
-    construct(LinkedList<int> u_ids, int num, SpawnPosition sp, spawnInterval si)
+    construct(LinkedList<int> u_ids, int num, SpawnPosition sp, spawnInterval si, SpawnRegion sr)
         this.u_ids = u_ids
         this.num = num
         this.sp = sp
         this.si = si
+        this.sr = sr
 
 public function LinkedList<SquadMember>.toSquadChain() returns LinkedList<SquadMember>
     LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
     for sm in this
         for i = 0 to sm.num-1
-            SquadMember single = new SquadMember(sm.u_ids, 1, sm.sp, sm.si)
+            SquadMember single = new SquadMember(sm.u_ids, 1, sm.sp, sm.si, sm.sr)
             squadChain.add(single)
     return squadChain
 
-public function toSquad(LinkedList<int> u_ids, int num, real low, real high) returns LinkedList<SquadMember>
+public function toSquad(LinkedList<int> u_ids, int num, real low, real high, SpawnRegion sr) returns LinkedList<SquadMember>
     let si = spawnInterval(low, high)
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RANDOM, si)).toSquadChain()
+    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RANDOM, si, sr)).toSquadChain()
 
 public function toDefaultSquad(LinkedList<int> u_ids, int num) returns LinkedList<SquadMember>
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
-
-public function toLeftSquad(LinkedList<int> u_ids, int num) returns LinkedList<SquadMember>
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.LEFT, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
-
-public function toCenterSquad(LinkedList<int> u_ids, int num) returns LinkedList<SquadMember>
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.CENTER, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
-
-public function toRightSquad(LinkedList<int> u_ids, int num) returns LinkedList<SquadMember>
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RIGHT, DEFAULT_SPAWN_INTERVAL)).toSquadChain()
+    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL, SpawnRegion.NORTH)).toSquadChain()

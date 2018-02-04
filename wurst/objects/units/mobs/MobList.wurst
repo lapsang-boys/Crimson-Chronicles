@@ -9,7 +9,6 @@ import LinkedList
 import AgileMob
 import BeastMasterMob
 import BenderMob
-import CyclicHealerMob
 import DeathUnitCannonMob
 import DemonMob
 import FaithMob

@@ -113,7 +113,7 @@ function bindToMaster()
 
     bm.u.setInvulnerable(false)
 
-    rect spawn = getSpawn(Player(bm.u.getPlayerN()))
+    rect spawn = bm.u.getSpawn()
     BeastMasterGroup bg = new BeastMasterGroup(bm)
     forUnitsInRect(spawn, bg)
 
