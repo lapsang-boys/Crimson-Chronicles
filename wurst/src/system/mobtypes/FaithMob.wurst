@@ -1,6 +1,6 @@
 package FaithMob
 
-import TimerUtils
+import ClosureTimers
 
 import Alexandria
 
@@ -16,24 +16,11 @@ public class FaithMob extends MobWrapper implements Enterer
     override function onEnter()
         startFaith(this.u, this.invulFx, this.faithDuration)
 
-class FaithInfo
-    unit u
-    effect e
-
 public function startFaith(unit u, string invulFx, real faithDuration)
-    FaithInfo fi = new FaithInfo()
-    fi.u = u
-
     u.setInvulnerable(true)
-    fi.e = u.addEffect(invulFx, "origin")
+    effect e = u.addEffect(invulFx, "origin")
 
-    timer t = getTimer()
-    t.setData(fi castTo int)
-    t.start(faithDuration, function goNormal)
-
-function goNormal()
-    timer t = GetExpiredTimer()
-    FaithInfo fi = t.getData() castTo FaithInfo
-    fi.u.setInvulnerable(false)
-    fi.e.destr()
-    t.release()
+    doAfter(faithDuration, () -> begin
+        u.setInvulnerable(false)
+        e.destr()
+    end)
