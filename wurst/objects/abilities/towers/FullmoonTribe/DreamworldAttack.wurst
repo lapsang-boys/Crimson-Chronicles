@@ -33,7 +33,7 @@ class DreamworldBuff extends BuffDefinition
         super(newBuffId, origBuggId)
 
         setIcon(Icons.bTNCharm)
-        setTarget(1, Abilities.tranquilityTarget)
+        setArtTarget(1, Abilities.tranquilityTarget)
         setTargetAttachmentPoint0(1, "origin")
         setMissileArt(1, "")
 

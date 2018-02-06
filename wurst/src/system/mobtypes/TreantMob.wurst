@@ -62,7 +62,7 @@ class FelSmogBuff extends BuffDefinition
         super(newBuffId, origBuffId)
 
         setIcon(Icons.bTNCarrionSwarm)
-        setTarget(1, Units.plagueCloudTarget)
+        setArtTarget(1, Units.plagueCloudTarget)
 
         setTargetAttachmentPoint0(1, "head")
         setMissileArt(1, "")
