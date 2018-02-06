@@ -43,14 +43,11 @@ function morph(CrowMorpherMob mhm)
     player p = Player(mhm.u.getPlayerN())
     PlayerData pd = playerData.get(p.getId())
     attatchTimedEffect(mhm.u, 2, mhm.morphFx, "origin")
+
     mhm.u.setAbilityLevel(ID_SPELL_CROW_MORPH, pd.difficulty + 1)
     mhm.u.issueImmediateOrder("ravenform")
-    timer t = getTimer()
-    t.setData(mhm castTo int)
-    t.start(1.65, function moveBird)
 
-function moveBird()
-    timer t = GetExpiredTimer()
-    CrowMorpherMob mhm = t.getData() castTo CrowMorpherMob
-    if mhm.u.isAlive()
-        mhm.u.issuePointOrder("move", mhm.u.getNext())
+    doAfter(1.65, () -> begin
+        if mhm.u.isAlive()
+            mhm.u.issuePointOrder("move", mhm.u.getNext())
+    end)
