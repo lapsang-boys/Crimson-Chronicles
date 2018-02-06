@@ -128,12 +128,11 @@ function flare()
     mfi.attacker.addAbility(ID_MOON_FLARE)
     mfi.attacker.setAbilityLevel(ID_MOON_FLARE, mfi.abilityLvl)
     mfi.attacker.issueTargetOrder("chainlightning", mfi.target)
-    mfi.iterations ++
+    mfi.iterations++
 
 function stopFlare(MoonFlareInfo mfi)
     mfi.attacker.removeAbility(ID_MOON_FLARE)
     destroy mfi
-
 
 init
     trigger trig = CreateTrigger()
