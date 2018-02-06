@@ -2,35 +2,15 @@ package TimedEffect
 
 import TimerUtils
 
-class EffectWrapper
-    effect e
-    construct(effect e)
-        this.e = e
-
-    ondestroy
-        DestroyEffect(this.e)
-
-
 public function attatchTimedEffect(unit u, real duration, string fxPath, string attachPoint)
     effect e = u.addEffect(fxPath, attachPoint)
-    EffectWrapper ew = new EffectWrapper(e)
-    timer t = getTimer()
-    t.setData(ew castTo int)
-    t.start(duration, () -> begin
-        timer ti = GetExpiredTimer()
-        EffectWrapper ewI = ti.getData() castTo EffectWrapper
-        destroy ewI
-        ti.release()
+    doAfter(duration, () -> begin
+        e.destr()
     end)
 
 public function createTimedEffect(vec2 loc, real duration, string fxPath)
     effect e = AddSpecialEffect(fxPath, loc.x, loc.y)
-    EffectWrapper ew = new EffectWrapper(e)
-    timer t = getTimer()
-    t.setData(ew castTo int)
-    t.start(duration, () -> begin
-        timer ti = GetExpiredTimer()
-        EffectWrapper ewI = ti.getData() castTo EffectWrapper
-        destroy ewI
-        ti.release()
+    doAfter(duration, () -> begin
+        e.destr()
     end)
+
