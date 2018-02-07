@@ -92,7 +92,7 @@ public constant PITLORD_HP = 10000
             bounty(1), lifeTaken(1), scaleMaxHp(i, 450), hpReg(0), movementSpeed(165), armor(3), scaling(0.9))
 
     // Level 11
-        new MobDefinition(ID_BOSS_PITLORD.get(i), "Pitlord", Units.pitlord, Soundsets.pitlord,
+        new MobDefinition(ID_BOSS_PITLORD.get(i), "Pitlord", Units.heroPitLord, Soundsets.pitlord,
             bounty(7), lifeTaken(1), scaleMaxHp(i, PITLORD_HP), hpReg(5), movementSpeed(140), armor(8), scaling(1.3))
             ..setUnitClassification("undead")
         new MobDefinition(ID_MOB_INFERNAL.get(i), "Infernal", Units.infernal1, Soundsets.infernal,

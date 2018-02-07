@@ -34,6 +34,7 @@ public class Pitlord extends MobWrapper implements Ticker
     int lifeTaken
 
     bool rainingChaos
+
     int array[RANGE_STEPS*ANGLE_STEPS] goldSum
 
     construct(unit u, int maxSummons, int spawnId)
@@ -49,13 +50,19 @@ public class Pitlord extends MobWrapper implements Ticker
 
     override function startTick()
         t.setData(this castTo int)
-        t.startPeriodic(2.5, function healthCheck)
+        t.startPeriodic(1, function healthCheck)
 
     override function onEnter()
         this.rainingChaos = true
         vec2 center = findOptimum(this)
         rainOfChaos(this, center)
-        //createTimedEffect(center, 2, Abilities.flameStrike)
+
+        this.u.pause()
+        this.u.setAnimation("stand channel")
+        doAfter(2.5, () -> begin
+            this.u.unpause()
+            this.rainingChaos = false
+        end)
 
     override function onEnd() returns bool
         player p = Player(this.u.getPlayerN())
@@ -84,7 +91,11 @@ function summonInfernal(Pitlord pit)
     // Change this to pit.u.getPrev()
     vec2 spawnLoc = pit.u.getNext()
     pit.u.pause()
-    pit.u.setAnimation("spell")
+
+    pit.u.setAnimation("spell slam")
+    doAfter(0.8, () -> begin
+        createTimedEffect(pit.u.getPos().polarOffset(pit.u.getFacingAngle(), 170), 1, Abilities.warStompCaster)
+    end)
 
     let i = GetRandomInt(0, summonSounds.size() - 1)
     SoundDefinition sd = new SoundDefinition(summonSounds.get(i), false)
@@ -143,7 +154,9 @@ function updateInfLife()
             int lvl = playerData.get(inf.pit.getPlayerN()).difficulty + 1
             playerData.get(inf.pit.getPlayerN()).builder.addAbility(ID_SPELL_INFERNAL_COIL)
             InstantDummyCaster.castTarget(PLAYER_BROWN, ID_SPELL_INFERNAL_COIL, lvl, "deathcoil", inf.pit, inf.u.getPos())
-        destroy inf
+
+        t.pause()
+        inf.u.kill()
 
 // ##################################################################
 // ########################## Rain of chaos #########################
@@ -151,7 +164,7 @@ function updateInfLife()
 
 function rainOfChaos(Pitlord pit, vec2 center)
     RainTarget rt = new RainTarget(pit)
-    forUnitsInRange(center, 300, rt)
+    forUnitsInRange(center, 256, rt)
 
 
 function findOptimum(Pitlord pit) returns vec2
@@ -160,7 +173,7 @@ function findOptimum(Pitlord pit) returns vec2
         for ang = 0 to 360 - R2I(360/ANGLE_STEPS) step R2I(360/ANGLE_STEPS)
             let pos = pit.u.getPos().polarOffset(I2R(ang).fromDeg(), I2R(radius))
             OptimTarget ot = new OptimTarget(pit, i)
-            forUnitsInRange(pos, 300, ot)
+            forUnitsInRange(pos, 256, ot)
             i++
 
     int currentMax = pit.goldSum[0]
@@ -187,14 +200,22 @@ class RainTarget implements ForGroupCallback
 
     function callback(unit u)
         if u.getOwner() != PLAYER_BROWN
-            attatchTimedEffect(u, 2, Abilities.rainOfFireTarget, "origin")
-            doAfter(0.6, () -> begin
-                u.pause()
-                attatchTimedEffect(u, 4, Abilities.stasisTotemTarget, "overhead")
-                doAfter(4, () -> begin
-                    u.unpause()
+            // Simulate not instant
+            int ri = GetRandomInt(1, 20)
+            real t = ri/10
+            doAfter(t, () -> begin
+                // Rain on this tower
+                attatchTimedEffect(u, 2, Abilities.rainOfFireTarget, "origin")
+                doAfter(0.6, () -> begin
+                    // Stun this tower
+                    u.pause()
+                    attatchTimedEffect(u, 6.5, Abilities.stasisTotemTarget, "overhead")
+                    doAfter(6.5, () -> begin
+                        u.unpause()
+                    end)
                 end)
             end)
+
 
 class OptimTarget implements ForGroupCallback
     Pitlord pit
