@@ -79,7 +79,7 @@ public class Assassin extends TowerWrapper
 
         doAfter(stealthTime, () -> begin
             toggleAbility(a)
-        end
+        end)
 
     ondestroy
         this.trig.destr()
