@@ -1,6 +1,6 @@
 package TimedEffect
 
-import TimerUtils
+import ClosureTimers
 
 public function attatchTimedEffect(unit u, real duration, string fxPath, string attachPoint)
     effect e = u.addEffect(fxPath, attachPoint)

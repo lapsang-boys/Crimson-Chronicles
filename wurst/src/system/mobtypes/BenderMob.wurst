@@ -1,6 +1,6 @@
 package BenderMob
 
-import TimerUtils
+import ClosureTimers
 
 import Alexandria
 import Movement
@@ -32,7 +32,7 @@ public function startBend(unit u, string bendAnimation, real bendAnimationDurati
 
     vec2 origPos = u.getPos()
     vec2 nextNode = u.getNext()
-    angle direction = origPos.angleTo(bi.nextNode)
+    angle direction = origPos.angleTo(nextNode)
     vec2 newPos = origPos.polarOffset(direction, bendDistance)
 
     createTimedEffect(origPos, 2., bendFx)

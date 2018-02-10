@@ -3,7 +3,6 @@ package SnareTrap
 import RegisterEvents
 import Assets
 import ChannelAbilityPreset
-import TimerUtils
 import ClosureTimers
 
 import Alexandria
@@ -118,7 +117,6 @@ function ensnare(unit u)
     real ms = u.getMoveSpeed()
     effect e = u.addEffect(ENSNARE_FX, "origin")
     u.setMoveSpeed(1.)
-    EnsnareContainer ec1 = new EnsnareContainer(u, ms, e)
 
     doAfter(ENSNARE_DURATION, () -> begin
         u.setMoveSpeed(ms)
