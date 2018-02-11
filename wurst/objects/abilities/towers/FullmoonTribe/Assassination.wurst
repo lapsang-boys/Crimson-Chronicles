@@ -1,8 +1,8 @@
 package Assassination
 
+import TimerUtils
 import Assets
 import ChannelAbilityPreset
-import ClosureTimers
 
 import Alexandria
 import TowerConstants
@@ -63,6 +63,7 @@ public class Assassin extends TowerWrapper
     real stealthTime
     bool leavingStealth
 
+    timer t
     trigger trig
 
     construct(unit a)
@@ -70,6 +71,7 @@ public class Assassin extends TowerWrapper
         this.a = a
         this.stealthTime = ASSASSINATE_STEALTH_TIME
         this.leavingStealth = false
+        this.t = getTimer()
 
         // More efficient to have a constant trigger?
         this.trig = CreateTrigger()
@@ -77,12 +79,18 @@ public class Assassin extends TowerWrapper
         this.trig.addCondition(Condition(function isAssassin))
         this.trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
 
-        doAfter(stealthTime, () -> begin
-            toggleAbility(a)
-        end)
+        this.t.setData(this castTo int)
+        this.t.start(stealthTime, function stealth)
 
     ondestroy
+        this.t.release()
         this.trig.destr()
+
+// When timer expires activate (enter) stealth
+function stealth()
+    timer t = GetExpiredTimer()
+    Assassin as = t.getData() castTo Assassin
+    toggleAbility(as.a)
 
 // Switch abilites and color when leaving/entering stealth
 function toggleAbility(unit u)
@@ -102,25 +110,26 @@ function isAssassin() returns bool
 // On attack check
 function assassinate()
     unit u = GetAttacker()
-    Assassin as = towerMap.get(u.getHandleId()) castTo Assassin
-
+    Assassin as1 = towerMap.get(u.getHandleId()) castTo Assassin
     // Reset timer for stealth
-    doAfter(as.stealthTime, () -> begin
-        toggleAbility(u)
-    end)
+    as1.t.start(as1.stealthTime, function stealth)
 
     // Remove stealth if stealthed (leav stealth)
-    if not u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
-        return
+    if u.hasAbility(ID_TOWER_ASSASSIN_STEALTH)
+        // Check required so that multiple timers are not started since event trigger several times
+        if as1.leavingStealth
+            return
+        else
+            as1.leavingStealth = true
+            timer t = getTimer()
+            t.setData(as1 castTo int)
+            // Toggle ability after timer to not remove it before attack actually happends
+            t.start(0.4, () -> begin
+                timer tInner = GetExpiredTimer()
+                Assassin as2 = tInner.getData() castTo Assassin
+                toggleAbility(as2.a)
+                tInner.release()
+                as2.leavingStealth = false
+            end)
 
-    // Check required so that multiple timers are not started since event trigger several times
-    if as.leavingStealth
-        return
-
-    as.leavingStealth = true
-
-    doAfter(0.4, () -> begin
-        toggleAbility(u)
-        as.leavingStealth = false
-    end)
 
