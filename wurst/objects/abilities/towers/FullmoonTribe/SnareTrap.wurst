@@ -3,7 +3,7 @@ package SnareTrap
 import RegisterEvents
 import Assets
 import ChannelAbilityPreset
-import TimerUtils
+import ClosureTimers
 
 import Alexandria
 import TowerConstants
@@ -113,32 +113,14 @@ class SnareTrapDummy extends UnitDefinition
 // ######################### Ensnare ################################
 // ##################################################################
 
-class EnsnareContainer
-    unit u
-    real ms
-    effect e
-    construct(unit u, real ms, effect e)
-        this.u = u
-        this.ms = ms
-        this.e = e
-
-    ondestroy
-        this.e.destr()
-
 function ensnare(unit u)
     real ms = u.getMoveSpeed()
     effect e = u.addEffect(ENSNARE_FX, "origin")
     u.setMoveSpeed(1.)
-    EnsnareContainer ec1 = new EnsnareContainer(u, ms, e)
 
-    timer t = getTimer()
-    t.setData(ec1 castTo int)
-    t.start(ENSNARE_DURATION, () -> begin
-        timer tInner = GetExpiredTimer()
-        EnsnareContainer ec2 = tInner.getData() castTo EnsnareContainer
-        ec2.u.setMoveSpeed(ec2.ms)
-        tInner.release()
-        destroy ec2
+    doAfter(ENSNARE_DURATION, () -> begin
+        u.setMoveSpeed(ms)
+        e.destr()
     end)
 
 // ##################################################################
