@@ -31,6 +31,21 @@ public function unit.getNext() returns vec2
     let rectIndex = path.get(cv)
     return rectFromIndex(rectIndex).getCenter()
 
+// Get unit's previous visited node.
+public function unit.getPrev() returns vec2
+    var p = this.getPlayerN()
+    PlayerData pd = playerData.get(p)
+    let path = getPath(pd.area, p)
+
+    var cv = this.getUserData()
+    // If we forgot to set custom value.
+    if cv <= 0
+        error("Invalid custom value for unit: "+this.getName())
+        return vec2(0, 0)
+
+    let rectIndex = path.get(cv-1)
+    return rectFromIndex(rectIndex).getCenter()
+
 public function getPath(int areaCode, int p) returns LinkedList<int>
     switch areaCode
         case 0
