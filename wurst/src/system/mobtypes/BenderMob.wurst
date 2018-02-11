@@ -1,6 +1,6 @@
 package BenderMob
 
-import TimerUtils
+import ClosureTimers
 
 import Alexandria
 import Movement
@@ -26,40 +26,22 @@ public class BenderMob extends MobWrapper implements Enterer
     override function onEnter()
         startBend(this.u, this.bendAnimation, this.bendAnimationDuration, this.bendDistance, this.bendFx)
 
-function bend()
-    timer t = GetExpiredTimer()
-    BendInfo bi = t.getData() castTo BendInfo
-
-    createTimedEffect(bi.u.getPos(), 2., bi.bendFx)
-
-    bi.u.setPos(bi.newPos)
-    bi.u.unpause()
-    bi.u.issuePointOrder("move", bi.nextNode)
-
-    createTimedEffect(bi.u.getPos(), 2., bi.bendFx)
-
-class BendInfo
-    unit u
-    vec2 nextNode
-    vec2 newPos
-    string bendFx
-
 public function startBend(unit u, string bendAnimation, real bendAnimationDuration, real bendDistance, string bendFx)
     u.pause()
     u.setAnimation(bendAnimation)
 
-    BendInfo bi = new BendInfo()
-    bi.u = u
-    bi.bendFx = bendFx
-
     vec2 origPos = u.getPos()
-    bi.nextNode = u.getNext()
-    angle direction = origPos.angleTo(bi.nextNode)
-    bi.newPos = origPos.polarOffset(direction, bendDistance)
+    vec2 nextNode = u.getNext()
+    angle direction = origPos.angleTo(nextNode)
+    vec2 newPos = origPos.polarOffset(direction, bendDistance)
 
     createTimedEffect(origPos, 2., bendFx)
     u.setFacing(direction)
+    doAfter(bendAnimationDuration, () -> begin
+        createTimedEffect(u.getPos(), 2., bendFx)
+        u.setPos(newPos)
+        u.unpause()
+        u.issuePointOrder("move", nextNode)
+        createTimedEffect(u.getPos(), 2., bendFx)
+    end)
 
-    timer t = getTimer()
-    t.setData(bi castTo int)
-    t.start(bendAnimationDuration, function bend)

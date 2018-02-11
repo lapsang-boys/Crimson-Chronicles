@@ -106,3 +106,4 @@ function playSummonLevelSound(PlayerData pd)
 
 @initThird function initSpawn()
 	registerSpellEffectEvent(ID_NEXT_LEVEL, function spawnLevel)
+

@@ -1,0 +1,270 @@
+package Pitlord
+
+import TimerUtils
+import ClosureTimers
+import Assets
+import SoundUtils
+import LinkedList
+import AbilityObjEditing
+import InstantDummyCaster
+import ClosureForGroups
+
+import Alexandria
+import LevelHandler
+import Movement
+import TimedEffect
+import GameplayConstants
+import PlayerData
+import FelwoodMobList
+
+LinkedList<string> summonSounds = new LinkedList<string>
+
+constant RANGE_STEPS = 2
+constant ANGLE_STEPS = 6
+
+// ##################################################################
+// ############################ Pitlord #############################
+// ##################################################################
+
+public class Pitlord extends MobWrapper implements Ticker
+    timer t
+    int summons
+    int maxSummons
+    int spawnId
+    int lifeTaken
+
+    bool rainingChaos
+
+    int array[RANGE_STEPS*ANGLE_STEPS] goldSum
+
+    construct(unit u, int maxSummons, int spawnId)
+        super(u)
+        this.t = getTimer()
+        this.summons = 0
+        this.maxSummons = maxSummons
+        this.spawnId = spawnId
+        this.lifeTaken = 3
+        this.rainingChaos = false
+
+        startTick()
+
+    override function startTick()
+        t.setData(this castTo int)
+        t.startPeriodic(1, function healthCheck)
+
+    override function onEnter()
+        this.rainingChaos = true
+        vec2 center = findOptimum(this)
+        rainOfChaos(this, center)
+
+        this.u.pause()
+        this.u.setAnimation("stand channel")
+        doAfter(2.5, () -> begin
+            this.u.unpause()
+            this.rainingChaos = false
+        end)
+
+    override function onEnd() returns bool
+        player p = Player(this.u.getPlayerN())
+        rect spawn = getSpawn(p)
+        var pos = spawn.randomPoint()
+        this.u.setPos(pos)
+        this.u.setUserData(1)
+        this.u.issuePointOrder("move", this.u.getNext())
+        registerLeak(p, this.lifeTaken, 0)
+
+        return true
+
+    ondestroy
+        this.t.release()
+
+
+function healthCheck()
+    timer t = GetExpiredTimer()
+    Pitlord pit = t.getData() castTo Pitlord
+
+    if (pit.u.getHP()/pit.u.getMaxHP())*10 <= 9 - pit.summons and not pit.rainingChaos
+        summonInfernal(pit)
+        pit.summons++
+
+function summonInfernal(Pitlord pit)
+    // Change this to pit.u.getPrev()
+    vec2 spawnLoc = pit.u.getNext()
+    pit.u.pause()
+
+    pit.u.setAnimation("spell slam")
+    doAfter(0.8, () -> begin
+        createTimedEffect(pit.u.getPos().polarOffset(pit.u.getFacingAngle(), 170), 1, Abilities.warStompCaster)
+    end)
+
+    let i = GetRandomInt(0, summonSounds.size() - 1)
+    SoundDefinition sd = new SoundDefinition(summonSounds.get(i), false)
+    sd.playForPlayer(Player(pit.u.getPlayerN()))
+
+    createTimedEffect(spawnLoc, 3, Units.infernalBirth)
+    doAfter(1.3, () -> begin
+        let u = createUnit(PLAYER_BROWN, pit.spawnId, spawnLoc, pit.u.getPos().angleTo(pit.u.getNext()))
+        u.setUserData(pit.u.getUserData())
+        new Infernal(u, pit.u)
+
+        pit.u.unpause()
+    end)
+
+// ##################################################################
+// ############################# Infernal ###########################
+// ##################################################################
+
+public class Infernal extends MobWrapper implements Ticker
+    timer t
+    unit pit
+    real expiredTime
+    real ttl
+
+    construct(unit u, unit pit)
+        super(u)
+        this.pit = pit
+        this.t = getTimer()
+        this.expiredTime = 0
+        this.ttl = 15
+
+        player p = Player(super.u.getPlayerN())
+        registerMobCreation(p)
+        startTick()
+
+    override function startTick()
+        t.setData(this castTo int)
+        t.startPeriodic(0.25, function updateInfLife)
+
+    ondestroy
+        this.t.release()
+
+
+function updateInfLife()
+    timer t = GetExpiredTimer()
+    Infernal inf = t.getData() castTo Infernal
+
+    inf.expiredTime += 0.25
+    let colorVal = R2I((1 - (inf.expiredTime/inf.ttl))*255)
+
+    inf.u.setVertexColor(colorVal, colorVal, colorVal, 255)
+    if inf.expiredTime >= inf.ttl
+        createTimedEffect(inf.u.getPos(), 2, Objects.uDeathSmall)
+
+        if inf.pit.isAlive()
+            int lvl = playerData.get(inf.pit.getPlayerN()).difficulty + 1
+            playerData.get(inf.pit.getPlayerN()).builder.addAbility(ID_SPELL_INFERNAL_COIL)
+            InstantDummyCaster.castTarget(PLAYER_BROWN, ID_SPELL_INFERNAL_COIL, lvl, "deathcoil", inf.pit, inf.u.getPos())
+
+        t.pause()
+        inf.u.kill()
+
+// ##################################################################
+// ########################## Rain of chaos #########################
+// ##################################################################
+
+function rainOfChaos(Pitlord pit, vec2 center)
+    RainTarget rt = new RainTarget(pit)
+    forUnitsInRange(center, 256, rt)
+
+
+function findOptimum(Pitlord pit) returns vec2
+    int i = 0
+    for radius = 256 to RANGE_STEPS*256 step 256
+        for ang = 0 to 360 - R2I(360/ANGLE_STEPS) step R2I(360/ANGLE_STEPS)
+            let pos = pit.u.getPos().polarOffset(I2R(ang).fromDeg(), I2R(radius))
+            OptimTarget ot = new OptimTarget(pit, i)
+            forUnitsInRange(pos, 256, ot)
+            i++
+
+    int currentMax = pit.goldSum[0]
+    int index = 0
+    for j = 0 to RANGE_STEPS*ANGLE_STEPS - 1
+        if pit.goldSum[j] >= currentMax
+            currentMax = pit.goldSum[j]
+            index = j
+        pit.goldSum[j] = 0
+
+
+    real a = (index mod ANGLE_STEPS) * (360/ANGLE_STEPS)
+    // To floor the division
+    real r = I2R((R2I(index/ANGLE_STEPS) + 1) * 256)
+
+    return pit.u.getPos().polarOffset(a.fromDeg(), r)
+
+// ###################### Group callback ############################
+class RainTarget implements ForGroupCallback
+    Pitlord pit
+
+    construct(Pitlord pit)
+        this.pit = pit
+
+    function callback(unit u)
+        if u.getOwner() != PLAYER_BROWN
+            // Simulate not instant
+            int ri = GetRandomInt(1, 20)
+            real t = ri/10
+            doAfter(t, () -> begin
+                // Rain on this tower
+                attatchTimedEffect(u, 2, Abilities.rainOfFireTarget, "origin")
+                doAfter(0.6, () -> begin
+                    // Stun this tower
+                    u.pause()
+                    attatchTimedEffect(u, 6.5, Abilities.stasisTotemTarget, "overhead")
+                    doAfter(6.5, () -> begin
+                        u.unpause()
+                    end)
+                end)
+            end)
+
+
+class OptimTarget implements ForGroupCallback
+    Pitlord pit
+    int i
+
+    construct(Pitlord pit, int i)
+        this.pit = pit
+        this.i = i
+
+    function callback(unit u)
+        if u.getOwner() != PLAYER_BROWN
+            int gc = GetUnitPointValue(u)
+            this.pit.goldSum[this.i] += gc
+
+
+// ##################################################################
+// ########################## Dummy spell Inferno Coil ##############
+// ##################################################################
+
+class InfernalCoil extends AbilityDefinitionDeathCoilcreep
+    construct(int id)
+        super(id)
+
+        setArtCaster("")
+        setArtTarget(Abilities.deathCoilSpecialArt)
+        setMissileArc(0.3)
+        setMissileSpeed(600)
+        setAmountHealedDamaged(1, PITLORD_HP/10*(1-DIFFICULTY_SCALING*2))
+        setAmountHealedDamaged(2, PITLORD_HP/10*(1-DIFFICULTY_SCALING))
+        setAmountHealedDamaged(3, PITLORD_HP/10)
+
+        setLevels(3)
+        presetManaCost((int _) -> 0)
+        presetCooldown((int _) -> 0)
+        presetCastRange((int _) -> 2000)
+        setHeroAbility(false)
+        setRequirements("")
+
+@compiletime function generateSpell()
+    new InfernalCoil(ID_SPELL_INFERNAL_COIL)
+
+init
+    summonSounds.add(Sounds.hPitLordWhat1)
+    summonSounds.add(Sounds.hPitLordWhat2)
+    summonSounds.add(Sounds.hPitLordWhat3)
+    summonSounds.add(Sounds.hPitLordWhat4)
+    summonSounds.add(Sounds.hPitLordWhat5)
+    summonSounds.add(Sounds.hPitLordYes1)
+    summonSounds.add(Sounds.hPitLordYes2)
+    summonSounds.add(Sounds.hPitLordYes3)
+    summonSounds.add(Sounds.hPitLordYes4)
+    summonSounds.add(Sounds.hPitLordYes5)

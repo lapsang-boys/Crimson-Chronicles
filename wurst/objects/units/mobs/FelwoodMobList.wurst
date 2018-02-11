@@ -11,6 +11,7 @@ import ID2S
 import GameplayConstants
 
 public constant ID_SPELL_CROW_MORPH = compiletime(ABIL_ID_GEN.next())
+public constant ID_SPELL_INFERNAL_COIL = compiletime(ABIL_ID_GEN.next())
 
 public constant LinkedList<int> ID_MOB_STAG =                         new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_PATH_SHOWER =                  new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
@@ -26,12 +27,15 @@ public constant LinkedList<int> ID_MOB_FURBOLG_WARRIOR =              new Linked
 public constant LinkedList<int> ID_MOB_FURBOLG_BENDER =               new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_CROW_DRUID =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_CROW_CROW =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FEL_HUNTER =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FEL_HUNTER =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_FEL_BEAST =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_BOSS_PITLORD =                     new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_INFERNAL =                     new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
 
 public constant LinkedList<int> ID_MOB_ROBIN_TEST =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
+public constant PITLORD_HP = 10000
 
 @compiletime function generateLevels()
     // Level 0 - Info level
@@ -87,6 +91,12 @@ public constant LinkedList<int> ID_MOB_ROBIN_TEST =                   new Linked
         new MobDefinition(ID_MOB_FEL_BEAST.get(i), "Fel Beast", Units.felhound, Soundsets.felhound,
             bounty(1), lifeTaken(1), scaleMaxHp(i, 450), hpReg(0), movementSpeed(165), armor(3), scaling(0.9))
 
+    // Level 11
+        new MobDefinition(ID_BOSS_PITLORD.get(i), "Pitlord", Units.heroPitLord, Soundsets.pitlord,
+            bounty(7), lifeTaken(1), scaleMaxHp(i, PITLORD_HP), hpReg(5), movementSpeed(140), armor(8), scaling(1.3))
+            ..setUnitClassification("undead")
+        new MobDefinition(ID_MOB_INFERNAL.get(i), "Infernal", Units.infernal1, Soundsets.infernal,
+            bounty(0), lifeTaken(1), scaleMaxHp(i, R2I(PITLORD_HP/10)), hpReg(5), movementSpeed(20), armor(1), scaling(1.))
 
 
     // For zone 2

@@ -1,6 +1,6 @@
 package DreamworldAttack
 
-import TimerUtils
+import ClosureTimers
 import Assets
 import ChannelAbilityPreset
 import InstantDummyCaster
@@ -116,11 +116,6 @@ class DreamTarget implements ForGroupCallback
         if RAbsBJ(this.facingAngle - unitFacing) < CONE_ANGLE
             InstantDummyCaster.castTarget(this.attacker.getOwner(), ID_DREAMWORLD_ATTACK, 1, DUMMY_ORDER, u, this.attacker.getPos())
 
-class Remulos
-    unit u
-    construct(unit u)
-        this.u = u
-
 // ##################################################################
 // ###################### Ability script ############################
 // ##################################################################
@@ -140,17 +135,10 @@ function dreamAttack()
     attacker.setAnimation("Stand Victory")
     attacker.setVertexColor(emerald_color)
 
-    Remulos rem = new Remulos(attacker)
-    timer t = getTimer()
-    t.setData(rem castTo int)
-    t.start(ANIMATION_TIME, () -> begin
-        timer ti = GetExpiredTimer()
-        Remulos remI = ti.getData() castTo Remulos
-        remI.u.unpause()
-        remI.u.setAnimation("Stand")
-        remI.u.setVertexColor(255, 255, 255, 255)
-        destroy remI
-        ti.release()
+    doAfter(ANIMATION_TIME, () -> begin
+        attacker.unpause()
+        attacker.setAnimation("Stand")
+        attacker.setVertexColor(255, 255, 255, 255)
     end)
 
     DreamTarget dt = new DreamTarget(attacker, GetAttackedUnitBJ())

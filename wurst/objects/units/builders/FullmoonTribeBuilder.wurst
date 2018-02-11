@@ -8,6 +8,8 @@ import TowerConstants
 import ID2S
 import Tooltip
 
+import FelwoodMobList
+
 class Builder extends UnitDefinition
     construct(int id)
         super(id, 'uaco')
@@ -42,7 +44,7 @@ class Builder extends UnitDefinition
             ID2S(ID_TOWER_UREN)             + "," +
             ID2S(ID_TOWER_ASSASSIN))
 
-        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE))
+        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE) + "," + ID2S(ID_SPELL_INFERNAL_COIL))
 
         // ------------------------------------
         // ========== Other constants =========

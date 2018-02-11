@@ -13,6 +13,7 @@ import DeathUnitCannonMob
 import DemonMob
 import FaithMob
 import CrowMorpherMob
+import Pitlord
 import PowerFaithMob
 // import PeriodicSpawnerMob
 import TreantMob
@@ -50,6 +51,11 @@ public function shelfMob(unit u)
                 new BeastMob(u, ID_MOB_FEL_HUNTER.get(i), 5, Objects.undeadDissipate, Abilities.demonBoltImpact, Abilities.darkRitualTarget, "DRAB")
             case ID_MOB_FEL_HUNTER.get(i)
                 new BeastMasterMob(u, 4)
+            // Level 11
+            case ID_BOSS_PITLORD.get(i)
+                new Pitlord(u, 10, ID_MOB_INFERNAL.get(i))
+
+
 
             default
                 skip
