@@ -21,8 +21,6 @@ function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
 function hasValid(int i) returns boolean
-    print("Unit:" + I2S(GetTriggerUnit().getUserData()))
-    print("Expected:" + I2S(i))
     return GetTriggerUnit().getUserData() mod 10 == i
 
 function hasValid1() returns boolean
@@ -59,8 +57,7 @@ trigger mobEnter5 = CreateTrigger()
     mobEnter5.addAction(function act)
 
     for i=0 to NUMBER_OF_ZONES-1
-        for p = 0 to 0
-            printTimedToPlayer("This is wrong!", 2.0, Player(p))
+        for p = 0 to NUMBER_OF_PLAYERS-1
             for path in zones.get(i).get(p).paths
                 var r = path.rects.get(1)
                 mobEnter1.addCondition(Condition(function hasValid1))
@@ -75,8 +72,7 @@ trigger mobEnter5 = CreateTrigger()
                 TriggerRegisterEnterRectSimple(mobEnter3, r)
 
     for i=1 to 1
-        for p=0 to 0
-            printTimedToPlayer("This is wrong!", 2.0, Player(p))
+        for p=0 to NUMBER_OF_PLAYERS-1
             for path in zones.get(i).get(p).paths
                 var r = path.rects.get(4)
                 mobEnter4.addCondition(Condition(function hasValid4))

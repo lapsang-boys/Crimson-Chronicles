@@ -43,8 +43,6 @@ function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
 function hasValid(int i) returns boolean
-    print("Unit:" + I2S(GetTriggerUnit().getUserData()))
-    print("Expected:" + I2S(i))
     return GetTriggerUnit().getUserData() mod 10 == i
 
 function hasValid4() returns boolean
@@ -66,8 +64,7 @@ trigger endEnter = CreateTrigger()
     endEnter.addAction(function leak)
 
     for i=0 to NUMBER_OF_ZONES-1
-        for p = 0 to 0
-            printTimedToPlayer("This is wrong!", 10.0, Player(0))
+        for p = 0 to NUMBER_OF_PLAYERS-1
             for r in zones.get(i).get(p).ends
                 switch zones.get(i).size()
                     case 4

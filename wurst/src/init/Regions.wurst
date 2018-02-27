@@ -74,6 +74,8 @@ public LinkedList<LinkedList<Area>> zones
 
     // Zone 2
     LinkedList<Area> zone2 = new LinkedList<Area>
+
+    // Player 1
     Area a1p0 = new Area()
     onlyPath = new Path()
     onlyPath.rects..add(gg_rct_A1P0Spawn)
@@ -88,6 +90,25 @@ public LinkedList<LinkedList<Area>> zones
     a1p0.spawns.add(gg_rct_A1P0Spawn)
     a1p0.ends.add(gg_rct_A1P0End)
     a1p0.area = gg_rct_A1P0Region
-
+    
     zone2.add(a1p0)
+    
+    // Player 2
+    Area a1p1 = new Area()
+    onlyPath = new Path()
+    onlyPath.rects..add(gg_rct_A1P1Spawn)
+            ..add(gg_rct_A1P1Node1)
+            ..add(gg_rct_A1P1Node2)
+            ..add(gg_rct_A1P1Node3)
+            ..add(gg_rct_A1P1Node4)
+            ..add(gg_rct_A1P1Node5)
+            ..add(gg_rct_A1P1End)
+
+    a1p1.paths.add(onlyPath)
+    a1p1.spawns.add(gg_rct_A1P1Spawn)
+    a1p1.ends.add(gg_rct_A1P1End)
+    a1p1.area = gg_rct_A1P1Region
+    
+    zone2.add(a1p1)
+    
     zones.add(zone2)
