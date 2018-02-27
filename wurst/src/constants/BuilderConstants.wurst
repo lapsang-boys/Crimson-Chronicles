@@ -21,12 +21,12 @@ import ObjectIdGenerator
 // Tavern
 public constant ID_TAVERN = compiletime(UNIT_ID_GEN.next())
 
-// -------------- Black builder -----------
-public constant ID_BUILDER_BLACK = compiletime(UNIT_ID_GEN.next())
-public constant SOUND_BUILDER_BLACK = Sounds.acolyteYesAttack1
-public constant ICON_BUILDER_BLACK = Icons.bTNAcolyte
+// -------------- Slaves of Midas builder -----------
+public constant ID_BUILDER_SLAVES_OF_MIDAS = compiletime(UNIT_ID_GEN.next())
+public constant SOUND_BUILDER_SLAVES_OF_MIDAS = Sounds.knightPissed4
+public constant ICON_BUILDER_SLAVES_OF_MIDAS = Icons.bTNBanditLord
 
-// -------------- Brotherhood of bandits builder -----------
+// -------------- Fullmoon Tribe builder ------------
 public constant ID_BUILDER_FULLMOON_TRIBE = compiletime(UNIT_ID_GEN.next())
 public constant SOUND_BUILDER_FULLMOON_TRIBE = Sounds.naishaWarcry1
 public constant ICON_BUILDER_FULLMOON_TRIBE = Icons.bTNHuntress
@@ -38,12 +38,12 @@ public constant ID_FULLMOON_TRIBE_GROUND_TEXTURE = "ESMB"
 
 // Summon level sound hashmap
 public HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
-..put(ID_BUILDER_BLACK, SOUND_BUILDER_BLACK)
+..put(ID_BUILDER_SLAVES_OF_MIDAS, SOUND_BUILDER_SLAVES_OF_MIDAS)
 ..put(ID_BUILDER_FULLMOON_TRIBE, SOUND_BUILDER_FULLMOON_TRIBE)
 
 // Builder icon hashmap
 public HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
-..put(ID_BUILDER_BLACK, ICON_BUILDER_BLACK)
+..put(ID_BUILDER_SLAVES_OF_MIDAS, ICON_BUILDER_SLAVES_OF_MIDAS)
 ..put(ID_BUILDER_FULLMOON_TRIBE, ICON_BUILDER_FULLMOON_TRIBE)
 
 // ------------------------------------------------------------

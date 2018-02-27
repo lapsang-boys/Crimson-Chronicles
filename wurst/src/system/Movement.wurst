@@ -61,4 +61,3 @@ function int.getPathId() returns int
 
 function int.getNodeId() returns int
     return this.moduloInt(10)
-
