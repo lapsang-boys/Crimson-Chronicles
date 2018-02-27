@@ -1,7 +1,6 @@
 package Testing
 
 import GameplayConstants
-import BuilderConstants
 import PlayerData
 
 function jumpToLevel()
@@ -17,9 +16,7 @@ function jumpToLevel()
     // Revert values and stop spawn.
     pd.reset()
 
-    let builder = createUnit(p, ID_BUILDER_BLACK, p.getStartLocation(), angle(PI/2))
     pd.level = index
-    pd.builder = builder
     p.addGold(1000000)
 
 trigger remakeTrig = CreateTrigger()

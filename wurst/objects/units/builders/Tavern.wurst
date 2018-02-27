@@ -23,7 +23,7 @@ class Tavern extends TowerDefinition
         setGroundTexture("HTOW")
         setMovementType(MovementType.None)
 
-        setUnitsSold(ID2S(ID_BUILDER_BLACK) + "," + ID2S(ID_BUILDER_FULLMOON_TRIBE))
+        setUnitsSold(ID2S(ID_BUILDER_SLAVES_OF_MIDAS) + "," + ID2S(ID_BUILDER_FULLMOON_TRIBE))
 
         // ------------------------------------
         // ========== Attack damage ==========
