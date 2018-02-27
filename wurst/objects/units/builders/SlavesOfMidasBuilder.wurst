@@ -1,0 +1,60 @@
+package SlavesOfMidasBuilder
+
+import Assets
+import Soundsets
+import UnitObjEditing
+
+import BuilderConstants
+import TowerConstants
+import ID2S
+import Tooltip
+
+class Builder extends UnitDefinition
+    construct(int id)
+        super(id, 'uaco')
+
+        // ------------------------------------
+        // ========== Tavern ==================
+        // ------------------------------------
+        setName("Hawkwood")
+        setTooltipBasic(tooltipCustomBasic("W", "Slaves of Midas", "Select"))
+        setTooltipExtended(tooltipTextFlavor(
+            "TODO: Team description",
+            "A penny for my thoughts; a silver for my company and gold for my blade."))
+        setButtonPositionX(1)
+        setButtonPositionY(0)
+        setHotkey("W")
+
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setModelFile(Units.footman1)
+        setIconGameInterface(ICON_BUILDER_SLAVES_OF_MIDAS)
+        setUnitSoundSet(Soundsets.bandit)
+
+        // --------------------------------------------
+        // ========== Buildings and abilities =========
+        // --------------------------------------------
+        setStructuresBuilt(ID2S(ID_TOWER_SELLSWORD))
+        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL))
+
+        // ------------------------------------
+        // ========== Other constants =========
+        // ------------------------------------
+        setAttacksEnabled(0)
+        setSpeedBase(300)
+        setMovementType(MovementType.Fly)
+        setMovementHeight(0.)
+        setCollisionSize(0)
+
+        setFoodCost(0)
+        setGoldCost(0)
+        setLumberCost(0)
+        setHitPointsMaximumBase(1)
+        setHitPointsRegenerationType("none")
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+
+@compiletime function builder()
+    new Builder(ID_BUILDER_SLAVES_OF_MIDAS)

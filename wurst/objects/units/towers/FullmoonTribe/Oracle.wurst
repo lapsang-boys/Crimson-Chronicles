@@ -13,7 +13,7 @@ import ID2S
 constant GOLD_COST = 40
 constant RANGE = 600
 constant ATTACK_SPEED = 1.2
-constant DAMAGE_BASE = 19
+constant DAMAGE_BASE = 21
 constant DAMAGE_SIDES_PER_DIE = 6
 
 constant POINT_VALUE = GOLD_COST
