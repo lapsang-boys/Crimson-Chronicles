@@ -83,18 +83,18 @@ function healthCheck()
     timer t = GetExpiredTimer()
     Pitlord pit = t.getData() castTo Pitlord
 
-    if (pit.u.getHP()/pit.u.getMaxHP())*10 <= 9 - pit.summons and not pit.rainingChaos
+    if (pit.u.getHP()/pit.u.getMaxHP())*10 <= 9 - pit.summons and not pit.rainingChaos and pit.u.isAlive()
         summonInfernal(pit)
         pit.summons++
 
 function summonInfernal(Pitlord pit)
-    // Change this to pit.u.getPrev()
-    vec2 spawnLoc = pit.u.getNext()
+    vec2 spawnLoc = pit.u.getPrev()
     pit.u.pause()
 
     pit.u.setAnimation("spell slam")
     doAfter(0.8, () -> begin
-        createTimedEffect(pit.u.getPos().polarOffset(pit.u.getFacingAngle(), 170), 1, Abilities.warStompCaster)
+        if pit.u.isAlive()
+            createTimedEffect(pit.u.getPos().polarOffset(pit.u.getFacingAngle(), 170), 1, Abilities.warStompCaster)
     end)
 
     let i = GetRandomInt(0, summonSounds.size() - 1)
@@ -103,11 +103,12 @@ function summonInfernal(Pitlord pit)
 
     createTimedEffect(spawnLoc, 3, Units.infernalBirth)
     doAfter(1.3, () -> begin
-        let u = createUnit(PLAYER_BROWN, pit.spawnId, spawnLoc, pit.u.getPos().angleTo(pit.u.getNext()))
-        u.setUserData(pit.u.getUserData())
-        new Infernal(u, pit.u)
-
-        pit.u.unpause()
+        if pit.u.isAlive()
+            let u = createUnit(PLAYER_BROWN, pit.spawnId, spawnLoc, pit.u.getPos().angleTo(pit.u.getNext()))
+            u.setUserData(pit.u.getUserData())
+            new Infernal(u, pit.u)
+            u.issuePointOrder("move", u.getNext())
+            pit.u.unpause()
     end)
 
 // ##################################################################
