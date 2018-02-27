@@ -236,3 +236,12 @@ public constant PITLORD_HP = 10000
     levels.add(L11)
 
     zoneLevels.add(levels)
+
+    LinkedList<Level> zone2levels = new LinkedList<Level>
+
+    zone2levels
+        ..add(L0)
+        ..add(L1)
+        ..add(L2)
+    
+    zoneLevels.add(zone2levels)

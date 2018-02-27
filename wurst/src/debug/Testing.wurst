@@ -1,6 +1,7 @@
 package Testing
 
 import GameplayConstants
+import BuilderConstants
 import PlayerData
 
 function jumpToLevel()
@@ -11,13 +12,17 @@ function jumpToLevel()
     PlayerData pd = playerData.get(p.getId())
 
     // Remove all creeps in area.
-    pd.cleanse(false)
+    pd.cleanse(false, false)
 
     // Revert values and stop spawn.
     pd.reset()
 
     pd.levelNum = index
     p.addGold(1000000)
+
+    pd.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
+    pd.builder.addAbility(ID_NEXT_LEVEL)
+
 
 trigger remakeTrig = CreateTrigger()
 

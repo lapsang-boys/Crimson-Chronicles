@@ -33,7 +33,23 @@ function loseLife(PlayerData pd, int i)
 function loseGame(PlayerData pd)
     printTimedToPlayer(infoColor.colorize("You have lost the game."), DISPLAY_TIME, pd.p)
     pd.levelInProgress = false
-    pd.cleanse(true)
+    pd.cleanse(true, true)
+
+function nextZone(PlayerData pd)
+    pd.levelNum = 0
+    pd.cleanse(true, false)
+    printTimedToPlayer(infoColor.colorize("You saved Ashenvale!"), DISPLAY_TIME, pd.p)
+    SoundDefinition sd = new SoundDefinition(Sounds.newTournament, false)
+    sd.playForPlayer(pd.p)
+    
+    pd.zoneNum++
+
+    fogmodifier fog = CreateFogModifierRect(pd.p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
+    fog.start()
+
+    pd.builder.setPos(pd.getPlayerRegion().getCenter())
+    pd.p.panCamToTimed(pd.builder, 2.0)
+    printTimedToPlayer("Please work!", 10.0, pd.p)
 
 function winGame(PlayerData pd)
     printTimedToPlayer(infoColor.colorize("You won the game!"), DISPLAY_TIME, pd.p)
@@ -54,7 +70,10 @@ function levelComplete(PlayerData pd)
 
     // Win game
     if pd.levelNum == pd.getLevels().size()
-        winGame(pd)
+        if pd.zoneNum == zoneLevels.size()
+            winGame(pd)
+        else
+            nextZone(pd)
         return
 
     if finishedLevel == 0

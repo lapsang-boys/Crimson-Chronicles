@@ -11,12 +11,17 @@ import GameplayConstants
 
 class Remover implements ForGroupCallback
     bool removePlayerUnits
+    bool removeBuilder
     player p
-    construct(bool removePlayerUnits, player p)
+    unit builder
+    construct(bool removePlayerUnits, bool removeBuilder, player p, unit builder)
         this.removePlayerUnits = removePlayerUnits
+        this.removeBuilder = removeBuilder
         this.p = p
 
     function callback(unit u)
+        if not removeBuilder and u.getHandleId() == builder.getHandleId()
+            return
         if removePlayerUnits
             u.remove()
         else if not u.getOwner() == p
@@ -46,8 +51,8 @@ public class PlayerData
     function setBuilder(unit builder)
         this.builder = builder
 
-    function cleanse(bool removePlayerUnits)
-        Remover rem = new Remover(removePlayerUnits, this.p)
+    function cleanse(bool removePlayerUnits, bool removeBuilder)
+        Remover rem = new Remover(removePlayerUnits, removeBuilder, this.p, this.builder)
         forUnitsInRect(this.getPlayerRegion(), rem)
 
     function reset()

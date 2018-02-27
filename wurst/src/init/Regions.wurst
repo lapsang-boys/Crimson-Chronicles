@@ -71,3 +71,23 @@ public LinkedList<LinkedList<Area>> zones
 
     zone1.add(a1p1)
     zones.add(zone1)
+
+    // Zone 2
+    LinkedList<Area> zone2 = new LinkedList<Area>
+    Area a2p0 = new Area()
+    onlyPath = new Path()
+    onlyPath.rects..add(gg_rct_A1P0Spawn)
+            ..add(gg_rct_A1P0Node1)
+            ..add(gg_rct_A1P0Node2)
+            ..add(gg_rct_A1P0Node3)
+            ..add(gg_rct_A1P0Node4)
+            ..add(gg_rct_A1P0Node5)
+            ..add(gg_rct_A1P0End)
+
+    a2p0.paths.add(onlyPath)
+    a2p0.spawns.add(gg_rct_A1P0Spawn)
+    a2p0.ends.add(gg_rct_A1P0End)
+    a2p0.area = gg_rct_A1P0Region
+
+    zone2.add(a1p0)
+    zones.add(zone2)

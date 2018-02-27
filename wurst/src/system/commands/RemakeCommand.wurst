@@ -10,7 +10,7 @@ function remake()
     PlayerData pd = playerData.get(p.getId())
 
     // Remove everything in region.
-    pd.cleanse(true)
+    pd.cleanse(true, true)
 
     // Revert values and stop spawn.
     pd.reset()
