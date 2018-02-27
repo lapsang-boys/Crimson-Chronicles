@@ -16,7 +16,7 @@ function jumpToLevel()
     // Revert values and stop spawn.
     pd.reset()
 
-    pd.level = index
+    pd.levelNum = index
     p.addGold(1000000)
 
 trigger remakeTrig = CreateTrigger()

@@ -36,9 +36,8 @@ function spawnLevel()
 	PlayerData pd = playerData.get(p.getId())
 	playSummonLevelSound(pd)
 	pd.levelInProgress = true
-
-	int levelIndex = pd.level
-	let l = levels.get(levelIndex)
+	
+	let l = pd.getLevel()
 
 	TimerData lt = new TimerData(p, l)
 	let t = getTimer()
@@ -46,7 +45,7 @@ function spawnLevel()
 	t.setData(lt castTo int)
 	t.start(0.1, function summonMobs)
 	l.printInfo(p)
-	updateLevel(p, pd.level)
+	updateLevel(p, pd.levelNum)
 
 function summonMobs()
 	let t = GetExpiredTimer()

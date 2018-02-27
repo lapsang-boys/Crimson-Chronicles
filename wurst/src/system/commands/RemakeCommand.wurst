@@ -14,7 +14,7 @@ function remake()
 
     // Revert values and stop spawn.
     pd.reset()
-    pd.level = 1
+    pd.levelNum = 1
 
     printTimed(textColor.colorize("Player ") + fromPlayer(p).colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), DISPLAY_TIME)
 

@@ -10,7 +10,7 @@ function difficulty()
 
     string msg = GetEventPlayerChatString()
 
-    if pd.level > 1 or pd.levelInProgress
+    if pd.levelNum > 1 or pd.levelInProgress
         printTimedToPlayer(warningColor.colorize("You cannot change difficult in the middle of a game."), DISPLAY_TIME, p)
         printTimedToPlayer(infoColor.colorize("Type ") + valueColor.colorize("-rmk or -remake ") + infoColor.colorize(" to start a new game where you can choose a new difficulty.")
         , DISPLAY_TIME, p)

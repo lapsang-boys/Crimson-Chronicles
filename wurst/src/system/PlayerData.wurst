@@ -3,6 +3,7 @@ package PlayerData
 import LinkedList
 import ClosureForGroups
 import ErrorHandling
+import Levels
 
 import Regions
 import Leaderboard
@@ -24,19 +25,19 @@ class Remover implements ForGroupCallback
 public class PlayerData
     int playerNum
     player p
-    int level
-    int zoneNumber
+    int levelNum
+    int zoneNum
     int life
     int mobsRemoved
     unit builder
     bool levelInProgress
     int difficulty
 
-    construct(int playerNum, int level, int zoneNumber, int life)
+    construct(int playerNum, int levelNum, int zoneNum, int life)
         this.playerNum = playerNum
         this.p = Player(playerNum)
-        this.level = level
-        this.zoneNumber = zoneNumber
+        this.levelNum = levelNum
+        this.zoneNum = zoneNum
         this.life = life
         this.mobsRemoved = 0
         this.levelInProgress = false
@@ -51,24 +52,24 @@ public class PlayerData
 
     function reset()
         this.levelInProgress = false
-        this.zoneNumber = 0
+        this.zoneNum = 0
         this.life = STARTING_LIFE
         this.mobsRemoved = 0
-        this.level = 0
+        this.levelNum = 0
         updateLife(this.p, this.life)
 
     function getPlayerRegion() returns rect
         return this.getArea().area
 
     function getArea() returns Area
-        if zones.size() < this.zoneNumber
+        if zones.size() < this.zoneNum
             error("getArea#1")
             return new Area()
-        if zones.get(this.zoneNumber).size() < this.p.getId()
+        if zones.get(this.zoneNum).size() < this.p.getId()
             error("getArea#2")
             return new Area()
 
-        return zones.get(this.zoneNumber).get(this.p.getId())
+        return zones.get(this.zoneNum).get(this.p.getId())
 
 public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
 
@@ -77,3 +78,9 @@ public LinkedList<PlayerData> playerData = new LinkedList<PlayerData>
     for i = 0 to NUMBER_OF_PLAYERS-1
         PlayerData pd = new PlayerData(i, 0, 0, STARTING_LIFE)
         playerData.add(pd)
+
+public function PlayerData.getLevel() returns Level
+    return this.getLevels().get(this.levelNum)
+
+public function PlayerData.getLevels() returns LinkedList<Level>
+    return zoneLevels.get(this.zoneNum)
