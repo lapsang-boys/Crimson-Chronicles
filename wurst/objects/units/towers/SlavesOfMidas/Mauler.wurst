@@ -24,13 +24,13 @@ class Mauler extends TowerDefinition
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNGnollWarden)
-        setModelFile(Units.gnollWarden1)
+        setIconGameInterface(Icons.bTNGnollKing)
+        setModelFile(Units.gnollOverSeer)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
         setUnitSoundSet(Soundsets.gnoll)
-        setScalingValue(1.)
+        setScalingValue(1.5)
         setGroundTexture("HSMA")
 
         // ------------------------------------

@@ -30,7 +30,7 @@ class Builder extends UnitDefinition
         // -------------------------------------
         setModelFile(Units.banditLord1)
         setIconGameInterface(ICON_BUILDER_SLAVES_OF_MIDAS)
-        setUnitSoundSet(Soundsets.bandit)
+        setUnitSoundSet(Soundsets.knight)
 
         // --------------------------------------------
         // ========== Buildings and abilities =========
