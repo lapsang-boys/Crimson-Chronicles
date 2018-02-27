@@ -3,6 +3,7 @@ package End
 import Assets
 import LinkedList
 
+import PlayerData
 import Regions
 import Alexandria
 import GameplayConstants
@@ -45,6 +46,16 @@ function isUnitOwnedByPlayerBrown() returns boolean
 function hasValid(int i) returns boolean
     return GetTriggerUnit().getUserData() mod 10 == i
 
+function hasValidTest() returns boolean
+    unit u = GetTriggerUnit()
+    PlayerData pd = playerData.get(u.getPlayerN())
+    Path path = zones.get(pd.zoneNum).get(pd.p.getId()).paths.get(u.getPathId()) 
+
+    printTimedToPlayer("Node id: " + I2S(u.getNodeId()), 10, Player(0))
+    printTimedToPlayer("Path size: " + I2S(path.rects.size()), 10, Player(0))
+
+    return path.rects.size()-1 == u.getNodeId()
+
 function hasValid4() returns boolean
     return hasValid(4)
 
@@ -65,10 +76,7 @@ trigger endEnter = CreateTrigger()
 
     for i=0 to NUMBER_OF_ZONES-1
         for p = 0 to NUMBER_OF_PLAYERS-1
-            for r in zones.get(i).get(p).ends
-                switch zones.get(i).size()
-                    case 4
-                        endEnter.addCondition(Condition(function hasValid4))
-                    case 6
-                        endEnter.addCondition(Condition(function hasValid6))
+            for path in zones.get(i).get(p).paths
+                rect r = path.getEnd()
+                endEnter.addCondition(Condition(function hasValidTest))
                 TriggerRegisterEnterRectSimple(endEnter, r)

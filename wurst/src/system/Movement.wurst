@@ -80,3 +80,10 @@ function int.getPathId() returns int
 
 function int.getNodeId() returns int
     return this.moduloInt(10)
+
+public function unit.getNodeId() returns int
+    return this.getUserData().getNodeId()
+
+public function unit.getPathId() returns int
+    return this.getUserData().getPathId()
+    

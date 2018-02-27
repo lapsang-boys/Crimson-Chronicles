@@ -8,8 +8,8 @@ public function spawnInterval.getDuration() returns real
     return GetRandomReal(this.low, this.high)
 
 public enum SpawnRegion
-    WEST
     NORTH
+    WEST
     EAST
     SPUTNIK
     RANDOM

@@ -13,6 +13,7 @@ function act()
     u.setUserData(cv + 1)
     let pos = u.getNext()
     u.issuePointOrder("move", pos)
+    printTimedToPlayer("OnEnter", 10.0, Player(0))
 
     if mobMap.has(u.getHandleId())
         mobMap.get(u.getHandleId()).onEnter()
@@ -73,11 +74,11 @@ trigger mobEnter5 = CreateTrigger()
 
     for i=1 to 1
         for p=0 to NUMBER_OF_PLAYERS-1
-            for path in zones.get(i).get(p).paths
-                var r = path.rects.get(4)
-                mobEnter4.addCondition(Condition(function hasValid4))
-                TriggerRegisterEnterRectSimple(mobEnter4, r)
+            Path path1 = zones.get(i).get(p).paths.get(0)
+            var r = path1.rects.get(4)
+            mobEnter4.addCondition(Condition(function hasValid4))
+            TriggerRegisterEnterRectSimple(mobEnter4, r)
 
-                r = path.rects.get(5)
-                mobEnter5.addCondition(Condition(function hasValid5))
-                TriggerRegisterEnterRectSimple(mobEnter5, r)
+            r = path1.rects.get(5)
+            mobEnter5.addCondition(Condition(function hasValid5))
+            TriggerRegisterEnterRectSimple(mobEnter5, r)

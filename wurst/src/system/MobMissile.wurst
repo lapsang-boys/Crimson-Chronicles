@@ -45,7 +45,7 @@ public class MobMissile
         this.u.addAbility('Arav')
         this.u.setFlyHeight(this.z0, 99999)
         this.u.setPathing(false)
-        this.u.setInvulnerable(true)
+        this.u.setInvulnerable(false)
 
         timer t = getTimer()
         t.setData(this castTo int)

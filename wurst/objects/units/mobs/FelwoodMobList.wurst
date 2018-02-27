@@ -175,7 +175,7 @@ public constant PITLORD_HP = 10000
     Level L6 = new Level(
         toSquad(ID_MOB_GOBLIN_WAR_MACHINE, 2, 4.5, 7, SpawnRegion.NORTH),
         10, // Bonus
-        levelInfoMsg(6, "goblin Warmachine"),
+        levelInfoMsg(6, "Goblin Warmachines"),
         new LinkedList<MobType>..add(MobType.FAITH),
         loreMessage("Description"))
     levels.add(L6)
@@ -238,6 +238,22 @@ public constant PITLORD_HP = 10000
     zoneLevels.add(levels)
 
     LinkedList<Level> zone2levels = new LinkedList<Level>
+
+    level10Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.WEST))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.CENTER, spawnInterval(10, 10), SpawnRegion.WEST))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.WEST))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
+    .toSquadChain()
+
+    L0 = new Level(
+        level10Chain,
+        0, // Bonus
+        levelInfoMsg(0, "Path shower"),
+        new LinkedList<MobType>..add(MobType.INVULNERABLE),
+        loreMessage(""))
+    levels.add(L0)
 
     zone2levels
         ..add(L0)

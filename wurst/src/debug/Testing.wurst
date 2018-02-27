@@ -7,7 +7,6 @@ import PlayerData
 function jumpToLevel()
     string command = GetEventPlayerChatString()
     int index = S2I(command.substring(4))
-
     player p = GetTriggerPlayer()
     PlayerData pd = playerData.get(p.getId())
 
@@ -24,9 +23,31 @@ function jumpToLevel()
     pd.builder.addAbility(ID_NEXT_LEVEL)
 
 
-trigger remakeTrig = CreateTrigger()
+function jumpToZone()
+    string command = GetEventPlayerChatString()
+    int index = S2I(command.substring(5))
+    player p = GetTriggerPlayer()
+    PlayerData pd = playerData.get(p.getId())
+
+    // Remove all creeps in area.
+    pd.cleanse(false, false)
+
+    // Revert values and stop spawn.
+    pd.reset()
+
+    pd.zoneNum = index
+    p.addGold(1000000)
+
+    pd.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
+    pd.builder.addAbility(ID_NEXT_LEVEL)
+
+    
+trigger levelJumpTrig = CreateTrigger()
+trigger zoneJumpTrig = CreateTrigger()
 
 @initThird function initRemake()
-    TriggerAddAction(remakeTrig, function jumpToLevel)
+    TriggerAddAction(levelJumpTrig, function jumpToLevel)
+    TriggerAddAction(zoneJumpTrig, function jumpToZone)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-lvl", false)
+        TriggerRegisterPlayerChatEvent(levelJumpTrig, Player(i), "-lvl", false)
+        TriggerRegisterPlayerChatEvent(zoneJumpTrig, Player(i), "-zone", false)
