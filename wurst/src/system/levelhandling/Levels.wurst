@@ -7,8 +7,6 @@ import GameplayConstants
 import MobType
 import Colorscheme
 
-// Felwood
-import FelwoodMobList
 
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
@@ -41,140 +39,10 @@ public class Level
 
 public LinkedList<LinkedList<Level>> zoneLevels = new LinkedList<LinkedList<Level>>
 
-function levelInfoMsg(int num, string name) returns string
+public function levelInfoMsg(int num, string name) returns string
     return discreetColor.colorize("[") + textColor.colorize("Level ") + numberColor.colorize(I2S(num)) + discreetColor.colorize("]")
             + textColor.colorize(" - ") + nameColor.colorize(name)
 
-function loreMessage(string desc) returns string
+public function loreMessage(string desc) returns string
     return textColor.colorize(desc)
 
-// ----------------------------------------------------------------------------
-// ============================= Level objects ================================
-// ----------------------------------------------------------------------------
-
-@initThird function initZone1Levels()
-    LinkedList<Level> levels = new LinkedList<Level>
-    
-    // ============== Area 1 ==============
-    Level L0 = new Level(
-        toSquad(ID_MOB_PATH_SHOWER, 3, 1.35, 1.35, SpawnRegion.NORTH),
-        0, // Bonus
-        levelInfoMsg(0, "Path shower"),
-        new LinkedList<MobType>..add(MobType.INVULNERABLE),
-        loreMessage(""))
-    levels.add(L0)
-
-    // Do we need squad member bounty?
-    Level L1 = new Level(
-        toDefaultSquad(ID_MOB_STAG, 10),
-        10, // Bonus
-        levelInfoMsg(1, "Stag"),
-        new LinkedList<MobType>,
-        loreMessage("Terrified stags escaping in a stampede."))
-    levels.add(L1)
-
-    Level L2 = new Level(
-        toDefaultSquad(ID_MOB_DIRE_WOLF, 10),
-        10, // Bonus
-        levelInfoMsg(2, "Dire Wolf"),
-        new LinkedList<MobType>,
-        loreMessage("Description"))
-    levels.add(L2)
-
-    Level L3 = new Level(
-        toSquad(ID_MOB_DEMONIC_SATYR, 12, 0.75, 1.5, SpawnRegion.NORTH),
-        // toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10),
-        10, // Bonus
-        levelInfoMsg(3, "Demonic satyrs"),
-        new LinkedList<MobType>..add(MobType.DEMON),
-        loreMessage("Description"))
-    levels.add(L3)
-
-    Level L4 = new Level(
-        toDefaultSquad(ID_MOB_FEL_TREANT, 6),
-        10, // Bonus
-        levelInfoMsg(4, "Fel Treants"),
-        new LinkedList<MobType>..add(MobType.BANISHED),
-        loreMessage("Description"))
-    levels.add(L4)
-
-    LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3.), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 2, SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
-    .toSquadChain()
-
-    Level L5 = new Level(
-        level5Chain,
-        10, // Bonus
-        levelInfoMsg(5, "Dark trolls"),
-        new LinkedList<MobType>..add(MobType.FAITH),
-        loreMessage("Description"))
-    levels.add(L5)
-
-    Level L6 = new Level(
-        toSquad(ID_MOB_GOBLIN_WAR_MACHINE, 2, 4.5, 7, SpawnRegion.NORTH),
-        10, // Bonus
-        levelInfoMsg(6, "goblin Warmachine"),
-        new LinkedList<MobType>..add(MobType.FAITH),
-        loreMessage("Description"))
-    levels.add(L6)
-
-    LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
-    .toSquadChain()
-
-    Level level7 = new Level(
-        level7Chain,
-        10, // Bonus
-        levelInfoMsg(7, "Furbolgs"),
-        new LinkedList<MobType>..add(MobType.UNDEAD),
-        loreMessage("Description"))
-    levels.add(level7)
-
-    Level L8 = new Level(
-        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 8),
-        10, // Bonus
-        levelInfoMsg(8, "Bendy mac Bend"),
-        new LinkedList<MobType>..add(MobType.BENDER),
-        loreMessage("Description"))
-    levels.add(L8)
-
-    Level L9 = new Level(
-        toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7, SpawnRegion.NORTH),
-        10, // Bonus
-        levelInfoMsg(9, "Crowy"),
-        new LinkedList<MobType>..add(MobType.LASTSTAND),
-        loreMessage("Description"))
-    levels.add(L9)
-
-    LinkedList<SquadMember> level10Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.CENTER, spawnInterval(10, 10), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
-    .toSquadChain()
-
-    Level level10 = new Level(
-        level10Chain,
-        10, // Bonus
-        levelInfoMsg(10, "The Fel Vanguard"),
-        new LinkedList<MobType>..add(MobType.UNDEAD),
-        loreMessage("Description"))
-    levels.add(level10)
-
-    Level L11 = new Level(
-        toSquad(ID_BOSS_PITLORD, 1, 4.5, 7, SpawnRegion.NORTH),
-        0, // Bonus
-        levelInfoMsg(11, "Pitlord"),
-        new LinkedList<MobType>..add(MobType.BOSS),
-        loreMessage("Description"))
-    levels.add(L11)
-
-    zoneLevels.add(levels)
