@@ -36,6 +36,25 @@ public function unit.getNext() returns vec2
 
     return area.paths.get(pathId).rects.get(nodeId).getCenter()
 
+public function unit.getPrev() returns vec2
+    var p = this.getPlayerN()
+    PlayerData pd = playerData.get(p)
+    let cv = this.getUserData()
+    let area = pd.getArea()
+    let pathId = cv.getPathId()
+    let nodeId = cv.getNodeId()
+
+    if pathId > area.paths.size()
+        error("Invalid custom value for unit: "+this.getName())
+        return vec2(0, 0)
+
+    if nodeId > area.paths.get(pathId).rects.size()
+        error("Invalid custom value for unit: "+this.getName())
+        return vec2(0, 0)
+
+    return area.paths.get(pathId).rects.get(nodeId - 1).getCenter()
+
+
 public function unit.getArea() returns rect
     var p = this.getPlayerN()
     PlayerData pd = playerData.get(p)
