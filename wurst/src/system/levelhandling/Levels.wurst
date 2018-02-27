@@ -168,7 +168,7 @@ function loreMessage(string desc) returns string
     levels.add(level10)
 
     Level L11 = new Level(
-        toSquad(ID_BOSS_PITLORD, 1, 4.5, 7),
+        toSquad(ID_BOSS_PITLORD, 1, 4.5, 7, SpawnRegion.NORTH),
         0, // Bonus
         levelInfoMsg(11, "Pitlord"),
         new LinkedList<MobType>..add(MobType.BOSS),
