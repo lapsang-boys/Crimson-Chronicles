@@ -28,14 +28,14 @@ class Builder extends UnitDefinition
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setModelFile(Units.footman1)
+        setModelFile(Units.banditLord1)
         setIconGameInterface(ICON_BUILDER_SLAVES_OF_MIDAS)
         setUnitSoundSet(Soundsets.bandit)
 
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
-        setStructuresBuilt(ID2S(ID_TOWER_SELLSWORD))
+        setStructuresBuilt(ID2S(ID_TOWER_SELLSWORD) + "," + ID2S(ID_TOWER_MAULER))
         setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL))
 
         // ------------------------------------

@@ -1,0 +1,82 @@
+package Mauler
+
+import Assets
+import Soundsets
+import Damage
+import UnitObjEditing
+
+import TowerDefinition
+import TowerConstants
+import Tooltip
+import ID2S
+
+constant GOLD_COST = 10
+constant RANGE = 128
+constant ATTACK_SPEED = 1.1
+constant DAMAGE_BASE = 18
+constant DAMAGE_SIDES_PER_DIE = 6
+
+constant POINT_VALUE = GOLD_COST
+
+class Mauler extends TowerDefinition
+    construct(int id)
+        super(id)
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setIconGameInterface(Icons.bTNGnollWarden)
+        setModelFile(Units.gnollWarden1)
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet(Soundsets.gnoll)
+        setScalingValue(1.)
+        setGroundTexture("HSMA")
+
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
+        setAcquisitionRange(RANGE.toReal())
+        setAttack1Range(RANGE)
+        setAttack1CooldownTime(ATTACK_SPEED)
+        setAttack1DamageBase(DAMAGE_BASE)
+        setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+
+        // ------------------------------------
+        // ========== Spells ==================
+        // ------------------------------------
+        setNormalAbilities(ID2S(ID_SELL_TOWER))
+
+        // ------------------------------------------------
+        // ========== Attack modelfile speed etc ==========
+        // ------------------------------------------------
+        // setAttack1ProjectileArt(Abilities.huntermissile)
+        // setAttack1ProjectileHomingEnabled(true)
+        // setAttack1ProjectileSpeed(1200)
+        // setAttack1WeaponType(WeaponType.Missile)
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
+        setGoldCost(GOLD_COST)
+        setPointValue(POINT_VALUE)
+        setUpgradesTo("")
+        setUpgradesUsed("")
+
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
+        setButtonPositionX(0)
+        setButtonPositionY(0)
+        setHotkey("W")
+        setName("Mauler")
+        setTooltipBasic(tooltipBuild("W", "Mauler"))
+        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
+            ATTACK_SPEED,
+            RANGE,
+            "",
+            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+
+@compiletime function tower()
+    new Mauler(ID_TOWER_MAULER)

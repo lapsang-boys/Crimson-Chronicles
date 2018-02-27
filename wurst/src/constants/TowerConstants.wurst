@@ -29,6 +29,8 @@ public constant ID_TOWER_MAZE_ROCK = compiletime(UNIT_ID_GEN.next())
 
 // -------------- Sellsword -----------
 public constant ID_TOWER_SELLSWORD = compiletime(UNIT_ID_GEN.next())
+// -------------- Mauler --------------
+public constant ID_TOWER_MAULER = compiletime(UNIT_ID_GEN.next())
 
 // ------------------------------------------------------
 // ================ The fullmoon tribe ==================
