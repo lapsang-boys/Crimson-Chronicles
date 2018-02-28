@@ -10,6 +10,7 @@ import GameplayConstants
 import Movement
 import TimedEffect
 import LevelHandler
+import HashMap
 
 function leak()
     let u = GetTriggerUnit()
@@ -43,10 +44,7 @@ function leak()
 function isUnitOwnedByPlayerBrown() returns boolean
     return GetTriggerUnit().getOwner() == PLAYER_BROWN
 
-function hasValid(int i) returns boolean
-    return GetTriggerUnit().getUserData() mod 10 == i
-
-function hasValidTest() returns boolean
+function hasValidCV() returns boolean
     unit u = GetTriggerUnit()
     PlayerData pd = playerData.get(u.getPlayerN())
     Path path = zones.get(pd.zoneNum).get(pd.p.getId()).paths.get(u.getPathId()) 
@@ -55,28 +53,23 @@ function hasValidTest() returns boolean
     printTimedToPlayer("Path size: " + I2S(path.rects.size()), 10, Player(0))
 
     return path.rects.size()-1 == u.getNodeId()
-
-function hasValid4() returns boolean
-    return hasValid(4)
-
-function hasValid5() returns boolean
-    return hasValid(5)
-
-function hasValid6() returns boolean
-    return hasValid(6)
-
-function hasValid7() returns boolean
-    return hasValid(7)
             
 trigger endEnter = CreateTrigger()
 
 @initThird function initEnd()
+    endEnter.addCondition(Condition(function hasValidCV))
     endEnter.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     endEnter.addAction(function leak)
 
+    HashMap<rect, bool> added = new HashMap<rect, bool>
     for i=0 to NUMBER_OF_ZONES-1
         for p = 0 to NUMBER_OF_PLAYERS-1
             for path in zones.get(i).get(p).paths
                 rect r = path.getEnd()
-                endEnter.addCondition(Condition(function hasValidTest))
-                TriggerRegisterEnterRectSimple(endEnter, r)
+                registerRect(added, r)
+
+function registerRect(HashMap<rect, bool> added, rect r)
+    if added.has(r)
+        return
+    added.put(r, true)
+    TriggerRegisterEnterRectSimple(endEnter, r)

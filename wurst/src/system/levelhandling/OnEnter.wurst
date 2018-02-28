@@ -39,11 +39,15 @@ function hasValid4() returns boolean
 function hasValid5() returns boolean
     return hasValid(5)
 
+function hasValid6() returns boolean
+    return hasValid(6)
+
 trigger mobEnter1 = CreateTrigger()
 trigger mobEnter2 = CreateTrigger()
 trigger mobEnter3 = CreateTrigger()
 trigger mobEnter4 = CreateTrigger()
 trigger mobEnter5 = CreateTrigger()
+trigger mobEnter6 = CreateTrigger()
 
 @initThird function initOnEnter()
     mobEnter1.addCondition(Condition(function isUnitOwnedByPlayerBrown))
@@ -51,34 +55,42 @@ trigger mobEnter5 = CreateTrigger()
     mobEnter3.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     mobEnter4.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     mobEnter5.addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    mobEnter6.addCondition(Condition(function isUnitOwnedByPlayerBrown))
     mobEnter1.addAction(function act)
     mobEnter2.addAction(function act)
     mobEnter3.addAction(function act)
     mobEnter4.addAction(function act)
     mobEnter5.addAction(function act)
-
-    for i=0 to NUMBER_OF_ZONES-1
+    mobEnter6.addAction(function act)
+    
+    for z=0 to NUMBER_OF_ZONES-1
         for p = 0 to NUMBER_OF_PLAYERS-1
-            for path in zones.get(i).get(p).paths
-                var r = path.rects.get(1)
-                mobEnter1.addCondition(Condition(function hasValid1))
-                TriggerRegisterEnterRectSimple(mobEnter1, r)
+            for path in zones.get(z).get(p).paths
+                for i=0 to path.rects.size()-1
+                    rect r = path.rects.get(i)
+                    registerRect(path, r, i)
 
-                r = path.rects.get(2)
-                mobEnter2.addCondition(Condition(function hasValid2))
-                TriggerRegisterEnterRectSimple(mobEnter2, r)
-
-                r = path.rects.get(3)
-                mobEnter3.addCondition(Condition(function hasValid3))
-                TriggerRegisterEnterRectSimple(mobEnter3, r)
-
-    for i=1 to 1
-        for p=0 to NUMBER_OF_PLAYERS-1
-            Path path1 = zones.get(i).get(p).paths.get(0)
-            var r = path1.rects.get(4)
+function registerRect(Path path, rect r, int i)
+    if path.getSpawn().getHandleId() == r.getHandleId()
+        return
+    if path.getEnd().getHandleId() == r.getHandleId()
+        return
+    switch i
+        case 1
+            mobEnter1.addCondition(Condition(function hasValid1))
+            TriggerRegisterEnterRectSimple(mobEnter1, r)
+        case 2
+            mobEnter2.addCondition(Condition(function hasValid2))
+            TriggerRegisterEnterRectSimple(mobEnter2, r)
+        case 3
+            mobEnter3.addCondition(Condition(function hasValid3))
+            TriggerRegisterEnterRectSimple(mobEnter3, r)
+        case 4
             mobEnter4.addCondition(Condition(function hasValid4))
             TriggerRegisterEnterRectSimple(mobEnter4, r)
-
-            r = path1.rects.get(5)
+        case 5
             mobEnter5.addCondition(Condition(function hasValid5))
             TriggerRegisterEnterRectSimple(mobEnter5, r)
+        case 6
+            mobEnter6.addCondition(Condition(function hasValid6))
+            TriggerRegisterEnterRectSimple(mobEnter6, r)
