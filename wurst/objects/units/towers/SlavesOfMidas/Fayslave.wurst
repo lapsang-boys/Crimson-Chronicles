@@ -1,7 +1,6 @@
-package Mauler
+package Fayslave
 
 import Assets
-import Soundsets
 import Damage
 import UnitObjEditing
 
@@ -18,19 +17,19 @@ constant DAMAGE_SIDES_PER_DIE = 6
 
 constant POINT_VALUE = GOLD_COST
 
-class Mauler extends TowerDefinition
+class Fayslave extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNGnollKing)
-        setModelFile(Units.gnollOverSeer)
+        setIconGameInterface(Icons.bTNSorceress)
+        setModelFile(Units.sorceress1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.gnoll)
-        setScalingValue(1.5)
+        setUnitSoundSet(Soundsets.sorceress)
+        setScalingValue(1.0)
         setGroundTexture("HSMA")
 
         // ------------------------------------
@@ -60,17 +59,17 @@ class Mauler extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo("")
+        setUpgradesTo(ID2S(ID_TOWER_MORGAN))
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
+        setButtonPositionX(2)
         setButtonPositionY(0)
-        setHotkey("W")
-        setName("Mauler")
-        setTooltipBasic(tooltipBuild("W", "Mauler"))
+        setHotkey("E")
+        setName("Fayslave")
+        setTooltipBasic(tooltipBuild("E", "Fayslave"))
         setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
@@ -79,4 +78,4 @@ class Mauler extends TowerDefinition
             "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
 
 @compiletime function tower()
-    new Mauler(ID_TOWER_MAULER)
+    new Fayslave(ID_TOWER_FAYSLAVE)

@@ -1,4 +1,4 @@
-package Sellsword
+package Morgan
 
 import Assets
 import Damage
@@ -17,19 +17,19 @@ constant DAMAGE_SIDES_PER_DIE = 6
 
 constant POINT_VALUE = GOLD_COST
 
-class Sellsword extends TowerDefinition
+class Morgan extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNFootman)
-        setModelFile(Units.footman1)
+        setIconGameInterface(Icons.bTNJaina)
+        setModelFile(Units.jaina1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.footman)
-        setScalingValue(1.)
+        setUnitSoundSet(Soundsets.jaina)
+        setScalingValue(1.0)
         setGroundTexture("HSMA")
 
         // ------------------------------------
@@ -59,17 +59,17 @@ class Sellsword extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_DEFECTOR))
+        setUpgradesTo("")
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
-        setButtonPositionY(0)
+        setButtonPositionX(3)
+        setButtonPositionY(2)
         setHotkey("Q")
-        setName("Sellsword")
-        setTooltipBasic(tooltipBuild("Q", "Sellsword"))
+        setName("Morgan Le Faye")
+        setTooltipBasic(tooltipBuild("Q", "Morgan Le Faye"))
         setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
@@ -78,4 +78,4 @@ class Sellsword extends TowerDefinition
             "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
 
 @compiletime function tower()
-    new Sellsword(ID_TOWER_SELLSWORD)
+    new Morgan(ID_TOWER_MORGAN)

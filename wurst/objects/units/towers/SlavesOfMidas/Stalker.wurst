@@ -1,4 +1,4 @@
-package Sellsword
+package Stalker
 
 import Assets
 import Damage
@@ -10,26 +10,26 @@ import Tooltip
 import ID2S
 
 constant GOLD_COST = 10
-constant RANGE = 128
+constant RANGE = 600
 constant ATTACK_SPEED = 1.1
 constant DAMAGE_BASE = 18
 constant DAMAGE_SIDES_PER_DIE = 6
 
 constant POINT_VALUE = GOLD_COST
 
-class Sellsword extends TowerDefinition
+class Stalker extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNFootman)
-        setModelFile(Units.footman1)
-        setTintingColorRed(255)
-        setTintingColorGreen(255)
-        setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.footman)
-        setScalingValue(1.)
+        setIconGameInterface(Icons.bTNArcher)
+        setModelFile(Units.archer)
+        setTintingColorRed(160)
+        setTintingColorGreen(160)
+        setTintingColorBlue(160)
+        setUnitSoundSet(Soundsets.archer)
+        setScalingValue(1.0)
         setGroundTexture("HSMA")
 
         // ------------------------------------
@@ -44,32 +44,32 @@ class Sellsword extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER))
+        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_SONG_OF_RAVENS))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        // setAttack1ProjectileArt(Abilities.huntermissile)
-        // setAttack1ProjectileHomingEnabled(true)
-        // setAttack1ProjectileSpeed(1200)
-        // setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt(Abilities.arrowMissile1)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1200)
+        setAttack1WeaponType(WeaponType.Missile)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_DEFECTOR))
+        setUpgradesTo(ID2S(ID_TOWER_KERES))
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(0)
+        setButtonPositionX(1)
         setButtonPositionY(0)
-        setHotkey("Q")
-        setName("Sellsword")
-        setTooltipBasic(tooltipBuild("Q", "Sellsword"))
+        setHotkey("W")
+        setName("Stalker")
+        setTooltipBasic(tooltipBuild("W", "Stalker"))
         setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
@@ -78,4 +78,4 @@ class Sellsword extends TowerDefinition
             "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
 
 @compiletime function tower()
-    new Sellsword(ID_TOWER_SELLSWORD)
+    new Stalker(ID_TOWER_STALKER)

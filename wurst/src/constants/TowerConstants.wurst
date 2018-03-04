@@ -27,10 +27,16 @@ public constant ID_TOWER_MAZE_ROCK = compiletime(UNIT_ID_GEN.next())
 // ================ Slaves of Midas =====================
 // ------------------------------------------------------
 
-// -------------- Sellsword -----------
+// -------------- Sellsword + Alterac Defector ----------
 public constant ID_TOWER_SELLSWORD = compiletime(UNIT_ID_GEN.next())
-// -------------- Mauler --------------
-public constant ID_TOWER_MAULER = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_DEFECTOR = compiletime(UNIT_ID_GEN.next())
+// -------------- Stalker + Keres ----------------------
+public constant ID_TOWER_STALKER = compiletime(UNIT_ID_GEN.next())
+public constant ID_SONG_OF_RAVENS = compiletime(ABIL_ID_GEN.next())
+public constant ID_TOWER_KERES = compiletime(UNIT_ID_GEN.next())
+// -------------- Fayslave + Morgan Le Faye ----------------------
+public constant ID_TOWER_FAYSLAVE = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_MORGAN = compiletime(UNIT_ID_GEN.next())
 
 // ------------------------------------------------------
 // ================ The fullmoon tribe ==================

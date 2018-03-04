@@ -1,0 +1,45 @@
+package SongOfRavens
+
+import Assets
+import ChannelAbilityPreset
+
+import TimedEffect
+import TowerConstants
+import Tooltip
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+@compiletime function generateSongOfRavensDummy()
+    new ChannelAbilityPreset(ID_SONG_OF_RAVENS, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Song of Ravens",""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor(
+            "The Stalker deals 20% more damage to enemies below 1/4 of their total health.",
+            "Flavor"))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNCannibalize)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+function songOfRavens()
+    let victim = GetTriggerUnit()
+    let attacker = GetAttacker()
+    attacker.damageTarget(victim, 4)
+    victim.attatchTimedEffect(1., Abilities.curseTarget, "overhead")
+    victim.attatchTimedEffect(1., Abilities.slowTarget, "origin")
+
+function isOnTheVergeOfDeath() returns bool
+    return GetTriggerUnit().getHP()/GetTriggerUnit().getMaxHP() <= 0.25
+
+function isStalker() returns bool
+    return GetAttacker().getTypeId() == ID_TOWER_STALKER
+        
+@initThird function initSongOfRavens()
+    trigger trig = CreateTrigger()
+    trig.addAction(function songOfRavens)
+    trig.addCondition(Condition(function isStalker))
+    trig.addCondition(Condition(function isOnTheVergeOfDeath))
+    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
