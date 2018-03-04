@@ -90,3 +90,6 @@ public function PlayerData.getLevel() returns Level
 
 public function PlayerData.getLevels() returns LinkedList<Level>
     return zoneLevels.get(this.zoneNum)
+
+public function unit.getPlayerData() returns PlayerData
+    return playerData.get(this.getOwner().getId())
