@@ -236,6 +236,9 @@ public constant PITLORD_HP = 6000
 
     zoneLevels.add(levels)
 
+
+
+
     LinkedList<Level> zone2levels = new LinkedList<Level>
 
     level10Chain = new LinkedList<SquadMember>
@@ -252,7 +255,7 @@ public constant PITLORD_HP = 6000
         levelInfoMsg(0, "Path shower"),
         new LinkedList<MobType>..add(MobType.INVULNERABLE),
         loreMessage(""))
-    levels.add(L0)
+    // levels.add(L0)
 
     zone2levels
         ..add(L0)

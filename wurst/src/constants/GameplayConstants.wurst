@@ -27,10 +27,10 @@ public constant DIFFICULTY_SCALING = 0.1
 public constant real DISPLAY_TIME = 10.
 
 // Required for region init, needs all regions per player to work
-public constant int NUMBER_OF_PLAYERS = 4
+public constant int NUMBER_OF_PLAYERS = 1
 
 // TODO: Implement areas. Will work in the same way as NUMBER_OF_PLAYERS
-public constant int NUMBER_OF_ZONES = 1
+public constant int NUMBER_OF_ZONES = 2
 
 // Enemy player number. Required for checks.
 public constant player PLAYER_BROWN = Player(11)
