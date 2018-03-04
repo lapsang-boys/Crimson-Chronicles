@@ -206,11 +206,11 @@ class RainTarget implements ForGroupCallback
             real t = ri/10
             doAfter(t, () -> begin
                 // Rain on this tower
-                attatchTimedEffect(u, 2, Abilities.rainOfFireTarget, "origin")
+                u.attatchTimedEffect(2, Abilities.rainOfFireTarget, "origin")
                 doAfter(0.6, () -> begin
                     // Stun this tower
                     u.pause()
-                    attatchTimedEffect(u, 6.5, Abilities.stasisTotemTarget, "overhead")
+                    u.attatchTimedEffect(6.5, Abilities.stasisTotemTarget, "overhead")
                     doAfter(6.5, () -> begin
                         u.unpause()
                     end)

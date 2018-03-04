@@ -2,8 +2,8 @@ package TimedEffect
 
 import ClosureTimers
 
-public function attatchTimedEffect(unit u, real duration, string fxPath, string attachPoint)
-    effect e = u.addEffect(fxPath, attachPoint)
+public function unit.attatchTimedEffect(real duration, string fxPath, string attachPoint)
+    effect e = this.addEffect(fxPath, attachPoint)
     doAfter(duration, () -> begin
         e.destr()
     end)

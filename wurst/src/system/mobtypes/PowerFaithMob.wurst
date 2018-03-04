@@ -71,5 +71,5 @@ class HealTarget implements ForGroupCallback
 
     function callback(unit u)
         if u.getOwner() == PLAYER_BROWN
-            attatchTimedEffect(u, 1., this.priest.healFx, "origin")
+            u.attatchTimedEffect(1., this.priest.healFx, "origin")
             u.setHP(u.getHP() + this.priest.healAmount)

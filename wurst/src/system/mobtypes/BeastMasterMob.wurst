@@ -47,8 +47,8 @@ public class BeastMob extends MobWrapper implements Deather
             return
 
         createTimedEffect(this.beast.getPos(), 2, this.fxBeastDeathPath)
-        attatchTimedEffect(this.master, 2, this.fxBeastDeathPath, "origin")
-        attatchTimedEffect(this.master, 2, this.fxBeastDeathPath2, "origin")
+        this.master.attatchTimedEffect(2, this.fxBeastDeathPath, "origin")
+        this.master.attatchTimedEffect(2, this.fxBeastDeathPath2, "origin")
 
         // Get player builder to deal damage for bounty
         PlayerData pd = playerData.get(this.beast.getPlayerN())
@@ -99,8 +99,8 @@ class BeastMasterGroup implements ForGroupCallback
             this.bm.master.setAnimation("spell")
             vec2 pos1 = this.bm.beast.getPos()
             vec2 pos2 = this.bm.master.getPos()
-            attatchTimedEffect(this.bm.beast, 1.5, this.bm.bindFx, "origin")
-            attatchTimedEffect(this.bm.master, 1.5, this.bm.bindFx, "origin")
+            this.bm.beast.attatchTimedEffect(1.5, this.bm.bindFx, "origin")
+            this.bm.master.attatchTimedEffect(1.5, this.bm.bindFx, "origin")
             bm.l = AddLightningEx(bm.lightningName, false, pos1.x, pos1.y, 100, pos2.x, pos2.y, 100)
             SetLightningColor(bm.l, 1, 0.4, 0.4, 0.5)
 

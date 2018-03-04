@@ -15,7 +15,7 @@ function builderPos()
     print("Builder pos: (" + R2S(pos.x) + ", " + R2S(pos.y) + ").")
     createTimedEffect(pos, 2, Abilities.howlCaster)
     AddSpecialEffect(Abilities.darkRitualTarget, pos.x, pos.y)
-    attatchTimedEffect(pd.builder, 2, Abilities.levelupcaster, "origin")
+    pd.builder.attatchTimedEffect(2, Abilities.levelupcaster, "origin")
 
     PingMinimap(pos.x, pos.y, 1)
 

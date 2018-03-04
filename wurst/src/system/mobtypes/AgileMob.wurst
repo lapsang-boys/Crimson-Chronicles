@@ -20,7 +20,7 @@ public class AgileMob extends MobWrapper implements Enterer
 
 public function startAgile(unit u, real speedBoost, real agileDuration)
     u.setMoveSpeed(u.getMoveSpeed() + speedBoost)
-    attatchTimedEffect(u, agileDuration, Abilities.tornado_Target, "origin")
+    u.attatchTimedEffect(agileDuration, Abilities.tornado_Target, "origin")
 
     doAfter(agileDuration, () -> begin
         u.setMoveSpeed(u.getMoveSpeed() - speedBoost)

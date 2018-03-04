@@ -61,7 +61,7 @@ function focusFire()
 
     forUnitsInRect(r, at)
 
-    attatchTimedEffect(target, 3., Abilities.talkToMe, "overhead")
+    target.attatchTimedEffect(3., Abilities.talkToMe, "overhead")
 
 @initThird function initFocusFire()
     registerSpellEffectEvent(ID_FOCUS_FIRE, function focusFire)
