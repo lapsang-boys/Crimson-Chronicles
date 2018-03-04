@@ -12,7 +12,7 @@ import Tooltip
 import TrapBase
 
 constant ENSNARE_DURATION = 2.5
-public constant SNARE_TRAP_COOLDOWN = 12
+public constant SNARE_TRAP_COOLDOWN = 12.
 constant ENSNARE_FX = Abilities.ensnareTarget
 constant TRAP_DEATH_EFFECT = Objects.entBirthTarget
 
