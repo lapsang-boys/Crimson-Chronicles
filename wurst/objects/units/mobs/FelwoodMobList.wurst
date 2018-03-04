@@ -38,7 +38,7 @@ public constant LinkedList<int> ID_MOB_INFERNAL =                     new Linked
 
 public constant LinkedList<int> ID_MOB_ROBIN_TEST =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
-public constant PITLORD_HP = 10000
+public constant PITLORD_HP = 6000
 
 @compiletime function generateLevels()
     // Level 0 - Info level
@@ -78,28 +78,28 @@ public constant PITLORD_HP = 10000
             bounty(2), lifeTaken(1), scaleMaxHp(i, 450), hpReg(10), movementSpeed(170), armor(5), scaling(1.3))
     // Level 8
         new MobDefinition(ID_MOB_FURBOLG_BENDER.get(i), "Furbolg Earth Bender", Units.furbolg1, Soundsets.furbolg,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 280), hpReg(0), movementSpeed(280), armor(1), scaling(1.))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 370), hpReg(0), movementSpeed(280), armor(1), scaling(1.))
     // Level 9
         new MobDefinition(ID_MOB_CROW_DRUID.get(i), "Crow Druid", Units.druidoftheTalon, Soundsets.druidOfTheTalon,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 460), hpReg(0), movementSpeed(200), armor(4), scaling(1.))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(4), scaling(1.))
             ..setNormalAbilities(ID2S(ID_SPELL_CROW_MORPH))
         new MobDefinition(ID_MOB_CROW_CROW.get(i), "Crow", Units.druidoftheTalon1, Soundsets.druidOfTheTalon,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 460), hpReg(0), movementSpeed(200), armor(1), scaling(1.))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(1), scaling(1.))
             ..setNormalAbilities(ID2S(ID_SPELL_CROW_MORPH))
             ..setMovementType(MovementType.Fly)
             ..setMovementHeight(240)
     // Level 10
         new MobDefinition(ID_MOB_FEL_HUNTER.get(i), "Fel Hunter", Units.felgaurd, Soundsets.felgaurd,
-            bounty(7), lifeTaken(1), scaleMaxHp(i, 1600), hpReg(5), movementSpeed(220), armor(18), scaling(1.3))
+            bounty(7), lifeTaken(1), scaleMaxHp(i, 1750), hpReg(5), movementSpeed(220), armor(18), scaling(1.3))
         new MobDefinition(ID_MOB_FEL_BEAST.get(i), "Fel Beast", Units.felhound, Soundsets.felhound,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 450), hpReg(0), movementSpeed(165), armor(3), scaling(0.9))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 550), hpReg(0), movementSpeed(165), armor(3), scaling(0.9))
 
     // Level 11
         new MobDefinition(ID_BOSS_PITLORD.get(i), "Pitlord", Units.heroPitLord, Soundsets.pitlord,
             bounty(7), lifeTaken(1), scaleMaxHp(i, PITLORD_HP), hpReg(5), movementSpeed(140), armor(8), scaling(1.3))
             ..setUnitClassification("undead")
         new MobDefinition(ID_MOB_INFERNAL.get(i), "Infernal", Units.infernal1, Soundsets.infernal,
-            bounty(0), lifeTaken(1), scaleMaxHp(i, R2I(PITLORD_HP/10)), hpReg(5), movementSpeed(20), armor(1), scaling(1.))
+            bounty(0), lifeTaken(1), scaleMaxHp(i, R2I(PITLORD_HP/10)), hpReg(5), movementSpeed(140), armor(1), scaling(1.))
 
 
     // For zone 2
@@ -112,7 +112,7 @@ public constant PITLORD_HP = 10000
 
 @initThird function initZone1Levels()
     LinkedList<Level> levels = new LinkedList<Level>
-    
+
     // ============== Area 1 ==============
     Level L0 = new Level(
         toSquad(ID_MOB_PATH_SHOWER, 3, 1.35, 1.35, SpawnRegion.NORTH),
@@ -259,5 +259,5 @@ public constant PITLORD_HP = 10000
         ..add(L0)
         ..add(L1)
         ..add(L2)
-    
+
     zoneLevels.add(zone2levels)
