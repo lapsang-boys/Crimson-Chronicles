@@ -1,0 +1,70 @@
+package CowardiceInspire
+
+import Assets
+import ClosureTimers
+import BuffObjEditing
+import AbilityObjEditing
+
+import TowerConstants
+import Tooltip
+import ID2S
+
+class Inspire extends AbilityDefinitionAuraBrilliancecreep
+    construct(int id)
+        super(id)
+
+        setName("Inspire")
+        setHotkeyNormal("")
+        setTooltipNormal(1, tooltipCustomBasic("Passive", "Inspire", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("Inspire fellow soliders to increase their ferocity in battle.",
+        ""))
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+        setArtCaster("")
+        setIconNormal(Icons.bTNDivineIntervention)
+        setItemAbility(false)
+        setArtTarget("")
+        setHeroAbility(false)
+        setRequirements("")
+
+        setManaRegenerationIncrease(1, 0)
+        setPercentBonus(1, false)
+        setManaCost(1, 0)
+
+        setLevels(1)
+        setBuffs(1, ID2S(ID_HIGH_MORALE_BUFF))
+        setMissileArt("")
+
+
+class HighMoraleBuff extends BuffDefinition
+    construct(int newBuffId, int origBuggId)
+        super(newBuffId, origBuggId)
+
+        setIcon(Icons.bTNDivineIntervention)
+        // setArtTarget(1, Abilities.)
+        // setTargetAttachmentPoint0(1, "foot")
+        // setMissileArt(1, "")
+
+        setTooltipNormal(1, tooltipBuffName("High morale", true))
+        setTooltipNormalExtended(1, tooltipBuffText("This unit has high morale and can attack more ferociously."))
+
+function coward()
+    let u = GetTriggerUnit()
+    doAfter(1., () -> (begin
+        if not u.hasAbility(ID_HIGH_MORALE_BUFF)
+            AddUnitAnimationProperties(u, "defend", true)
+    end))
+
+function isSellsword() returns bool
+    return GetTriggerUnit().getTypeId() == ID_TOWER_SELLSWORD
+
+@compiletime function generateSpellsAndBuffs()
+    new Inspire(ID_INSPIRE)
+    new HighMoraleBuff(ID_HIGH_MORALE_BUFF, ID_HIGH_MORALE_BUFF_BASE)
+
+@initThird function initCowardice()
+    trigger trig = CreateTrigger()
+    trig.addAction(function coward)
+    trig.addCondition(Condition(function isSellsword))
+    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
