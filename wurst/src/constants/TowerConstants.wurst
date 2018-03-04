@@ -64,8 +64,8 @@ public constant ID_TOWER_LUNAR_ADEPT = compiletime(UNIT_ID_GEN.next())
 public constant ID_MOON_FLARE = compiletime(ABIL_ID_GEN.next())
 public constant ID_MOON_FLARE_TOOLTIP_1 = compiletime(ABIL_ID_GEN.next())
 
-public constant MOON_FLARE_PROC = 20 //(%)
-public constant MOON_FLARE_NUM_BURSTS = 3
+public constant MOON_FLARE_PROC = 10 //(%)
+public constant MOON_FLARE_NUM_BURSTS = 2
 
 // -------------- Lunar Guardian -----------
 public constant ID_TOWER_LUNAR_GUARDIAN = compiletime(UNIT_ID_GEN.next())
@@ -84,4 +84,4 @@ public constant ID_TOWER_ASSASSIN = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH = compiletime(ABIL_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = compiletime(ABIL_ID_GEN.next())
 public constant ASSASSINATE_STEALTH_TIME = 10.
-public constant ASSASSINATE_STEALTH_BONUS_DMG = 6
+public constant ASSASSINATE_STEALTH_BONUS_DMG = 5

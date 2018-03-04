@@ -11,7 +11,7 @@ public class TowerDefinition extends BuildingDefinition
         setAttack1TargetsAllowed("enemies,ground,air,vulnerable")
         setAttack2TargetsAllowed("enemies,ground,air,vulnerable")
 
-        setBuildTime(2)
+        setBuildTime(1)
         setLumberCost(0)
 
         setAttack1DamageNumberofDice(1)
