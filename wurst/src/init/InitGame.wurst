@@ -27,7 +27,9 @@ public function startGame(player p)
     end)
 
 @initSecond function initGame()
-    SetTimeOfDay(23)
+    SetTimeOfDay(0)
+    SetTimeOfDayScale(0)
+    SuspendTimeOfDay(true)
 
     // Set the current level for all players to the first level.
     for i = 0 to NUMBER_OF_PLAYERS-1

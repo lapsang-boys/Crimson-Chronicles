@@ -13,8 +13,6 @@ function act()
     u.setUserData(cv + 1)
     let pos = u.getNext()
     u.issuePointOrder("move", pos)
-    printTimedToPlayer("OnEnter", 10.0, Player(0))
-
     if mobMap.has(u.getHandleId())
         mobMap.get(u.getHandleId()).onEnter()
 

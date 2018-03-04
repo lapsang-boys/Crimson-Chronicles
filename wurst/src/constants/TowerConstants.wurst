@@ -30,6 +30,10 @@ public constant ID_TOWER_MAZE_ROCK = compiletime(UNIT_ID_GEN.next())
 // -------------- Sellsword + Alterac Defector ----------
 public constant ID_TOWER_SELLSWORD = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_DEFECTOR = compiletime(UNIT_ID_GEN.next())
+public constant ID_HIGH_MORALE_BUFF = compiletime(UNIT_ID_GEN.next())
+public constant ID_HIGH_MORALE_BUFF_BASE = 'Brej'
+public constant ID_INSPIRE = compiletime(UNIT_ID_GEN.next())
+
 // -------------- Stalker + Keres ----------------------
 public constant ID_TOWER_STALKER = compiletime(UNIT_ID_GEN.next())
 public constant ID_SONG_OF_RAVENS = compiletime(ABIL_ID_GEN.next())

@@ -49,9 +49,6 @@ function hasValidCV() returns boolean
     PlayerData pd = playerData.get(u.getPlayerN())
     Path path = zones.get(pd.zoneNum).get(pd.p.getId()).paths.get(u.getPathId()) 
 
-    printTimedToPlayer("Node id: " + I2S(u.getNodeId()), 10, Player(0))
-    printTimedToPlayer("Path size: " + I2S(path.rects.size()), 10, Player(0))
-
     return path.rects.size()-1 == u.getNodeId()
             
 trigger endEnter = CreateTrigger()

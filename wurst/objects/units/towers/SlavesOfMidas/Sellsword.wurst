@@ -20,6 +20,7 @@ constant POINT_VALUE = GOLD_COST
 class Sellsword extends TowerDefinition
     construct(int id)
         super(id)
+        setRequiredAnimationNames("")
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------

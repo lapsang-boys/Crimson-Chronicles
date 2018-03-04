@@ -49,7 +49,6 @@ function nextZone(PlayerData pd)
 
     pd.builder.setPos(pd.getPlayerRegion().getCenter())
     pd.p.panCamToTimed(pd.builder, 0.5)
-    printTimedToPlayer("Please work!", 10.0, pd.p)
 
     pd.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
     pd.builder.addAbility(ID_NEXT_LEVEL)
