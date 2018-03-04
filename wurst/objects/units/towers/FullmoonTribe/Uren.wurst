@@ -10,11 +10,11 @@ import BuilderConstants
 import Tooltip
 import ID2S
 
-constant GOLD_COST = 75
-constant RANGE = 700
-constant ATTACK_SPEED = 1.3
-constant DAMAGE_BASE = 97
-constant DAMAGE_SIDES_PER_DIE = 17
+constant GOLD_COST = 150
+constant RANGE = 400
+constant ATTACK_SPEED = 0.6
+constant DAMAGE_BASE = 64
+constant DAMAGE_SIDES_PER_DIE = 14
 
 constant POINT_VALUE = GOLD_COST
 
