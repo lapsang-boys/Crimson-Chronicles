@@ -46,6 +46,7 @@ class Builder extends UnitDefinition
         setMovementType(MovementType.Fly)
         setMovementHeight(0.)
         setCollisionSize(0)
+        setPointValue(0)
 
         setFoodCost(0)
         setGoldCost(0)
