@@ -44,7 +44,7 @@ class Fayslave extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER))
+        setNormalAbilities(id2s(ID_SELL_TOWER))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -59,7 +59,7 @@ class Fayslave extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_MORGAN))
+        setUpgradesTo(id2s(ID_TOWER_MORGAN))
         setUpgradesUsed("")
 
         // ---------------------------------

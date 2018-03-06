@@ -33,7 +33,7 @@ class Inspire extends AbilityDefinitionAuraBrilliancecreep
         setManaCost(1, 0)
 
         setLevels(1)
-        setBuffs(1, ID2S(ID_HIGH_MORALE_BUFF))
+        setBuffs(1, id2s(ID_HIGH_MORALE_BUFF))
         setMissileArt("")
 
 

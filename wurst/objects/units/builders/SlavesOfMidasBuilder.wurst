@@ -34,8 +34,8 @@ class Builder extends UnitDefinition
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
-        setStructuresBuilt(ID2S(ID_TOWER_SELLSWORD)+","+ID2S(ID_TOWER_STALKER)+","+ID2S(ID_TOWER_FAYSLAVE))
-        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL))
+        setStructuresBuilt(id2s(ID_TOWER_SELLSWORD)+","+id2s(ID_TOWER_STALKER)+","+id2s(ID_TOWER_FAYSLAVE))
+        setNormalAbilities("Avul," + id2s(ID_NEXT_LEVEL))
 
         // ------------------------------------
         // ========== Other constants =========

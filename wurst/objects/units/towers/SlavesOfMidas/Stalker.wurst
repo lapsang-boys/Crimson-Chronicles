@@ -44,7 +44,7 @@ class Stalker extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_SONG_OF_RAVENS))
+        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_SONG_OF_RAVENS))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -59,7 +59,7 @@ class Stalker extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_KERES))
+        setUpgradesTo(id2s(ID_TOWER_KERES))
         setUpgradesUsed("")
 
         // ---------------------------------

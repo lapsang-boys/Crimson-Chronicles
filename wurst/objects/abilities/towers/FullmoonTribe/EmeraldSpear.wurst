@@ -56,7 +56,7 @@ class EmeraldSpear extends AbilityDefinitionOrbofCorruption
         setRequirements("")
 
         setLevels(1)
-        setBuffs(1, ID2S(ID_EMERALD_SPEAR_BUFF))
+        setBuffs(1, id2s(ID_EMERALD_SPEAR_BUFF))
         setManaCost(1, 0)
         setMissileArt("")
 

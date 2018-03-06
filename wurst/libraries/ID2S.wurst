@@ -36,7 +36,7 @@ constant string stringabc = "abcdefghijklmnopqrstuvwxyz"
 //         n1 = n1+1
 //     return Id
 
-public function ID2S(int id) returns string
+public function id2s(int id) returns string
     string target = ""
     int dis
     var i = id

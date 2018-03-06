@@ -45,7 +45,7 @@ class AmberScout extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER))
+        setNormalAbilities(id2s(ID_SELL_TOWER))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

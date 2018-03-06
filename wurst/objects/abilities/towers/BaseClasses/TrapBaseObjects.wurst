@@ -32,7 +32,7 @@ class TrapNotSetAbil extends AbilityDefinitionFaerieFire
 
         setIconNormal(Icons.bTNCharm)
 
-        setBuffs(1, ID2S(ID_DUMMY_TRAP_NOT_BUFF))
+        setBuffs(1, id2s(ID_DUMMY_TRAP_NOT_BUFF))
         setDurationNormal(1, 999)
 
 // ##################################################################

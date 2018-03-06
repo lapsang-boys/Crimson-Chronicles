@@ -45,7 +45,7 @@ class Oracle extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_EMERALD_SPEAR) + "," + ID2S(ID_EMERALD_SPEAR_TOOLTIP))
+        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_EMERALD_SPEAR) + "," + id2s(ID_EMERALD_SPEAR_TOOLTIP))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -60,7 +60,7 @@ class Oracle extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_CENARIUS))
+        setUpgradesTo(id2s(ID_TOWER_CENARIUS))
         setUpgradesUsed("")
 
         // ---------------------------------

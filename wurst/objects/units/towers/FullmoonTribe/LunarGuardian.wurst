@@ -45,7 +45,7 @@ class LunarGuardian extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_MOON_FLARE_TOOLTIP_2))
+        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_MOON_FLARE_TOOLTIP_2))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

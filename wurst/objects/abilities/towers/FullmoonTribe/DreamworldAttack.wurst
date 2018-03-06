@@ -46,7 +46,7 @@ class DreamworldBuff extends BuffDefinition
 class DreamworldAttackSpell extends AbilityDefinitionParasite
     construct(int id)
         super(id)
-        setBuffs(1, ID2S(ID_DREAMWORLD_BUFF))
+        setBuffs(1, id2s(ID_DREAMWORLD_BUFF))
         setDurationNormal(1, DURATION)
 
         setSummonedUnitCount(1, 0)

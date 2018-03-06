@@ -45,7 +45,7 @@ class LunarAdept extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + "," + ID2S(ID_MOON_FLARE_TOOLTIP_1))
+        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_MOON_FLARE_TOOLTIP_1))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -60,7 +60,7 @@ class LunarAdept extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID2S(ID_TOWER_LUNAR_GUARDIAN))
+        setUpgradesTo(id2s(ID_TOWER_LUNAR_GUARDIAN))
         setUpgradesUsed("")
 
         // ---------------------------------

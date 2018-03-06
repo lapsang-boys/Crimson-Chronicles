@@ -37,14 +37,14 @@ class Builder extends UnitDefinition
         // ========== Buildings and abilities =========
         // --------------------------------------------
         setStructuresBuilt(
-            ID2S(ID_TOWER_MAZE_ROCK)        + "," +
-            ID2S(ID_TOWER_AMBER_SCOUT)      + "," +
-            ID2S(ID_TOWER_ORACLE)           + "," +
-            ID2S(ID_TOWER_LUNAR_ADEPT)      + "," +
-            ID2S(ID_TOWER_UREN)             + "," +
-            ID2S(ID_TOWER_ASSASSIN))
+            id2s(ID_TOWER_MAZE_ROCK)        + "," +
+            id2s(ID_TOWER_AMBER_SCOUT)      + "," +
+            id2s(ID_TOWER_ORACLE)           + "," +
+            id2s(ID_TOWER_LUNAR_ADEPT)      + "," +
+            id2s(ID_TOWER_UREN)             + "," +
+            id2s(ID_TOWER_ASSASSIN))
 
-        setNormalAbilities("Avul," + ID2S(ID_NEXT_LEVEL) + "," + ID2S(ID_FOCUS_FIRE) + "," + ID2S(ID_SPELL_INFERNAL_COIL))
+        setNormalAbilities("Avul," + id2s(ID_NEXT_LEVEL) + "," + id2s(ID_FOCUS_FIRE) + "," + id2s(ID_SPELL_INFERNAL_COIL))
 
         // ------------------------------------
         // ========== Other constants =========

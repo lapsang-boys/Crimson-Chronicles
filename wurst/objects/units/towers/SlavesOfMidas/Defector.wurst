@@ -44,7 +44,7 @@ class Defector extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID2S(ID_SELL_TOWER) + ID2S(ID_INSPIRE))
+        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_INSPIRE))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

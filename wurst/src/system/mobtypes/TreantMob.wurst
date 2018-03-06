@@ -89,7 +89,7 @@ class FelSmog extends AbilityDefinitionCripple
         setRequirements("")
         setLevels(1)
         setTargetsAllowed(1, "enemies,structure")
-        setBuffs(1, ID2S(ID_FEL_SMOG_BUFF))
+        setBuffs(1, id2s(ID_FEL_SMOG_BUFF))
 
 @compiletime function generateFelSmog()
     new FelSmog(ID_FEL_SMOG)
