@@ -7,9 +7,8 @@ function playerLeaves()
     player p = GetTriggerPlayer()
     printTimed(fromPlayer(p).colorize(p.getName()) + textColor.colorize(" has left the game!"), DISPLAY_TIME)
 
-trigger leaveTrigger = CreateTrigger()
-
 @initThird function initPlayerEvents()
-    TriggerAddAction(leaveTrigger, function playerLeaves)
+    trigger leaveTrigger = CreateTrigger()
+    leaveTrigger.addAction(function playerLeaves)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerEventLeave(leaveTrigger, Player(i))
+        leaveTrigger.registerPlayerEvent(Player(i), EVENT_PLAYER_LEAVE)

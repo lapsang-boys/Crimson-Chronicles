@@ -38,8 +38,8 @@ function isStalker() returns bool
     return GetAttacker().getTypeId() == ID_TOWER_STALKER
         
 @initThird function initSongOfRavens()
-    trigger trig = CreateTrigger()
-    trig.addAction(function songOfRavens)
-    trig.addCondition(Condition(function isStalker))
-    trig.addCondition(Condition(function isOnTheVergeOfDeath))
-    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+    CreateTrigger()
+    ..addAction(function songOfRavens)
+    ..addCondition(Condition(function isStalker))
+    ..addCondition(Condition(function isOnTheVergeOfDeath))
+    ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)

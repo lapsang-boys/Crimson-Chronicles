@@ -44,18 +44,14 @@ public class TrapBase
         r = Rect(pos.x-32, pos.y-32, pos.x+32, pos.y+32)
         this.reg = CreateRegion()
         RegionAddRect(reg, r)
+
         this.trig = CreateTrigger()
-        trapMap.put(trig.getHandleId(), this)
-        this.trig.addCondition(Condition(function isEnemy))
+        ..addCondition(Condition(function isEnemy))
+        ..registerEnterRegion(reg, cond) // Event region enter (filter on custom cond)
+        ..addAction(onEnter) // Action when trap is triggered
+        ..addAction(function cleanUp) // If entered we need to release timers and remove this trigger, regions etc
 
-        // Event region enter (filter on custom cond)
-        this.trig.registerEnterRegion(reg, cond)
-
-        // Action when trap is triggered
-        this.trig.addAction(onEnter)
-
-        // If entered we need to release timers and remove this trigger, regions etc
-        this.trig.addAction(function cleanUp)
+        trapMap.put(this.trig.getHandleId(), this)
 
         this.tim = getTimer()
         // Store all trap info in timer (TrapBase object)

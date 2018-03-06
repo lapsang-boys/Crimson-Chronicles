@@ -7,10 +7,10 @@ function remake()
     if localPlayer == p
         ClearTextMessages()
 
-trigger clearCommandTrig = CreateTrigger()
 
 @initThird function initClearCommand()
-    TriggerAddAction(clearCommandTrig, function remake)
+    trigger clearCommandTrig = CreateTrigger()
+    ..addAction(function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(clearCommandTrig, Player(i), "-clear", true)
-        TriggerRegisterPlayerChatEvent(clearCommandTrig, Player(i), "-c", true)
+        clearCommandTrig.registerPlayerChatEvent(Player(i), "-clear", true)
+        clearCommandTrig.registerPlayerChatEvent(Player(i), "-c", true)

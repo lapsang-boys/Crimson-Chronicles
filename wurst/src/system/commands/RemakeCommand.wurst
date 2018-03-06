@@ -21,10 +21,10 @@ function remake()
     // Start the game again.
     startGame(p)
 
-trigger remakeTrig = CreateTrigger()
 
 @initThird function initRemakeCommand()
-    TriggerAddAction(remakeTrig, function remake)
+    trigger remakeTrig = CreateTrigger()
+    ..addAction(function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-rmk", true)
-        TriggerRegisterPlayerChatEvent(remakeTrig, Player(i), "-remake", true)
+        remakeTrig.registerPlayerChatEvent(Player(i), "-rmk", true)
+        remakeTrig.registerPlayerChatEvent(Player(i), "-remake", true)

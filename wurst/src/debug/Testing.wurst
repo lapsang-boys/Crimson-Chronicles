@@ -42,12 +42,12 @@ function jumpToZone()
     pd.builder.addAbility(ID_NEXT_LEVEL)
 
     
-trigger levelJumpTrig = CreateTrigger()
-trigger zoneJumpTrig = CreateTrigger()
-
 @initThird function initRemake()
-    TriggerAddAction(levelJumpTrig, function jumpToLevel)
-    TriggerAddAction(zoneJumpTrig, function jumpToZone)
+    trigger levelJumpTrig = CreateTrigger()
+    trigger zoneJumpTrig = CreateTrigger()
+
+    levelJumpTrig.addAction(function jumpToLevel)
+    zoneJumpTrig.addAction(function jumpToZone)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(levelJumpTrig, Player(i), "-lvl", false)
-        TriggerRegisterPlayerChatEvent(zoneJumpTrig, Player(i), "-zone", false)
+        levelJumpTrig.registerPlayerChatEvent(Player(i), "-lvl", false)
+        zoneJumpTrig.registerPlayerChatEvent(Player(i), "-zone", false)

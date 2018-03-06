@@ -13,10 +13,9 @@ function info()
             break
         pd.getLevels().get(i).printShortInfo(p)
 
-trigger infoCommandTrig = CreateTrigger()
-
 @initThird function initInfoCommand()
-    TriggerAddAction(infoCommandTrig, function info)
+    trigger infoCommandTrig = CreateTrigger()
+    ..addAction(function info)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(infoCommandTrig, Player(i), "-info", true)
-        TriggerRegisterPlayerChatEvent(infoCommandTrig, Player(i), "-i", true)
+        infoCommandTrig.registerPlayerChatEvent(Player(i), "-info", true)
+        infoCommandTrig.registerPlayerChatEvent(Player(i), "-i", true)

@@ -135,7 +135,7 @@ function stopFlare(MoonFlareInfo mfi)
     destroy mfi
 
 @initThird function initMoonFlare()
-    trigger trig = CreateTrigger()
-    trig.addAction(function moonAttack)
-    trig.addCondition(Condition(function isLunar))
-    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+    CreateTrigger()
+    ..addAction(function moonAttack)
+    ..addCondition(Condition(function isLunar))
+    ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)

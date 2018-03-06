@@ -30,12 +30,10 @@ function difficulty()
             printTimedToPlayer(infoColor.colorize("Hell") +
             infoColor.colorize(" choosen. Hah.. Only a fool enters a battle he can't win."), DISPLAY_TIME, p)
 
-
-trigger difficultyTrig = CreateTrigger()
-
 @initThird function initDifficultyCommand()
-    TriggerAddAction(difficultyTrig, function difficulty)
+    trigger difficultyTrig = CreateTrigger()
+    ..addAction(function difficulty)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-normal", true)
-        TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-nightmare", true)
-        TriggerRegisterPlayerChatEvent(difficultyTrig, Player(i), "-hell", true)
+        difficultyTrig.registerPlayerChatEvent(Player(i), "-normal", true)
+        difficultyTrig.registerPlayerChatEvent(Player(i), "-nightmare", true)
+        difficultyTrig.registerPlayerChatEvent(Player(i), "-hell", true)

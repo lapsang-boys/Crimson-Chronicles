@@ -75,9 +75,9 @@ public class Assassin extends TowerWrapper
 
         // More efficient to have a constant trigger?
         this.trig = CreateTrigger()
-        this.trig.addAction(function assassinate)
-        this.trig.addCondition(Condition(function isAssassin))
-        this.trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+        ..addAction(function assassinate)
+        ..addCondition(Condition(function isAssassin))
+        ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
 
         this.t.setData(this castTo int)
         this.t.start(stealthTime, function stealth)

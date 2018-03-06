@@ -4,7 +4,6 @@ import TimerUtils
 
 import Alexandria
 
-
 public class CyclicHealerMob extends MobWrapper implements Ticker
     timer t
     real period
@@ -20,8 +19,8 @@ public class CyclicHealerMob extends MobWrapper implements Ticker
         this.numStates = numStates
 
         this.trig = CreateTrigger()
-        this.trig.addAction(function stateAction)
-        this.trig.registerUnitEvent(u, EVENT_UNIT_DAMAGED)
+        ..addAction(function stateAction)
+        ..registerUnitEvent(u, EVENT_UNIT_DAMAGED)
 
         startTick()
 

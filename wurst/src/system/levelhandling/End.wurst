@@ -51,21 +51,20 @@ function hasValidCV() returns boolean
 
     return path.rects.size()-1 == u.getNodeId()
             
-trigger endEnter = CreateTrigger()
-
 @initThird function initEnd()
-    endEnter.addCondition(Condition(function hasValidCV))
-    endEnter.addCondition(Condition(function isUnitOwnedByPlayerBrown))
-    endEnter.addAction(function leak)
+    trigger endEnter = CreateTrigger()
+    ..addCondition(Condition(function hasValidCV))
+    ..addCondition(Condition(function isUnitOwnedByPlayerBrown))
+    ..addAction(function leak)
 
     HashMap<rect, bool> added = new HashMap<rect, bool>
     for i=0 to NUMBER_OF_ZONES-1
         for p = 0 to NUMBER_OF_PLAYERS-1
             for path in zones.get(i).get(p).paths
                 rect r = path.getEnd()
-                registerRect(added, r)
+                registerRect(added, r, endEnter)
 
-function registerRect(HashMap<rect, bool> added, rect r)
+function registerRect(HashMap<rect, bool> added, rect r, trigger endEnter)
     if added.has(r)
         return
     added.put(r, true)
