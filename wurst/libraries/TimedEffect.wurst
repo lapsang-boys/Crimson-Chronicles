@@ -8,9 +8,8 @@ public function unit.attatchTimedEffect(real duration, string fxPath, string att
         e.destr()
     end)
 
-public function createTimedEffect(vec2 loc, real duration, string fxPath)
-    effect e = AddSpecialEffect(fxPath, loc.x, loc.y)
+public function createTimedEffect(vec2 pos, real duration, string fxPath)
+    effect e = addEffect(fxPath, pos)
     doAfter(duration, () -> begin
         e.destr()
     end)
-
