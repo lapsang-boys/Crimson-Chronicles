@@ -38,6 +38,7 @@ public class PlayerData
     unit builder
     bool levelInProgress
     int difficulty
+    fogmodifier fog
 
     construct(int playerNum, int levelNum, int zoneNum, int life)
         this.playerNum = playerNum

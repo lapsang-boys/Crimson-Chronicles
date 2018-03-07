@@ -44,8 +44,12 @@ function nextZone(PlayerData pd)
     
     pd.zoneNum++
 
-    fogmodifier fog = CreateFogModifierRect(pd.p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
-    fog.start()
+    // Remove fog of last area.
+    pd.fog.stop()
+    pd.fog.destr()
+
+    pd.fog = CreateFogModifierRect(pd.p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
+    pd.fog.start()
 
     pd.builder.setPos(pd.getPlayerRegion().getCenter())
     pd.p.panCamToTimed(pd.builder, 0.5)
