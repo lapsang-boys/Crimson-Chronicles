@@ -6,21 +6,28 @@ import TrapBase
 // Towers/abilities we will hook on.
 import Assassination
 import SnareTrap
-
+import CowardiceInspire
 
 function hook()
     unit u = GetConstructedStructure()
+    if u == null
+        u = GetTriggerUnit()
     switch u.getTypeId()
         case ID_TOWER_ASSASSIN
             new Assassin(u)
         case ID_TOWER_UREN
-            Trapper tr = new Trapper(u)
-            tr.setIDs(ID_DUMMY_SNARE_TRAP, ID_TOWER_UREN_SET_TRAP, ID_TOWER_UREN_DISMANTLE_TRAP, ID_TOWER_UREN_TRAP_COOLDOWN)
-            tr.setCooldown(SNARE_TRAP_COOLDOWN)
+            new Trapper(u)
+            ..setIDs(ID_DUMMY_SNARE_TRAP, ID_TOWER_UREN_SET_TRAP, ID_TOWER_UREN_DISMANTLE_TRAP, ID_TOWER_UREN_TRAP_COOLDOWN)
+            ..setCooldown(SNARE_TRAP_COOLDOWN)
+        case ID_TOWER_DEFECTOR
+            new Defector(u)
+        case ID_TOWER_SELLSWORD
+            new Sellsword(u)
         default
             return
 
 @initThird function initTowerHook()
     CreateTrigger()
     ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
+    ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_UPGRADE_FINISH)
     ..addAction(function hook)

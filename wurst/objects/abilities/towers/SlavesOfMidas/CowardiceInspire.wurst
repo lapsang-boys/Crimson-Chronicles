@@ -3,13 +3,17 @@ package CowardiceInspire
 import Assets
 import ClosureTimers
 import BuffObjEditing
+import ClosureForGroups
 import AbilityObjEditing
 
+import Alexandria
 import TowerConstants
 import Tooltip
 import ID2S
 
-class Inspire extends AbilityDefinitionAuraBrilliancecreep
+constant INSPIRE_RANGE = 256.0
+
+class Inspire extends AbilityDefinitionAuraEnduranceCreep
     construct(int id)
         super(id)
 
@@ -28,9 +32,12 @@ class Inspire extends AbilityDefinitionAuraBrilliancecreep
         setHeroAbility(false)
         setRequirements("")
 
-        setManaRegenerationIncrease(1, 0)
-        setPercentBonus(1, false)
+        setTargetsAllowed(1, "structure,self,friend")
+
+        setAttackSpeedIncrease(1, 0.2)
         setManaCost(1, 0)
+        setCastRange(1, INSPIRE_RANGE)
+        setAreaofEffect(1, INSPIRE_RANGE)
 
         setLevels(1)
         setBuffs(1, id2s(ID_HIGH_MORALE_BUFF))
@@ -42,29 +49,62 @@ class HighMoraleBuff extends BuffDefinition
         super(newBuffId, origBuggId)
 
         setIcon(Icons.bTNDivineIntervention)
-        // setArtTarget(1, Abilities.)
-        // setTargetAttachmentPoint0(1, "foot")
+        setArtTarget(1, Abilities.innerFireTarget)
+        setTargetAttachmentPoint0(1, "overhead")
+        
         // setMissileArt(1, "")
 
+        setIconNormal(1, Icons.bTNDivineIntervention)
         setTooltipNormal(1, tooltipBuffName("High morale", true))
         setTooltipNormalExtended(1, tooltipBuffText("This unit has high morale and can attack more ferociously."))
 
-function coward()
-    let u = GetTriggerUnit()
-    doAfter(1., () -> (begin
-        if not u.hasAbility(ID_HIGH_MORALE_BUFF)
-            AddUnitAnimationProperties(u, "defend", true)
-    end))
+class InspireTarget implements ForGroupCallback
+    bool inspire
+    construct(bool inspire)
+        this.inspire = inspire
+    function callback(unit u)
+        print("Found unit!")
+        if isSellsword(u)
+            // Remove defend animation if inspired.
+            if this.inspire
+                AddUnitAnimationProperties(u, "defend", false)
+            // Add defend animation if not inspired.
+            else if not u.hasAbility(ID_HIGH_MORALE_BUFF)
+                AddUnitAnimationProperties(u, "defend", true)
+        
+            
+public class Defector extends TowerWrapper
+    unit u
+    effect e
+    construct(unit u)
+        super(u)
+        this.u = u
+        AddUnitAnimationProperties(this.u, "defend", false)
+        this.e = addEffect(Doodads.bannerHuman1, this.u.getPos()+vec2(32, 32))
+        doAfter(1., () -> begin
+            print("Finding cowards")
+            forUnitsInRange(this.u.getPos(), INSPIRE_RANGE, new InspireTarget(true))
+        end)
+    
+    ondestroy
+        this.e.destr()
+        doAfter(5., () -> begin
+            print("Finding cowards")
+            forUnitsInRange(this.u.getPos(), INSPIRE_RANGE, new InspireTarget(false))
+        end)
 
-function isSellsword() returns bool
-    return GetTriggerUnit().getTypeId() == ID_TOWER_SELLSWORD
+public class Sellsword
+    unit u
+    construct(unit u)
+        this.u = u
+        doAfter(1., () -> (begin
+            if not u.hasAbility(ID_HIGH_MORALE_BUFF)
+                AddUnitAnimationProperties(u, "defend", true)
+        end))
 
+function isSellsword(unit u) returns bool
+    return u.getTypeId() == ID_TOWER_SELLSWORD
+    
 @compiletime function generateSpellsAndBuffs()
-    new Inspire(ID_INSPIRE)
     new HighMoraleBuff(ID_HIGH_MORALE_BUFF, ID_HIGH_MORALE_BUFF_BASE)
-
-@initThird function initCowardice()
-    trigger trig = CreateTrigger()
-    trig.addAction(function coward)
-    trig.addCondition(Condition(function isSellsword))
-    trig.registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
+    new Inspire(ID_INSPIRE)

@@ -41,7 +41,7 @@ class DreamworldBuff extends BuffDefinition
         setTooltipNormalExtended(1, tooltipBuffText("This unit has reduced movementspeed."))
 
 @compiletime function generateDreamworldBuff()
-        new DreamworldBuff(ID_DREAMWORLD_BUFF, ID_DREAMWORLD_BUFF_BASE)
+    new DreamworldBuff(ID_DREAMWORLD_BUFF, ID_DREAMWORLD_BUFF_BASE)
 
 class DreamworldAttackSpell extends AbilityDefinitionParasite
     construct(int id)
@@ -74,7 +74,6 @@ class DreamworldAttackSpell extends AbilityDefinitionParasite
 
 @compiletime function generateDreamworldAttackSpell()
     new DreamworldAttackSpell(ID_DREAMWORLD_ATTACK)
-
 
 @compiletime function generateDreamworldPassive()
     new ChannelAbilityPreset(ID_DREAMWORLD_ATTACK_DUMMY_ICON, 1, true)

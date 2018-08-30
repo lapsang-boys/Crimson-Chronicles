@@ -47,6 +47,8 @@ class Sellsword extends TowerDefinition
         // ------------------------------------
         setNormalAbilities(id2s(ID_SELL_TOWER))
 
+        // setUnitClassification("mechanichal")
+
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------

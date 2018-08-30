@@ -171,5 +171,3 @@ public class Trapper extends TowerWrapper
     ondestroy
         if this.trap != null
             destroy this.trap
-
-
