@@ -87,6 +87,10 @@ function levelComplete(PlayerData pd)
 
     if finishedLevel == 0
         printTimedToPlayer(infoColor.colorize("You have completed the info level."), DISPLAY_TIME, pd.p)
+        // Play complete info level sound.
+        SoundDefinition sd = new SoundDefinition(Sounds.jainaWhat1, false)
+        sd.playForPlayer(pd.p)
+
     else
         printTimedToPlayer(infoColor.colorize("You completed level ")
         + numberColor.colorize(I2S(finishedLevel))
