@@ -1,8 +1,8 @@
 ---
-projectName: "Rex Temporis"
+projectName: "Crimson Chronicles"
 dependencies:
 - "https://github.com/wurstscript/wurstStdlib2"
 buildMapData:
-  name: "Rex-TD"
-  fileName: "Rex-TD"
-  author: "Kranx & Karlek"
+  name: "Crimson Chronicles"
+  fileName: "crimson-chronicles"
+  author: "karlek & godbit"
