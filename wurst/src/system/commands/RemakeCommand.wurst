@@ -16,7 +16,7 @@ function remake()
     pd.reset()
     pd.levelNum = 1
 
-    printTimed(textColor.colorize("Player ") + fromPlayer(p).colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), DISPLAY_TIME)
+    printTimed(textColor.colorize("Player ") + p.getColor().toColor().colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), DISPLAY_TIME)
 
     // Start the game again.
     startGame(p)

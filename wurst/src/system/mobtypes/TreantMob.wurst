@@ -49,7 +49,7 @@ class SmogTarget implements ForGroupCallback
     construct(unit treant)
         this.treant = treant
 
-    function callback(unit u)
+    override function callback(unit u)
         if u.getOwner() != PLAYER_BROWN
             InstantDummyCaster.castTarget(this.treant.getOwner(), ID_FEL_SMOG, 1, "cripple", u, this.treant.getPos())
 

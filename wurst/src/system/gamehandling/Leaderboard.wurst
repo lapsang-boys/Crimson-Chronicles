@@ -71,7 +71,7 @@ function act()
     for i = 1 to NUMBER_OF_PLAYERS
         // if is playing
         player p = Player(i-1)
-        colorA pc = fromPlayer(p).withAlpha(0xff)
+        colorA pc = p.getColor().toColor().withAlpha(0xff)
         colorA grey = colorA(30, 30, 30, 60)
         if GetPlayerSlotState(p) == PLAYER_SLOT_STATE_PLAYING
             setItemStyle(mb, i, 0, true)

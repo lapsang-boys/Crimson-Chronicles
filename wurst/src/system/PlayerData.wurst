@@ -20,7 +20,7 @@ class Remover implements ForGroupCallback
         this.p = p
         this.builder = builder
 
-    function callback(unit u)
+    override function callback(unit u)
         if not removeBuilder and u.getHandleId() == builder.getHandleId()
             return
         if removePlayerUnits

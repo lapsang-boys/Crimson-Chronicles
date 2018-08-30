@@ -29,19 +29,19 @@ public abstract class MobWrapper implements Spawner, Enterer, Deather, Ender, Ti
     function getUnit() returns unit
         return this.u
 
-    function onSpawn()
+    override function onSpawn()
         skip
 
-    function onEnter()
+    override function onEnter()
         skip
 
-    function onEnd() returns bool
+    override function onEnd() returns bool
         return false
 
-    function onDeath()
+    override function onDeath()
         skip
 
-    function startTick()
+    override function startTick()
         skip
 
     ondestroy

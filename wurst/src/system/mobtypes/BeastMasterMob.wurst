@@ -90,7 +90,7 @@ class BeastMasterGroup implements ForGroupCallback
     construct(BeastMob bm)
         this.bm = bm
 
-    function callback(unit u)
+    override function callback(unit u)
         if u.getOwner() != PLAYER_BROWN
             return
 

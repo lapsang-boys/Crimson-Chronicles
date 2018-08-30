@@ -12,7 +12,7 @@ class DemonGroup implements ForGroupCallback
     construct(real amount, string fxPath)
         this.amount = amount
         this.fxPath = fxPath
-    function callback(unit u)
+    override function callback(unit u)
         if u.getOwner() != PLAYER_BROWN
             return
 

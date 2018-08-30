@@ -51,7 +51,7 @@ class HighMoraleBuff extends BuffDefinition
         setIcon(Icons.bTNDivineIntervention)
         setArtTarget(1, Abilities.innerFireTarget)
         setTargetAttachmentPoint0(1, "overhead")
-        
+
         // setMissileArt(1, "")
 
         setIconNormal(1, Icons.bTNDivineIntervention)
@@ -62,7 +62,7 @@ class InspireTarget implements ForGroupCallback
     bool inspire
     construct(bool inspire)
         this.inspire = inspire
-    function callback(unit u)
+    override function callback(unit u)
         print("Found unit!")
         if isSellsword(u)
             // Remove defend animation if inspired.
@@ -71,8 +71,8 @@ class InspireTarget implements ForGroupCallback
             // Add defend animation if not inspired.
             else if not u.hasAbility(ID_HIGH_MORALE_BUFF)
                 AddUnitAnimationProperties(u, "defend", true)
-        
-            
+
+
 public class Defector extends TowerWrapper
     unit u
     effect e
@@ -85,7 +85,7 @@ public class Defector extends TowerWrapper
             print("Finding cowards")
             forUnitsInRange(this.u.getPos(), INSPIRE_RANGE, new InspireTarget(true))
         end)
-    
+
     ondestroy
         this.e.destr()
         doAfter(5., () -> begin
@@ -104,7 +104,7 @@ public class Sellsword
 
 function isSellsword(unit u) returns bool
     return u.getTypeId() == ID_TOWER_SELLSWORD
-    
+
 @compiletime function generateSpellsAndBuffs()
     new HighMoraleBuff(ID_HIGH_MORALE_BUFF, ID_HIGH_MORALE_BUFF_BASE)
     new Inspire(ID_INSPIRE)

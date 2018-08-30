@@ -46,7 +46,7 @@ class AttackTarget implements ForGroupCallback
         this.caster = caster
         this.target = target
 
-    function callback(unit u)
+    override function callback(unit u)
         if u.getOwner() != PLAYER_BROWN and u != this.caster
             u.issueTargetOrder("attack", this.target)
 

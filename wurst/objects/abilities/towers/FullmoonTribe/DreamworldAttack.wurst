@@ -105,7 +105,7 @@ class DreamTarget implements ForGroupCallback
         this.attacked = attacked
         this.facingAngle = attacker.getPos().angleTo(attacked.getPos()).degrees()
 
-    function callback(unit u)
+    override function callback(unit u)
         real unitFacing = this.attacker.getPos().angleTo(u.getPos()).degrees()
 
         if u.getOwner() != PLAYER_BROWN

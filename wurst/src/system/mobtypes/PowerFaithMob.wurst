@@ -69,7 +69,7 @@ class HealTarget implements ForGroupCallback
     construct(PowerFaithMob priest)
         this.priest = priest
 
-    function callback(unit u)
+    override function callback(unit u)
         if u.getOwner() == PLAYER_BROWN
             u.attatchTimedEffect(1., this.priest.healFx, "origin")
             u.setHP(u.getHP() + this.priest.healAmount)

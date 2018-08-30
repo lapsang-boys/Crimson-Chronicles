@@ -13,7 +13,7 @@ import PlayerData
 import Levels
 
 class Winner implements ForGroupCallback
-    function callback(unit u)
+    override function callback(unit u)
         u.setAnimation("stand victory")
         u.addEffect(Objects.toonBoom, "origin")
 
@@ -41,7 +41,7 @@ function nextZone(PlayerData pd)
     printTimedToPlayer(infoColor.colorize("You saved Ashenvale!"), DISPLAY_TIME, pd.p)
     SoundDefinition sd = new SoundDefinition(Sounds.newTournament, false)
     sd.playForPlayer(pd.p)
-    
+
     pd.zoneNum++
 
     // Remove fog of last area.

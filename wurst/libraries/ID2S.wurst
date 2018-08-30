@@ -3,7 +3,7 @@ package ID2S
 import ObjectIds
 
 public function s2id(string source) returns integer
-    return fourchar2int(source)
+    return fromRawCode(source)
 
 public function id2s(int id) returns string
-    return int2fourchar(id)
+    return toRawCode(id)
