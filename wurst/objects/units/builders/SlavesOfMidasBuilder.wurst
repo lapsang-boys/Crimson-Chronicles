@@ -2,10 +2,10 @@ package SlavesOfMidasBuilder
 
 import Assets
 import UnitObjEditing
+import ObjectIds
 
 import BuilderConstants
 import TowerConstants
-import ID2S
 import Tooltip
 
 class Builder extends UnitDefinition
@@ -34,8 +34,8 @@ class Builder extends UnitDefinition
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
-        setStructuresBuilt(id2s(ID_TOWER_SELLSWORD)+","+id2s(ID_TOWER_STALKER)+","+id2s(ID_TOWER_FAYSLAVE))
-        setNormalAbilities("Avul," + id2s(ID_NEXT_LEVEL))
+        setStructuresBuilt(commaList(ID_TOWER_SELLSWORD, ID_TOWER_STALKER, ID_TOWER_FAYSLAVE))
+        setNormalAbilities(commaList(AbilityIds.invulnerable, ID_NEXT_LEVEL))
 
         // ------------------------------------
         // ========== Other constants =========
