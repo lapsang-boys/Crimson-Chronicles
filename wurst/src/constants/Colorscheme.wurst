@@ -9,7 +9,7 @@ public color base3 = rgba(239, 98, 108, 1)
 public color base4 = rgba(244, 155, 73, 1)
 
 public color infoColor = rgba(151, 249, 127, 1)
-public color warningColor = fromHsl(208, 53/100, 32/100)
+public color warningColor = fromHsl(218, 54/100, 45/100)
 public color numberColor = fromHsl(164, 95/100, 43/100)
 
 public color positiveBuffColor = fromHsl(112, 29/100, 48/100)
