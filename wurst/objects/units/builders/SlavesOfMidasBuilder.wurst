@@ -34,8 +34,8 @@ class Builder extends UnitDefinition
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
-        setStructuresBuilt(commaList(ID_TOWER_SELLSWORD, ID_TOWER_STALKER, ID_TOWER_FAYSLAVE))
-        setNormalAbilities(commaList(AbilityIds.invulnerable, ID_NEXT_LEVEL))
+        setStructuresBuilt(commaList(ID_TOWER_SELLSWORD, ID_TOWER_STALKER, ID_TOWER_FAYSLAVE, ID_TOWER_MAZE_ROCK))
+        setNormalAbilities(commaList(AbilityIds.invulnerable, ID_NEXT_LEVEL, ID_FOCUS_FIRE))
 
         // ------------------------------------
         // ========== Other constants =========
