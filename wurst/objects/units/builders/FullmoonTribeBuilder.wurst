@@ -2,10 +2,10 @@ package FullmoonTribeBuilder
 
 import Assets
 import UnitObjEditing
+import ObjectIds
 
 import BuilderConstants
 import TowerConstants
-import ID2S
 import Tooltip
 
 import FelwoodMobList
@@ -36,15 +36,19 @@ class Builder extends UnitDefinition
         // --------------------------------------------
         // ========== Buildings and abilities =========
         // --------------------------------------------
-        setStructuresBuilt(
-            id2s(ID_TOWER_MAZE_ROCK)        + "," +
-            id2s(ID_TOWER_AMBER_SCOUT)      + "," +
-            id2s(ID_TOWER_ORACLE)           + "," +
-            id2s(ID_TOWER_LUNAR_ADEPT)      + "," +
-            id2s(ID_TOWER_UREN)             + "," +
-            id2s(ID_TOWER_ASSASSIN))
+        setStructuresBuilt(commaList(
+            ID_TOWER_MAZE_ROCK,
+            ID_TOWER_AMBER_SCOUT,
+            ID_TOWER_ORACLE,
+            ID_TOWER_LUNAR_ADEPT,
+            ID_TOWER_UREN,
+            ID_TOWER_ASSASSIN))
 
-        setNormalAbilities("Avul," + id2s(ID_NEXT_LEVEL) + "," + id2s(ID_FOCUS_FIRE) + "," + id2s(ID_SPELL_INFERNAL_COIL))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_NEXT_LEVEL,
+            ID_FOCUS_FIRE,
+            ID_SPELL_INFERNAL_COIL))
 
         // ------------------------------------
         // ========== Other constants =========

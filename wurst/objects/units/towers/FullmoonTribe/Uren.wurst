@@ -3,12 +3,12 @@ package Uren
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 150
 constant RANGE = 400
@@ -45,7 +45,7 @@ class Uren extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_TOWER_UREN_TRAP_COOLDOWN))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_TOWER_UREN_TRAP_COOLDOWN))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

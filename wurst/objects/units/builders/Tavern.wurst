@@ -3,9 +3,9 @@ package Tavern
 import BuilderConstants
 import UnitObjEditing
 import Assets
+import ObjectIds
 
 import TowerDefinition
-import ID2S
 
 class Tavern extends TowerDefinition
     construct(int id)
@@ -23,7 +23,9 @@ class Tavern extends TowerDefinition
         setGroundTexture("HTOW")
         setMovementType(MovementType.None)
 
-        setUnitsSold(id2s(ID_BUILDER_SLAVES_OF_MIDAS) + "," + id2s(ID_BUILDER_FULLMOON_TRIBE))
+        setUnitsSold(commaList(
+            ID_BUILDER_SLAVES_OF_MIDAS,
+            ID_BUILDER_FULLMOON_TRIBE))
 
         // ------------------------------------
         // ========== Attack damage ==========

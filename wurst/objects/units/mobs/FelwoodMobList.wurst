@@ -1,15 +1,15 @@
 package FelwoodMobList
 
 import Assets
+import ObjectIds
 import ObjectIdGenerator
-import MobDefinition
 import UnitObjEditing
 import LinkedList
+
+import MobDefinition
 import Levels
 import Squad
 import MobType
-
-import ID2S
 import GameplayConstants
 
 public constant ID_SPELL_CROW_MORPH = compiletime(ABIL_ID_GEN.next())
@@ -81,10 +81,10 @@ public constant PITLORD_HP = 6000
     // Level 9
         new MobDefinition(ID_MOB_CROW_DRUID.get(i), "Crow Druid", Units.druidoftheTalon, Soundsets.druidOfTheTalon,
             bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(4), scaling(1.))
-            ..setNormalAbilities(id2s(ID_SPELL_CROW_MORPH))
+            ..setNormalAbilities(ID_SPELL_CROW_MORPH.toRawCode())
         new MobDefinition(ID_MOB_CROW_CROW.get(i), "Crow", Units.druidoftheTalon1, Soundsets.druidOfTheTalon,
             bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(1), scaling(1.))
-            ..setNormalAbilities(id2s(ID_SPELL_CROW_MORPH))
+            ..setNormalAbilities(ID_SPELL_CROW_MORPH.toRawCode())
             ..setMovementType(MovementType.Fly)
             ..setMovementHeight(240)
     // Level 10

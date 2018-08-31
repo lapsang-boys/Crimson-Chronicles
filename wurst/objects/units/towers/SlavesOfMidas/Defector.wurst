@@ -3,11 +3,11 @@ package Defector
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 55
 constant RANGE = 128
@@ -44,7 +44,7 @@ class Defector extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_INSPIRE))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_INSPIRE))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

@@ -1,9 +1,9 @@
 package CrowForm
 
 import AbilityObjEditing
+import ObjectIds
 
 import FelwoodMobList
-import ID2S
 
 class CrowForm extends AbilityDefinitionRavenFormDruidoftheTalon
     construct(int id)
@@ -11,9 +11,9 @@ class CrowForm extends AbilityDefinitionRavenFormDruidoftheTalon
 
         setArtCaster("")
         presetCastingTime((int _) -> 1.2)
-        setAlternateFormUnit(1, id2s(ID_MOB_CROW_CROW.get(0)))
-        setAlternateFormUnit(2, id2s(ID_MOB_CROW_CROW.get(1)))
-        setAlternateFormUnit(3, id2s(ID_MOB_CROW_CROW.get(2)))
+        setAlternateFormUnit(1, ID_MOB_CROW_CROW.get(0).toRawCode())
+        setAlternateFormUnit(2, ID_MOB_CROW_CROW.get(1).toRawCode())
+        setAlternateFormUnit(3, ID_MOB_CROW_CROW.get(2).toRawCode())
         // presetAlternateFormUnit((int lvl) -> id2s(ID_MOB_CROW_CROW.get(lvl-1)))
 
         presetDurationNormal((int _) -> 1.2)

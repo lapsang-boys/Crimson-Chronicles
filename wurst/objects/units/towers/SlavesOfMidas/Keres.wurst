@@ -3,11 +3,11 @@ package Keres
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 180
 constant RANGE = 700
@@ -44,7 +44,7 @@ class Keres extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER))
+        setNormalAbilities(ID_SELL_TOWER.toRawCode())
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

@@ -2,12 +2,11 @@ package TrapBaseObjects
 
 import AbilityObjEditing
 import ObjectIdGenerator
-// import ChannelAbilityPreset
 import BuffObjEditing
 import Assets
+import ObjectIds
 
 import Tooltip
-import ID2S
 
 public constant ID_DUMMY_TRAP_NOT_SET = compiletime(ABIL_ID_GEN.next())
 
@@ -32,7 +31,7 @@ class TrapNotSetAbil extends AbilityDefinitionFaerieFire
 
         setIconNormal(Icons.bTNCharm)
 
-        setBuffs(1, id2s(ID_DUMMY_TRAP_NOT_BUFF))
+        setBuffs(1, ID_DUMMY_TRAP_NOT_BUFF.toRawCode())
         setDurationNormal(1, 999)
 
 // ##################################################################

@@ -3,12 +3,12 @@ package Assassin
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 225
 constant RANGE = 128
@@ -45,7 +45,7 @@ class Assassin extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

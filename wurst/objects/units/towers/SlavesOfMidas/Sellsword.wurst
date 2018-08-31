@@ -3,11 +3,11 @@ package Sellsword
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 11
 constant RANGE = 128
@@ -45,7 +45,7 @@ class Sellsword extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER))
+        setNormalAbilities(ID_SELL_TOWER.toRawCode())
 
         // setUnitClassification("mechanichal")
 
@@ -62,7 +62,7 @@ class Sellsword extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(id2s(ID_TOWER_DEFECTOR))
+        setUpgradesTo(ID_TOWER_DEFECTOR.toRawCode())
         setUpgradesUsed("")
 
         // ---------------------------------

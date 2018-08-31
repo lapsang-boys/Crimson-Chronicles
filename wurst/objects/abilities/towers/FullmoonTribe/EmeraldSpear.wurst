@@ -3,9 +3,9 @@ package EmeraldSpear
 import Assets
 import BuffObjEditing
 import ChannelAbilityPreset
+import ObjectIds
 
 import TowerConstants
-import ID2S
 import Tooltip
 
 let ARMOR_REUCED = 1
@@ -56,7 +56,7 @@ class EmeraldSpear extends AbilityDefinitionOrbofCorruption
         setRequirements("")
 
         setLevels(1)
-        setBuffs(1, id2s(ID_EMERALD_SPEAR_BUFF))
+        setBuffs(1, ID_EMERALD_SPEAR_BUFF.toRawCode())
         setManaCost(1, 0)
         setMissileArt("")
 

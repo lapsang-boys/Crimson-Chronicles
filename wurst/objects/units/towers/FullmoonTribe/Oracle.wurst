@@ -3,12 +3,12 @@ package Oracle
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 40
 constant RANGE = 600
@@ -45,7 +45,7 @@ class Oracle extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_EMERALD_SPEAR) + "," + id2s(ID_EMERALD_SPEAR_TOOLTIP))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_EMERALD_SPEAR, ID_EMERALD_SPEAR_TOOLTIP))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -60,7 +60,7 @@ class Oracle extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(id2s(ID_TOWER_CENARIUS))
+        setUpgradesTo(ID_TOWER_CENARIUS.toRawCode())
         setUpgradesUsed("")
 
         // ---------------------------------

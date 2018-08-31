@@ -5,11 +5,11 @@ import ClosureTimers
 import BuffObjEditing
 import ClosureForGroups
 import AbilityObjEditing
+import ObjectIds
 
 import Alexandria
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant INSPIRE_RANGE = 256.0
 
@@ -40,7 +40,7 @@ class Inspire extends AbilityDefinitionAuraEnduranceCreep
         setAreaofEffect(1, INSPIRE_RANGE)
 
         setLevels(1)
-        setBuffs(1, id2s(ID_HIGH_MORALE_BUFF))
+        setBuffs(1, ID_HIGH_MORALE_BUFF.toRawCode())
         setMissileArt("")
 
 

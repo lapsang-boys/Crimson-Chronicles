@@ -6,11 +6,11 @@ import ChannelAbilityPreset
 import InstantDummyCaster
 import ClosureForGroups
 import BuffObjEditing
+import ObjectIds
 
 import GameplayConstants
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant PROC_CHANCE = 50  // (Percentage)
 constant DUMMY_ORDER = "parasite"
@@ -46,7 +46,7 @@ class DreamworldBuff extends BuffDefinition
 class DreamworldAttackSpell extends AbilityDefinitionParasite
     construct(int id)
         super(id)
-        setBuffs(1, id2s(ID_DREAMWORLD_BUFF))
+        setBuffs(1, ID_DREAMWORLD_BUFF.toRawCode())
         setDurationNormal(1, DURATION)
 
         setSummonedUnitCount(1, 0)

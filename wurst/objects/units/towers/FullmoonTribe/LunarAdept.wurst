@@ -3,12 +3,12 @@ package LunarAdept
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 65
 constant RANGE = 500
@@ -45,7 +45,7 @@ class LunarAdept extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_MOON_FLARE_TOOLTIP_1))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_MOON_FLARE_TOOLTIP_1))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -60,7 +60,7 @@ class LunarAdept extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(id2s(ID_TOWER_LUNAR_GUARDIAN))
+        setUpgradesTo(ID_TOWER_LUNAR_GUARDIAN.toRawCode())
         setUpgradesUsed("")
 
         // ---------------------------------

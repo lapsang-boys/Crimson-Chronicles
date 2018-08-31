@@ -1,9 +1,0 @@
-package ID2S
-
-import ObjectIds
-
-public function s2id(string source) returns integer
-    return fromRawCode(source)
-
-public function id2s(int id) returns string
-    return toRawCode(id)

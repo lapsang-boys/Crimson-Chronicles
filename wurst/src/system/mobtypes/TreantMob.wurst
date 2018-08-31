@@ -5,10 +5,10 @@ import Assets
 import BuffObjEditing
 import ChannelAbilityPreset
 import ClosureForGroups
+import ObjectIds
 
 import Tooltip
 import GameplayConstants
-import ID2S
 import Alexandria
 import TimedEffect
 
@@ -89,7 +89,7 @@ class FelSmog extends AbilityDefinitionCripple
         setRequirements("")
         setLevels(1)
         setTargetsAllowed(1, "enemies,structure")
-        setBuffs(1, id2s(ID_FEL_SMOG_BUFF))
+        setBuffs(1, ID_FEL_SMOG_BUFF.toRawCode())
 
 @compiletime function generateFelSmog()
     new FelSmog(ID_FEL_SMOG)

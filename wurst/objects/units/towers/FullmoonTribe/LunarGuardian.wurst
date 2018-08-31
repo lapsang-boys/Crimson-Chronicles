@@ -3,12 +3,12 @@ package LunarGuardian
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 75
 constant RANGE = 700
@@ -45,7 +45,7 @@ class LunarGuardian extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_MOON_FLARE_TOOLTIP_2))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_MOON_FLARE_TOOLTIP_2))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

@@ -2,12 +2,12 @@ package MazeRock
 
 import Assets
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 2
 constant LUMBER_COST = 1
@@ -36,7 +36,7 @@ class MazeRock extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER))
+        setNormalAbilities(ID_SELL_TOWER.toRawCode())
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========

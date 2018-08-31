@@ -3,11 +3,11 @@ package Fayslave
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 45
 constant RANGE = 500
@@ -44,7 +44,7 @@ class Fayslave extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER))
+        setNormalAbilities(ID_SELL_TOWER.toRawCode())
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -59,7 +59,7 @@ class Fayslave extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(id2s(ID_TOWER_MORGAN))
+        setUpgradesTo(ID_TOWER_MORGAN.toRawCode())
         setUpgradesUsed("")
 
         // ---------------------------------

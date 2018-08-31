@@ -3,11 +3,11 @@ package Morgan
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 135
 constant RANGE = 600
@@ -44,7 +44,7 @@ class Morgan extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER))
+        setNormalAbilities(ID_SELL_TOWER.toRawCode())
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

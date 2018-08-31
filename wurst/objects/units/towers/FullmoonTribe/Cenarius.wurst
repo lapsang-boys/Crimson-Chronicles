@@ -3,12 +3,12 @@ package Cenarius
 import Assets
 import Damage
 import UnitObjEditing
+import ObjectIds
 
 import TowerDefinition
 import TowerConstants
 import BuilderConstants
 import Tooltip
-import ID2S
 
 constant GOLD_COST = 12
 constant RANGE = 400
@@ -45,7 +45,7 @@ class Malorne extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(id2s(ID_SELL_TOWER) + "," + id2s(ID_DREAMWORLD_ATTACK_DUMMY_ICON))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_DREAMWORLD_ATTACK_DUMMY_ICON))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
