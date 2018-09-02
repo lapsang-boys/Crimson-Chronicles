@@ -1,0 +1,72 @@
+package TowerCharger
+
+import Alexandria
+
+
+// ##################################################################
+// ###################### Tower charger class  ######################
+// ##################################################################
+
+/* Base class for incrementing, decrementing, and triggering a chargecounter system for a tower */
+
+public class TowerCharger extends TowerWrapper
+    unit tower
+    int currentCharges
+    int maxCharges
+    bool verbose
+    string warcry
+
+    construct(unit tower, int maxCharges, bool verbose, string warcry)
+        super(tower)
+        this.tower = tower
+        this.currentCharges = 0
+        this.maxCharges = maxCharges
+        this.verbose = verbose
+        this.warcry = warcry
+
+
+// ##################################################################
+// ###################### Public methods ############################
+// ##################################################################
+
+    function increment() returns bool
+        this.currentCharges += 1
+        this.tower.setMana(I2R(this.currentCharges))
+
+        if this.currentCharges >= this.maxCharges
+            this.currentCharges = 0
+            this.tower.setMana(I2R(this.currentCharges))
+            if this.verbose
+                this.printMax()
+            return true
+
+        if this.verbose
+            this.printInc()
+
+        return false
+
+    function decrement()
+        if this.currentCharges <= 0
+            return
+        this.currentCharges -= 1
+        this.tower.setMana(I2R(this.currentCharges))
+        if this.verbose
+            this.printDec()
+
+    // ##################################################################
+    // ###################### Private methods ###########################
+    // ##################################################################
+
+    private function printInc()
+        createTTEx(tower.getPos3Real(), vec2(0, 0.05), "+1 ("  + this.currentCharges.toString() + "/"
+        + this.maxCharges.toString() +  ")" , 10, 10.5, colorA(188, 231, 112,1))
+
+    private function printDec()
+        createTTEx(tower.getPos3Real(), vec2(0, 0.05), "-1 ("  + this.currentCharges.toString() + "/"
+        + this.maxCharges.toString() +  ")" , 10, 1.5, colorA(229, 55, 31,1))
+
+    private function printMax()
+        createTTEx(tower.getPos3Real(), vec2(0, 0.05), this.warcry , 16, 2, colorA(229, 123, 31,1))
+
+
+

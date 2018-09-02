@@ -1,0 +1,63 @@
+package BlazingSpear
+
+import Assets
+import ChannelAbilityPreset
+
+import Alexandria
+import TowerCharger
+import TowerConstants
+import Tooltip
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+
+@compiletime function generateNotStealth()
+    new ChannelAbilityPreset(ID_BLAZING_SPEAR_DUMMY_ICON, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Blazing spear throw", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("After " + JAVILINIST_MAX_CHARGES.toString() + " attacks the javilinist will" +
+        " throw a powerful spear pierceing several targets, dealing " + JAVILINIST_SPEAR_DAMAGE.toString() + " damage.",
+        JAVILINIST_WARCRY))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNSearingArrows)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+public class FieryJavilinistWrapper extends TowerCharger
+    trigger trig
+
+    construct(unit u, int maxCharges, bool verbose, string warcry)
+        super(u, maxCharges, verbose, warcry)
+        this.trig = CreateTrigger()
+        ..addAction(function javlinThrow)
+        ..addCondition(Condition(function isJavilinist))
+        ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+
+    ondestroy
+        this.trig.destr()
+
+// Check if correct Javilinist
+function isJavilinist() returns bool
+    if not GetAttacker().getTypeId() == ID_TOWER_FIERY_JAVILINIST
+        return false
+
+    FieryJavilinistWrapper javilinist = towerMap.get(GetAttacker().getHandleId()) castTo FieryJavilinistWrapper
+    return javilinist.trig.getHandleId() == GetTriggeringTrigger().getHandleId()
+
+// On attack check
+function javlinThrow()
+    unit u = GetAttacker()
+    FieryJavilinistWrapper javilinist = towerMap.get(u.getHandleId()) castTo FieryJavilinistWrapper
+    javilinist.increment()
+
+
+
+
