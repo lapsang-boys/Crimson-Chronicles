@@ -1,0 +1,84 @@
+package Jevan
+
+import Assets
+import Damage
+import UnitObjEditing
+import ObjectIds
+
+import TowerDefinition
+import TowerConstants
+import Tooltip
+
+constant GOLD_COST = 210
+constant RANGE = 800
+constant ATTACK_SPEED = 1.4
+constant DAMAGE_BASE = 90
+constant DAMAGE_SIDES_PER_DIE = 161
+
+constant POINT_VALUE = GOLD_COST
+
+class Jevan extends TowerDefinition
+    construct(int id)
+        super(id)
+        setRequiredAnimationNames("")
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setIconGameInterface(Icons.bTNHeroTaurenChieftain)
+        setModelFile(Units.heroTaurenChieftain1)
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet(Soundsets.heroTaurenChieftain)
+        setScalingValue(1.)
+        setGroundTexture("HSMA")
+
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
+        setAcquisitionRange(RANGE.toReal())
+        setAttack1Range(RANGE)
+        setAttack1CooldownTime(ATTACK_SPEED)
+        setAttack1DamageBase(DAMAGE_BASE)
+        setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+
+        // ------------------------------------
+        // ========== Spells ==================
+        // ------------------------------------
+        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+
+        // setUnitClassification("mechanichal")
+
+        // ------------------------------------------------
+        // ========== Attack modelfile speed etc ==========
+        // ------------------------------------------------
+        // setAttack1ProjectileArt(Abilities.huntermissile)
+        // setAttack1ProjectileHomingEnabled(true)
+        // setAttack1ProjectileSpeed(1200)
+        // setAttack1WeaponType(WeaponType.Missile)
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
+        setGoldCost(GOLD_COST)
+        setPointValue(POINT_VALUE)
+        setUpgradesTo(ID_TOWER_DEFECTOR.toRawCode())
+        setUpgradesUsed("")
+
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
+        setButtonPositionX(0)
+        setButtonPositionY(0)
+        setHotkey("R")
+        setName("Jevan Grimtotem")
+        setTooltipBasic(tooltipBuild("R", "Jevan Grimtotem"))
+        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
+            ATTACK_SPEED,
+            RANGE,
+            "",
+            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+
+@compiletime function tower()
+    new Jevan(ID_TOWER_JEVAN_GRIM_TOTEM)
