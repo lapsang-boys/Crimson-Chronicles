@@ -44,7 +44,10 @@ class Stalker extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_SONG_OF_RAVENS))
+        setNormalAbilities(commaList(
+            ID_SELL_TOWER,
+            ID_SONG_OF_RAVENS
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

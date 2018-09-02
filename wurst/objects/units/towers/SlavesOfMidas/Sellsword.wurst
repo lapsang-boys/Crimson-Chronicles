@@ -11,9 +11,9 @@ import Tooltip
 
 constant GOLD_COST = 11
 constant RANGE = 128
-constant ATTACK_SPEED = 1.6
-constant DAMAGE_BASE = 11
-constant DAMAGE_SIDES_PER_DIE = 20
+constant ATTACK_SPEED = 1.5
+constant DAMAGE_BASE = 14
+constant DAMAGE_SIDES_PER_DIE = 13
 
 constant POINT_VALUE = GOLD_COST
 

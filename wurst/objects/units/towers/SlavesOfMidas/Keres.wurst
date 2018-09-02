@@ -9,11 +9,11 @@ import TowerDefinition
 import TowerConstants
 import Tooltip
 
-constant GOLD_COST = 180
+constant GOLD_COST = 90
 constant RANGE = 700
-constant ATTACK_SPEED = 1.0
-constant DAMAGE_BASE = 89
-constant DAMAGE_SIDES_PER_DIE = 107
+constant ATTACK_SPEED = 1.1
+constant DAMAGE_BASE = 53
+constant DAMAGE_SIDES_PER_DIE = 46
 
 constant POINT_VALUE = GOLD_COST
 
