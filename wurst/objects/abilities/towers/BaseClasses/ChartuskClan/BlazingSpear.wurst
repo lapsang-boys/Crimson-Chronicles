@@ -2,6 +2,7 @@ package BlazingSpear
 
 import Assets
 import ChannelAbilityPreset
+import TimerUtils
 
 import Alexandria
 import TowerCharger
@@ -13,7 +14,7 @@ import Tooltip
 // ##################################################################
 
 
-@compiletime function generateNotStealth()
+@compiletime function generateBlazingSpearDummy()
     new ChannelAbilityPreset(ID_BLAZING_SPEAR_DUMMY_ICON, 1, true)
         ..setHotkeyNormal("")
         ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Blazing spear throw", ""))
@@ -26,6 +27,21 @@ import Tooltip
         ..setButtonPositionNormalX(0)
         ..setButtonPositionNormalY(2)
 
+@compiletime function generateBlazingSpear()
+    new AbilityDefinitionAlchemistAcidBomb(ID_BLAZING_SPEAR)
+    ..setMissileArt(Abilities.fireBallMissile)
+    ..setMissileArc(0.05)
+    ..setMissileSpeed(1200)
+
+    ..setDurationNormal(1, 0.2)
+    ..setPrimaryDamage(1, 500)
+    ..setSecondaryDamage(1, 0)
+
+    ..setManaCost(1, 0)
+    ..setCastingTime(1, 0.4)
+    ..setCastRange(1, 1200)
+
+
 
 // ##################################################################
 // ###################### Ability script ############################
@@ -33,15 +49,22 @@ import Tooltip
 
 public class FieryJavilinistWrapper extends TowerCharger
     trigger trig
+    timer t
+    unit attacked
 
     construct(unit u, int maxCharges, bool verbose, string warcry)
         super(u, maxCharges, verbose, warcry)
+
+        this.t = getTimer()
         this.trig = CreateTrigger()
+
         ..addAction(function javlinThrow)
         ..addCondition(Condition(function isJavilinist))
         ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
 
+
     ondestroy
+        this.t.release()
         this.trig.destr()
 
 // Check if correct Javilinist
@@ -55,8 +78,43 @@ function isJavilinist() returns bool
 // On attack check
 function javlinThrow()
     unit u = GetAttacker()
+    unit a = GetAttackedUnitBJ()
     FieryJavilinistWrapper javilinist = towerMap.get(u.getHandleId()) castTo FieryJavilinistWrapper
-    javilinist.increment()
+
+    if a != javilinist.attacked
+        javilinist.reset()
+        javilinist.increment()
+        javilinist.attacked = a
+        return
+
+
+    if not javilinist.increment() // increment returns true if max reached
+        return
+
+    javilinist.tower.pause()
+    javilinist.tower.setAnimation("morph")
+    // Reset timer for stealth
+    javilinist.t.setData(javilinist castTo int)
+    javilinist.t.start(1, function castJavilin)
+
+
+function castJavilin()
+    timer t = GetExpiredTimer()
+    FieryJavilinistWrapper javlinist = t.getData() castTo FieryJavilinistWrapper
+    javlinist.tower.unpause()
+
+    // Add ability
+    javlinist.tower.addAbility(ID_BLAZING_SPEAR)
+    javlinist.tower.setAbilityLevel(ID_BLAZING_SPEAR, 1)
+    javlinist.tower.setAbilityCooldown(ID_BLAZING_SPEAR, 1, 0)
+    // Cast ability
+    if javlinist.attacked.isAlive()
+        javlinist.tower.issueTargetOrder("acidbomb", javlinist.attacked)
+
+    // TODO:
+    // Remove abiliy or change to a dummy caster and use animations on javilinist
+
+
 
 
 
