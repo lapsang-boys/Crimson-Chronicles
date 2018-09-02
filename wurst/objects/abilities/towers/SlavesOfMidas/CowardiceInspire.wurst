@@ -12,6 +12,7 @@ import TowerConstants
 import Tooltip
 
 constant INSPIRE_RANGE = 256.0
+constant ATTACK_SPEED_INCREASE = 0.2
 
 class Inspire extends AbilityDefinitionAuraEnduranceCreep
     construct(int id)
@@ -32,9 +33,15 @@ class Inspire extends AbilityDefinitionAuraEnduranceCreep
         setHeroAbility(false)
         setRequirements("")
 
-        setTargetsAllowed(1, "structure,self,friend")
+        setTargetsAllowed(1, commaList(
+            TargetsAllowed.friend,
+            TargetsAllowed.structure,
+            TargetsAllowed.mechanical
+        ))
 
-        setAttackSpeedIncrease(1, 0.2)
+        setDurationNormal(1, 0)
+
+        setAttackSpeedIncrease(1, ATTACK_SPEED_INCREASE)
         setManaCost(1, 0)
         setCastRange(1, INSPIRE_RANGE)
         setAreaofEffect(1, INSPIRE_RANGE)
@@ -62,12 +69,13 @@ class InspireTarget implements ForGroupCallback
     bool inspire
     construct(bool inspire)
         this.inspire = inspire
+    
     override function callback(unit u)
-        print("Found unit!")
         if isSellsword(u)
             // Remove defend animation if inspired.
             if this.inspire
                 AddUnitAnimationProperties(u, "defend", false)
+            
             // Add defend animation if not inspired.
             else if not u.hasAbility(ID_HIGH_MORALE_BUFF)
                 AddUnitAnimationProperties(u, "defend", true)
@@ -82,15 +90,14 @@ public class Defector extends TowerWrapper
         AddUnitAnimationProperties(this.u, "defend", false)
         this.e = addEffect(Doodads.bannerHuman1, this.u.getPos()+vec2(32, 32))
         doAfter(1., () -> begin
-            print("Finding cowards")
-            forUnitsInRange(this.u.getPos(), INSPIRE_RANGE, new InspireTarget(true))
+            forUnitsInRange(this.u.getPos(), INSPIRE_RANGE+32, new InspireTarget(true))
         end)
 
     ondestroy
+        vec2 pos = this.u.getPos()
         this.e.destr()
         doAfter(5., () -> begin
-            print("Finding cowards")
-            forUnitsInRange(this.u.getPos(), INSPIRE_RANGE, new InspireTarget(false))
+            forUnitsInRange(pos, INSPIRE_RANGE+32, new InspireTarget(false))
         end)
 
 public class Sellsword

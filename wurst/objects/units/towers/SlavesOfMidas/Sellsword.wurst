@@ -47,7 +47,9 @@ class Sellsword extends TowerDefinition
         // ------------------------------------
         setNormalAbilities(ID_SELL_TOWER.toRawCode())
 
-        // setUnitClassification("mechanichal")
+        setUnitClassification(commaList(
+            UnitClassification.mechanical
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
