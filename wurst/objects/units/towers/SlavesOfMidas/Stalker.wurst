@@ -77,7 +77,7 @@ class Stalker extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Song of Ravens",
             "Tracking and marksmanship are two very valuable skills for mercenaries. Finishing of deserting troops pays well, and is surprisingly entertaining."))
 
 @compiletime function tower()
