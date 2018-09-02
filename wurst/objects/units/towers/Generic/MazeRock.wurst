@@ -55,7 +55,7 @@ class MazeRock extends TowerDefinition
         setHotkey("F")
         setName("Maze rock")
         setTooltipBasic(tooltipBuild("F", "Maze rock"))
-        setTooltipExtended(tooltipTextFlavor("Warning this tower cannot attack it's solely used for mazing",
+        setTooltipExtended(tooltipTextFlavor("Warning! This tower cannot attack. It's solely used for mazing.",
         "Most imbaincarnated tower of doom. It does not have attack nor an imba spell just pure awesomness."))
 
 @compiletime function tower()
