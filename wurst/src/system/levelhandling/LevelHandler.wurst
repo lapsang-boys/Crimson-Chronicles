@@ -86,7 +86,7 @@ function levelComplete(PlayerData pd)
         return
 
     if finishedLevel == 0
-        printTimedToPlayer(infoColor.colorize("You have completed the info level."), DISPLAY_TIME, pd.p)
+        printTimedToPlayer(infoColor.colorize("You have completed the info level. Use your ability to summon the first wave.|n"), DISPLAY_TIME, pd.p)
         // Play complete info level sound.
         SoundDefinition sd = new SoundDefinition(Sounds.jainaWhat1, false)
         sd.playForPlayer(pd.p)
