@@ -1,11 +1,10 @@
-package CowardiceInspire
+package CowardiceLeadership
 
 import Assets
 import ClosureTimers
 import BuffObjEditing
 import ClosureForGroups
-import AbilityObjEditing
-import ObjectIds
+import ChannelAbilityPreset
 
 import Alexandria
 import TowerConstants
@@ -14,15 +13,27 @@ import Tooltip
 constant INSPIRE_RANGE = 256.0
 constant ATTACK_SPEED_INCREASE = 0.2
 
-class Inspire extends AbilityDefinitionAuraEnduranceCreep
+@compiletime function generateCowardiceDummy()
+    new ChannelAbilityPreset(ID_COWARDICE, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Cowardice", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Hiding behind their shields, the newly recruited sellswords have a reduced attack speed.",
+        "There has been discussions about whether it's more economical to not hand out shields to new recruits. The reasoning goes that the money could just go towards recruiting instead."))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNAmbush)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+class Leadership extends AbilityDefinitionAuraEnduranceCreep
     construct(int id)
         super(id)
 
-        setName("Inspire")
+        setName("Leadership")
         setHotkeyNormal("")
-        setTooltipNormal(1, tooltipCustomBasic("Passive", "Inspire", ""))
+        setTooltipNormal(1, tooltipCustomBasic("Passive", "Leadership", ""))
         setTooltipNormalExtended(1, tooltipTextFlavor("Inspire fellow soliders to increase their ferocity in battle.",
-        ""))
+        "What we will achieve today will make our legacy immortal. Raise your sword and together we will charge towards our promised fate."))
 
         setButtonPositionNormalX(0)
         setButtonPositionNormalY(2)
@@ -49,7 +60,6 @@ class Inspire extends AbilityDefinitionAuraEnduranceCreep
         setLevels(1)
         setBuffs(1, ID_HIGH_MORALE_BUFF.toRawCode())
         setMissileArt("")
-
 
 class HighMoraleBuff extends BuffDefinition
     construct(int newBuffId, int origBuggId)
@@ -114,4 +124,4 @@ function isSellsword(unit u) returns bool
 
 @compiletime function generateSpellsAndBuffs()
     new HighMoraleBuff(ID_HIGH_MORALE_BUFF, ID_HIGH_MORALE_BUFF_BASE)
-    new Inspire(ID_INSPIRE)
+    new Leadership(ID_INSPIRE)
