@@ -46,7 +46,10 @@ class Sellsword extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+        setNormalAbilities(commaList(
+            ID_SELL_TOWER,
+            ID_COWARDICE
+        ))
 
         setUnitClassification(commaList(
             UnitClassification.mechanical
@@ -80,7 +83,7 @@ class Sellsword extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Cowardice",
             "Took up the blade to earn a living when his village was burned to the ground. The vicious cycle continues to reap new victims."))
 
 @compiletime function tower()
