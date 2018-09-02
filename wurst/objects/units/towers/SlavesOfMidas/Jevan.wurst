@@ -64,6 +64,9 @@ class Jevan extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo(ID_TOWER_DEFECTOR.toRawCode())
         setUpgradesUsed("")
+        setRequirements(commaList(
+            ID_UNLOCKED_IN_ZONE_3
+        ))
 
         // ---------------------------------
         // ========== Description ==========

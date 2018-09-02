@@ -2,6 +2,12 @@ package TowerConstants
 
 import ObjectIdGenerator
 
+// ------------------------------------------
+// ========= Research settings ==============
+// ------------------------------------------
+public constant ID_UNLOCKED_IN_ZONE_2 = compiletime(UPGD_ID_GEN.next())
+public constant ID_UNLOCKED_IN_ZONE_3 = compiletime(UPGD_ID_GEN.next())
+
 // Format:
 // -------------- XX tower -----------
 // ID_TOWER_XX          = .... (unit id)

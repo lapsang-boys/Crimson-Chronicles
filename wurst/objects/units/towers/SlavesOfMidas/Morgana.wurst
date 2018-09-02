@@ -61,6 +61,9 @@ class Morgan extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
+        setRequirements(commaList(
+            ID_UNLOCKED_IN_ZONE_2
+        ))
 
         // ---------------------------------
         // ========== Description ==========

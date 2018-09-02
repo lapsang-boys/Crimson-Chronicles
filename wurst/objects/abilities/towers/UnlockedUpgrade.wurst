@@ -1,0 +1,20 @@
+package UnlockedUpgrade
+
+import UpgradeObjEditing
+
+import TowerConstants
+
+class UnlockedZone2 extends UpgradeDefinition
+    construct(int id)
+        super(id)
+        setName(1, "Unlocked in Zone 2")
+
+class UnlockedZone3 extends UpgradeDefinition
+    construct(int id)
+        super(id)
+        setName(1, "Unlocked in Zone 3")
+
+
+@compiletime function upgrades()
+    new UnlockedZone2(ID_UNLOCKED_IN_ZONE_2)
+    new UnlockedZone3(ID_UNLOCKED_IN_ZONE_3)
