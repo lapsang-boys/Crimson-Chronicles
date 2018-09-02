@@ -24,6 +24,10 @@ class Builder extends UnitDefinition
         setButtonPositionY(0)
         setHotkey("E")
 
+        setUnitClassification(commaList(
+            UnitClassification.peon
+        ))
+
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
