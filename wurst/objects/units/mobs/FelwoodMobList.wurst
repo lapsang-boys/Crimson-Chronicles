@@ -15,8 +15,8 @@ import GameplayConstants
 public constant ID_SPELL_CROW_MORPH = compiletime(ABIL_ID_GEN.next())
 public constant ID_SPELL_INFERNAL_COIL = compiletime(ABIL_ID_GEN.next())
 
-public constant LinkedList<int> ID_MOB_STAG =                         new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_PATH_SHOWER =                  new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_STAG =                         new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_DIRE_WOLF =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_DEMONIC_SATYR =                new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 public constant LinkedList<int> ID_MOB_FEL_TREANT =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
