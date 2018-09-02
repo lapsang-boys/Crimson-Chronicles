@@ -73,12 +73,12 @@ class Stalker extends TowerDefinition
         setHotkey("W")
         setName("Stalker")
         setTooltipBasic(tooltipBuild("W", "Stalker"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setTooltipExtended(tooltipTowerExtended("Cheap ranged tower which specializes in picking of weak enemies.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "Tracking and marksmanship are two very valuable skills for mercenaries. Finishing of deserting troops pays well, and is surprisingly entertaining."))
 
 @compiletime function tower()
     new Stalker(ID_TOWER_STALKER)

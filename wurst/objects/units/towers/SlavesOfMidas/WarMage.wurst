@@ -1,4 +1,4 @@
-package Morgan
+package WarMage
 
 import Assets
 import Damage
@@ -9,26 +9,26 @@ import TowerDefinition
 import TowerConstants
 import Tooltip
 
-constant GOLD_COST = 135
-constant RANGE = 600
-constant ATTACK_SPEED = 0.6
-constant DAMAGE_BASE = 45
-constant DAMAGE_SIDES_PER_DIE = 53
+constant GOLD_COST = 70
+constant RANGE = 500
+constant ATTACK_SPEED = 0.7
+constant DAMAGE_BASE = 20
+constant DAMAGE_SIDES_PER_DIE = 22
 
 constant POINT_VALUE = GOLD_COST
 
-class Morgan extends TowerDefinition
+class WarMage extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNJaina)
-        setModelFile(Units.jaina1)
+        setIconGameInterface(Icons.bTNSorceress)
+        setModelFile(Units.sorceress1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.jaina)
+        setUnitSoundSet(Soundsets.sorceress)
         setScalingValue(1.0)
         setGroundTexture("HSMA")
 
@@ -59,23 +59,24 @@ class Morgan extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo("")
+        setUpgradesTo(ID_TOWER_MORGAN.toRawCode())
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(3)
-        setButtonPositionY(2)
-        setHotkey("Q")
-        setName("Morgan Le Faye")
-        setTooltipBasic(tooltipBuild("Q", "Morgan Le Faye"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setButtonPositionX(2)
+        setButtonPositionY(0)
+        setHotkey("E")
+        setName("War Mage")
+        setTooltipBasic(tooltipBuild("E", "War Mage"))
+        setTooltipExtended(tooltipTowerExtended("Quick and focused damage dealing tower.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "WANTED: An unconcerned and arcane/necromancy specialized war mage for adventurous crusades.|n|n" +
+            "OFFERING: Ample chance to practice destructive spells and coin for magic supplies (we also supply fresh corpses!)"))
 
 @compiletime function tower()
-    new Morgan(ID_TOWER_MORGAN)
+    new WarMage(ID_TOWER_WAR_MAGE)

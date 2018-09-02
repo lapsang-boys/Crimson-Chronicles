@@ -1,4 +1,4 @@
-package Fayslave
+package Morgana
 
 import Assets
 import Damage
@@ -9,26 +9,26 @@ import TowerDefinition
 import TowerConstants
 import Tooltip
 
-constant GOLD_COST = 70
-constant RANGE = 500
-constant ATTACK_SPEED = 0.7
-constant DAMAGE_BASE = 20
-constant DAMAGE_SIDES_PER_DIE = 22
+constant GOLD_COST = 135
+constant RANGE = 600
+constant ATTACK_SPEED = 0.6
+constant DAMAGE_BASE = 45
+constant DAMAGE_SIDES_PER_DIE = 53
 
 constant POINT_VALUE = GOLD_COST
 
-class Fayslave extends TowerDefinition
+class Morgan extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNSorceress)
-        setModelFile(Units.sorceress1)
+        setIconGameInterface(Icons.bTNJaina)
+        setModelFile(Units.jaina1)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.sorceress)
+        setUnitSoundSet(Soundsets.jaina)
         setScalingValue(1.0)
         setGroundTexture("HSMA")
 
@@ -59,23 +59,27 @@ class Fayslave extends TowerDefinition
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID_TOWER_MORGAN.toRawCode())
+        setUpgradesTo("")
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(2)
-        setButtonPositionY(0)
-        setHotkey("E")
-        setName("Fayslave")
-        setTooltipBasic(tooltipBuild("E", "Fayslave"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setButtonPositionX(3)
+        setButtonPositionY(2)
+        setHotkey("Q")
+        setName("Morgana Frostwolf")
+        setTooltipBasic(tooltipBuild("Q", "Morgana Frostwolf"))
+        setTooltipExtended(tooltipTowerExtended("Crowd controlling tower with rapid attacks.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "Terms and conditions|n|n" +
+            "1. Between sieges, generous amount of time off shall be scheduled to allow for reviewing arcane publications.|n|n" +
+            "...|n|n" +
+            "47. Henceforth, the mercenary shall be titulated Miss. Snowflake on the battlefield.|n|n" + 
+            "Signed, Morgana Frostwolf & Hawkwood"))
 
 @compiletime function tower()
-    new Fayslave(ID_TOWER_FAYSLAVE)
+    new Morgan(ID_TOWER_MORGAN)

@@ -68,14 +68,14 @@ class Defector extends TowerDefinition
         setButtonPositionX(3)
         setButtonPositionY(2)
         setHotkey("Q")
-        setName("Alterac Defector")
-        setTooltipBasic(tooltipBuild("Q", "Alterac Defector"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setName("Stromgarde Defector")
+        setTooltipBasic(tooltipBuild("Q", "Stromgarde Defector"))
+        setTooltipExtended(tooltipTowerExtended("Center piece of the brigade. Removes fear from unexperienced sellswords, enabling them to attack more fiercly.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "\"Losing your first comrade hurts like losing your own flesh and blood. Now I will send any soldier to their to death in order to earn my paycheck without batting an eye.|n|nFunny how things change.\""))
 
 @compiletime function tower()
     new Defector(ID_TOWER_DEFECTOR)

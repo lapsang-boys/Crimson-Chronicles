@@ -70,12 +70,12 @@ class Keres extends TowerDefinition
         setHotkey("Q")
         setName("Keres")
         setTooltipBasic(tooltipBuild("Q", "Keres"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setTooltipExtended(tooltipTowerExtended("Highly deadly tower with impressive range.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "\"The Daughter of Death\". She earned her morbid nickname officially from her achievements and capability of killing anyone, unconditionally and unexpectedly. Like Death herself.|n|nBut, everyone knows its actually due to her huge grin everytime she kills her target."))
 
 @compiletime function tower()
     new Keres(ID_TOWER_KERES)

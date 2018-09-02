@@ -54,7 +54,7 @@ class Sellsword extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        // setAttack1ProjectileArt(Abilities.huntermissile)
+        setAttack1ProjectileArt("")
         // setAttack1ProjectileHomingEnabled(true)
         // setAttack1ProjectileSpeed(1200)
         // setAttack1WeaponType(WeaponType.Missile)
@@ -75,12 +75,12 @@ class Sellsword extends TowerDefinition
         setHotkey("Q")
         setName("Sellsword")
         setTooltipBasic(tooltipBuild("Q", "Sellsword"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setTooltipExtended(tooltipTowerExtended("Cheap melee tower that hits hard. Hides behind a shield which limits his potential.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "Took up the blade to earn a living when his village was burned to the ground. The vicious cycle continues to reap new victims."))
 
 @compiletime function tower()
     new Sellsword(ID_TOWER_SELLSWORD)
