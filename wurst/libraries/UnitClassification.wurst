@@ -1,0 +1,29 @@
+package UnitClassification
+
+public class UnitClassification
+	// Ancient - Causes the night elf worker to disappear when finishing constructing. Maybe also the only way to make work the root ability correctly (didn't try
+	static constant ancient    = "ancient"
+	// Giant does nothing except showing a text 'Giant' and allowing trigger manipulation (lol). 
+	static constant giant      = "giant"
+	// Causes the unit to burn if heavily damaged, sound always, fire if the correct attachments are present in the model. Also serves as a filtering classification for the most spells and abilities.
+	static constant mechanical = "mechanical"
+	//  Neutral shows a level number in the classification field when you mark the unit.
+	static constant neutral    = "neutral"
+	// Unable to load into transportation.
+	static constant sapper     = "sapper"
+	// Allows to some dispel spells to cause direct damage on these kind of units.
+	static constant summoned   = "summoned"
+	// Only legal target for the ancestral spirit ability.
+	static constant tauren     = "tauren"
+	// To mark the unit as a gathering point for the AI and used by some melee rules.
+	static constant townhall   = "townhall"
+	// Tree marks a target for some units (workers, siege machines).
+	static constant tree       = "tree"
+	// Another filter for some spells and abilities which sadly can't be changed in abilities data fields.
+	static constant undead     = "undead"
+	// Also called walkable. Circle of power etc.
+	static constant standon    = "standon"
+	// Removes the commands panel.
+	static constant ward       = "ward"
+	// Disables auto attack, appearing the icon when idle (current order is stop), AI recognization.
+	static constant peon       = "peon"
