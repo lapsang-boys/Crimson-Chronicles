@@ -71,14 +71,14 @@ class Jevan extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(0)
         setHotkey("R")
-        setName("Jevan Grimtotem")
-        setTooltipBasic(tooltipBuild("R", "Jevan Grimtotem"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setName("Jevan Tempesthorn")
+        setTooltipBasic(tooltipBuild("R", "Jevan Tempesthorn"))
+        setTooltipExtended(tooltipTowerExtended("Long ranged, heavy-hitting tower capable of summoning aiding spirits.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
+            "Warriors of Tempesthorn rarely start a fight. But, they always end it."))
 
 @compiletime function tower()
     new Jevan(ID_TOWER_JEVAN)
