@@ -1,0 +1,71 @@
+package ChartuskClanBuilder
+
+import Assets
+import UnitObjEditing
+import ObjectIds
+
+import BuilderConstants
+import TowerConstants
+import Tooltip
+
+class Builder extends UnitDefinition
+    construct(int id)
+        super(id, 'uaco')
+
+        // ------------------------------------
+        // ========== Tavern ==================
+        // ------------------------------------
+        setName("Kora Smokefur")
+        setTooltipBasic(tooltipCustomBasic("E", "Chartusk Clan", "Select"))
+        setTooltipExtended(tooltipTextFlavor(
+            "TODO: Team description",
+            "Something come to close the flame and it will burn you, become the flame and embrace its power."))
+        setButtonPositionX(2)
+        setButtonPositionY(0)
+        setHotkey("E")
+
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setModelFile(Units.spiritWalker)
+        setIconGameInterface(ICON_BUILDER_CHARTUSK_CLAN)
+        setUnitSoundSet(Soundsets.spiritWalker)
+
+        // --------------------------------------------
+        // ========== Buildings and abilities =========
+        // --------------------------------------------
+        setStructuresBuilt(commaList(
+            ID_TOWER_MAZE_ROCK,
+            ID_TOWER_GRUNT,
+            ID_TOWER_EMBER_LEECH_ASPIRANT,
+            ID_TOWER_FIERY_JAVILINIST
+        ))
+
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_NEXT_LEVEL,
+            ID_FOCUS_FIRE
+        ))
+
+        // ------------------------------------
+        // ========== Other constants =========
+        // ------------------------------------
+        setAttacksEnabled(0)
+        setSpeedBase(300)
+        setMovementType(MovementType.Fly)
+        setMovementHeight(0.)
+        setCollisionSize(0)
+        setPointValue(0)
+
+        setFoodCost(0)
+        setGoldCost(0)
+        setLumberCost(0)
+        setHitPointsMaximumBase(1)
+        setHitPointsRegenerationType("none")
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+
+
+@compiletime function builder()
+    new Builder(ID_BUILDER_CHARTUSK_CLAN)

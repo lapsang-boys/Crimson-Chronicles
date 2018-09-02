@@ -89,3 +89,16 @@ public constant ID_TOWER_ASSASSIN_STEALTH = compiletime(ABIL_ID_GEN.next())
 public constant ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH = compiletime(ABIL_ID_GEN.next())
 public constant ASSASSINATE_STEALTH_TIME = 10.
 public constant ASSASSINATE_STEALTH_BONUS_DMG = 5
+
+// ------------------------------------------------------
+// ================ Chartusk Clan ==================
+// ------------------------------------------------------
+
+// -------------- Grunt -----------`
+public constant ID_TOWER_GRUNT = compiletime(UNIT_ID_GEN.next())
+
+// -------------- Ember leech aspirant -----------
+public constant ID_TOWER_EMBER_LEECH_ASPIRANT = compiletime(UNIT_ID_GEN.next())
+
+// -------------- Fiery javilinist -----------
+public constant ID_TOWER_FIERY_JAVILINIST = compiletime(UNIT_ID_GEN.next())

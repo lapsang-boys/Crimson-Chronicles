@@ -1,0 +1,85 @@
+package FieryJavilinist
+
+import Assets
+import Damage
+import UnitObjEditing
+import ObjectIds
+
+import TowerDefinition
+import TowerConstants
+import BuilderConstants
+import Tooltip
+
+constant GOLD_COST = 150
+constant RANGE = 400
+constant ATTACK_SPEED = 0.6
+constant DAMAGE_BASE = 64
+constant DAMAGE_SIDES_PER_DIE = 14
+
+constant POINT_VALUE = GOLD_COST
+
+class FieryJavilinist extends TowerDefinition
+    construct(int id)
+        super(id)
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setIconGameInterface(Icons.bTNHeadHunterBerserker)
+        setModelFile(Units.headhunter_V1)
+        setRequiredAnimationNames("alternate") // To get big troll
+        setRequiredAttachmentLinkNames("alternate")
+        setRequiredBoneNames("alternate")
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet(Soundsets.headHunter)
+        setScalingValue(1.)
+        setGroundTexture(ID_CHARTUSK_CLAN_GROUND_TEXTURE)
+
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
+        setAcquisitionRange(RANGE.toReal())
+        setAttack1Range(RANGE)
+        setAttack1CooldownTime(ATTACK_SPEED)
+        setAttack1DamageBase(DAMAGE_BASE)
+        setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+
+        // ------------------------------------
+        // ========== Spells ==================
+        // ------------------------------------
+        setNormalAbilities(commaList(ID_SELL_TOWER))
+
+        // ------------------------------------------------
+        // ========== Attack modelfile speed etc ==========
+        // ------------------------------------------------
+        setAttack1ProjectileArt(Abilities.huntermissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1400)
+        setAttack1WeaponType(WeaponType.Missile)
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
+        setGoldCost(GOLD_COST)
+        setPointValue(POINT_VALUE)
+        setUpgradesTo("")
+        setUpgradesUsed("")
+
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
+        setButtonPositionX(2)
+        setButtonPositionY(0)
+        setHotkey("E")
+        setName("Fiery Javilinist")
+        setTooltipBasic(tooltipBuild("E", "FieryJavilinist"))
+        setTooltipExtended(tooltipTowerExtended("High damage tower with the ability to place traps.",
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
+            ATTACK_SPEED,
+            RANGE,
+            "Trap",
+            "As the apprentice of Lea Stoneclaw herself FieryJavilinist is fearless hunter that knows every trick there is in the huners arsenal."))
+
+@compiletime function tower()
+    new FieryJavilinist(ID_TOWER_FIERY_JAVILINIST)
