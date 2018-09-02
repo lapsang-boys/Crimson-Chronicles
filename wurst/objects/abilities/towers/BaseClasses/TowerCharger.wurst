@@ -36,8 +36,8 @@ public class TowerCharger extends TowerWrapper
         if this.currentCharges >= this.maxCharges
             this.currentCharges = 0
             this.tower.setMana(I2R(this.currentCharges))
-            if this.verbose
-                this.printMax()
+            this.printMax()
+
             return true
 
         if this.verbose
@@ -52,6 +52,10 @@ public class TowerCharger extends TowerWrapper
         this.tower.setMana(I2R(this.currentCharges))
         if this.verbose
             this.printDec()
+
+    function reset()
+        this.currentCharges = 0
+        this.tower.setMana(I2R(this.currentCharges))
 
     // ##################################################################
     // ###################### Private methods ###########################
