@@ -23,10 +23,13 @@ public function tooltipTextFlavor(string text, string flavor) returns string
            + flavorColor.colorize(flavor)
 
 public function tooltipTowerExtended(string text, damage dmg, real speed, int range, string abilities, string flavor) returns string
+    // Short ranges are more intuitive to read as melee.
+    string rangeStr = range <= 128 ? "Melee" : range.toString()
+
     string tooltip = textColor.colorize(text) + "|n|n"
            + fieldColor.colorize("Damage:  ") + valueColor.colorize(dmg.toString()) + "|n"
            + fieldColor.colorize("Speed:      ") + valueColor.colorize(speed.toString()) + "|n"
-           + fieldColor.colorize("Range:      ") + valueColor.colorize(range.toString()) + "|n"
+           + fieldColor.colorize("Range:      ") + valueColor.colorize(rangeStr) + "|n"
 
     if abilities.length() > 0
         tooltip += fieldColor.colorize("Abilities:   ") + valueColor.colorize(abilities) + "|n"
