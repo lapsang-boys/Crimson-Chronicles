@@ -106,6 +106,6 @@ public constant ID_TOWER_EMBER_LEECH_ASPIRANT = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_FIERY_JAVILINIST = compiletime(UNIT_ID_GEN.next())
 public constant ID_BLAZING_SPEAR = compiletime(ABIL_ID_GEN.next())
 public constant ID_BLAZING_SPEAR_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
-public constant JAVILINIST_MAX_CHARGES = 10
+public constant JAVILINIST_MAX_CHARGES = 5
 public constant JAVILINIST_SPEAR_DAMAGE = 100
 public constant JAVILINIST_WARCRY = "Taz'dingo!"

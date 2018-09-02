@@ -60,6 +60,8 @@ class FieryJavilinist extends TowerDefinition
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileSpeed(1400)
         setAttack1WeaponType(WeaponType.Missile)
+        setScaleProjectiles(true)
+        setSelectionScale(1.2)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========

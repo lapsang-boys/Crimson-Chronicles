@@ -38,7 +38,7 @@ function hook()
 
         // ==== Chartusk Clan ====
         case ID_TOWER_FIERY_JAVILINIST
-            new FieryJavilinistWrapper(u, JAVILINIST_MAX_CHARGES, true, JAVILINIST_WARCRY)
+            new FieryJavilinistWrapper(u, JAVILINIST_MAX_CHARGES, false, JAVILINIST_WARCRY)
 
         // ---------------------------------------------------
         default
