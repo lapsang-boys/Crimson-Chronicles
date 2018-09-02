@@ -4,6 +4,7 @@ import Assets
 import UnitObjEditing
 import ObjectIds
 
+import UnitClassification
 import BuilderConstants
 import TowerConstants
 import Tooltip
