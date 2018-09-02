@@ -43,7 +43,7 @@ class Builder extends UnitDefinition
             ID_TOWER_SELLSWORD,
             ID_TOWER_STALKER,
             ID_TOWER_WAR_MAGE,
-            ID_TOWER_JEVAN_GRIM_TOTEM))
+            ID_TOWER_JEVAN))
         
         setNormalAbilities(commaList(
             AbilityIds.invulnerable,
