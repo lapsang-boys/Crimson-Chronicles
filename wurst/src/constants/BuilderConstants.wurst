@@ -32,6 +32,12 @@ public constant SOUND_BUILDER_FULLMOON_TRIBE = Sounds.naishaWarcry1
 public constant ICON_BUILDER_FULLMOON_TRIBE = Icons.bTNHuntress
 public constant ID_FULLMOON_TRIBE_GROUND_TEXTURE = "ESMB"
 
+// -------------- Chartusk Clan builder ------------
+public constant ID_BUILDER_CHARTUSK_CLAN = compiletime(UNIT_ID_GEN.next())
+public constant SOUND_BUILDER_CHARTUSK_CLAN = Sounds.whiteTaurenYes5
+public constant ICON_BUILDER_CHARTUSK_CLAN = Icons.bTNSpiritWalker
+public constant ID_CHARTUSK_CLAN_GROUND_TEXTURE = "OSMA"
+
 // ------------------------------------------
 // ================ Hashmaps ================
 // ------------------------------------------
@@ -40,11 +46,13 @@ public constant ID_FULLMOON_TRIBE_GROUND_TEXTURE = "ESMB"
 public HashMap<int, string> SUMMON_LEVEL_SOUND_MAP = new HashMap<int, string>
 ..put(ID_BUILDER_SLAVES_OF_MIDAS, SOUND_BUILDER_SLAVES_OF_MIDAS)
 ..put(ID_BUILDER_FULLMOON_TRIBE, SOUND_BUILDER_FULLMOON_TRIBE)
+..put(ID_BUILDER_CHARTUSK_CLAN, SOUND_BUILDER_CHARTUSK_CLAN)
 
 // Builder icon hashmap
 public HashMap<int, string> LEADERBOARD_ICON_MAP = new HashMap<int, string>
 ..put(ID_BUILDER_SLAVES_OF_MIDAS, ICON_BUILDER_SLAVES_OF_MIDAS)
 ..put(ID_BUILDER_FULLMOON_TRIBE, ICON_BUILDER_FULLMOON_TRIBE)
+..put(ID_BUILDER_CHARTUSK_CLAN, ICON_BUILDER_CHARTUSK_CLAN)
 
 // ------------------------------------------------------------
 // ================ Builder specific abilities ================

@@ -25,7 +25,9 @@ class Tavern extends TowerDefinition
 
         setUnitsSold(commaList(
             ID_BUILDER_SLAVES_OF_MIDAS,
-            ID_BUILDER_FULLMOON_TRIBE))
+            ID_BUILDER_FULLMOON_TRIBE,
+            ID_BUILDER_CHARTUSK_CLAN
+        ))
 
         // ------------------------------------
         // ========== Attack damage ==========
@@ -35,7 +37,7 @@ class Tavern extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities("avul")
+        setNormalAbilities(toRawCode(AbilityIds.invulnerable))
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
