@@ -5,6 +5,7 @@ import Damage
 import UnitObjEditing
 import ObjectIds
 
+import UnitClassification
 import TowerDefinition
 import TowerConstants
 import Tooltip
