@@ -41,8 +41,8 @@ public constant ID_TOWER_KERES = compiletime(UNIT_ID_GEN.next())
 // -------------- Fayslave + Morgan Le Faye ----------------------
 public constant ID_TOWER_WAR_MAGE = compiletime(UNIT_ID_GEN.next())
 public constant ID_TOWER_MORGAN = compiletime(UNIT_ID_GEN.next())
-// -------------- Jevan Grimtotem ----------------------
-public constant ID_TOWER_JEVAN_GRIM_TOTEM = compiletime(UNIT_ID_GEN.next())
+// -------------- Jevan Tempesthorn ----------------------
+public constant ID_TOWER_JEVAN = compiletime(UNIT_ID_GEN.next())
 
 // ------------------------------------------------------
 // ================ The fullmoon tribe ==================

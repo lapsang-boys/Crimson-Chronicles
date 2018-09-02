@@ -81,4 +81,4 @@ class Jevan extends TowerDefinition
             "It is said that amber eyes are a sign of natural ability for druidic magic but they also provide great vision in moonlight."))
 
 @compiletime function tower()
-    new Jevan(ID_TOWER_JEVAN_GRIM_TOTEM)
+    new Jevan(ID_TOWER_JEVAN)
