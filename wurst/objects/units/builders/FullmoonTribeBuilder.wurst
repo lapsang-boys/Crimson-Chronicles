@@ -9,8 +9,6 @@ import BuilderConstants
 import TowerConstants
 import Tooltip
 
-import FelwoodMobList
-
 class Builder extends UnitDefinition
     construct(int id)
         super(id, 'uaco')
@@ -52,8 +50,8 @@ class Builder extends UnitDefinition
         setNormalAbilities(commaList(
             AbilityIds.invulnerable,
             ID_NEXT_LEVEL,
-            ID_FOCUS_FIRE,
-            ID_SPELL_INFERNAL_COIL))
+            ID_FOCUS_FIRE
+            ))
 
         // ------------------------------------
         // ========== Other constants =========
