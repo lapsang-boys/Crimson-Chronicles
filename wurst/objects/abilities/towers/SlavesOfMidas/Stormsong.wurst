@@ -1,0 +1,85 @@
+package Stormsong
+
+import Assets
+import ClosureTimers
+import ChannelAbilityPreset
+
+import Alexandria
+import TowerConstants
+import Tooltip
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+@compiletime function generateManaBreakDummy()
+    new ChannelAbilityPreset(ID_STORMSONG_DUMMY_ICON, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Stormsong", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor(
+            "Jevan Tempesthorn summons 4 ancient spirits to his aid for 10 seconds.",
+            "In the taurens mythos the storm symbolizes the omnipotent force of nature, but also reincarnation and new beginnings."))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNSpiritWalkerMasterTraining)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+function stormsong()
+    let attacker = GetAttacker()
+    let target = GetAttackedUnitBJ()
+    
+    JevanWrapper jevan = towerMap.get(GetAttacker().getHandleId()) castTo JevanWrapper
+    jevan.trig.disable()
+
+    for i = 1 to 4
+        doAfter(0.5*i, () -> begin
+            var offset = angle(i*PI/2).direction().setLength(256)
+            var spawnPos = attacker.getPos().add(offset.x, offset.y)
+            addEffect(Abilities.monsoonBoltTarget, spawnPos)
+
+            let spirit = createUnit(
+                attacker.getOwner(),
+                ID_STORMSONG_ANCIENT_SPIRIT,
+                spawnPos,
+                attacker.getPos().angleTo(target.getPos()))
+
+            // Make spirit transparent.
+            spirit.setVertexColor(colorA(255, 255, 255, 90))
+            
+            doAfter(10, () -> begin
+                addEffect(Abilities.monsoonBoltTarget, spirit.getPos())
+                spirit.remove()
+            end)
+        end)
+    
+    doAfter(10, () -> begin
+        jevan.trig.enable()
+    end)
+
+public class JevanWrapper extends TowerWrapper
+    unit tower
+    trigger trig
+    construct(unit tower)
+        super(tower)
+        this.tower = tower
+        this.trig = CreateTrigger()
+            ..addAction(function stormsong)
+            ..addCondition(Condition(function isJevan))
+            ..addCondition(Condition(function isStorm))
+            ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+        
+    ondestroy
+        this.trig.destr()
+        
+function isJevan() returns boolean
+    if not GetAttacker().getTypeId() == ID_TOWER_JEVAN
+        return false
+
+    JevanWrapper jevan = towerMap.get(GetAttacker().getHandleId()) castTo JevanWrapper
+    return jevan.trig.getHandleId() == GetTriggeringTrigger().getHandleId()
+
+function isStorm() returns boolean
+    return GetRandomReal(0, 1) <= STORMSONG_PROBABILITY
+
+@initThird function initStormsong()

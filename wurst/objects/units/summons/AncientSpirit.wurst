@@ -1,0 +1,59 @@
+package AncientSpirit
+
+import Assets
+import UnitObjEditing
+import ObjectIds
+
+import TowerConstants
+
+class AncientSpirit extends UnitDefinition
+    construct(int id)
+        super(id, 'otau')
+
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            AbilityIds.locust,
+            AbilityIds.pulverize
+        ))
+
+        setTintingColorRed(0)
+        setTintingColorGreen(0)
+        setTintingColorBlue(0)
+        setArtSpecial(Abilities.feralspiritdone)
+
+        // ------------------------------------
+        // ========= Attack constants =========
+        // ------------------------------------
+        setAttack1DamageBase(20)
+        setAttack1DamageNumberofDice(5)
+        setAttack1DamageSidesperDie(15)
+        setAttack1CooldownTime(1.6)
+        setAcquisitionRange(1000)
+        setAttack1AnimationBackswingPoint(0.5)
+        setAttack1AnimationDamagePoint(0.4)
+        
+
+        // ------------------------------------
+        // ========== Other constants =========
+        // ------------------------------------
+        setSpeedBase(400)
+        setMovementType(MovementType.Fly)
+        setMovementHeight(0.)
+        setCollisionSize(0)
+        setPointValue(0)
+
+        setFoodCost(0)
+        setGoldCost(0)
+        setLumberCost(0)
+        setHitPointsMaximumBase(1)
+        setHitPointsRegenerationType("none")
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+
+@compiletime function builder()
+    new AncientSpirit(ID_STORMSONG_ANCIENT_SPIRIT)

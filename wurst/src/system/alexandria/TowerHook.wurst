@@ -12,10 +12,10 @@ import SnareTrap
 import CowardiceLeadership
 import ManaBreak
 import CrystalBlast
+import Stormsong
 
 // ==== Chartusk Clan ====
 import BlazingSpear
-
 
 function hook()
     unit u = GetConstructedStructure()
@@ -40,6 +40,8 @@ function hook()
             new WarMageWrapper(u, MANA_BREAK_MAX_CHARGES, false, MANA_BREAK_WARCRY)
         case ID_TOWER_MORGANA
             new MorganaWrapper(u, CRYSTAL_BLAST_MAX_CHARGES, false, CRYSTAL_BLAST_WARCRY)
+        case ID_TOWER_JEVAN
+            new JevanWrapper(u)
 
         // ---------------------------------------------------
 

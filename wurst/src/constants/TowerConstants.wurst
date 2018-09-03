@@ -60,6 +60,9 @@ public constant CRYSTAL_BLAST_DAMAGE = 150.0
 public constant CRYSTAL_BLAST_WARCRY = "❄"
 // -------------- Jevan Tempesthorn ----------------------
 public constant ID_TOWER_JEVAN = compiletime(UNIT_ID_GEN.next())
+public constant ID_STORMSONG_ANCIENT_SPIRIT = compiletime(UNIT_ID_GEN.next())
+public constant ID_STORMSONG_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
+public constant STORMSONG_PROBABILITY = 0.1
 
 // ------------------------------------------------------
 // ================ The fullmoon tribe ==================
