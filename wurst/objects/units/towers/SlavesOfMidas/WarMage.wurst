@@ -44,22 +44,29 @@ class WarMage extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+        setNormalAbilities(commaList(
+            ID_SELL_TOWER,
+            ID_MANA_BREAK_DUMMY_ICON
+        ))
+        setManaInitialAmount(0)
+        setManaRegeneration(0)
+        setManaMaximum(MANA_BREAK_MAX_CHARGES)
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        // setAttack1ProjectileArt(Abilities.huntermissile)
-        // setAttack1ProjectileHomingEnabled(true)
-        // setAttack1ProjectileSpeed(1200)
-        // setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt(Abilities.orbOfDeathMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1200)
+        setAttack1ProjectileArc(0.05)
+        setAttack1WeaponType(WeaponType.Missile)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID_TOWER_MORGAN.toRawCode())
+        setUpgradesTo(ID_TOWER_MORGANA.toRawCode())
         setUpgradesUsed("")
 
         // ---------------------------------
@@ -74,7 +81,7 @@ class WarMage extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Mana Break",
             "WANTED: An unconcerned and arcane/necromancy specialized war mage for adventurous crusades.|n|n" +
             "OFFERING: Ample chance to practice destructive spells and coin for magic supplies (we also supply fresh corpses!)"))
 

@@ -1,0 +1,106 @@
+package ManaBreak
+
+import Assets
+import DummyRecycler
+import ClosureTimers
+import ChannelAbilityPreset
+
+import Alexandria
+import TowerCharger
+import TowerConstants
+import Tooltip
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+@compiletime function generateManaBreakDummy()
+    new ChannelAbilityPreset(ID_MANA_BREAK_DUMMY_ICON, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Mana Break", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("After " + MANA_BREAK_MAX_CHARGES.toString() + " magic charged attacks the War Mage will " +
+            "overload the mana inside the target, dealing " + MANA_BREAK_DAMAGE.toString() + " damage to all enemies in the surrounding.",
+        "Imagine injecing boiling water inside your veins, while being electrocuted at the same time. That's essentially what it feels like."))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNManaFlare)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+@compiletime function generateManaBreak()
+    new AbilityDefinitionAlchemistAcidBomb(ID_MANA_BREAK)
+    ..setMissileArt("")
+    ..setArtTarget(Abilities.purgeBuffTarget)
+    ..setTargetAttachmentPoint("chest")
+    ..setAreaofEffect(1, 256)
+    ..setMissileArc(0.05)
+    ..setMissileSpeed(1200)
+
+    ..setDurationNormal(1, 0.2)
+    ..setPrimaryDamage(1, MANA_BREAK_DAMAGE)
+    ..setSecondaryDamage(1, MANA_BREAK_DAMAGE)
+
+    ..setManaCost(1, 0)
+    ..setCastingTime(1, 0.2)
+    ..setCastRange(1, 600)
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+public class WarMageWrapper extends TowerCharger
+    trigger trig
+    unit attacked
+
+    construct(unit u, int maxCharges, bool verbose, string warcry)
+        super(u, maxCharges, verbose, warcry)
+
+        this.trig = CreateTrigger()
+
+        ..addAction(function manaBreak)
+        ..addCondition(Condition(function isWarMage))
+        ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+
+    ondestroy
+        this.trig.destr()
+
+// Check if correct War Mage
+function isWarMage() returns bool
+    if not GetAttacker().getTypeId() == ID_TOWER_WAR_MAGE
+        return false
+
+    WarMageWrapper warMage = towerMap.get(GetAttacker().getHandleId()) castTo WarMageWrapper
+    return warMage.trig.getHandleId() == GetTriggeringTrigger().getHandleId()
+
+// On attack check
+function manaBreak()
+    unit u = GetAttacker()
+    unit a = GetAttackedUnitBJ()
+    WarMageWrapper warMage = towerMap.get(u.getHandleId()) castTo WarMageWrapper
+
+    if a != warMage.attacked
+        warMage.reset()
+        warMage.increment()
+        warMage.attacked = a
+        return
+
+    if not warMage.increment() // increment returns true if max reached
+        return
+
+    warMage.tower.pause()
+    warMage.tower.setAnimation("attack")
+
+    // Add ability
+    let dummy = DummyRecycler.get(warMage.tower.getPos(), warMage.tower.getFacingAngle())
+    dummy.addAbility(ID_MANA_BREAK)
+    dummy.setAbilityLevel(ID_MANA_BREAK, 1)
+    dummy.setAbilityCooldown(ID_MANA_BREAK, 1, 0)
+
+    // Cast ability
+    if warMage.attacked.isAlive()
+        dummy.issueTargetOrder("acidbomb", warMage.attacked)
+
+    DummyRecycler.recycle(dummy, 0.5)
+    doAfter(0.5, () -> begin
+        warMage.tower.unpause()
+    end)
