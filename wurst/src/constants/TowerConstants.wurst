@@ -42,11 +42,22 @@ public constant ID_INSPIRE = compiletime(UNIT_ID_GEN.next())
 public constant ID_COWARDICE = compiletime(UNIT_ID_GEN.next())
 // -------------- Stalker + Keres ----------------------
 public constant ID_TOWER_STALKER = compiletime(UNIT_ID_GEN.next())
-public constant ID_SONG_OF_RAVENS = compiletime(ABIL_ID_GEN.next())
 public constant ID_TOWER_KERES = compiletime(UNIT_ID_GEN.next())
-// -------------- Fayslave + Morgan Le Faye ----------------------
+public constant ID_SONG_OF_RAVENS = compiletime(ABIL_ID_GEN.next())
+public constant ID_SONG_OF_RAVENS_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
+// -------------- War Mage + Morgana ----------------------
 public constant ID_TOWER_WAR_MAGE = compiletime(UNIT_ID_GEN.next())
-public constant ID_TOWER_MORGAN = compiletime(UNIT_ID_GEN.next())
+public constant MANA_BREAK_MAX_CHARGES = 3
+public constant MANA_BREAK_DAMAGE = 45.0
+public constant MANA_BREAK_WARCRY = "Bada bing, bada BOOM!"
+public constant ID_MANA_BREAK = compiletime(ABIL_ID_GEN.next())
+public constant ID_MANA_BREAK_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
+public constant ID_TOWER_MORGANA = compiletime(UNIT_ID_GEN.next())
+public constant ID_CRYSTAL_BLAST = compiletime(ABIL_ID_GEN.next())
+public constant ID_CRYSTAL_BLAST_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
+public constant CRYSTAL_BLAST_MAX_CHARGES = 5
+public constant CRYSTAL_BLAST_DAMAGE = 150.0
+public constant CRYSTAL_BLAST_WARCRY = "❄"
 // -------------- Jevan Tempesthorn ----------------------
 public constant ID_TOWER_JEVAN = compiletime(UNIT_ID_GEN.next())
 

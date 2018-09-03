@@ -10,6 +10,8 @@ import SnareTrap
 
 // ==== Slaves of Midas ====
 import CowardiceLeadership
+import ManaBreak
+import CrystalBlast
 
 // ==== Chartusk Clan ====
 import BlazingSpear
@@ -34,6 +36,11 @@ function hook()
             new Defector(u)
         case ID_TOWER_SELLSWORD
             new Sellsword(u)
+        case ID_TOWER_WAR_MAGE
+            new WarMageWrapper(u, MANA_BREAK_MAX_CHARGES, false, MANA_BREAK_WARCRY)
+        case ID_TOWER_MORGANA
+            new MorganaWrapper(u, CRYSTAL_BLAST_MAX_CHARGES, false, CRYSTAL_BLAST_WARCRY)
+
         // ---------------------------------------------------
 
         // ==== Chartusk Clan ====

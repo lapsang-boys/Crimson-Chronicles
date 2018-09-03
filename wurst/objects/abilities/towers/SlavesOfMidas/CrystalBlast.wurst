@@ -1,0 +1,107 @@
+package CrystalBlast
+
+import Assets
+import DummyRecycler
+import ClosureTimers
+import ChannelAbilityPreset
+
+import Alexandria
+import TowerCharger
+import TowerConstants
+import Tooltip
+
+// ##################################################################
+// ###################### Ability objects ###########################
+// ##################################################################
+
+@compiletime function generateCrystalBlastDummy()
+    new ChannelAbilityPreset(ID_CRYSTAL_BLAST_DUMMY_ICON, 1, true)
+        ..setHotkeyNormal("")
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Crystal Blast", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("After " + CRYSTAL_BLAST_MAX_CHARGES.toString() + " conjuring attacks Morgana Frostwolf will " +
+            "unleash a devestating blast, dealing " + CRYSTAL_BLAST_DAMAGE.toString() + " damage to all enemies in the surrounding, slowing them down temporarily.",
+        ""))
+
+        ..presetTargetTypes(Targettype.PASSIVE)
+        ..setIconNormal(Icons.bTNGem)
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(2)
+
+@compiletime function generateCrystalBlast()
+    new AbilityDefinitionAlchemistAcidBomb(ID_CRYSTAL_BLAST)
+    ..setMissileArt("")
+    ..setArtTarget(Abilities.frostNovaTarget)
+    ..setTargetAttachmentPoint("chest")
+    ..setAreaofEffect(1, 512)
+    ..setMissileArc(0.05)
+    ..setMissileSpeed(1200)
+
+    ..setMovementSpeedReduction(1, -0.25)
+    ..setDurationNormal(1, 4.)
+    ..setPrimaryDamage(1, CRYSTAL_BLAST_DAMAGE)
+    ..setSecondaryDamage(1, CRYSTAL_BLAST_DAMAGE)
+
+    ..setManaCost(1, 0)
+    ..setCastingTime(1, 0.2)
+    ..setCastRange(1, 600)
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+public class MorganaWrapper extends TowerCharger
+    trigger trig
+    unit attacked
+
+    construct(unit u, int maxCharges, bool verbose, string warcry)
+        super(u, maxCharges, verbose, warcry)
+
+        this.trig = CreateTrigger()
+
+        ..addAction(function crystalBlast)
+        ..addCondition(Condition(function isMorgana))
+        ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+
+    ondestroy
+        this.trig.destr()
+
+// Check if correct Morgana
+function isMorgana() returns bool
+    if not GetAttacker().getTypeId() == ID_TOWER_MORGANA
+        return false
+
+    MorganaWrapper morgana = towerMap.get(GetAttacker().getHandleId()) castTo MorganaWrapper
+    return morgana.trig.getHandleId() == GetTriggeringTrigger().getHandleId()
+
+// On attack check
+function crystalBlast()
+    unit u = GetAttacker()
+    unit a = GetAttackedUnitBJ()
+    MorganaWrapper morgana = towerMap.get(u.getHandleId()) castTo MorganaWrapper
+
+    if a != morgana.attacked
+        morgana.reset()
+        morgana.increment()
+        morgana.attacked = a
+        return
+
+    if not morgana.increment() // increment returns true if max reached
+        return
+
+    morgana.tower.pause()
+    morgana.tower.setAnimation("attack")
+
+    // Add ability
+    let dummy = DummyRecycler.get(morgana.tower.getPos(), morgana.tower.getFacingAngle())
+    dummy.addAbility(ID_CRYSTAL_BLAST)
+    dummy.setAbilityLevel(ID_CRYSTAL_BLAST, 1)
+    dummy.setAbilityCooldown(ID_CRYSTAL_BLAST, 1, 0)
+
+    // Cast ability
+    if morgana.attacked.isAlive()
+        dummy.issueTargetOrder("acidbomb", morgana.attacked)
+
+    DummyRecycler.recycle(dummy, 0.5)
+    doAfter(0.5, () -> begin
+        morgana.tower.unpause()
+    end)

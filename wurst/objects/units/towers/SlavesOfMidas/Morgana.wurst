@@ -44,15 +44,21 @@ class Morgan extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+        setNormalAbilities(commaList(
+            ID_SELL_TOWER,
+            ID_CRYSTAL_BLAST_DUMMY_ICON
+        ))
+        setManaInitialAmount(0)
+        setManaRegeneration(0)
+        setManaMaximum(CRYSTAL_BLAST_MAX_CHARGES)
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        // setAttack1ProjectileArt(Abilities.huntermissile)
-        // setAttack1ProjectileHomingEnabled(true)
-        // setAttack1ProjectileSpeed(1200)
-        // setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt(Abilities.frostBoltMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1200)
+        setAttack1WeaponType(WeaponType.Missile)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
@@ -77,7 +83,7 @@ class Morgan extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Crystal blast",
             "Terms and conditions|n|n" +
             "1. Between sieges, generous amount of time off shall be scheduled to allow for reviewing arcane publications.|n|n" +
             "...|n|n" +
@@ -85,4 +91,4 @@ class Morgan extends TowerDefinition
             "Signed, Morgana Frostwolf & Hawkwood"))
 
 @compiletime function tower()
-    new Morgan(ID_TOWER_MORGAN)
+    new Morgan(ID_TOWER_MORGANA)
