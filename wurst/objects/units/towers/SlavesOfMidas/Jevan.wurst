@@ -45,24 +45,25 @@ class Jevan extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
-
-        // setUnitClassification("mechanichal")
+        setNormalAbilities(commaList(
+            ID_SELL_TOWER,
+            ID_STORMSONG_DUMMY_ICON
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        // setAttack1ProjectileArt(Abilities.huntermissile)
-        // setAttack1ProjectileHomingEnabled(true)
-        // setAttack1ProjectileSpeed(1200)
-        // setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt(Abilities.farseerMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1200)
+        setAttack1WeaponType(WeaponType.Missile)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
-        setUpgradesTo(ID_TOWER_DEFECTOR.toRawCode())
+        setUpgradesTo("")
         setUpgradesUsed("")
         setRequirements(commaList(
             ID_UNLOCKED_IN_ZONE_3
@@ -80,7 +81,7 @@ class Jevan extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Stormsong",
             "Warriors of Tempesthorn rarely start a fight. But, they always end it."))
 
 @compiletime function tower()
