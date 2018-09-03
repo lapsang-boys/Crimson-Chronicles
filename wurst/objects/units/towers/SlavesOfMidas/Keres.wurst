@@ -44,7 +44,10 @@ class Keres extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+        setNormalAbilities(commaList(
+            ID_SELL_TOWER,
+            ID_SONG_OF_RAVENS_DUMMY_ICON
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -74,7 +77,7 @@ class Keres extends TowerDefinition
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "",
+            "Song of Ravens",
             "\"The Daughter of Death\". She earned her morbid nickname officially from her achievements and capability of killing anyone, unconditionally and unexpectedly. Like Death herself.|n|nBut, everyone knows its actually due to her huge grin everytime she kills her target."))
 
 @compiletime function tower()

@@ -2,8 +2,9 @@ package SongOfRavens
 
 import Assets
 import ChannelAbilityPreset
+import DummyRecycler
+import ClosureTimers
 
-import TimedEffect
 import TowerConstants
 import Tooltip
 
@@ -12,7 +13,7 @@ import Tooltip
 // ##################################################################
 
 @compiletime function generateSongOfRavensDummy()
-    new ChannelAbilityPreset(ID_SONG_OF_RAVENS, 1, true)
+    new ChannelAbilityPreset(ID_SONG_OF_RAVENS_DUMMY_ICON, 1, true)
         ..setHotkeyNormal("")
         ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Song of Ravens",""))
         ..setTooltipNormalExtended(1, tooltipTextFlavor(
@@ -26,20 +27,50 @@ import Tooltip
 
 function songOfRavens()
     let victim = GetTriggerUnit()
-    let attacker = GetAttacker()
-    attacker.damageTarget(victim, 4)
-    victim.attatchTimedEffect(1., Abilities.curseTarget, "overhead")
-    victim.attatchTimedEffect(1., Abilities.slowTarget, "origin")
+    let keres = GetAttacker()
 
+    // Add ability
+    let dummy = DummyRecycler.get(keres.getPos(), keres.getFacingAngle())
+    dummy.addAbility(ID_SONG_OF_RAVENS)
+    dummy.setAbilityLevel(ID_SONG_OF_RAVENS, 1)
+    dummy.setAbilityCooldown(ID_SONG_OF_RAVENS, 1, 0)
+
+    keres.pause()
+    keres.setAnimation("attack")
+    
+    // Cast ability
+    if victim.isAlive()
+        dummy.issueTargetOrder("acidbomb", victim)
+
+    DummyRecycler.recycle(dummy, 0.5)
+    doAfter(0.5, () -> begin
+        keres.unpause()
+    end)
+        
 function isOnTheVergeOfDeath() returns bool
     return GetTriggerUnit().getHP()/GetTriggerUnit().getMaxHP() <= 0.25
 
-function isStalker() returns bool
-    return GetAttacker().getTypeId() == ID_TOWER_STALKER
+function isKeres() returns bool
+    return GetAttacker().getTypeId() == ID_TOWER_KERES
         
 @initThird function initSongOfRavens()
     CreateTrigger()
     ..addAction(function songOfRavens)
-    ..addCondition(Condition(function isStalker))
+    ..addCondition(Condition(function isKeres))
     ..addCondition(Condition(function isOnTheVergeOfDeath))
     ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
+
+
+@compiletime function generateSongOfRavens()
+    new AbilityDefinitionAlchemistAcidBomb(ID_SONG_OF_RAVENS)
+    ..setMissileArt(Abilities.blackArrowMissile)
+    ..setAreaofEffect(1, 0)
+    ..setMissileArc(0.05)
+    ..setMissileSpeed(1200)
+
+    ..setDurationNormal(1, 0.0)
+    ..setPrimaryDamage(1, 120)
+
+    ..setManaCost(1, 0)
+    ..setCastingTime(1, 0.2)
+    ..setCastRange(1, 600)

@@ -45,8 +45,7 @@ class Stalker extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(commaList(
-            ID_SELL_TOWER,
-            ID_SONG_OF_RAVENS
+            ID_SELL_TOWER
         ))
 
         // ------------------------------------------------
@@ -73,11 +72,11 @@ class Stalker extends TowerDefinition
         setHotkey("W")
         setName("Stalker")
         setTooltipBasic(tooltipBuild("W", "Stalker"))
-        setTooltipExtended(tooltipTowerExtended("Cheap ranged tower which specializes in picking of weak enemies.",
+        setTooltipExtended(tooltipTowerExtended("Cheap ranged tower, useful for picking of single enemies.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "Song of Ravens",
+            "",
             "Tracking and marksmanship are two very valuable skills for mercenaries. Finishing of deserting troops pays well, and is surprisingly entertaining."))
 
 @compiletime function tower()
