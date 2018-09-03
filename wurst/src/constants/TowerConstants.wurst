@@ -124,8 +124,11 @@ public constant ID_TOWER_EMBER_LEECH_ASPIRANT = compiletime(UNIT_ID_GEN.next())
 
 // -------------- Fiery javilinist -----------
 public constant ID_TOWER_FIERY_JAVILINIST = compiletime(UNIT_ID_GEN.next())
-public constant ID_BLAZING_SPEAR = compiletime(ABIL_ID_GEN.next())
-public constant ID_BLAZING_SPEAR_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
-public constant JAVILINIST_MAX_CHARGES = 5
-public constant JAVILINIST_SPEAR_DAMAGE = 100
+public constant ID_BLAZING_FURY = compiletime(ABIL_ID_GEN.next())
+public constant ID_BLAZING_FURY_DUMMY_ICON = compiletime(ABIL_ID_GEN.next())
+public constant ID_BLAZING_FURY_BUFF = compiletime(BUFF_ID_GEN.next())
+public constant ID_BLAZING_FURY_BUFF_BASE = 'Bblo'
+public constant JAVILINIST_MAX_CHARGES = 10
+public constant JAVILINIST_FURY_CHARGES = 5
+public constant JAVILINIST_FURY_SPEED = 1
 public constant JAVILINIST_WARCRY = "Taz'dingo!"

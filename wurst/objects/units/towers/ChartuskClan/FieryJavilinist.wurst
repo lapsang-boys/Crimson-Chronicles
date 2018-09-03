@@ -48,7 +48,7 @@ class FieryJavilinist extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_BLAZING_SPEAR_DUMMY_ICON))
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_BLAZING_FURY_DUMMY_ICON))
         setManaInitialAmount(0)
         setManaRegeneration(0)
         setManaMaximum(JAVILINIST_MAX_CHARGES)

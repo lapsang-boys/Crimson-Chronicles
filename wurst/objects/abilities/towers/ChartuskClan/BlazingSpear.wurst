@@ -2,7 +2,9 @@ package BlazingSpear
 
 import Assets
 import ChannelAbilityPreset
+import BuffObjEditing
 import TimerUtils
+import InstantDummyCaster
 
 import Alexandria
 import TowerCharger
@@ -15,31 +17,46 @@ import Tooltip
 
 
 @compiletime function generateBlazingSpearDummy()
-    new ChannelAbilityPreset(ID_BLAZING_SPEAR_DUMMY_ICON, 1, true)
+    new ChannelAbilityPreset(ID_BLAZING_FURY_DUMMY_ICON, 1, true)
         ..setHotkeyNormal("")
-        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Blazing spear throw", ""))
+        ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Blazing fury", ""))
         ..setTooltipNormalExtended(1, tooltipTextFlavor("After " + JAVILINIST_MAX_CHARGES.toString() + " attacks the javilinist will" +
-        " throw a powerful spear pierceing several targets, dealing " + JAVILINIST_SPEAR_DAMAGE.toString() + " damage.",
+        " go into frenzy having a " + (JAVILINIST_FURY_SPEED*100).toString() + "% attackspeed increase for." +
+        JAVILINIST_FURY_CHARGES.toString() + "attacks.",
         JAVILINIST_WARCRY))
 
         ..presetTargetTypes(Targettype.PASSIVE)
-        ..setIconNormal(Icons.bTNSearingArrows)
+        ..setIconNormal(Icons.bTNBerserkForTrolls)
         ..setButtonPositionNormalX(0)
         ..setButtonPositionNormalY(2)
+class BlazingSpearBuff extends BuffDefinition
+    construct(int newBuffId, int origBuggId)
+        super(newBuffId, origBuggId)
 
-@compiletime function generateBlazingSpear()
-    new AbilityDefinitionAlchemistAcidBomb(ID_BLAZING_SPEAR)
-    ..setMissileArt(Abilities.fireBallMissile)
-    ..setMissileArc(0.05)
-    ..setMissileSpeed(1200)
+        setIcon(Icons.bTNBerserkForTrolls)
 
-    ..setDurationNormal(1, 0.2)
-    ..setPrimaryDamage(1, 500)
-    ..setSecondaryDamage(1, 0)
+        setTooltipNormal(1, tooltipBuffName("Blazing fury", true))
+        setTooltipNormalExtended(1, tooltipBuffText("This unit has increased attackspeed."))
 
+@compiletime function generateBuff()
+    new BlazingSpearBuff(ID_BLAZING_FURY_BUFF, ID_EMERALD_SPEAR_BUFF_BASE)
+
+@compiletime function generateBlazingFury()
+    new AbilityDefinitionBloodlustCreep(ID_BLAZING_FURY)
+    ..setScalingFactor(1, 0.25)
+    ..setAnimationNames("")
+
+    ..setDurationNormal(1, 0)
+    ..setCheckDependencies(false)
     ..setManaCost(1, 0)
-    ..setCastingTime(1, 0.4)
+    ..setCastingTime(1, 0)
     ..setCastRange(1, 1200)
+    ..setAttackSpeedIncrease(1, JAVILINIST_FURY_SPEED.toReal())
+    ..setTargetsAllowed(1, commaList(
+        TargetsAllowed.friend,
+        TargetsAllowed.structure,
+        TargetsAllowed.notself
+    ))
 
 
 
@@ -51,14 +68,16 @@ public class FieryJavilinistWrapper extends TowerCharger
     trigger trig
     timer t
     unit attacked
+    bool frenzy
 
     construct(unit u, int maxCharges, bool verbose, string warcry)
         super(u, maxCharges, verbose, warcry)
+        this.frenzy = false
 
         this.t = getTimer()
         this.trig = CreateTrigger()
 
-        ..addAction(function javlinThrow)
+        ..addAction(function javlinCheck)
         ..addCondition(Condition(function isJavilinist))
         ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED)
 
@@ -76,43 +95,54 @@ function isJavilinist() returns bool
     return javilinist.trig.getHandleId() == GetTriggeringTrigger().getHandleId()
 
 // On attack check
-function javlinThrow()
+function javlinCheck()
     unit u = GetAttacker()
     unit a = GetAttackedUnitBJ()
     FieryJavilinistWrapper javilinist = towerMap.get(u.getHandleId()) castTo FieryJavilinistWrapper
 
+    // If in frenzy target does not matter and we decrement
+    if javilinist.frenzy
+        if javilinist.getCharges() <= 0
+            goNormal(javilinist)
+        else
+            javilinist.decrement()
+            return
+
+    // If attacking new creature reset
     if a != javilinist.attacked
         javilinist.reset()
         javilinist.increment()
         javilinist.attacked = a
         return
 
+    if javilinist.increment() // increment returns true if max reached
+        goFrenzy(javilinist)
 
-    if not javilinist.increment() // increment returns true if max reached
-        return
 
+function goNormal(FieryJavilinistWrapper javilinist)
+    javilinist.reset()
+    javilinist.tower.removeAbility(ID_BLAZING_FURY_BUFF)
+    javilinist.tower.removeAbility(ID_BLAZING_FURY_BUFF_BASE)
+    javilinist.frenzy = false
+
+
+function goFrenzy(FieryJavilinistWrapper javilinist)
     javilinist.tower.pause()
     javilinist.tower.setAnimation("morph")
     // Reset timer for stealth
     javilinist.t.setData(javilinist castTo int)
-    javilinist.t.start(1, function castJavilin)
+    javilinist.t.start(1, function castFrenzy)
 
 
-function castJavilin()
+function castFrenzy()
     timer t = GetExpiredTimer()
     FieryJavilinistWrapper javilinist = t.getData() castTo FieryJavilinistWrapper
     javilinist.tower.unpause()
 
-    // Add ability
-    javilinist.tower.addAbility(ID_BLAZING_SPEAR)
-    javilinist.tower.setAbilityLevel(ID_BLAZING_SPEAR, 1)
-    javilinist.tower.setAbilityCooldown(ID_BLAZING_SPEAR, 1, 0)
-    // Cast ability
-    if javilinist.attacked.isAlive()
-        javilinist.tower.issueTargetOrder("acidbomb", javilinist.attacked)
+    javilinist.setChrages(5)
+    javilinist.frenzy = true
 
-    // TODO:
-    // Remove abiliy or change to a dummy caster and use animations on javilinist
+    InstantDummyCaster.castTarget(javilinist.tower.getOwner(), ID_BLAZING_FURY, 1, "bloodlust", javilinist.tower, javilinist.tower.getPos())
 
 
 
