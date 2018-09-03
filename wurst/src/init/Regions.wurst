@@ -2,6 +2,10 @@ package Regions
 
 import LinkedList
 
+public constant int ZONE_ASHENVALE = 0
+public constant int ZONE_STRATHOLME = 1
+public constant int ZONE_CAVERNS_OF_TIME = 2
+
 public class Area
     rect area
     LinkedList<Path> paths

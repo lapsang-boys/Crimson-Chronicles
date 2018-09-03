@@ -59,7 +59,7 @@ public class PlayerData
 
     function reset()
         this.levelInProgress = false
-        this.zoneNum = 0
+        this.zoneNum = ZONE_ASHENVALE
         this.life = STARTING_LIFE
         this.mobsRemoved = 0
         this.levelNum = 0
