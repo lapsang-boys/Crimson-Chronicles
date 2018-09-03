@@ -20,7 +20,7 @@ import Tooltip
         ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Crystal Blast", ""))
         ..setTooltipNormalExtended(1, tooltipTextFlavor("After " + CRYSTAL_BLAST_MAX_CHARGES.toString() + " conjuring attacks Morgana Frostwolf will " +
             "unleash a devestating blast, dealing " + CRYSTAL_BLAST_DAMAGE.toString() + " damage to all enemies in the surrounding, slowing them down temporarily.",
-        ""))
+            "The small ice crystals created from the magically conjured ice blast, enters the lungs and rips the capillaries apart. Which ironically makes it feels like your breathing blazing hot air when they choke you with your own blood."))
 
         ..presetTargetTypes(Targettype.PASSIVE)
         ..setIconNormal(Icons.bTNGem)
