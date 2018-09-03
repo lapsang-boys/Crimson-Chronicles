@@ -100,16 +100,16 @@ function javlinThrow()
 
 function castJavilin()
     timer t = GetExpiredTimer()
-    FieryJavilinistWrapper javlinist = t.getData() castTo FieryJavilinistWrapper
-    javlinist.tower.unpause()
+    FieryJavilinistWrapper javilinist = t.getData() castTo FieryJavilinistWrapper
+    javilinist.tower.unpause()
 
     // Add ability
-    javlinist.tower.addAbility(ID_BLAZING_SPEAR)
-    javlinist.tower.setAbilityLevel(ID_BLAZING_SPEAR, 1)
-    javlinist.tower.setAbilityCooldown(ID_BLAZING_SPEAR, 1, 0)
+    javilinist.tower.addAbility(ID_BLAZING_SPEAR)
+    javilinist.tower.setAbilityLevel(ID_BLAZING_SPEAR, 1)
+    javilinist.tower.setAbilityCooldown(ID_BLAZING_SPEAR, 1, 0)
     // Cast ability
-    if javlinist.attacked.isAlive()
-        javlinist.tower.issueTargetOrder("acidbomb", javlinist.attacked)
+    if javilinist.attacked.isAlive()
+        javilinist.tower.issueTargetOrder("acidbomb", javilinist.attacked)
 
     // TODO:
     // Remove abiliy or change to a dummy caster and use animations on javilinist
