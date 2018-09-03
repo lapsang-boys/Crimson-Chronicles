@@ -31,11 +31,11 @@ public class TowerCharger extends TowerWrapper
 
     function increment() returns bool
         this.currentCharges += 1
-        this.tower.setMana(I2R(this.currentCharges))
+        this.updateMana()
 
         if this.currentCharges >= this.maxCharges
             this.currentCharges = 0
-            this.tower.setMana(I2R(this.currentCharges))
+            this.updateMana()
             this.printMax()
 
             return true
@@ -49,17 +49,29 @@ public class TowerCharger extends TowerWrapper
         if this.currentCharges <= 0
             return
         this.currentCharges -= 1
-        this.tower.setMana(I2R(this.currentCharges))
+        this.updateMana()
         if this.verbose
             this.printDec()
 
     function reset()
         this.currentCharges = 0
-        this.tower.setMana(I2R(this.currentCharges))
+        this.updateMana()
+
+
+    function setChrages(int i)
+        this.currentCharges = i
+        this.updateMana()
+
+    function getCharges() returns int
+        return this.currentCharges
+
 
     // ##################################################################
     // ###################### Private methods ###########################
     // ##################################################################
+
+    private function updateMana()
+        this.tower.setMana(I2R(this.currentCharges))
 
     private function printInc()
         createTTEx(tower.getPos3Real(), vec2(0, 0.05), "+1 ("  + this.currentCharges.toString() + "/"
