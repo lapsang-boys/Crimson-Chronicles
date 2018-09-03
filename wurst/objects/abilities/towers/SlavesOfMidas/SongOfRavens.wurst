@@ -17,8 +17,8 @@ import Tooltip
         ..setHotkeyNormal("")
         ..setTooltipNormal(1, tooltipCustomBasic("Passive", "Song of Ravens",""))
         ..setTooltipNormalExtended(1, tooltipTextFlavor(
-            "The Stalker deals 20% more damage to enemies below 1/4 of their total health.",
-            "Flavor"))
+            "Keres deals 20% more damage to enemies below 1/4 of their total health.",
+            "The quiver is filled with arrows hand-crafted by her demands. Fletching made from raven feathers, her signature, and arrowheads made by melted coins to grant safe passage in to the afterlife."))
 
         ..presetTargetTypes(Targettype.PASSIVE)
         ..setIconNormal(Icons.bTNCannibalize)
