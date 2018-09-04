@@ -15,27 +15,24 @@ import GameplayConstants
 public constant ID_SPELL_CROW_MORPH = compiletime(ABIL_ID_GEN.next())
 public constant ID_SPELL_INFERNAL_COIL = compiletime(ABIL_ID_GEN.next())
 
-public constant LinkedList<int> ID_MOB_PATH_SHOWER =                  new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_STAG =                         new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_DIRE_WOLF =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_DEMONIC_SATYR =                new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FEL_TREANT =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_DARK_TROLL_SHADOW_PRIEST =     new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_DARK_TROLL_WARRIOR =           new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_GOBLIN_WAR_MACHINE =           new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_GOBLIN_MACHINIST =             new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FURBOLG =                      new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FURBOLG_WARRIOR =              new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FURBOLG_BENDER =               new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_CROW_DRUID =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_CROW_CROW =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FEL_HUNTER =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_FEL_BEAST =                    new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_BOSS_PITLORD =                     new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_INFERNAL =                     new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-
-
-public constant LinkedList<int> ID_MOB_ROBIN_TEST =                   new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_PATH_SHOWER =              new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_STAG =                     new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DIRE_WOLF =                new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DEMONIC_SATYR =            new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FEL_TREANT =               new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DARK_TROLL_SHADOW_PRIEST = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DARK_TROLL_WARRIOR =       new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GOBLIN_WAR_MACHINE =       new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GOBLIN_MACHINIST =         new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FURBOLG =                  new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FURBOLG_WARRIOR =          new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FURBOLG_BENDER =           new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_CROW_DRUID =               new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_CROW_CROW =                new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FEL_HUNTER =               new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_FEL_BEAST =                new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_BOSS_PITLORD =                 new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_INFERNAL =                 new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
 public constant PITLORD_HP = 6000
 
@@ -112,7 +109,7 @@ public constant PITLORD_HP = 6000
         0, // Bonus
         levelInfoMsg(0, "Path shower"),
         new LinkedList<MobType>..add(MobType.INVULNERABLE),
-        loreMessage(""))
+        loreMessage("These creatures show which path the monsters will take."))
     levels.add(L0)
 
     // Do we need squad member bounty?
@@ -128,25 +125,25 @@ public constant PITLORD_HP = 6000
         toDefaultSquad(ID_MOB_DIRE_WOLF, 10),
         10, // Bonus
         levelInfoMsg(2, "Dire Wolf"),
-        new LinkedList<MobType>,
-        loreMessage("Description"))
+        new LinkedList<MobType>..add(MobType.AGILE),
+        loreMessage("Even the predators flee Felwood from the Burning Legion's corruption."))
     levels.add(L2)
 
     Level L3 = new Level(
         toSquad(ID_MOB_DEMONIC_SATYR, 12, 0.75, 1.5, SpawnRegion.NORTH),
         // toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10),
         10, // Bonus
-        levelInfoMsg(3, "Demonic satyrs"),
+        levelInfoMsg(3, "Demonic Satyrs"),
         new LinkedList<MobType>..add(MobType.DEMON),
-        loreMessage("Description"))
+        loreMessage("Their rage ensures the onslaught continues, even in death."))
     levels.add(L3)
 
     Level L4 = new Level(
         toDefaultSquad(ID_MOB_FEL_TREANT, 6),
         10, // Bonus
         levelInfoMsg(4, "Fel Treants"),
-        new LinkedList<MobType>..add(MobType.BANISHED),
-        loreMessage("Description"))
+        new LinkedList<MobType>..add(MobType.SPECIAL),
+        loreMessage("Even after Felwood's corruption, the treants still defend the forest they were entrusted to protect."))
     levels.add(L4)
 
     LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
@@ -160,17 +157,17 @@ public constant PITLORD_HP = 6000
     Level L5 = new Level(
         level5Chain,
         10, // Bonus
-        levelInfoMsg(5, "Dark trolls"),
+        levelInfoMsg(5, "Dark Trolls"),
         new LinkedList<MobType>..add(MobType.FAITH),
-        loreMessage("Description"))
+        loreMessage("Shadowtooth clan is the most violent of all troll clans; they practice vodoo, ritual sacrifices and ceremonial cannabilism."))
     levels.add(L5)
 
     Level L6 = new Level(
         toSquad(ID_MOB_GOBLIN_WAR_MACHINE, 2, 4.5, 7, SpawnRegion.NORTH),
         10, // Bonus
         levelInfoMsg(6, "Goblin Warmachines"),
-        new LinkedList<MobType>..add(MobType.FAITH),
-        loreMessage("Description"))
+        new LinkedList<MobType>..add(MobType.LASTSTAND),
+        loreMessage("Piloted by a lover of explosives, in a five man tall machine equipped with a motorized chainsaw. It truly is a terryfing presence."))
     levels.add(L6)
 
     LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
@@ -183,25 +180,25 @@ public constant PITLORD_HP = 6000
     Level level7 = new Level(
         level7Chain,
         10, // Bonus
-        levelInfoMsg(7, "Furbolgs"),
+        levelInfoMsg(7, "Deadwood Marauders"),
         new LinkedList<MobType>..add(MobType.UNDEAD),
-        loreMessage("Description"))
+        loreMessage("Many species have been hunted to extinction by the warriors of the Deadwood tribe."))
     levels.add(level7)
 
     Level L8 = new Level(
         toDefaultSquad(ID_MOB_FURBOLG_BENDER, 8),
         10, // Bonus
-        levelInfoMsg(8, "Bendy mac Bend"),
+        levelInfoMsg(8, "Deadwood Felcasters"),
         new LinkedList<MobType>..add(MobType.BENDER),
-        loreMessage("Description"))
+        loreMessage("Powerful conjurers fusing the arcane fel power with their affinity for nature."))
     levels.add(L8)
 
     Level L9 = new Level(
         toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7, SpawnRegion.NORTH),
         10, // Bonus
-        levelInfoMsg(9, "Crowy"),
+        levelInfoMsg(9, "Fallen Druids of the Fang"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),
-        loreMessage("Description"))
+        loreMessage("When trying to conjure magic from the Emerald Dream in a last attempt to alleviate the corruption, these druids fell into madness when stuck inside a never-ending nightmare."))
     levels.add(L9)
 
     LinkedList<SquadMember> level10Chain = new LinkedList<SquadMember>
@@ -217,15 +214,15 @@ public constant PITLORD_HP = 6000
         10, // Bonus
         levelInfoMsg(10, "The Fel Vanguard"),
         new LinkedList<MobType>..add(MobType.UNDEAD),
-        loreMessage("Description"))
+        loreMessage("Sadistic masters are needed for taming demonic hounds. That applies to the felguards themselves too."))
     levels.add(level10)
 
     Level L11 = new Level(
         toSquad(ID_BOSS_PITLORD, 1, 4.5, 7, SpawnRegion.NORTH),
         0, // Bonus
-        levelInfoMsg(11, "Pitlord"),
+        levelInfoMsg(11, "Malvingeroth"),
         new LinkedList<MobType>..add(MobType.BOSS),
-        loreMessage("Description"))
+        loreMessage("Leader of the Legion's armies. Corruptor of Felwood. Pit Lord of Annihilan."))
     levels.add(L11)
 
     zoneLevels.add(levels)

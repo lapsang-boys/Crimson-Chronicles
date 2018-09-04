@@ -55,7 +55,7 @@ public function mobHint(MobType mt) returns string
     color c = mobColor(mt)
     switch mt
         case MobType.INVULNERABLE
-            return c.colorize("(Invulnerable)") + textColor.colorize(" - this creature will show you which path the enemies will take.")
+            return c.colorize("(Invulnerable)") + textColor.colorize(" - invulnerable and can't be killed.")
         case MobType.MECHANICAL
             return c.colorize("(Mechanical)") + textColor.colorize(" - immune to slowing effects.")
         case MobType.BOSS
