@@ -1,0 +1,37 @@
+package StratholmeMobList
+
+import Assets
+import ObjectIdGenerator
+import LinkedList
+
+import MobDefinition
+import Levels
+import Squad
+import MobType
+import GameplayConstants
+
+public constant LinkedList<int> ID_PLACEHOLDER =                  new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+
+@compiletime function generateLevels()
+    for i=0 to NUM_DIFFICULTIES-1
+    // Level 1 - Placeholder
+        new MobDefinition(ID_PLACEHOLDER.get(i), "Placeholder", Units.cryptFiend1, "",
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 24), hpReg(0), movementSpeed(250), armor(1), scaling(1.))
+
+@initThird function initZone2Levels()
+    LinkedList<Level> levels = new LinkedList<Level>
+    LinkedList<Level> zone2levels = new LinkedList<Level>
+
+    Level L1 = new Level(
+        toSquad(ID_PLACEHOLDER, 6, 4.5, 7, SpawnRegion.NORTH),
+        10, // Bonus
+        levelInfoMsg(9, "Crowy"),
+        new LinkedList<MobType>..add(MobType.LASTSTAND),
+        loreMessage("Description"))
+        
+    levels.add(L1)
+
+    zone2levels
+        ..add(L1)
+
+    zoneLevels.add(zone2levels)

@@ -40,8 +40,8 @@ public constant LinkedList<int> ID_MOB_ROBIN_TEST =                   new Linked
 public constant PITLORD_HP = 6000
 
 @compiletime function generateLevels()
-    // Level 0 - Info level
     for i=0 to NUM_DIFFICULTIES-1
+    // Level 0 - Info level
         new MobDefinition(ID_MOB_PATH_SHOWER.get(i), "Path Shower", Abilities.murgulMagicMissile, "",
             bounty(0), lifeTaken(0), scaleMaxHp(i, 20), hpReg(0), movementSpeed(500), armor(0), scaling(1.))
         ..setMovementType(MovementType.Fly)
@@ -100,11 +100,6 @@ public constant PITLORD_HP = 6000
         new MobDefinition(ID_MOB_INFERNAL.get(i), "Infernal", Units.infernal1, Soundsets.infernal,
             bounty(0), lifeTaken(1), scaleMaxHp(i, R2I(PITLORD_HP/10)), hpReg(5), movementSpeed(140), armor(1), scaling(1.))
 
-
-    // For zone 2
-    // Level XX
-    // MOB_ROBIN_TEST = new MobDefinition(ID_MOB_ROBIN_TEST, "Robin", Units.abomination1, Soundsets.furbolg, 2, 1, 800, 0, 240, 1, 1.)
-
 // ----------------------------------------------------------------------------
 // ============================= Level objects ================================
 // ----------------------------------------------------------------------------
@@ -112,7 +107,6 @@ public constant PITLORD_HP = 6000
 @initThird function initZone1Levels()
     LinkedList<Level> levels = new LinkedList<Level>
 
-    // ============== Area 1 ==============
     Level L0 = new Level(
         toSquad(ID_MOB_PATH_SHOWER, 3, 1.35, 1.35, SpawnRegion.NORTH),
         0, // Bonus
@@ -235,31 +229,3 @@ public constant PITLORD_HP = 6000
     levels.add(L11)
 
     zoneLevels.add(levels)
-
-
-
-
-    LinkedList<Level> zone2levels = new LinkedList<Level>
-
-    level10Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.WEST))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.CENTER, spawnInterval(10, 10), SpawnRegion.WEST))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.WEST))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
-    .toSquadChain()
-
-    L0 = new Level(
-        level10Chain,
-        0, // Bonus
-        levelInfoMsg(0, "Path shower"),
-        new LinkedList<MobType>..add(MobType.INVULNERABLE),
-        loreMessage(""))
-    // levels.add(L0)
-
-    zone2levels
-        ..add(L0)
-        ..add(L1)
-        ..add(L2)
-
-    zoneLevels.add(zone2levels)
