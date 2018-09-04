@@ -2,7 +2,6 @@ package CrystalBlast
 
 import Assets
 import DummyRecycler
-import ClosureTimers
 import ChannelAbilityPreset
 
 import Alexandria
@@ -88,7 +87,6 @@ function crystalBlast()
     if not morgana.increment() // increment returns true if max reached
         return
 
-    morgana.tower.pause()
     morgana.tower.setAnimation("attack")
 
     // Add ability
@@ -102,6 +100,3 @@ function crystalBlast()
         dummy.issueTargetOrder("acidbomb", morgana.attacked)
 
     DummyRecycler.recycle(dummy, 0.5)
-    doAfter(0.5, () -> begin
-        morgana.tower.unpause()
-    end)

@@ -2,7 +2,6 @@ package ManaBreak
 
 import Assets
 import DummyRecycler
-import ClosureTimers
 import ChannelAbilityPreset
 
 import Alexandria
@@ -87,7 +86,6 @@ function manaBreak()
     if not warMage.increment() // increment returns true if max reached
         return
 
-    warMage.tower.pause()
     warMage.tower.setAnimation("attack")
 
     // Add ability
@@ -101,6 +99,3 @@ function manaBreak()
         dummy.issueTargetOrder("acidbomb", warMage.attacked)
 
     DummyRecycler.recycle(dummy, 0.5)
-    doAfter(0.5, () -> begin
-        warMage.tower.unpause()
-    end)

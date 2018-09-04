@@ -3,7 +3,6 @@ package SongOfRavens
 import Assets
 import ChannelAbilityPreset
 import DummyRecycler
-import ClosureTimers
 
 import TowerConstants
 import Tooltip
@@ -35,7 +34,6 @@ function songOfRavens()
     dummy.setAbilityLevel(ID_SONG_OF_RAVENS, 1)
     dummy.setAbilityCooldown(ID_SONG_OF_RAVENS, 1, 0)
 
-    keres.pause()
     keres.setAnimation("attack")
     
     // Cast ability
@@ -43,9 +41,6 @@ function songOfRavens()
         dummy.issueTargetOrder("acidbomb", victim)
 
     DummyRecycler.recycle(dummy, 0.5)
-    doAfter(0.5, () -> begin
-        keres.unpause()
-    end)
         
 function isOnTheVergeOfDeath() returns bool
     return GetTriggerUnit().getHP()/GetTriggerUnit().getMaxHP() <= 0.25
