@@ -10,7 +10,7 @@ import Squad
 import MobType
 import GameplayConstants
 
-public constant LinkedList<int> ID_PLACEHOLDER =                  new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_PLACEHOLDER = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
 @compiletime function generateLevels()
     for i=0 to NUM_DIFFICULTIES-1
