@@ -1,0 +1,32 @@
+// NOTE: This document is whitespace sensitive. Do not trim trailing
+// whitespaces in this file
+
+[FrameDef]
+COLON_FOOD=Zone:
+
+COLON_LUMBER=Stone:
+COLON_LUMBER_INCOME_RATE= 
+
+IDLE_PEON=Idle Builder (|Cfffed312F8|R)
+KEY_QUESTS=Map Info (|Cfffed312F9|R)
+
+QUESTS=Map Info
+QUESTSMAIN=
+QUESTSOPTIONAL=
+
+RESOURCE_UBERTIP_GOLD=Gold is given as a reward for killing enemy units. Gold is also granted after each level.
+RESOURCE_UBERTIP_LUMBER=Stone is used for building maze rocks.
+RESOURCE_UBERTIP_SUPPLY=Number of zones completed.
+RESOURCE_UBERTIP_UPKEEP=|cffafc0dehttps://github.com/lapsang-boys/crimson-chronicles|r|n|n|cff999999Made by Lapsang Studios|r
+
+// Shown without hovering and as the first line in upkeep.
+UPKEEP_NONE=|cffdc143cCrimson Chronicles|r
+// This removes the 100% string by coloring it dark grey.
+COLON_GOLD_INCOME_RATE=If you find any bugs please create an issue at: |cff222222
+// This message is repeat three times so we make it a whitespace.
+RESOURCE_UBERTIP_UPKEEP_INFO= 
+
+// Here we change icons and other images.
+[CustomSkin]
+SupplyIcon=ReplaceableTextures\PassiveButtons\PASBTNElunesBlessing.blp
+LumberIcon=ReplaceableTextures\CommandButtons\BTNResStone.blp
