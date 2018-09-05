@@ -132,3 +132,9 @@ public constant JAVILINIST_MAX_CHARGES = 10
 public constant JAVILINIST_FURY_CHARGES = 5
 public constant JAVILINIST_FURY_SPEED = 1
 public constant JAVILINIST_WARCRY = "Taz'dingo!"
+
+// -------------- Orcish Gladiator -----------`
+public constant ID_TOWER_ORC_GLADIATOR = compiletime(UNIT_ID_GEN.next())
+public constant ID_TOWER_ORC_GLADIATOR_BLOW = compiletime(ABIL_ID_GEN.next())
+public constant FRAILING_BLOW_PROC_CHANCE = 15
+public constant FRAILING_BLOW_BONUS_DMG = 3

@@ -1,0 +1,31 @@
+package FrailingBlow
+
+import Assets
+import ChannelAbilityPreset
+
+import TowerConstants
+import Tooltip
+
+class FrailingBlow extends AbilityDefinitionCriticalStrikecreep
+    construct(int id)
+        super(id)
+
+        setName("Frailing Blow")
+        setHotkeyNormal("")
+        setTooltipNormal(1, tooltipCustomBasic("Passive", "Frailing Blow", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("Being masters of closequarter combat the gladiators have a " + FRAILING_BLOW_PROC_CHANCE.toString() +
+         "% chance to strike a frailing blow dealing " + FRAILING_BLOW_BONUS_DMG.toString() + " times the normal damage on each hit.",
+        "\"The frost.. sometimes it makes the blade stick.\" - Kargath Bladefist"))
+        setIconNormal(Icons.pASBTNCleavingAttack)
+
+        setDamageMultiplier(1, FRAILING_BLOW_BONUS_DMG.toReal())
+        setChancetoCriticalStrike(1, FRAILING_BLOW_PROC_CHANCE.toReal())
+        setNeverMiss(1, true)
+        setTargetsAllowed(1, "air,ground,enemy")
+        setHeroAbility(false)
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+
+@compiletime function genBlowAbility()
+    new FrailingBlow(ID_TOWER_ORC_GLADIATOR_BLOW)

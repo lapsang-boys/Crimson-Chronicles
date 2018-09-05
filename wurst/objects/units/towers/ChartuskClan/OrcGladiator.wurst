@@ -1,4 +1,4 @@
-package Grunt
+package OrcGladiator
 
 import Assets
 import Damage
@@ -18,19 +18,19 @@ constant DAMAGE_SIDES_PER_DIE = 3
 
 constant POINT_VALUE = GOLD_COST
 
-class Grunt extends TowerDefinition
+class OrcGladiator extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNGrunt)
-        setModelFile(Units.grunt1)
+        setIconGameInterface(Icons.bTNChaosGrom)
+        setModelFile(Units.chaosHellscream)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.grunt)
-        setScalingValue(1.)
+        setUnitSoundSet(Soundsets.hellscream)
+        setScalingValue(0.8)
         setGroundTexture(ID_CHARTUSK_CLAN_GROUND_TEXTURE)
 
         // ------------------------------------
@@ -45,7 +45,9 @@ class Grunt extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER))
+        setNormalAbilities(commaList(ID_SELL_TOWER,
+            ID_TOWER_ORC_GLADIATOR_BLOW
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -66,15 +68,15 @@ class Grunt extends TowerDefinition
         // ---------------------------------
         setButtonPositionX(0)
         setButtonPositionY(0)
-        setHotkey("Q")
-        setName("Grunt")
-        setTooltipBasic(tooltipBuild("Q", "Grunt"))
+        setHotkey("R")
+        setName("Orcish Gladiator")
+        setTooltipBasic(tooltipBuild("R", "Orcish Gladiator"))
         setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Stupid grunts, all they are good for is hittins stuff."))
+            "Freed by the trolls who belive slavery is for the weak. Forever grateful, volontarily joined their ranks."))
 
 @compiletime function tower()
-    new Grunt(ID_TOWER_GRUNT)
+    new OrcGladiator(ID_TOWER_ORC_GLADIATOR)
