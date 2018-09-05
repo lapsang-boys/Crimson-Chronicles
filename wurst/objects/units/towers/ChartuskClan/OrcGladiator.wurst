@@ -71,12 +71,14 @@ class OrcGladiator extends TowerDefinition
         setHotkey("R")
         setName("Orcish Gladiator")
         setTooltipBasic(tooltipBuild("R", "Orcish Gladiator"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setTooltipExtended(tooltipTowerExtended("High damage melee tower which should be placed in locations of the maze that allow for lots of enemy mob exposure.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Freed by the trolls who belive slavery is for the weak. Forever grateful, volontarily joined their ranks."))
+            "The mere sight of slavery is enough of an insult to bring any Trolls blood to the boiling point. " +
+            "The Orcish Gladiators were saved from being the Goblin captives forced to gladiatorship in the once grate Gurubashi Arena. " +
+            "Forever grateful for their freedom they volontarily joined the ranks of the Chartusk Clan."))
 
 @compiletime function tower()
     new OrcGladiator(ID_TOWER_ORC_GLADIATOR)

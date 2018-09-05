@@ -69,12 +69,12 @@ class Grunt extends TowerDefinition
         setHotkey("Q")
         setName("Grunt")
         setTooltipBasic(tooltipBuild("Q", "Grunt"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setTooltipExtended(tooltipTowerExtended("Basic melee tower, moderate damage and useful for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Stupid grunts, all they are good for is hittins stuff."))
+            "Give a grunt an exquisite peice of art ang héll smash it. Give the same grunt an axe and suddenly he becomes useful."))
 
 @compiletime function tower()
     new Grunt(ID_TOWER_GRUNT)

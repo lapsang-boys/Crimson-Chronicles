@@ -78,13 +78,15 @@ class FieryJavilinist extends TowerDefinition
         setButtonPositionY(0)
         setHotkey("E")
         setName("Fiery Javilinist")
-        setTooltipBasic(tooltipBuild("E", "FieryJavilinist"))
-        setTooltipExtended(tooltipTowerExtended("High damage tower with the ability to place traps.",
+        setTooltipBasic(tooltipBuild("E", "Fiery Javilinist"))
+        setTooltipExtended(tooltipTowerExtended("High range and high attackspeed tower that will go berserk after hitting the same target " +
+        JAVILINIST_MAX_CHARGES.toString() + " times consecutively.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "Trap",
-            "As the apprentice of Lea Stoneclaw herself FieryJavilinist is fearless hunter that knows every trick there is in the huners arsenal."))
+            "Blazing Fury",
+            "The fiery Javilinists are fueled by a thair primitive inner fires that sometimes burn strongly "
+            + " enough to send the ferocious warriors into a blood-\"chilling\" frenzy."))
 
 @compiletime function tower()
     new FieryJavilinist(ID_TOWER_FIERY_JAVILINIST)

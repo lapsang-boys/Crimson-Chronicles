@@ -68,14 +68,14 @@ class EmberLeechAspirant extends TowerDefinition
         setButtonPositionX(1)
         setButtonPositionY(0)
         setHotkey("W")
-        setName("Ember Leech aspirant")
-        setTooltipBasic(tooltipBuild("W", "Ember Leech aspirant"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower.",
+        setName("Ember Leech Aspirant")
+        setTooltipBasic(tooltipBuild("W", "Ember Leech Aspirant"))
+        setTooltipExtended(tooltipTowerExtended("Moderate range tower. A good addition in some locations of the maze where range gives an edge over Grunts.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
-            "Emerald spear",
-            "Orcs having a try at mastering the great fires."))
+            "",
+            "The Ember Leech Aspirants are the closest you will ever see an Orc come to mastering the great element of fire. Come to think about it,(...) using the phrase mastering might be pushing it."))
 
 @compiletime function tower()
     new EmberLeechAspirant(ID_TOWER_EMBER_LEECH_ASPIRANT)
