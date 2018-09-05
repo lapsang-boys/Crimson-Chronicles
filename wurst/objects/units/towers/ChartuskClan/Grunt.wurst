@@ -74,7 +74,7 @@ class Grunt extends TowerDefinition
             ATTACK_SPEED,
             RANGE,
             "",
-            "Give an exquisite piece of art to a Grunt he'll smash it. Give the same grunt an axe and suddenly he becomes quite useful."))
+            "Give an exquisite piece of art to a Grunt and he'll smash it to smithereens. Give the same grunt an axe and suddenly he becomes quite useful."))
 
 @compiletime function tower()
     new Grunt(ID_TOWER_GRUNT)
