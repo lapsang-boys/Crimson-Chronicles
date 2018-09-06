@@ -20,7 +20,6 @@ import ObjectIdGenerator
 
 // Tavern
 public constant ID_TAVERN = compiletime(UNIT_ID_GEN.next())
-public constant ID_FOOD_BOY = compiletime(UNIT_ID_GEN.next())
 
 // -------------- Slaves of Midas builder -----------
 public constant ID_BUILDER_SLAVES_OF_MIDAS = compiletime(UNIT_ID_GEN.next())

@@ -1,0 +1,153 @@
+package FoodUtil
+
+import Assets
+import UnitObjEditing
+import HashMap
+import ObjectIds
+import LinkedList
+import MapBounds
+import ObjectIdGenerator
+
+import GameplayConstants
+
+public constant ID_FOOD_SUPPLY = compiletime(UNIT_ID_GEN.next())
+public constant ID_FOOD_USE = compiletime(UNIT_ID_GEN.next())
+
+constant MAX_FOOD = 100
+
+HashMap<player, LinkedList<unit>> playerSupply = new HashMap<player, LinkedList<unit>>()
+HashMap<player, LinkedList<unit>> playerFood = new HashMap<player, LinkedList<unit>>()
+
+public function player.setMaxFood(int max)
+    var diff = max-this.getMaxSupply()
+    if max > MAX_FOOD 
+        diff = MAX_FOOD-this.getMaxSupply() 
+    if diff > 0
+        this.addSupply(diff)
+    else
+        this.removeSupply(-diff)
+
+function player.addSupply(int supply)
+    for i = 1 to supply
+        var u = createUnit(this, ID_FOOD_SUPPLY, playableMin, angle(0))
+        playerSupply.get(this).add(u)
+
+function player.removeSupply(int supply)
+    for i = 1 to supply
+        var u = playerSupply.get(this).dequeue()
+        // TODO: Check if this null-check is necessary.
+        if u == null
+            return
+        u.remove()
+
+public function player.setFoodUsed(int food)
+    var diff = food-this.getCurrentSupply()
+    if food > MAX_FOOD 
+        diff = MAX_FOOD-this.getMaxSupply() 
+    if diff > 0
+        this.addFood(diff)
+    else
+        this.removeFood(-diff)
+
+public function player.addFood(int food)
+    for i = 1 to food
+        var u = createUnit(this, ID_FOOD_USE, playableMin, angle(0))
+        playerFood.get(this).add(u)
+
+function player.removeFood(int food)
+    for i = 1 to food
+        var u = playerFood.get(this).dequeue()
+        // TODO: Check if this null-check is necessary.
+        if u == null
+            return
+        u.remove()
+
+class FoodSupply extends UnitDefinition
+    construct(int id)
+        super(id, 'ushd')
+
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+
+        setNormalAbilities(commaList(
+            AbilityIds.invisibility,
+            AbilityIds.invulnerable,
+            AbilityIds.locust
+        ))
+        setModelFile("")
+
+        setTintingColorRed(0)
+        setTintingColorGreen(0)
+        setTintingColorBlue(0)
+
+        // ------------------------------------
+        // ========= Attack constants =========
+        // ------------------------------------
+        setSpeedBase(0)
+        setMovementType(MovementType.Fly)
+        setMovementHeight(0.)
+        setCollisionSize(0)
+        setPointValue(0)
+
+        setSightRadiusDay(0)
+        setSightRadiusNight(0)
+        setFoodCost(0)
+        setFoodProduced(1)
+        setGoldCost(0)
+        setLumberCost(0)
+        setHitPointsMaximumBase(1)
+        setHitPointsRegenerationType("none")
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+
+class FoodUse extends UnitDefinition
+    construct(int id)
+        super(id, 'ushd')
+
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+
+        setNormalAbilities(commaList(
+            AbilityIds.invisibility,
+            AbilityIds.invulnerable,
+            AbilityIds.locust
+        ))
+        setModelFile("")
+
+        setTintingColorRed(0)
+        setTintingColorGreen(0)
+        setTintingColorBlue(0)
+
+        // ------------------------------------
+        // ========= Attack constants =========
+        // ------------------------------------
+        setSpeedBase(0)
+        setMovementType(MovementType.Fly)
+        setMovementHeight(0.)
+        setCollisionSize(0)
+        setPointValue(0)
+
+        setSightRadiusDay(0)
+        setSightRadiusNight(0)
+        setFoodCost(1)
+        setFoodProduced(0)
+        setGoldCost(0)
+        setLumberCost(0)
+        setHitPointsMaximumBase(1)
+        setHitPointsRegenerationType("none")
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+
+@compiletime function initFoodUnits()
+    new FoodSupply(ID_FOOD_SUPPLY)
+    new FoodUse(ID_FOOD_USE)
+
+@initFirst function initPlayerLists()
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        player p = Player(i)
+        playerSupply.put(p, new LinkedList<unit>())
+        playerFood.put(p, new LinkedList<unit>())

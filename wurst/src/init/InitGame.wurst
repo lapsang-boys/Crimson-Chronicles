@@ -1,8 +1,8 @@
 package InitGame
 
 import ClosureTimers
-import MapBounds
 
+import FoodUtil
 import GameplayConstants
 import BuilderConstants
 import PlayerData
@@ -19,11 +19,11 @@ public function startGame(player p)
     let pos = p.getStartLocation()
     p.setGold(STARTING_GOLD)
     p.setLumber(STARTING_LUMBER)
+    p.setMaxFood(3)
 
     let tavern = createUnit(p, ID_TAVERN, pos, angle(PI/2))
 
     doAfter(0.1, () -> begin
-        CreateUnit(p, ID_FOOD_BOY, playableMin.x, playableMin.y, 0)
         SelectUnitForPlayerSingle(tavern, p)
     end)
 
