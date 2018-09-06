@@ -1,4 +1,4 @@
-package EmberLeechAspirant
+package OrcGladiator
 
 import Assets
 import Damage
@@ -10,27 +10,27 @@ import TowerConstants
 import BuilderConstants
 import Tooltip
 
-constant GOLD_COST = 40
-constant RANGE = 600
-constant ATTACK_SPEED = 1.2
-constant DAMAGE_BASE = 24
-constant DAMAGE_SIDES_PER_DIE = 5
+constant GOLD_COST = 12
+constant RANGE = 128
+constant ATTACK_SPEED = 1.5
+constant DAMAGE_BASE = 9
+constant DAMAGE_SIDES_PER_DIE = 3
 
 constant POINT_VALUE = GOLD_COST
 
-class EmberLeechAspirant extends TowerDefinition
+class OrcGladiator extends TowerDefinition
     construct(int id)
         super(id)
         // -------------------------------------
         // ========== Model file etc. ==========
         // -------------------------------------
-        setIconGameInterface(Icons.bTNChaosWarlockGreen)
-        setModelFile(Units.chaosWarlockGreen)
+        setIconGameInterface(Icons.bTNChaosGrom)
+        setModelFile(Units.chaosHellscream)
         setTintingColorRed(255)
         setTintingColorGreen(255)
         setTintingColorBlue(255)
-        setUnitSoundSet(Soundsets.shaman)
-        setScalingValue(1.)
+        setUnitSoundSet(Soundsets.hellscream)
+        setScalingValue(0.8)
         setGroundTexture(ID_CHARTUSK_CLAN_GROUND_TEXTURE)
 
         // ------------------------------------
@@ -45,37 +45,40 @@ class EmberLeechAspirant extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_EMERALD_SPEAR_TOOLTIP))
+        setNormalAbilities(commaList(ID_SELL_TOWER,
+            ID_TOWER_ORC_GLADIATOR_BLOW
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.lavaSpawnMissile)
-        setAttack1ProjectileHomingEnabled(true)
-        setAttack1ProjectileSpeed(800)
-        setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt("")
+        setAttack1WeaponType(WeaponType.Normal)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
         // ----------------------------------------------------------
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
+        setUpgradesTo("")
         setUpgradesUsed("")
 
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------
-        setButtonPositionX(1)
+        setButtonPositionX(0)
         setButtonPositionY(0)
-        setHotkey("W")
-        setName("Ember Leech Aspirant")
-        setTooltipBasic(tooltipBuild("W", "Ember Leech Aspirant"))
-        setTooltipExtended(tooltipTowerExtended("Moderate range tower. A good addition in some locations of the maze where range gives an edge over Grunts.",
+        setHotkey("R")
+        setName("Orcish Gladiator")
+        setTooltipBasic(tooltipBuild("R", "Orcish Gladiator"))
+        setTooltipExtended(tooltipTowerExtended("High damage melee tower which should be placed in locations of the maze that allow for lots of enemy mob exposure.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "The Ember Leech Aspirants are the closest you will ever see an Orc come to mastering the great element of fire. Come to think about it,(...) using the phrase mastering might be pushing it."))
+            "The mere sight of slavery is enough of an insult to bring any Trolls blood to the boiling point. " +
+            "The Orcish Gladiators were saved from being the Goblin captives forced to gladiatorship in the once grate Gurubashi Arena. " +
+            "Forever grateful for their freedom they volontarily joined the ranks of the Chartusk Clan."))
 
 @compiletime function tower()
-    new EmberLeechAspirant(ID_TOWER_EMBER_LEECH_ASPIRANT)
+    new OrcGladiator(ID_TOWER_ORC_GLADIATOR)

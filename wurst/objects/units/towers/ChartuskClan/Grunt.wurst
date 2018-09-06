@@ -11,7 +11,7 @@ import BuilderConstants
 import Tooltip
 
 constant GOLD_COST = 12
-constant RANGE = 400
+constant RANGE = 128
 constant ATTACK_SPEED = 1.5
 constant DAMAGE_BASE = 9
 constant DAMAGE_SIDES_PER_DIE = 3
@@ -50,10 +50,8 @@ class Grunt extends TowerDefinition
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
         // ------------------------------------------------
-        setAttack1ProjectileArt(Abilities.huntermissile)
-        setAttack1ProjectileHomingEnabled(true)
-        setAttack1ProjectileSpeed(1200)
-        setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileArt("")
+        setAttack1WeaponType(WeaponType.Normal)
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
@@ -71,12 +69,12 @@ class Grunt extends TowerDefinition
         setHotkey("Q")
         setName("Grunt")
         setTooltipBasic(tooltipBuild("Q", "Grunt"))
-        setTooltipExtended(tooltipTowerExtended("Basic tower, good initially and goos for mazing.",
+        setTooltipExtended(tooltipTowerExtended("Basic melee tower, moderate damage and useful for mazing.",
             damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
             ATTACK_SPEED,
             RANGE,
             "",
-            "Stupid grunts, all they are good for is hittins stuff."))
+            "Give an exquisite piece of art to a Grunt and he'll smash it to smithereens. Give the same grunt an axe and suddenly he becomes quite useful."))
 
 @compiletime function tower()
     new Grunt(ID_TOWER_GRUNT)
