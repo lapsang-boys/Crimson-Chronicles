@@ -44,7 +44,8 @@ class Builder extends UnitDefinition
             ID_TOWER_GRUNT,
             ID_TOWER_EMBER_LEECH_ASPIRANT,
             ID_TOWER_FIERY_JAVILINIST,
-            ID_TOWER_ORC_GLADIATOR
+            ID_TOWER_ORC_GLADIATOR,
+            ID_TOWER_CONFLAGRATIONIST
         ))
 
         setNormalAbilities(commaList(
