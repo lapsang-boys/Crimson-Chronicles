@@ -46,7 +46,9 @@ class OrcGladiator extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER,
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER,
             ID_TOWER_ORC_GLADIATOR_BLOW
         ))
 

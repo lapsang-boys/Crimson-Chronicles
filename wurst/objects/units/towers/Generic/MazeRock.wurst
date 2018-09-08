@@ -36,7 +36,10 @@ class MazeRock extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER
+        ))
 
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========

@@ -46,7 +46,11 @@ class Uren extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_TOWER_UREN_TRAP_COOLDOWN))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER,
+            ID_TOWER_UREN_TRAP_COOLDOWN
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

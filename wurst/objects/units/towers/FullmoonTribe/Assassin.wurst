@@ -46,7 +46,11 @@ class Assassin extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER,
+            ID_TOWER_ASSASSIN_STEALTH_NOT_IN_STEALTH
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

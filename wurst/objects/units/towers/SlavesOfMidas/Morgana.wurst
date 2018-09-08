@@ -46,6 +46,7 @@ class Morgan extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
             ID_SELL_TOWER,
             ID_CRYSTAL_BLAST_DUMMY_ICON
         ))
@@ -88,7 +89,7 @@ class Morgan extends TowerDefinition
             "Terms and conditions|n|n" +
             "1. Between sieges, generous amount of time off shall be scheduled to allow for reviewing arcane publications.|n|n" +
             "...|n|n" +
-            "47. Henceforth, the mercenary shall be titulated Miss. Snowflake on the battlefield.|n|n" + 
+            "47. Henceforth, the mercenary shall be titulated Miss. Snowflake on the battlefield.|n|n" +
             "Signed, Morgana Frostwolf & Hawkwood"))
 
 @compiletime function tower()

@@ -45,7 +45,11 @@ class Malorne extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_DREAMWORLD_ATTACK_DUMMY_ICON))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER,
+            ID_DREAMWORLD_ATTACK_DUMMY_ICON
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

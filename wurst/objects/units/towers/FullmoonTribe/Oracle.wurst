@@ -46,7 +46,12 @@ class Oracle extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_EMERALD_SPEAR, ID_EMERALD_SPEAR_TOOLTIP))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER,
+            ID_EMERALD_SPEAR,
+            ID_EMERALD_SPEAR_TOOLTIP
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

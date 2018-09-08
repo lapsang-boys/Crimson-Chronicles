@@ -45,7 +45,11 @@ class EmberLeechAspirant extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER, ID_EMERALD_SPEAR_TOOLTIP))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER,
+            ID_EMERALD_SPEAR_TOOLTIP
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========
@@ -55,7 +59,7 @@ class EmberLeechAspirant extends TowerDefinition
         setAttack1ProjectileSpeed(800)
         setAttack1WeaponType(WeaponType.Missile)
         setAttack1AttackType(ATTACK_TYPE)
-        
+
         // ----------------------------------------------------------
         // ========== Stats (cost, upgrades, requirements) ==========
         // ----------------------------------------------------------
