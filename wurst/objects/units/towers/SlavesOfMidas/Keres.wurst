@@ -14,7 +14,7 @@ constant RANGE = 700
 constant ATTACK_SPEED = 1.1
 constant DAMAGE_BASE = 53
 constant DAMAGE_SIDES_PER_DIE = 46
-
+constant ATTACK_TYPE = AttackType.Normal
 constant POINT_VALUE = GOLD_COST
 
 class Keres extends TowerDefinition
@@ -40,6 +40,7 @@ class Keres extends TowerDefinition
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+        setAttack1AttackType(ATTACK_TYPE)
 
         // ------------------------------------
         // ========== Spells ==================

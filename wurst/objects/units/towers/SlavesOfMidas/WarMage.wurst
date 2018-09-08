@@ -14,7 +14,7 @@ constant RANGE = 500
 constant ATTACK_SPEED = 0.7
 constant DAMAGE_BASE = 20
 constant DAMAGE_SIDES_PER_DIE = 22
-
+constant ATTACK_TYPE = AttackType.Normal
 constant POINT_VALUE = GOLD_COST
 
 class WarMage extends TowerDefinition
@@ -40,6 +40,7 @@ class WarMage extends TowerDefinition
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+        setAttack1AttackType(ATTACK_TYPE)
 
         // ------------------------------------
         // ========== Spells ==================

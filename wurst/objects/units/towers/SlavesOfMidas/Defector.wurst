@@ -14,7 +14,7 @@ constant RANGE = 128
 constant ATTACK_SPEED = 0.9
 constant DAMAGE_BASE = 45
 constant DAMAGE_SIDES_PER_DIE = 85
-
+constant ATTACK_TYPE = AttackType.Normal
 constant POINT_VALUE = GOLD_COST
 
 class Defector extends TowerDefinition
@@ -40,6 +40,7 @@ class Defector extends TowerDefinition
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+        setAttack1AttackType(ATTACK_TYPE)
 
         // ------------------------------------
         // ========== Spells ==================
