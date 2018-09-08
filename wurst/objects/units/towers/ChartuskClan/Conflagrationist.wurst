@@ -1,0 +1,82 @@
+package Conflagrationist
+
+import Assets
+import Damage
+import UnitObjEditing
+import ObjectIds
+
+import TowerDefinition
+import TowerConstants
+import BuilderConstants
+import Tooltip
+
+constant GOLD_COST = 40
+constant RANGE = 600
+constant ATTACK_SPEED = 1.2
+constant DAMAGE_BASE = 24
+constant DAMAGE_SIDES_PER_DIE = 5
+
+constant POINT_VALUE = GOLD_COST
+
+class Conflagrationist extends TowerDefinition
+    construct(int id)
+        super(id)
+        // -------------------------------------
+        // ========== Model file etc. ==========
+        // -------------------------------------
+        setIconGameInterface(Icons.bTNWitchDoctor)
+        setModelFile(Units.witchDoctor1)
+        setTintingColorRed(255)
+        setTintingColorGreen(255)
+        setTintingColorBlue(255)
+        setUnitSoundSet(Soundsets.witchDoctor)
+        setScalingValue(1.)
+        setGroundTexture(ID_CHARTUSK_CLAN_GROUND_TEXTURE)
+
+        // ------------------------------------
+        // ========== Attack damage ==========
+        // ------------------------------------
+        setAcquisitionRange(RANGE.toReal())
+        setAttack1Range(RANGE)
+        setAttack1CooldownTime(ATTACK_SPEED)
+        setAttack1DamageBase(DAMAGE_BASE)
+        setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+
+        // ------------------------------------
+        // ========== Spells ==================
+        // ------------------------------------
+        setNormalAbilities(commaList(ID_SELL_TOWER, ID_EMERALD_SPEAR_TOOLTIP))
+
+        // ------------------------------------------------
+        // ========== Attack modelfile speed etc ==========
+        // ------------------------------------------------
+        setAttack1ProjectileArt(Abilities.witchDoctorMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(600)
+        setAttack1WeaponType(WeaponType.Missile)
+
+        // ----------------------------------------------------------
+        // ========== Stats (cost, upgrades, requirements) ==========
+        // ----------------------------------------------------------
+        setGoldCost(GOLD_COST)
+        setPointValue(POINT_VALUE)
+        setUpgradesUsed("")
+
+        // ---------------------------------
+        // ========== Description ==========
+        // ---------------------------------
+        setButtonPositionX(1)
+        setButtonPositionY(0)
+        setHotkey("A")
+        setName("Conflagrationist")
+        setTooltipBasic(tooltipBuild("A", "Conflagrationist"))
+        setTooltipExtended(tooltipTowerExtended("Moderate range tower. With potential for high amounts of DOT damage, should be placed early in the maze.",
+            damageBoundary(DAMAGE_BASE, DAMAGE_SIDES_PER_DIE),
+            ATTACK_SPEED,
+            RANGE,
+            "",
+            "A lifetime dedicated to the study of fiery forces only fuels their pyromania, and these mages take pride—even pleasure—in igniting their " +
+            "  enemies in wild bursts of flame. Mistake their affinity for watching things burn as a lack of self-control at your own peril.."))
+
+@compiletime function tower()
+    new Conflagrationist(ID_TOWER_CONFLAGRATIONIST)
