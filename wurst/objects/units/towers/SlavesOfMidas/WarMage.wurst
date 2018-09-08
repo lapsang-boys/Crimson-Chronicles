@@ -46,6 +46,7 @@ class WarMage extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
             ID_SELL_TOWER,
             ID_MANA_BREAK_DUMMY_ICON
         ))

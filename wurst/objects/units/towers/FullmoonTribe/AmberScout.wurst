@@ -46,7 +46,10 @@ class AmberScout extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(ID_SELL_TOWER.toRawCode())
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

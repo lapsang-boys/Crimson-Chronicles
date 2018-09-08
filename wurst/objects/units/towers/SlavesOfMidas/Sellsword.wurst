@@ -48,6 +48,7 @@ class Sellsword extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
             ID_SELL_TOWER,
             ID_COWARDICE
         ))

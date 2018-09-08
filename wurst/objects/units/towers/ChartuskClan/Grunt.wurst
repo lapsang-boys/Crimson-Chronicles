@@ -46,7 +46,10 @@ class Grunt extends TowerDefinition
         // ------------------------------------
         // ========== Spells ==================
         // ------------------------------------
-        setNormalAbilities(commaList(ID_SELL_TOWER))
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
+            ID_SELL_TOWER
+        ))
 
         // ------------------------------------------------
         // ========== Attack modelfile speed etc ==========

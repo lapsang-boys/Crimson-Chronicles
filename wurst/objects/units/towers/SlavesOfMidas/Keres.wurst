@@ -46,6 +46,7 @@ class Keres extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
             ID_SELL_TOWER,
             ID_SONG_OF_RAVENS_DUMMY_ICON
         ))

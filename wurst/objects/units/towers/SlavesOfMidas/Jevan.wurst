@@ -47,6 +47,7 @@ class Jevan extends TowerDefinition
         // ========== Spells ==================
         // ------------------------------------
         setNormalAbilities(commaList(
+            AbilityIds.invulnerable,
             ID_SELL_TOWER,
             ID_STORMSONG_DUMMY_ICON
         ))
