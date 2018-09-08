@@ -2,6 +2,45 @@
 // whitespaces in this file
 
 [FrameDef]
+ARMOR_NONE=Type: |Cffff0000Unarmored|R
+ARMOR_SMALL=Type: |Cff00ff00Light armor|R
+ARMOR_LARGE=Type: |Cff0000ffHeavy armor|R
+
+// For some weird reason, melee is normal?!
+DAMAGE_MELEE=Type: |Cffff0000Normal|R
+DAMAGE_PIERCE=Type: |Cff00ff00Pierce|R
+DAMAGE_MAGIC=Type: |Cff0000ffMagic|R
+
+// Unarmored
+ARMORTIP_NONE=100% from normal attacks|n125% from piercing attacks|n75% from magic attacks
+ARMORTIP_NONE_V0C=100% from normal attacks|n125% from piercing attacks|n75% from magic attacks
+ARMORTIP_NONE_V0M=100% from normal attacks|n125% from piercing attacks|n75% from magic attacks
+
+ARMORTIP_SMALL=100% from normal attacks|n150% from piercing attacks|n100% from magic attacks
+ARMORTIP_SMALL_V0C=100% from normal attacks|n150% from piercing attacks|n100% from magic attacks
+ARMORTIP_SMALL_V0M=100% from normal attacks|n150% from piercing attacks|n100% from magic attacks
+
+ARMORTIP_LARGE=75% from normal attacks|n50% from piercing attacks|n100% from magic attacks
+ARMORTIP_LARGE_V0C=75% from normal attacks|n50% from piercing attacks|n150% from magic attacks
+ARMORTIP_LARGE_V0M=75% from normal attacks|n50% from piercing attacks|n150% from magic attacks
+
+ARMORTIP_DIVINE_V0M=Unable to take damage from normal means.
+ARMORTIP_DIVINE_V0C=Unable to take damage from normal means.
+ARMORTIP_DIVINE=Unable to take damage from normal means.
+
+// For some reason, melee is normal?
+DAMAGETIP_MELEE=100% damage to unarmored|n100% to light armor|n75% to heavy armor
+DAMAGETIP_MELEE_V0M=100% damage to unarmored|n100% to light armor|n75% to heavy armor
+DAMAGETIP_MELEE_V0C=100% damage to unarmored|n100% to light armor|n75% to heavy armor
+
+DAMAGETIP_PIERCE=125% damage to unarmored|n150% to light armor|n50% to heavy armor
+DAMAGETIP_PIERCE_V0C=125% damage to unarmored|n150% to light armor|n50% to heavy armor
+DAMAGETIP_PIERCE_V0M=125% damage to unarmored|n150% to light armor|n50% to heavy armor
+
+DAMAGETIP_MAGIC=75% damage to unarmored|n100% to light armor|n150% to heavy armor
+DAMAGETIP_MAGIC_V0C=75% damage to unarmored|n100% to light armor|n150% to heavy armor
+DAMAGETIP_MAGIC_V0M=75% damage to unarmored|n100% to light armor|n150% to heavy armor
+
 COLON_FOOD=Zone:
 
 COLON_LUMBER=Stone:
