@@ -1,0 +1,11 @@
+[Misc]
+MaxUnitSpeed=522.0
+MinUnitSpeed=100.0
+// Light, Medium, Heavy, Fortified, Normal, Hero, Divine, Unarmored
+//
+// The armor type defined as Normal is only used on the Death Ward unit
+// (which can't be damaged due to invulnerability).
+DamageBonusNormal=1.00,0.00,0.75,0.00,0.00,0.00,0.00,1.00
+DamageBonusPierce=1.50,0.00,0.50,0.00,0.00,0.00,0.00,1.25
+DamageBonusMagic=1.00,0.00,1.50,0.00,0.00,0.00,0.00,0.75
+DamageBonusSpells=1.00,0.00,1.50,0.00,0.00,0.00,0.00,0.75
