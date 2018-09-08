@@ -40,62 +40,62 @@ public constant PITLORD_HP = 6000
     for i=0 to NUM_DIFFICULTIES-1
     // Level 0 - Info level
         new MobDefinition(ID_MOB_PATH_SHOWER.get(i), "Path Shower", Abilities.murgulMagicMissile, "",
-            bounty(0), lifeTaken(0), scaleMaxHp(i, 20), hpReg(0), movementSpeed(500), armor(0), scaling(1.))
+            bounty(0), lifeTaken(0), scaleMaxHp(i, 20), hpReg(0), movementSpeed(500), armor(0, ArmorType.Divine), scaling(1.))
         ..setMovementType(MovementType.Fly)
         ..setMovementHeight(128.)
         ..setNormalAbilities("Avul")
         ..setScalingValue(2.)
     // Level 1
         new MobDefinition(ID_MOB_STAG.get(i), "Stag", Units.blackStagMale, "",
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 24), hpReg(0), movementSpeed(250), armor(1), scaling(1.))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 24), hpReg(0), movementSpeed(250), armor(1, ArmorType.Unarmored), scaling(1.))
     // Level 2
         new MobDefinition(ID_MOB_DIRE_WOLF.get(i), "Dire Wolf", Units.direWolf1, Soundsets.direWolf,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 55), hpReg(0), movementSpeed(300), armor(1), scaling(0.8))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 55), hpReg(0), movementSpeed(300), armor(1, ArmorType.Unarmored), scaling(0.8))
     // Level 3
         new MobDefinition(ID_MOB_DEMONIC_SATYR.get(i), "Demonic Satyr", Units.satyr1, Soundsets.satyr,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 85), hpReg(0), movementSpeed(240), armor(1), scaling(1.))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 85), hpReg(0), movementSpeed(240), armor(1, ArmorType.Small), scaling(1.))
     // Level 4
         new MobDefinition(ID_MOB_FEL_TREANT.get(i), "Fel Treants", Units.corruptedEnt1, Soundsets.corruptedEnt,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 120), hpReg(0), movementSpeed(175), armor(3), scaling(1.1))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 120), hpReg(0), movementSpeed(175), armor(3, ArmorType.Large), scaling(1.1))
     // Level 5
         new MobDefinition(ID_MOB_DARK_TROLL_SHADOW_PRIEST.get(i), "Dark troll Shadow priest", Units.darkTrollShadowPriest1, Soundsets.forestTrollShadowPriest,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 165), hpReg(2), movementSpeed(170), armor(2), scaling(1.1))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 165), hpReg(2), movementSpeed(170), armor(2, ArmorType.Unarmored), scaling(1.1))
         new MobDefinition(ID_MOB_DARK_TROLL_WARRIOR.get(i), "Dark troll Warrior", Units.darkTroll1, Soundsets.forestTroll,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 175), hpReg(0), movementSpeed(170), armor(1), scaling(0.95))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 175), hpReg(0), movementSpeed(170), armor(1, ArmorType.Small), scaling(0.95))
     // Level 6
         new MobDefinition(ID_MOB_GOBLIN_WAR_MACHINE.get(i), "Goblin War Machine", Units.ironGolem1, Soundsets.ironGolem,
-            bounty(7), lifeTaken(2), scaleMaxHp(i, 400), hpReg(0), movementSpeed(180), armor(3), scaling(1.3))
+            bounty(7), lifeTaken(2), scaleMaxHp(i, 400), hpReg(0), movementSpeed(180), armor(3, ArmorType.Large), scaling(1.3))
         new MobDefinition(ID_MOB_GOBLIN_MACHINIST.get(i), "Goblin Machinist", Units.goblinSapper1, Soundsets.goblinSapper,
-            bounty(3), lifeTaken(1), scaleMaxHp(i, 135), hpReg(0), movementSpeed(390), armor(0), scaling(1.))
+            bounty(3), lifeTaken(1), scaleMaxHp(i, 135), hpReg(0), movementSpeed(390), armor(0, ArmorType.Unarmored), scaling(1.))
     // Level 7
         new MobDefinition(ID_MOB_FURBOLG.get(i), "Furbolg", Units.furbolgTracker1, Soundsets.furbolg,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 200), hpReg(0), movementSpeed(210), armor(1), scaling(0.9))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 200), hpReg(0), movementSpeed(210), armor(1, ArmorType.Small), scaling(0.9))
         new MobDefinition(ID_MOB_FURBOLG_WARRIOR.get(i), "Furbolg Warrior", Units.furbolgElder, Soundsets.furbolg,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 450), hpReg(10), movementSpeed(170), armor(5), scaling(1.3))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 450), hpReg(10), movementSpeed(170), armor(5, ArmorType.Large), scaling(1.3))
     // Level 8
         new MobDefinition(ID_MOB_FURBOLG_BENDER.get(i), "Furbolg Earth Bender", Units.furbolg1, Soundsets.furbolg,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 370), hpReg(0), movementSpeed(280), armor(1), scaling(1.))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 370), hpReg(0), movementSpeed(280), armor(1, ArmorType.Small), scaling(1.))
     // Level 9
         new MobDefinition(ID_MOB_CROW_DRUID.get(i), "Crow Druid", Units.druidoftheTalon, Soundsets.druidOfTheTalon,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(4), scaling(1.))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(4, ArmorType.Small), scaling(1.))
             ..setNormalAbilities(ID_SPELL_CROW_MORPH.toRawCode())
         new MobDefinition(ID_MOB_CROW_CROW.get(i), "Crow", Units.druidoftheTalon1, Soundsets.druidOfTheTalon,
-            bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(1), scaling(1.))
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(1, ArmorType.Unarmored), scaling(1.))
             ..setNormalAbilities(ID_SPELL_CROW_MORPH.toRawCode())
             ..setMovementType(MovementType.Fly)
             ..setMovementHeight(240)
     // Level 10
         new MobDefinition(ID_MOB_FEL_HUNTER.get(i), "Fel Hunter", Units.felgaurd, Soundsets.felgaurd,
-            bounty(7), lifeTaken(1), scaleMaxHp(i, 1750), hpReg(5), movementSpeed(220), armor(18), scaling(1.3))
+            bounty(7), lifeTaken(1), scaleMaxHp(i, 1750), hpReg(5), movementSpeed(220), armor(18, ArmorType.Large), scaling(1.3))
         new MobDefinition(ID_MOB_FEL_BEAST.get(i), "Fel Beast", Units.felhound, Soundsets.felhound,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 550), hpReg(0), movementSpeed(165), armor(3), scaling(0.9))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 550), hpReg(0), movementSpeed(165), armor(3, ArmorType.Small), scaling(0.9))
 
     // Level 11
         new MobDefinition(ID_BOSS_PITLORD.get(i), "Pitlord", Units.heroPitLord, Soundsets.pitlord,
-            bounty(7), lifeTaken(1), scaleMaxHp(i, PITLORD_HP), hpReg(5), movementSpeed(140), armor(8), scaling(1.3))
+            bounty(7), lifeTaken(1), scaleMaxHp(i, PITLORD_HP), hpReg(5), movementSpeed(140), armor(8, ArmorType.Large), scaling(1.3))
             ..setUnitClassification("undead")
         new MobDefinition(ID_MOB_INFERNAL.get(i), "Infernal", Units.infernal1, Soundsets.infernal,
-            bounty(0), lifeTaken(1), scaleMaxHp(i, R2I(PITLORD_HP/10)), hpReg(5), movementSpeed(140), armor(1), scaling(1.))
+            bounty(0), lifeTaken(1), scaleMaxHp(i, R2I(PITLORD_HP/10)), hpReg(5), movementSpeed(140), armor(1, ArmorType.Large), scaling(1.))
 
 // ----------------------------------------------------------------------------
 // ============================= Level objects ================================

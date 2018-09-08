@@ -14,7 +14,7 @@ constant RANGE = 600
 constant ATTACK_SPEED = 0.6
 constant DAMAGE_BASE = 45
 constant DAMAGE_SIDES_PER_DIE = 53
-
+constant ATTACK_TYPE = AttackType.Magic
 constant POINT_VALUE = GOLD_COST
 
 class Morgan extends TowerDefinition
@@ -40,6 +40,7 @@ class Morgan extends TowerDefinition
         setAttack1CooldownTime(ATTACK_SPEED)
         setAttack1DamageBase(DAMAGE_BASE)
         setAttack1DamageSidesperDie(DAMAGE_SIDES_PER_DIE)
+        setAttack1AttackType(ATTACK_TYPE)
 
         // ------------------------------------
         // ========== Spells ==================

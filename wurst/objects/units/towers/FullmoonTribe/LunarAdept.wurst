@@ -15,7 +15,7 @@ constant RANGE = 500
 constant ATTACK_SPEED = 1.0
 constant DAMAGE_BASE = 38
 constant DAMAGE_SIDES_PER_DIE = 7
-constant ATTACK_TYPE = AttackType.Normal
+constant ATTACK_TYPE = AttackType.Magic
 constant POINT_VALUE = GOLD_COST
 
 class LunarAdept extends TowerDefinition

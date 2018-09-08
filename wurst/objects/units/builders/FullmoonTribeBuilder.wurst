@@ -51,7 +51,7 @@ class Builder extends UnitDefinition
             AbilityIds.invulnerable,
             ID_NEXT_LEVEL,
             ID_FOCUS_FIRE
-            ))
+        ))
 
         // ------------------------------------
         // ========== Other constants =========
@@ -62,6 +62,7 @@ class Builder extends UnitDefinition
         setMovementHeight(0.)
         setCollisionSize(0)
         setPointValue(0)
+        setArmorType(ArmorType.Divine)
 
         setFoodCost(0)
         setGoldCost(0)

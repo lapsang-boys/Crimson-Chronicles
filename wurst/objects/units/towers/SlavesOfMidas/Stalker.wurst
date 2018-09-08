@@ -14,7 +14,7 @@ constant RANGE = 400
 constant ATTACK_SPEED = 1.2
 constant DAMAGE_BASE = 6
 constant DAMAGE_SIDES_PER_DIE = 12
-constant ATTACK_TYPE = AttackType.Normal
+constant ATTACK_TYPE = AttackType.Pierce
 constant POINT_VALUE = GOLD_COST
 
 class Stalker extends TowerDefinition

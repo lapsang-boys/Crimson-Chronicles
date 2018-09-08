@@ -12,7 +12,7 @@ public tuple lifeTaken(int lifeTaken)
 public tuple maxHp(int maxHp)
 public tuple hpReg(real hpReg)
 public tuple movementSpeed(int movementSpeed)
-public tuple armor(int armor)
+public tuple armor(int armor, ArmorType armorType)
 public tuple scaling(real scaling)
 
 public function scaleMaxHp(int i, int maxHp) returns maxHp
@@ -65,6 +65,7 @@ public class MobDefinition extends UnitDefinition
         setSpeedBase(ms.movementSpeed)
 
         setDefenseBase(a.armor)
+        setArmorType(a.armorType)
 
 
         setCollisionSize(1)

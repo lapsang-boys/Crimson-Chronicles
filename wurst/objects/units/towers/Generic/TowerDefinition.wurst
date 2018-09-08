@@ -27,3 +27,4 @@ public class TowerDefinition extends BuildingDefinition
 
         setRequirements("")
         setUnitClassification("")
+        setUpgradesUsed("")

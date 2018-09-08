@@ -3,6 +3,7 @@ package StratholmeMobList
 import Assets
 import ObjectIdGenerator
 import LinkedList
+import UnitObjEditing
 
 import MobDefinition
 import Levels
@@ -16,7 +17,7 @@ public constant LinkedList<int> ID_PLACEHOLDER = new LinkedList<int> ..add(compi
     for i=0 to NUM_DIFFICULTIES-1
     // Level 1 - Placeholder
         new MobDefinition(ID_PLACEHOLDER.get(i), "Placeholder", Units.cryptFiend1, "",
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 24), hpReg(0), movementSpeed(250), armor(1), scaling(1.))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 24), hpReg(0), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.))
 
 @initThird function initZone2Levels()
     LinkedList<Level> levels = new LinkedList<Level>

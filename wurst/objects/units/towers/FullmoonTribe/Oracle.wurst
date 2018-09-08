@@ -15,7 +15,7 @@ constant RANGE = 600
 constant ATTACK_SPEED = 1.2
 constant DAMAGE_BASE = 24
 constant DAMAGE_SIDES_PER_DIE = 5
-constant ATTACK_TYPE = AttackType.Normal
+constant ATTACK_TYPE = AttackType.Pierce
 constant POINT_VALUE = GOLD_COST
 
 class Oracle extends TowerDefinition

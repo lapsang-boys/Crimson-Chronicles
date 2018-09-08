@@ -14,7 +14,7 @@ constant RANGE = 500
 constant ATTACK_SPEED = 0.7
 constant DAMAGE_BASE = 20
 constant DAMAGE_SIDES_PER_DIE = 22
-constant ATTACK_TYPE = AttackType.Normal
+constant ATTACK_TYPE = AttackType.Magic
 constant POINT_VALUE = GOLD_COST
 
 class WarMage extends TowerDefinition
