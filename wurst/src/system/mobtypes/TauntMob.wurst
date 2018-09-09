@@ -1,0 +1,40 @@
+package TauntMob
+
+import ClosureTimers
+import AbilityIds
+
+import Movement
+import Alexandria
+
+public class TauntMob extends MobWrapper implements Enterer
+    real armorDuration
+    string armorFx
+
+    construct(unit u, real armorDuration, string armorFx)
+        super(u)
+        this.armorDuration = armorDuration
+        this.armorFx = armorFx
+
+    override function onEnter()
+        startArmor(this.u, this.armorFx, this.armorDuration)
+
+public function startArmor(unit u, string armorFx, real armorDuration)
+    real armor = u.getArmor()
+    u.setArmor(20)
+    
+    effect e = u.addEffect(armorFx, "chest")
+    e.setScale(1.5)
+    e.setColor(color(40, 255, 70))
+
+    u.addAbility(AbilityIds.taunt)
+    u.setAbilityCooldown(AbilityIds.taunt, 1, 0)
+    u.issueImmediateOrder("taunt")
+    doAfter(0.8, () -> begin
+        u.issuePointOrder("move", u.getNext())
+    end)
+
+    doAfter(armorDuration, () -> begin
+        u.removeAbility(AbilityIds.taunt)
+        u.setArmor(armor)
+        e.destr()
+    end)

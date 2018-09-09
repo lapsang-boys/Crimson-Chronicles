@@ -11,7 +11,7 @@ import BeastMasterMob
 import BenderMob
 import DeathUnitCannonMob
 import DemonMob
-import FaithMob
+import TauntMob
 import CrowMorpherMob
 import Pitlord
 import PowerFaithMob
@@ -19,7 +19,6 @@ import PowerFaithMob
 import TreantMob
 
 public function shelfMob(unit u)
-
     for i=0 to NUM_DIFFICULTIES-1
         switch u.getTypeId()
             // Level 2
@@ -39,7 +38,7 @@ public function shelfMob(unit u)
                 new DeathUnitCannonMob(u, 900, 60, 128, Objects.hCancelDeath, Abilities.glaiveMissileTarget, ID_MOB_GOBLIN_MACHINIST.get(i))
             // Level 7
             case ID_MOB_FURBOLG_WARRIOR.get(i)
-                new FaithMob(u, 3., Abilities.darkSummonTarget)
+                new TauntMob(u, 5., Abilities.frostArmorTarget)
             // Level 8
             case ID_MOB_FURBOLG_BENDER.get(i)
                 new BenderMob(u, 256, Abilities.feralspiritdone, "spell", 0.6)
