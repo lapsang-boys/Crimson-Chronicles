@@ -1,0 +1,77 @@
+package SaveLoad
+
+import ClosureForGroups
+import HashMap
+import LinkedList
+
+import PlayerData
+import GameplayConstants
+import TowerHook
+
+public HashMap<player, SaveInfo> saveMap
+
+public class SaveInfo
+    LinkedList<TowerInfo> towers 
+    int gold
+    vec2 builderPos
+    int builderId
+    int life
+    construct()
+        this.towers = new LinkedList<TowerInfo>
+
+public class TowerInfo
+    int tower_id
+    vec2 pos
+    construct(unit u)
+        this.tower_id = u.getTypeId()
+        this.pos = u.getPos()
+
+class Saver implements ForGroupCallback
+    override function callback(unit u)
+        // This is our homebrewed building check.
+        if not u.getDefaultTurnSpeed() == 123.
+            return
+        
+        let p = u.getOwner()
+        saveMap.get(p).towers.add(new TowerInfo(u))
+
+public function save(player p)
+    PlayerData pd = playerData.get(p.getId())
+    
+    SaveInfo si = saveMap.get(p)
+    si.gold = p.getGold()
+    si.life = pd.life
+
+    si.builderPos = pd.builder.getPos()
+    si.builderId = pd.builder.getTypeId()
+
+    forUnitsInRect(pd.getArea().area, new Saver)
+    print("Saved units and gold!")
+
+public function load(player p)
+    PlayerData pd = playerData.get(p.getId())
+    
+    SaveInfo si = saveMap.get(p)
+    p.setGold(si.gold)
+    let builder = createUnit(p, si.builderId, si.builderPos, 270.0.asAngleDegrees())
+    pd.builder = builder
+    pd.life = si.life
+
+    for t in si.towers
+        unit u = createUnit(p, t.tower_id, t.pos, 270.0.asAngleDegrees())
+        hook(u)
+    
+    clear(p)
+
+public function empty(player p) returns bool
+    return saveMap.get(p).life == 0
+
+public function clear(player p)
+    // Clear it for next time.
+    saveMap.put(p, new SaveInfo())
+
+@initFirst function initRemakeLists()
+    saveMap = new HashMap<player, SaveInfo>
+    for i = 0 to NUMBER_OF_PLAYERS-1
+        player p = Player(i)
+        saveMap.put(p, new SaveInfo())

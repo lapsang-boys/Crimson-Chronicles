@@ -22,6 +22,7 @@ class NextLevel extends AbilityDefinitionWindWalk
         setArtEffect("")
         setEffectSound("")
 
+        setCooldown(1, 1)
         setDurationNormal(1, 0.01)
         setLevels(1)
         setBuffs(1, "")

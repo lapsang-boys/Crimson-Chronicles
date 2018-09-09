@@ -14,6 +14,7 @@ import TowerConstants
 import PlayerData
 import Levels
 import Regions
+import SaveLoad
 
 class Winner implements ForGroupCallback
     override function callback(unit u)
@@ -97,6 +98,7 @@ function levelComplete(PlayerData pd)
             winGame(pd)
         else
             nextZone(pd)
+            clear(pd.p)
         return
 
     if finishedLevel == 0

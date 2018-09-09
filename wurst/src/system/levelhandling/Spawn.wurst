@@ -6,6 +6,8 @@ import RegisterEvents
 import HashMap
 import SoundUtils
 
+import Orders
+import MobType
 import Alexandria
 import Squad
 import Movement
@@ -17,6 +19,7 @@ import Levels
 import PlayerData
 import TimedEffect
 import MobList
+import SaveLoad
 
 class TimerData
 	player p
@@ -28,17 +31,31 @@ class TimerData
 		this.l = l
 		this.cur = 0
 
+		
 function spawnLevel()
 	let builder = GetTriggerUnit()
 	let p = builder.getOwner()
+
+	// Don't allow builders to be building when sending a wave.
+	//
+	// This is to fix a save bug where a builder has a build queue, but the
+	// buildings are not built yet making the save function save the low gold
+	// value but not the unfinished towers.
+	if not builder.getCurrentOrder() == 0 // Passive 
+		and not builder.getCurrentOrder() == Orders.smart
+		printTimedToPlayer("Please, finish building your towers before summoning the next level.", 3, p)
+		return
+
 	builder.removeAbility(ID_NEXT_LEVEL)
 	builder.addAbility(ID_LEVEL_IN_PROGRESS)
 	PlayerData pd = playerData.get(p.getId())
 	playSummonLevelSound(pd)
 	pd.levelInProgress = true
-	
-	let l = pd.getLevel()
 
+	let l = pd.getLevel()
+	if l.types.contains(MobType.BOSS)
+		save(p)
+		
 	TimerData lt = new TimerData(p, l)
 	let t = getTimer()
 

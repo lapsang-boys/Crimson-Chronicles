@@ -57,12 +57,12 @@ public class PlayerData
         Remover rem = new Remover(removePlayerUnits, removeBuilder, this.p, this.builder)
         forUnitsInRect(this.getPlayerRegion(), rem)
 
-    function reset()
+    function reset(int zone, int level)
         this.levelInProgress = false
-        this.zoneNum = ZONE_ASHENVALE
+        this.zoneNum = zone
         this.life = STARTING_LIFE
         this.mobsRemoved = 0
-        this.levelNum = 0
+        this.levelNum = level
         updateLife(this.p, this.life)
 
     function getPlayerRegion() returns rect

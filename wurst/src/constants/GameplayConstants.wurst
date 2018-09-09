@@ -1,11 +1,13 @@
 package GameplayConstants
 
+import LinkedList
+
 // ------------------------------------------
 // ========= Gameplay settings ==============
 // ------------------------------------------
 public constant int STARTING_LIFE = 10
-public constant int STARTING_GOLD = 35
-public constant int STARTING_LUMBER = 10
+public constant LinkedList<int> STARTING_GOLD = new LinkedList<int>..add(35)..add(70)..add(120)
+public constant LinkedList<int> STARTING_LUMBER = new LinkedList<int>..add(10)..add(20)..add(30)
 
 // ------------------------------------------
 // ========= Difficulty settings ============

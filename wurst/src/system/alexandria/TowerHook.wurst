@@ -17,10 +17,13 @@ import Stormsong
 // ==== Chartusk Clan ====
 import BlazingSpear
 
-function hook()
+function triggerHook()
     unit u = GetConstructedStructure()
     if u == null
         u = GetTriggerUnit()
+    hook(u)
+
+public function hook(unit u)
     switch u.getTypeId()
         // ==== Fullmoon tribe ====
         case ID_TOWER_ASSASSIN
@@ -57,4 +60,4 @@ function hook()
     CreateTrigger()
     ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
     ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_UPGRADE_FINISH)
-    ..addAction(function hook)
+    ..addAction(function triggerHook)

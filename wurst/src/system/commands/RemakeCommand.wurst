@@ -4,27 +4,54 @@ import GameplayConstants
 import Colorscheme
 import PlayerData
 import InitGame
+import SaveLoad
+import MobType
+import TowerConstants
+import Regions
 
 function remake()
     player p = GetTriggerPlayer()
     PlayerData pd = playerData.get(p.getId())
+    string command = GetEventPlayerChatString()
+
+    var zoneNum = pd.zoneNum
+    if not command.substring(4) == ""
+        zoneNum = S2I(command.substring(4))
+        zoneNum -= 1
+        if zoneNum == 1 and not GetPlayerTechResearched(pd.p, ID_UNLOCKED_IN_ZONE_2, false)
+            printTimedToPlayer("Zone has not yet been unlocked: "+I2S(zoneNum+1), 3, p)
+            return
+        if zoneNum == 2 and not GetPlayerTechResearched(pd.p, ID_UNLOCKED_IN_ZONE_3, false)
+            printTimedToPlayer("Zone has not yet been unlocked: "+I2S(zoneNum+1), 3, p)
+            return
+        if zoneNum > 2 or zoneNum < 0
+            printTimedToPlayer("Invalid zone: "+I2S(zoneNum+1), 3, p)
+            return
 
     // Remove everything in region.
     pd.cleanse(true, true)
 
-    // Revert values and stop spawn.
-    pd.reset()
-    pd.levelNum = 1
-
     printTimed(textColor.colorize("Player ") + p.getColor().toColor().colorize(GetPlayerName(p)) + textColor.colorize(" has remaked!"), DISPLAY_TIME)
+
+    let l = pd.getLevel()
+    if not l == null and l.types.contains(MobType.BOSS) // Checks that the current level is a boss.
+        and not empty(p) // Checks that we have saved something.
+        load(p)
+        return
+
+    int level = 0
+    // Skip info level.
+    if zoneNum == ZONE_ASHENVALE
+        level = 1
+
+    // Revert values.
+    pd.reset(zoneNum, level)
 
     // Start the game again.
     startGame(p)
-
 
 @initThird function initRemakeCommand()
     trigger remakeTrig = CreateTrigger()
     ..addAction(function remake)
     for i = 0 to NUMBER_OF_PLAYERS-1
-        remakeTrig.registerPlayerChatEvent(Player(i), "-rmk", true)
-        remakeTrig.registerPlayerChatEvent(Player(i), "-remake", true)
+        remakeTrig.registerPlayerChatEvent(Player(i), "-rmk", false)

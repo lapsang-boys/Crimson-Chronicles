@@ -11,7 +11,7 @@ public class TowerDefinition extends BuildingDefinition
         setAttack1TargetsAllowed("enemies,ground,air,vulnerable")
         setAttack2TargetsAllowed("enemies,ground,air,vulnerable")
 
-        setBuildTime(1)
+        setBuildTime(0)
         setLumberCost(0)
 
         setAttack1DamageNumberofDice(1)
@@ -28,3 +28,6 @@ public class TowerDefinition extends BuildingDefinition
         setRequirements("")
         setUnitClassification("")
         setUpgradesUsed("")
+        
+        // This is our homebrewed building check.
+        setTurnRate(123.)

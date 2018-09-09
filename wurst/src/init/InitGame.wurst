@@ -6,31 +6,39 @@ import FoodUtil
 import GameplayConstants
 import BuilderConstants
 import PlayerData
+import TowerConstants
 
 function startGameFirstTime(player p)
     printTimedToPlayer("Welcome!", DISPLAY_TIME, p)
+
+    p.setMaxFood(3)
     startGame(p)
+
     let pd = playerData.get(p.getId())
     pd.fog = CreateFogModifierRect(p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
     pd.fog.start()
+
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
 
 public function startGame(player p)
-    let pos = p.getStartLocation()
-    p.setGold(STARTING_GOLD)
-    p.setLumber(STARTING_LUMBER)
-    p.setMaxFood(3)
+    let pd = playerData.get(p.getId())
+    let pos = pd.getArea().area.getCenter()
+    
+    p.setGold(STARTING_GOLD.get(pd.zoneNum))
+    p.setLumber(STARTING_LUMBER.get(pd.zoneNum))
 
     let tavern = createUnit(p, ID_TAVERN, pos, angle(PI/2))
 
-    doAfter(0.1, () -> begin
+    doAfter(0.2, () -> begin
         SelectUnitForPlayerSingle(tavern, p)
+        p.panCamToTimed(tavern, 0.5)
     end)
 
 @initSecond function initGame()
     SetTimeOfDay(0)
     SetTimeOfDayScale(0)
     SuspendTimeOfDay(true)
+    AddPlayerTechResearched(Player(0), ID_UNLOCKED_IN_ZONE_2, 1)
 
     // Set the current level for all players to the first level.
     for i = 0 to NUMBER_OF_PLAYERS-1
