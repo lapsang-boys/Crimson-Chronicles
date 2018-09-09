@@ -1,0 +1,281 @@
+package Missile
+
+import DummyRecycler
+import TimerUtils
+import MapBounds
+import ClosureForGroups
+
+enum MissileType
+    HOMING
+    TARGET
+
+constant COLLISION_SIZE = 128/8
+constant MISSILE_INTERVAL = 1/32
+constant HEIGHT_CAP = 512
+
+class MissileTarget implements ForGroupCallback
+    Missile m
+
+    construct(Missile m)
+        this.m = m
+
+    override function callback(unit u)
+        print(u.getName())
+
+public class Missile
+    unit source                                                     // Caster
+    unit target                                                     // Target for homing missiles.
+
+    private unit dummy
+    private timer t
+
+    private real ttl = 5                                            // Time to live before autodestruct
+    protected real liveTime = 0
+
+    effect sfx
+    private string sfxPath
+    real scale      = 1
+
+    private vec2 originLoc
+    private vec2 targetLoc                                          // Target for location aimed spells
+    private vec2 currentLoc
+
+    private real originZ                    = this.source.getLocalZ()
+    private real currentZ                   = this.originZ
+    private real targetZ
+
+    private real facing                                             // In radians
+
+    private real distanceTraveled           = 0                     // Distance traveled (wc3 units)
+    protected real distanceToTarget         = this.originLoc.distanceTo(this.targetLoc)
+
+    private real velocity                                            // WC3 units per second
+    private real acceleration                                        // If missile has acceleration
+
+    real arc                                = 0.5                    // How much missile arc (in Z)
+    private real turnrate                   = PI*MISSILE_INTERVAL    // Sets a turn rate for a missile (in X/Y) [rad per itteration]
+    private real turnrateAcceleration       = 0
+    real collision                          = COLLISION_SIZE         // Collision size of the missile can be set through method
+
+    MissileType missileType
+
+    // Constructor for missile with unit target
+    construct(unit source, unit target, string sfxPath, real velocity, real acceleration)
+        this.source = source
+        this.target = target
+
+        this.originLoc = source.getPos() // Use setOrigin() for other starting loc
+        this.targetLoc = target.getPos()
+        this.currentLoc = this.originLoc
+
+        this.targetZ = target.getLocalZ()
+
+        this.facing = this.originLoc.angleTo(this.targetLoc).radians() // Use setAngle for other initial angle
+
+        this.sfxPath = sfxPath
+        this.velocity = velocity*MISSILE_INTERVAL
+        this.acceleration = acceleration
+
+        this.missileType = HOMING
+
+    // Constructor for missile with location target
+    construct(unit source, vec2 targetloc, string sfxPath, real velocity, real acceleration)
+        this.source = source
+        this.target = null
+
+        this.originLoc = source.getPos() // Use setOrigin() for other starting loc
+        this.targetLoc = targetloc
+        this.currentLoc = this.originLoc
+
+        this.targetZ = targetLoc.getTerrainZ()
+
+        this.facing = this.originLoc.angleTo(this.targetLoc).radians() // Use setAngle for other initial angle
+
+        this.sfxPath = sfxPath
+        this.velocity = velocity*MISSILE_INTERVAL
+        this.acceleration = acceleration
+
+        this.missileType = TARGET
+
+    ondestroy
+        DummyRecycler.recycle(this.dummy)
+        this.sfx.destr()
+        this.t.release()
+
+    // #####################################################
+    // ===================== Setters  ======================
+    // #####################################################
+
+    function setOriginLoc(vec2 loc)
+        this.originLoc = loc
+        this.currentLoc = originLoc
+        this.distanceToTarget = this.originLoc.distanceTo(this.targetLoc)
+
+    function setOriginZ(real z)
+        this.originZ = z
+        this.currentZ = originZ
+
+    /** Initial facing of the missile  **/
+    function setFacing(real radians)
+        this.facing = radians
+
+    /** velocity is wc3 units/s  **/
+    function setVelocity(real velocity)
+        this.velocity = velocity*MISSILE_INTERVAL
+
+    /** acceleration is wc3 units/s^2  **/
+    function setAcceleration(real acceleration)
+        this.acceleration = acceleration*MISSILE_INTERVAL
+
+    /** turnrate is radians/s  **/
+    function setTurnrate(real turnrate)
+        this.turnrate = turnrate*MISSILE_INTERVAL
+
+    /** turnrate acceleration in radians/s^2  **/
+    function setTurnrateAcceleration(real turnrateAcceleration)
+        this.turnrateAcceleration = turnrateAcceleration*MISSILE_INTERVAL
+
+    /** arc as top height ratio of total length  **/
+    function setArc(real arc)
+        this.arc = arc
+
+    /** time before self-destruct s  **/
+    function setTimeToLive(real ttl)
+        this.ttl = ttl
+
+    // #####################################################
+    // ===================== Getters  ======================
+    // #####################################################
+
+    function getTimeToLive() returns real
+        return this.ttl
+
+    // #####################################################
+    // ====================== Missile ======================
+    // #####################################################
+    function launch()
+        this.t = getTimer()
+        this.dummy = DummyRecycler.get(this.originLoc, angle(this.facing))
+        this.dummy.addEffect(this.sfxPath, "origin")
+        this.dummy.setFlyHeight(this.currentZ, 9999)
+
+        t.setData(this castTo int)
+        t.startPeriodic(MISSILE_INTERVAL, function periodicActions)
+
+    function move() returns bool
+        // Target unit destroyed => destroy missile
+        if this.target == null and this.missileType == MissileType.HOMING
+            print("destroy target null and HOMING")
+            destroy this
+            return false
+
+        // Increase velocity
+        this.velocity += acceleration
+        // Increase turnrate with time, 0 by default
+        this.turnrate += this.turnrateAcceleration
+
+        // Update missile guidance to its intended target.
+        if this.target != null
+            this.updateTargetLoc()
+
+        // Update the missile facing angle depending on the turnrate
+        this.updateAngle()
+
+        // Update missile location returns false if outside sentinel => destroy
+        if not this.updateMissileLocation()
+            return false
+
+        //this.updateMissileZ()
+
+        // Movement succesful => start collision detection
+        return true
+
+    // #####################################################
+    // ================= Missile movement ==================
+    // #####################################################
+
+    private function updateTargetLoc()
+        // Update missile guidance to its intended target.
+        this.targetLoc = this.target.getPos()
+        this.targetZ = this.target.getLocalZ()
+
+    private function updateAngle()
+        // Update the missile facing angle depending on the turnrate
+        real a = currentLoc.angleTo(this.targetLoc).radians()
+
+        if 0. != this.turnrate and Cos(this.facing - a) < Cos(this.turnrate)
+            if 0. > Sin(a - this.facing)
+                this.facing = this.facing - this.turnrate
+            else
+                    this.facing = this.facing + this.turnrate
+        else
+            this.facing = a
+
+        // Update the facing of the missile dummy
+        this.dummy.setFacing(angle(this.facing))
+
+    private function updateMissileLocation() returns bool
+        vec2 nextLoc = vec2(this.currentLoc.x + this.velocity*Cos(this.facing),
+                            this.currentLoc.y + this.velocity*Sin(this.facing))
+
+        // Destroy missile if next location is outside sentinel bounds
+        if not nextLoc.inPlayable()
+            print("destr sentinel bound")
+            destroy this
+            return false
+
+        // Update distance traveled
+        real stepDistance = nextLoc.distanceTo(this.currentLoc)
+        this.distanceTraveled += stepDistance
+        this.currentLoc = nextLoc
+        this.distanceToTarget = this.currentLoc.distanceTo(this.targetLoc)
+
+        // Move the missile dummy
+        this.dummy.setPos(this.currentLoc)
+        this.updateMissileZ(stepDistance)
+        return true
+
+    private function updateMissileZ(real stepDistance)
+        real totDist = this.originLoc.distanceTo(this.targetLoc)
+        real ratio = this.distanceToTarget/totDist*PI
+
+        if ratio > PI
+            ratio = PI
+        else if ratio < 0
+            ratio = 0
+
+        real nextZ = Sin(ratio)*this.arc*totDist
+        real pitch = Atan((nextZ - this.currentZ)/stepDistance)
+
+        this.currentZ = nextZ
+        this.dummy.setFlyHeight(this.currentZ, 9999)
+        this.dummy.setAnimation((Rad2Deg(pitch) + 90).toInt())
+
+    // #####################################################
+    // ===================== Collision =====================
+    // #####################################################
+
+    protected function detectCollision()
+        MissileTarget mt = new MissileTarget(this)
+        forUnitsInRange(this.currentLoc, COLLISION_SIZE, mt)
+
+    protected function detectTarget()
+        if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
+            print("destroy on loc")
+            destroy this
+
+
+
+function periodicActions()
+    timer t = GetExpiredTimer()
+    Missile m = t.getData() castTo Missile
+
+    real elapsedTime = t.getElapsed()
+    m.liveTime += elapsedTime
+    if m.liveTime > m.getTimeToLive()
+        print("destroy ttl")
+        destroy m
+        return
+    if m.move()
+        m.detectCollision()
+        m.detectTarget()
