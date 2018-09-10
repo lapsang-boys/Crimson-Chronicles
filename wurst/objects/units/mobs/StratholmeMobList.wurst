@@ -24,11 +24,11 @@ public constant LinkedList<int> ID_PLACEHOLDER = new LinkedList<int> ..add(compi
     LinkedList<Level> zone2levels = new LinkedList<Level>
 
     Level L1 = new Level(
-        toSquad(ID_PLACEHOLDER, 6, 4.5, 7, SpawnRegion.NORTH),
-        10, // Bonus
-        levelInfoMsg(9, "Crowy"),
+        toSquad(ID_PLAGUE_RAT, spawnNum(20), spawnInterval(0.75, 2), SpawnRegion.NORTH),
+        bonus(10),
+        levelInfoMsg(1, "Plague Rats"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),
-        loreMessage("Description"))
+        loreMessage("TODO: Write description"))
         
     levels.add(L1)
 

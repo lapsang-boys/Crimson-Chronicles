@@ -11,6 +11,7 @@ import Colorscheme
 // ----------------------------------------------------------------------------
 // ===================== Level class and methods ==============================
 // ----------------------------------------------------------------------------
+public tuple bonus(int bonus)
 
 public class Level
     LinkedList<SquadMember> squadChain
@@ -19,9 +20,9 @@ public class Level
     string desc
     LinkedList<MobType> types
 
-    construct (LinkedList<SquadMember> squadChain, int bonus, string levelName, LinkedList<MobType> types, string desc)
+    construct (LinkedList<SquadMember> squadChain, bonus b, string levelName, LinkedList<MobType> types, string desc)
         this.squadChain = squadChain
-        this.bonus = bonus
+        this.bonus = b.bonus
         this.levelName = levelName
         this.desc = desc
         this.types = types

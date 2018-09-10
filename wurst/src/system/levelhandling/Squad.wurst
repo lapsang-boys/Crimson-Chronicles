@@ -43,9 +43,9 @@ public class SquadMember
     spawnInterval si
     SpawnRegion sr
 
-    construct(LinkedList<int> u_ids, int num, SpawnPosition sp, spawnInterval si, SpawnRegion sr)
+    construct(LinkedList<int> u_ids, spawnNum sn, SpawnPosition sp, spawnInterval si, SpawnRegion sr)
         this.u_ids = u_ids
-        this.num = num
+        this.num = sn.spawnNum
         this.sp = sp
         this.si = si
         this.sr = sr
@@ -54,13 +54,14 @@ public function LinkedList<SquadMember>.toSquadChain() returns LinkedList<SquadM
     LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
     for sm in this
         for i = 0 to sm.num-1
-            SquadMember single = new SquadMember(sm.u_ids, 1, sm.sp, sm.si, sm.sr)
+            SquadMember single = new SquadMember(sm.u_ids, spawnNum(1), sm.sp, sm.si, sm.sr)
             squadChain.add(single)
     return squadChain
 
-public function toSquad(LinkedList<int> u_ids, int num, real low, real high, SpawnRegion sr) returns LinkedList<SquadMember>
-    let si = spawnInterval(low, high)
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RANDOM, si, sr)).toSquadChain()
+public tuple spawnNum(int spawnNum)
 
-public function toDefaultSquad(LinkedList<int> u_ids, int num) returns LinkedList<SquadMember>
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, num, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL, SpawnRegion.NORTH)).toSquadChain()
+public function toSquad(LinkedList<int> u_ids, spawnNum sn, spawnInterval si, SpawnRegion sr) returns LinkedList<SquadMember>
+    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, sn, SpawnPosition.RANDOM, si, sr)).toSquadChain()
+
+public function toDefaultSquad(LinkedList<int> u_ids, spawnNum sn) returns LinkedList<SquadMember>
+    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, sn, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL, SpawnRegion.NORTH)).toSquadChain()

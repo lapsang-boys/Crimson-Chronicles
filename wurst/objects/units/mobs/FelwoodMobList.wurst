@@ -55,12 +55,12 @@ public constant PITLORD_HP = 6000
         new MobDefinition(ID_MOB_DEMONIC_SATYR.get(i), "Demonic Satyr", Units.satyr1, Soundsets.satyr,
             bounty(1), lifeTaken(1), scaleMaxHp(i, 85), hpReg(0), movementSpeed(240), armor(1, ArmorType.Small), scaling(1.))
     // Level 4
-        new MobDefinition(ID_MOB_FEL_TREANT.get(i), "Fel Treants", Units.corruptedEnt1, Soundsets.corruptedEnt,
+        new MobDefinition(ID_MOB_FEL_TREANT.get(i), "Fel Treant", Units.corruptedEnt1, Soundsets.corruptedEnt,
             bounty(1), lifeTaken(1), scaleMaxHp(i, 120), hpReg(0), movementSpeed(175), armor(3, ArmorType.Large), scaling(1.1))
     // Level 5
-        new MobDefinition(ID_MOB_DARK_TROLL_SHADOW_PRIEST.get(i), "Dark troll Shadow priest", Units.darkTrollShadowPriest1, Soundsets.forestTrollShadowPriest,
+        new MobDefinition(ID_MOB_DARK_TROLL_SHADOW_PRIEST.get(i), "Dark Troll Shadow priest", Units.darkTrollShadowPriest1, Soundsets.forestTrollShadowPriest,
             bounty(2), lifeTaken(1), scaleMaxHp(i, 165), hpReg(2), movementSpeed(170), armor(2, ArmorType.Unarmored), scaling(1.1))
-        new MobDefinition(ID_MOB_DARK_TROLL_WARRIOR.get(i), "Dark troll Warrior", Units.darkTroll1, Soundsets.forestTroll,
+        new MobDefinition(ID_MOB_DARK_TROLL_WARRIOR.get(i), "Dark Troll Warrior", Units.darkTroll1, Soundsets.forestTroll,
             bounty(1), lifeTaken(1), scaleMaxHp(i, 175), hpReg(0), movementSpeed(170), armor(1, ArmorType.Small), scaling(0.95))
     // Level 6
         new MobDefinition(ID_MOB_GOBLIN_WAR_MACHINE.get(i), "Goblin War Machine", Units.ironGolem1, Soundsets.ironGolem,
@@ -68,15 +68,15 @@ public constant PITLORD_HP = 6000
         new MobDefinition(ID_MOB_GOBLIN_MACHINIST.get(i), "Goblin Machinist", Units.goblinSapper1, Soundsets.goblinSapper,
             bounty(3), lifeTaken(1), scaleMaxHp(i, 135), hpReg(0), movementSpeed(390), armor(0, ArmorType.Unarmored), scaling(1.))
     // Level 7
-        new MobDefinition(ID_MOB_FURBOLG.get(i), "Furbolg", Units.furbolgTracker1, Soundsets.furbolg,
+        new MobDefinition(ID_MOB_FURBOLG.get(i), "Deadwood Tracker", Units.furbolg1, Soundsets.furbolg,
             bounty(1), lifeTaken(1), scaleMaxHp(i, 200), hpReg(0), movementSpeed(210), armor(1, ArmorType.Small), scaling(0.9))
-        new MobDefinition(ID_MOB_FURBOLG_WARRIOR.get(i), "Furbolg Warrior", Units.furbolgElder, Soundsets.furbolg,
+        new MobDefinition(ID_MOB_FURBOLG_WARRIOR.get(i), "Deadwood Berserker", Units.furbolgElder, Soundsets.furbolg,
             bounty(2), lifeTaken(1), scaleMaxHp(i, 450), hpReg(10), movementSpeed(170), armor(5, ArmorType.Large), scaling(1.3))
     // Level 8
-        new MobDefinition(ID_MOB_FURBOLG_BENDER.get(i), "Furbolg Earth Bender", Units.furbolg1, Soundsets.furbolg,
+        new MobDefinition(ID_MOB_FURBOLG_BENDER.get(i), "Deadwood Felcaster", Units.furbolgTracker1, Soundsets.furbolg,
             bounty(2), lifeTaken(1), scaleMaxHp(i, 370), hpReg(0), movementSpeed(280), armor(1, ArmorType.Small), scaling(1.))
     // Level 9
-        new MobDefinition(ID_MOB_CROW_DRUID.get(i), "Crow Druid", Units.druidoftheTalon, Soundsets.druidOfTheTalon,
+        new MobDefinition(ID_MOB_CROW_DRUID.get(i), "Fallen Druid", Units.druidoftheTalon, Soundsets.druidOfTheTalon,
             bounty(2), lifeTaken(1), scaleMaxHp(i, 600), hpReg(0), movementSpeed(200), armor(4, ArmorType.Small), scaling(1.))
             ..setNormalAbilities(ID_SPELL_CROW_MORPH.toRawCode())
         new MobDefinition(ID_MOB_CROW_CROW.get(i), "Crow", Units.druidoftheTalon1, Soundsets.druidOfTheTalon,
@@ -91,7 +91,7 @@ public constant PITLORD_HP = 6000
             bounty(1), lifeTaken(1), scaleMaxHp(i, 550), hpReg(0), movementSpeed(165), armor(3, ArmorType.Small), scaling(0.9))
 
     // Level 11
-        new MobDefinition(ID_BOSS_PITLORD.get(i), "Pitlord", Units.heroPitLord, Soundsets.pitlord,
+        new MobDefinition(ID_BOSS_PITLORD.get(i), "Malvingeroth", Units.heroPitLord, Soundsets.pitlord,
             bounty(7), lifeTaken(1), scaleMaxHp(i, PITLORD_HP), hpReg(5), movementSpeed(140), armor(8, ArmorType.Large), scaling(1.3))
             ..setUnitClassification("undead")
         new MobDefinition(ID_MOB_INFERNAL.get(i), "Infernal", Units.infernal1, Soundsets.infernal,
@@ -105,8 +105,8 @@ public constant PITLORD_HP = 6000
     LinkedList<Level> levels = new LinkedList<Level>
 
     Level L0 = new Level(
-        toSquad(ID_MOB_PATH_SHOWER, 3, 1.35, 1.35, SpawnRegion.NORTH),
-        0, // Bonus
+        toSquad(ID_MOB_PATH_SHOWER, spawnNum(3), spawnInterval(1.35, 1.35), SpawnRegion.NORTH),
+        bonus(0),
         levelInfoMsg(0, "Path shower"),
         new LinkedList<MobType>..add(MobType.INVULNERABLE),
         loreMessage("These creatures show which path the monsters will take."))
@@ -114,112 +114,112 @@ public constant PITLORD_HP = 6000
 
     // Do we need squad member bounty?
     Level L1 = new Level(
-        toDefaultSquad(ID_MOB_STAG, 10),
-        10, // Bonus
+        toDefaultSquad(ID_MOB_STAG, spawnNum(10)),
+        bonus(10),
         levelInfoMsg(1, "Stag"),
         new LinkedList<MobType>,
         loreMessage("Terrified stags escaping in a stampede."))
     levels.add(L1)
 
     Level L2 = new Level(
-        toDefaultSquad(ID_MOB_DIRE_WOLF, 10),
-        10, // Bonus
+        toDefaultSquad(ID_MOB_DIRE_WOLF, spawnNum(10)),
+        bonus(10),
         levelInfoMsg(2, "Dire Wolf"),
         new LinkedList<MobType>..add(MobType.AGILE),
         loreMessage("Even the predators flee Felwood from the Burning Legion's corruption."))
     levels.add(L2)
 
     Level L3 = new Level(
-        toSquad(ID_MOB_DEMONIC_SATYR, 12, 0.75, 1.5, SpawnRegion.NORTH),
+        toSquad(ID_MOB_DEMONIC_SATYR, spawnNum(12), spawnInterval(0.75, 1.5), SpawnRegion.NORTH),
         // toDefaultSquad(ID_MOB_DEMONIC_SATYR, 10),
-        10, // Bonus
+        bonus(10),
         levelInfoMsg(3, "Demonic Satyrs"),
         new LinkedList<MobType>..add(MobType.DEMON),
         loreMessage("Their rage ensures the onslaught continues, even in death."))
     levels.add(L3)
 
     Level L4 = new Level(
-        toDefaultSquad(ID_MOB_FEL_TREANT, 6),
-        10, // Bonus
+        toDefaultSquad(ID_MOB_FEL_TREANT, spawnNum(6)),
+        bonus(10),
         levelInfoMsg(4, "Fel Treants"),
         new LinkedList<MobType>..add(MobType.SPECIAL),
         loreMessage("Even after Felwood's corruption, the treants still defend the forest they were entrusted to protect."))
     levels.add(L4)
 
     LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3.), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 2, SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 2, SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, 1, SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(1.5, 3.), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_SHADOW_PRIEST, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(1, 1), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_DARK_TROLL_WARRIOR, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(1.5, 3), SpawnRegion.NORTH))
     .toSquadChain()
 
     Level L5 = new Level(
         level5Chain,
-        10, // Bonus
+        bonus(10),
         levelInfoMsg(5, "Dark Trolls"),
         new LinkedList<MobType>..add(MobType.FAITH),
         loreMessage("Shadowtooth clan is the most violent of all troll clans; they practice vodoo, ritual sacrifices and ceremonial cannabilism."))
     levels.add(L5)
 
     Level L6 = new Level(
-        toSquad(ID_MOB_GOBLIN_WAR_MACHINE, 2, 4.5, 7, SpawnRegion.NORTH),
-        10, // Bonus
+        toSquad(ID_MOB_GOBLIN_WAR_MACHINE, spawnNum(2), spawnInterval(4.5, 7), SpawnRegion.NORTH),
+        bonus(10),
         levelInfoMsg(6, "Goblin Warmachines"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),
         loreMessage("Piloted by a lover of explosives, in a five man tall machine equipped with a motorized chainsaw. It truly is a terryfing presence."))
     levels.add(L6)
 
     LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FURBOLG, 2, SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, 3, SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(2.5, 3.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FURBOLG_WARRIOR, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(2.5, 5), SpawnRegion.NORTH))
     .toSquadChain()
 
     Level level7 = new Level(
         level7Chain,
-        10, // Bonus
+        bonus(10),
         levelInfoMsg(7, "Deadwood Marauders"),
         new LinkedList<MobType>..add(MobType.UNDEAD),
         loreMessage("Many species have been hunted to extinction by the warriors of the Deadwood tribe."))
     levels.add(level7)
 
     Level L8 = new Level(
-        toDefaultSquad(ID_MOB_FURBOLG_BENDER, 8),
-        10, // Bonus
+        toDefaultSquad(ID_MOB_FURBOLG_BENDER, spawnNum(8)),
+        bonus(10),
         levelInfoMsg(8, "Deadwood Felcasters"),
         new LinkedList<MobType>..add(MobType.BENDER),
         loreMessage("Powerful conjurers fusing the arcane fel power with their affinity for nature."))
     levels.add(L8)
 
     Level L9 = new Level(
-        toSquad(ID_MOB_CROW_DRUID, 6, 4.5, 7, SpawnRegion.NORTH),
-        10, // Bonus
+        toSquad(ID_MOB_CROW_DRUID, spawnNum(6), spawnInterval(4.5, 7), SpawnRegion.NORTH),
+        bonus(10),
         levelInfoMsg(9, "Fallen Druids of the Fang"),
         new LinkedList<MobType>..add(MobType.LASTSTAND),
         loreMessage("When trying to conjure magic from the Emerald Dream in a last attempt to alleviate the corruption, these druids fell into madness when stuck inside a never-ending nightmare."))
     levels.add(L9)
 
     LinkedList<SquadMember> level10Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 3, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 1, SpawnPosition.CENTER, spawnInterval(10, 10), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_BEAST, 2, SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
-    ..add(new SquadMember(ID_MOB_FEL_HUNTER, 1, SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, spawnNum(3), SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, spawnNum(1), SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, spawnNum(1), SpawnPosition.CENTER, spawnInterval(10, 10), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_BEAST, spawnNum(2), SpawnPosition.CENTER, spawnInterval(1.5, 1.5), SpawnRegion.NORTH))
+    ..add(new SquadMember(ID_MOB_FEL_HUNTER, spawnNum(1), SpawnPosition.CENTER, spawnInterval(1.8, 1.8), SpawnRegion.NORTH))
     .toSquadChain()
 
     Level level10 = new Level(
         level10Chain,
-        10, // Bonus
+        bonus(10),
         levelInfoMsg(10, "The Fel Vanguard"),
         new LinkedList<MobType>..add(MobType.UNDEAD),
         loreMessage("Sadistic masters are needed for taming demonic hounds. That applies to the felguards themselves too."))
     levels.add(level10)
 
     Level L11 = new Level(
-        toSquad(ID_BOSS_PITLORD, 1, 4.5, 7, SpawnRegion.NORTH),
-        0, // Bonus
+        toSquad(ID_BOSS_PITLORD, spawnNum(1), spawnInterval(4.5, 7), SpawnRegion.NORTH),
+        bonus(0),
         levelInfoMsg(11, "Malvingeroth"),
         new LinkedList<MobType>..add(MobType.BOSS),
         loreMessage("Leader of the Legion's armies. Corruptor of Felwood. Pit Lord of Annihilan."))
