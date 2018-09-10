@@ -64,9 +64,22 @@ public class PlayerData
         this.mobsRemoved = 0
         this.levelNum = level
         updateLife(this.p, this.life)
+        this.updateFog()
 
     function getPlayerRegion() returns rect
         return this.getArea().area
+
+    function initFog()
+        this.fog = CreateFogModifierRect(p, FOG_OF_WAR_VISIBLE, this.getPlayerRegion(), true, false)
+        this.fog.start()    
+
+    function updateFog()
+        // Remove fog of last area.
+        this.fog.stop()
+        this.fog.destr()
+
+        // Create fog for new area.
+        this.initFog()
 
     function getArea() returns Area
         if zones.size() < this.zoneNum

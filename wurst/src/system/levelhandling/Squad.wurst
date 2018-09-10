@@ -8,19 +8,19 @@ public function spawnInterval.getDuration() returns real
     return GetRandomReal(this.low, this.high)
 
 public enum SpawnRegion
-    NORTH
-    WEST
-    EAST
+    FIRST
+    SECOND
+    THIRD
     SPUTNIK
     RANDOM
 
 public function SpawnRegion.toIndex() returns int
     switch this
-        case NORTH
+        case FIRST
             return 0
-        case WEST
+        case SECOND
             return 1
-        case EAST
+        case THIRD
             return 2
         case SPUTNIK
             return 3
@@ -64,4 +64,4 @@ public function toSquad(LinkedList<int> u_ids, spawnNum sn, spawnInterval si, Sp
     return new LinkedList<SquadMember>..add(new SquadMember(u_ids, sn, SpawnPosition.RANDOM, si, sr)).toSquadChain()
 
 public function toDefaultSquad(LinkedList<int> u_ids, spawnNum sn) returns LinkedList<SquadMember>
-    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, sn, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL, SpawnRegion.NORTH)).toSquadChain()
+    return new LinkedList<SquadMember>..add(new SquadMember(u_ids, sn, SpawnPosition.RANDOM, DEFAULT_SPAWN_INTERVAL, SpawnRegion.FIRST)).toSquadChain()

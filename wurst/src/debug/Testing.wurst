@@ -3,7 +3,6 @@ package Testing
 import GameplayConstants
 import BuilderConstants
 import PlayerData
-import Regions
 
 function jumpToLevel()
     string command = GetEventPlayerChatString()
@@ -15,7 +14,7 @@ function jumpToLevel()
     pd.cleanse(false, false)
 
     // Revert values and stop spawn.
-    pd.reset(ZONE_ASHENVALE, index)
+    pd.reset(pd.zoneNum, index)
 
     p.addGold(1000000)
 

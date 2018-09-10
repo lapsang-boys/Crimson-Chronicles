@@ -15,8 +15,7 @@ function startGameFirstTime(player p)
     startGame(p)
 
     let pd = playerData.get(p.getId())
-    pd.fog = CreateFogModifierRect(p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
-    pd.fog.start()
+    pd.initFog()
 
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
 

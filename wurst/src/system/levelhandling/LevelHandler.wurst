@@ -59,12 +59,7 @@ function nextZone(PlayerData pd)
     pd.zoneNum++
     pd.p.addFood(1)
 
-    // Remove fog of last area.
-    pd.fog.stop()
-    pd.fog.destr()
-
-    pd.fog = CreateFogModifierRect(pd.p, FOG_OF_WAR_VISIBLE, pd.getPlayerRegion(), true, false)
-    pd.fog.start()
+    pd.updateFog()
 
     pd.builder.setPos(pd.getPlayerRegion().getCenter())
     pd.p.panCamToTimed(pd.builder, 0.5)
@@ -88,7 +83,7 @@ function levelComplete(PlayerData pd)
     pd.levelInProgress = false
     pd.builder.removeAbility(ID_LEVEL_IN_PROGRESS)
 
-    let finishedLevel = pd.levelNum
+    var finishedLevel = pd.levelNum
     pd.levelNum++
     pd.mobsRemoved = 0
 

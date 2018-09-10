@@ -10,12 +10,13 @@ import LevelHandler
 function cleanUp()
     let u = GetTriggerUnit()
     int playerNum = u.getPlayerN()
-    registerMobDeath(Player(playerNum))
+    let p = Player(playerNum)
+    registerMobDeath(p)
     let id = u.getHandleId()
 
     if mobMap.has(id)
         MobWrapper mw = mobMap.get(id)
-        mw.onDeath()
+        mw.onDeath(p)
 
         doAfter(MOURGE_CLEAN_TIME, () -> begin
             destroy mw

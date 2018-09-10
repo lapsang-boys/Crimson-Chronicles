@@ -5,34 +5,281 @@ import ObjectIdGenerator
 import LinkedList
 import UnitObjEditing
 
+import FelwoodMobList
 import MobDefinition
 import Levels
 import Squad
 import MobType
 import GameplayConstants
 
-public constant LinkedList<int> ID_PLAGUE_RAT = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_PLAGUE_RAT        = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_ABOMINATION       = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_BANSHEE           = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_WRAITH            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SHADE             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_NECROMANCER       = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SKELETON          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GARGOYLE          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DECIEVED_CRUSADER = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_VILLAGER          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_ZOMBIE            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GHOUL             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_META_WAGON        = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SLIME             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_LICH              = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_OBSIDIAN_STATUE   = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DREADLORD         = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_THANE_KORTHAZZ    = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_BARON_RIVENDARE   = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_LADY_BLAUMEUX     = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
 @compiletime function generateLevels()
     for i=0 to NUM_DIFFICULTIES-1
-    // Level 1 - Placeholder
-        new MobDefinition(ID_PLAGUE_RAT.get(i), "Plague Rat", Units.rat1, Soundsets.rat,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 24), hpReg(0), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.))
+    // Level 1 - Plague Rats
+        new MobDefinition(ID_MOB_PLAGUE_RAT.get(i), "Plague Rat", Units.rat1, Soundsets.rat,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 35), hpReg(0), movementSpeed(300), armor(0, ArmorType.Unarmored), scaling(1.))
+    
+    // Level 2 - Abominations
+        new MobDefinition(ID_MOB_ABOMINATION.get(i), "Abomination", Units.abomination1, Soundsets.abomination,
+            bounty(2), lifeTaken(1), scaleMaxHp(i, 140), hpReg(2), movementSpeed(150), armor(3, ArmorType.Large), scaling(1.5))
+
+    // Level 3 - Ghost Parade
+        new MobDefinition(ID_MOB_BANSHEE.get(i), "Banshee", Units.banshee1, Soundsets.banshee,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 40), hpReg(1), movementSpeed(350), armor(1, ArmorType.Small), scaling(1.))
+        new MobDefinition(ID_MOB_WRAITH.get(i), "Wraith", Units.bansheeGhost1, Soundsets.bansheeGhost,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 60), hpReg(1), movementSpeed(300), armor(2, ArmorType.Small), scaling(1.5))
+        new MobDefinition(ID_MOB_SHADE.get(i), "Shade", Units.shade1, Soundsets.shade,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 35), hpReg(1), movementSpeed(400), armor(1, ArmorType.Small), scaling(1.))
+
+    // Level 4 - Cult of the Damned
+        new MobDefinition(ID_MOB_NECROMANCER.get(i), "Necromancer", Units.necromancer1, Soundsets.necromancer,
+            bounty(3), lifeTaken(2), scaleMaxHp(i, 500), hpReg(5), movementSpeed(150), armor(5, ArmorType.Large), scaling(1.5))
+        new MobDefinition(ID_MOB_SKELETON.get(i), "Skeleton", Units.skeleton1, Soundsets.skeleton,
+            bounty(0), lifeTaken(1), scaleMaxHp(i, 100), hpReg(1), movementSpeed(250), armor(2, ArmorType.Small), scaling(1.0))
+
+    // Level 5 - Gargoyles
+        new MobDefinition(ID_MOB_GARGOYLE.get(i), "Gargoyle", Units.gargoyle1, Soundsets.gargoyle,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 140), hpReg(1), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+
+    // Level 6 - Decieved Crusaders
+        new MobDefinition(ID_MOB_DECIEVED_CRUSADER.get(i), "Decieved Crusader", Units.theCaptain1, Soundsets.theCaptain,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 400), hpReg(1), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+        new MobDefinition(ID_MOB_VILLAGER.get(i), "Villager", Units.villagerMan1, Soundsets.villagerMan1,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 200), hpReg(0), movementSpeed(300), armor(1, ArmorType.Unarmored), scaling(1.0))
+        new MobDefinition(ID_MOB_GHOUL.get(i), "Ghoul", Units.ghoul1, Soundsets.ghoul,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 320), hpReg(3), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+        new MobDefinition(ID_MOB_ZOMBIE.get(i), "Zombie", Units.zombie, Soundsets.zombie,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 390), hpReg(5), movementSpeed(200), armor(3, ArmorType.Large), scaling(1.0))
+
+    // Level 7 - Meat Wagon
+        new MobDefinition(ID_MOB_META_WAGON.get(i), "Meat Wagon", Units.meatwagon1, Soundsets.meatwagon,
+            bounty(5), lifeTaken(2), scaleMaxHp(i, 1000), hpReg(5), movementSpeed(150), armor(5, ArmorType.Large), scaling(1.3))
+        new MobDefinition(ID_MOB_SLIME.get(i), "Slime", Units.sludgeMonster, Soundsets.sludgeMonster,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 350), hpReg(2), movementSpeed(350), armor(8, ArmorType.Large), scaling(1.1))
+
+    // Level 8 - Liches
+        new MobDefinition(ID_MOB_LICH.get(i), "Lich", Units.heroLich1, Soundsets.heroLich,
+            bounty(2), lifeTaken(2), scaleMaxHp(i, 700), hpReg(5), movementSpeed(150), armor(3, ArmorType.Large), scaling(1.2))
+
+    // Level 9 - Obsidian Statue
+        new MobDefinition(ID_MOB_OBSIDIAN_STATUE.get(i), "Obsidian Statue", Units.obsidianStatue1, Soundsets.obsidianStatue,
+            bounty(3), lifeTaken(2), scaleMaxHp(i, 1500), hpReg(5), movementSpeed(150), armor(5, ArmorType.Large), scaling(1.2))
+
+    // Level 10 - Dreadlords
+        new MobDefinition(ID_MOB_DREADLORD.get(i), "Dreadlord", Units.heroDreadLord, Soundsets.heroDreadLord,
+            bounty(5), lifeTaken(2), scaleMaxHp(i, 2600), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
+
 
 @initThird function initZone2Levels()
     LinkedList<Level> levels = new LinkedList<Level>
     LinkedList<Level> zone2levels = new LinkedList<Level>
 
-    Level L1 = new Level(
-        toSquad(ID_PLAGUE_RAT, spawnNum(20), spawnInterval(0.75, 2), SpawnRegion.NORTH),
+    LinkedList<SquadMember> level0chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_PATH_SHOWER, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.75, 2), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_PATH_SHOWER, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.75, 2), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L0 = new Level(
+        level0chain,
         bonus(10),
-        levelInfoMsg(1, "Plague Rats"),
-        new LinkedList<MobType>..add(MobType.LASTSTAND),
-        loreMessage("TODO: Write description"))
-        
+        levelInfoMsg(levels.size(), "Pathshower"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L0)
+
+    LinkedList<SquadMember> level1chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_PLAGUE_RAT, spawnNum(12), SpawnPosition.RANDOM, spawnInterval(0.75, 2), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_PLAGUE_RAT, spawnNum(12), SpawnPosition.RANDOM, spawnInterval(0.75, 2), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L1 = new Level(
+        level1chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Plague Rats"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
     levels.add(L1)
+
+    LinkedList<SquadMember> level2Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_ABOMINATION, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_ABOMINATION, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L2 = new Level(
+        level2Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Abominations"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L2)
+
+    LinkedList<SquadMember> level3Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_BANSHEE, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_WRAITH, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_SHADE, spawnNum(5), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_BANSHEE, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_WRAITH, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_SHADE, spawnNum(5), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_BANSHEE, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_WRAITH, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_SHADE, spawnNum(5), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_BANSHEE, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_WRAITH, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_SHADE, spawnNum(5), SpawnPosition.RANDOM, spawnInterval(0.3, 0.6), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L3 = new Level(
+        level3Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Ghost Parade"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))
+    levels.add(L3)
+
+    LinkedList<SquadMember> level4Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_NECROMANCER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_NECROMANCER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L4 = new Level(
+        level4Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Cult of the Damned"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L4)
+
+    LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_GARGOYLE, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(1.1, 3.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_GARGOYLE, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(1.1, 3.6), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L5 = new Level(
+        level5Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Alonsus Chapel Gargoyles"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L5)
+
+    LinkedList<SquadMember> level6Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_DECIEVED_CRUSADER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_VILLAGER, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(0.3, 0.9), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_DECIEVED_CRUSADER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_VILLAGER, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(0.3, 0.9), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_DECIEVED_CRUSADER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(5.1, 5.1), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_VILLAGER, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(0.3, 0.9), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_DECIEVED_CRUSADER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_VILLAGER, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(0.3, 0.9), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L6 = new Level(
+        level6Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Decieved Crusader"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L6)
+
+    LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_META_WAGON, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(4.1, 5.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_META_WAGON, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(4.1, 5.6), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L7 = new Level(
+        level7Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Meat Wagons"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L7)
+
+    LinkedList<SquadMember> level8Chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_LICH, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(1.1, 1.6), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_LICH, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(1.1, 1.6), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L8 = new Level(
+        level8Chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Liches"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L8)
+
+    LinkedList<SquadMember> level9chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_OBSIDIAN_STATUE, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.1, 2.1), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_OBSIDIAN_STATUE, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.1, 2.1), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L9 = new Level(
+        level9chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Obsidian Statues"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L9)
+
+    LinkedList<SquadMember> level10chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_DREADLORD, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_DREADLORD, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L10 = new Level(
+        level10chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Dreadlords"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L10)
+
+    LinkedList<SquadMember> level11chain = new LinkedList<SquadMember>
+    ..add(new SquadMember(ID_MOB_THANE_KORTHAZZ, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_BARON_RIVENDARE, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.FIRST))
+    ..add(new SquadMember(ID_MOB_LADY_BLAUMEUX, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.SECOND))
+    ..add(new SquadMember(ID_MOB_SIR_ZELIEK, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.SECOND))
+    .toSquadChain()
+
+    Level L11 = new Level(
+        level11chain,
+        bonus(10),
+        levelInfoMsg(levels.size(), "Four Horsemen"),
+        new LinkedList<MobType>,
+        loreMessage("TODO: Write description"))        
+    levels.add(L11)
 
     zone2levels
         ..add(L1)
+        ..add(L2)
+        ..add(L3)
+        ..add(L4)
+        ..add(L5)
+        ..add(L6)
+        ..add(L7)
+        ..add(L8)
+        ..add(L9)
+        ..add(L10)
+        ..add(L11)
 
     zoneLevels.add(zone2levels)
