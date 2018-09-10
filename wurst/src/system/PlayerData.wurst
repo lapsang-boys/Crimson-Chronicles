@@ -107,3 +107,6 @@ public function PlayerData.getLevels() returns LinkedList<Level>
 
 public function unit.getPlayerData() returns PlayerData
     return playerData.get(this.getOwner().getId())
+
+public function player.getPlayerData() returns PlayerData
+    return playerData.get(this.getId())
