@@ -15,7 +15,8 @@ constant ATTACK_SPEED = 1.4
 constant DAMAGE_BASE = 90
 constant DAMAGE_SIDES_PER_DIE = 161
 constant ATTACK_TYPE = AttackType.Magic
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ID_UNLOCKED_IN_ZONE_3.toRawCode()
+constant POINT_VALUE = 210
 
 class Jevan extends TowerDefinition
     construct(int id)
@@ -67,9 +68,7 @@ class Jevan extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-        setRequirements(commaList(
-            ID_UNLOCKED_IN_ZONE_3
-        ))
+        setRequirements(AVAILABLE_IN)
 
         // ---------------------------------
         // ========== Description ==========

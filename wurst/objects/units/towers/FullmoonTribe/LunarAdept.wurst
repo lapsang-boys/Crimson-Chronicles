@@ -16,7 +16,8 @@ constant ATTACK_SPEED = 1.0
 constant DAMAGE_BASE = 38
 constant DAMAGE_SIDES_PER_DIE = 7
 constant ATTACK_TYPE = AttackType.Magic
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ""
+constant POINT_VALUE = 65
 
 class LunarAdept extends TowerDefinition
     construct(int id)
@@ -67,6 +68,7 @@ class LunarAdept extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo(ID_TOWER_LUNAR_GUARDIAN.toRawCode())
         setUpgradesUsed("")
+        setRequirements(AVAILABLE_IN)
 
         // ---------------------------------
         // ========== Description ==========

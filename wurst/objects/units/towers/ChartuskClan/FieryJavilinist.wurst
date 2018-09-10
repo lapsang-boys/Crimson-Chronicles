@@ -16,7 +16,8 @@ constant ATTACK_SPEED = 0.6
 constant DAMAGE_BASE = 16
 constant DAMAGE_SIDES_PER_DIE = 14
 constant ATTACK_TYPE = AttackType.Pierce
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ""
+constant POINT_VALUE = 70
 
 class FieryJavilinist extends TowerDefinition
     construct(int id)
@@ -75,7 +76,8 @@ class FieryJavilinist extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-
+        setRequirements(AVAILABLE_IN)
+        
         // ---------------------------------
         // ========== Description ==========
         // ---------------------------------

@@ -15,7 +15,8 @@ constant ATTACK_SPEED = 0.6
 constant DAMAGE_BASE = 45
 constant DAMAGE_SIDES_PER_DIE = 53
 constant ATTACK_TYPE = AttackType.Magic
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ID_UNLOCKED_IN_ZONE_2.toRawCode()
+constant POINT_VALUE = 205
 
 class Morgan extends TowerDefinition
     construct(int id)
@@ -69,9 +70,7 @@ class Morgan extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
-        setRequirements(commaList(
-            ID_UNLOCKED_IN_ZONE_2
-        ))
+        setRequirements(AVAILABLE_IN)
 
         // ---------------------------------
         // ========== Description ==========

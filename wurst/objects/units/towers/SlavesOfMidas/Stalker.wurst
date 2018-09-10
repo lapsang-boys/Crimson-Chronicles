@@ -15,7 +15,8 @@ constant ATTACK_SPEED = 1.2
 constant DAMAGE_BASE = 6
 constant DAMAGE_SIDES_PER_DIE = 12
 constant ATTACK_TYPE = AttackType.Pierce
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ""
+constant POINT_VALUE = 17
 
 class Stalker extends TowerDefinition
     construct(int id)
@@ -65,6 +66,7 @@ class Stalker extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo(ID_TOWER_KERES.toRawCode())
         setUpgradesUsed("")
+        setRequirements(AVAILABLE_IN)
 
         // ---------------------------------
         // ========== Description ==========

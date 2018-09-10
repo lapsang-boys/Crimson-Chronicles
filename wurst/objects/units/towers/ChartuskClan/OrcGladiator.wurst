@@ -16,7 +16,8 @@ constant ATTACK_SPEED = 1.2
 constant DAMAGE_BASE = 169
 constant DAMAGE_SIDES_PER_DIE = 79
 constant ATTACK_TYPE = AttackType.Normal
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ""
+constant POINT_VALUE = 100
 
 class OrcGladiator extends TowerDefinition
     construct(int id)
@@ -65,6 +66,7 @@ class OrcGladiator extends TowerDefinition
         setPointValue(POINT_VALUE)
         setUpgradesTo("")
         setUpgradesUsed("")
+        setRequirements(AVAILABLE_IN)
 
         // ---------------------------------
         // ========== Description ==========

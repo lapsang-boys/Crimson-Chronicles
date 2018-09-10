@@ -16,7 +16,8 @@ constant ATTACK_SPEED = 1.5
 constant DAMAGE_BASE = 31
 constant DAMAGE_SIDES_PER_DIE = 16
 constant ATTACK_TYPE = AttackType.Magic
-constant POINT_VALUE = GOLD_COST
+constant AVAILABLE_IN = ""
+constant POINT_VALUE = 32
 
 class EmberLeechAspirant extends TowerDefinition
     construct(int id)
@@ -66,6 +67,7 @@ class EmberLeechAspirant extends TowerDefinition
         setGoldCost(GOLD_COST)
         setPointValue(POINT_VALUE)
         setUpgradesUsed("")
+        setRequirements(AVAILABLE_IN)
 
         // ---------------------------------
         // ========== Description ==========
