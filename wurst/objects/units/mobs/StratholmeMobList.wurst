@@ -90,6 +90,16 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
         new MobDefinition(ID_MOB_DREADLORD.get(i), "Dreadlord", Units.heroDreadLord, Soundsets.heroDreadLord,
             bounty(5), lifeTaken(2), scaleMaxHp(i, 2600), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
 
+    // Level 10 - Dreadlords
+        new MobDefinition(ID_MOB_THANE_KORTHAZZ.get(i), "Thane Korth'azz", Units.heroDeathKnight, Soundsets.heroDeathKnight,
+            bounty(5), lifeTaken(2), scaleMaxHp(i, 5000), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
+        new MobDefinition(ID_MOB_BARON_RIVENDARE.get(i), "Baron Rivendare", Units.heroDeathKnight, Soundsets.heroDeathKnight,
+            bounty(5), lifeTaken(2), scaleMaxHp(i, 5000), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
+        new MobDefinition(ID_MOB_LADY_BLAUMEUX.get(i), "Lady Blaumeux", Units.heroDeathKnight, Soundsets.heroDeathKnight,
+            bounty(5), lifeTaken(2), scaleMaxHp(i, 5000), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
+        new MobDefinition(ID_MOB_SIR_ZELIEK.get(i), "Sir Zeliek", Units.heroDeathKnight, Soundsets.heroDeathKnight,
+            bounty(5), lifeTaken(2), scaleMaxHp(i, 5000), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
+
 
 @initThird function initZone2Levels()
     LinkedList<Level> levels = new LinkedList<Level>
