@@ -5,13 +5,18 @@ import TimerUtils
 import MapBounds
 import ClosureForGroups
 
+import Assets
+
 enum MissileType
     HOMING
     TARGET
 
+// Collision size of missile
 constant COLLISION_SIZE = 128/8
+// Frame rate of system
 constant MISSILE_INTERVAL = 1/32
-constant HEIGHT_CAP = 512
+// Default height (66 units) for launching and aiming missiles from/at units
+constant DEFAULT_HITBOX = 0.66
 
 class MissileTarget implements ForGroupCallback
     Missile m
@@ -21,6 +26,9 @@ class MissileTarget implements ForGroupCallback
 
     override function callback(unit u)
         print(u.getName())
+        u.addEffect(Abilities.frostNovaTarget, "origin")
+        if u.getHandleId() == m.target.getHandleId()
+            destroy m
 
 public class Missile
     unit source                                                     // Caster
@@ -40,7 +48,7 @@ public class Missile
     private vec2 targetLoc                                          // Target for location aimed spells
     private vec2 currentLoc
 
-    private real originZ                    = this.source.getLocalZ()
+    private real originZ                    = this.source.getUnitHeight(DEFAULT_HITBOX)
     private real currentZ                   = this.originZ
     private real targetZ
 
@@ -52,8 +60,8 @@ public class Missile
     private real velocity                                            // WC3 units per second
     private real acceleration                                        // If missile has acceleration
 
-    real arc                                = 0.5                    // How much missile arc (in Z)
-    private real turnrate                   = PI*MISSILE_INTERVAL    // Sets a turn rate for a missile (in X/Y) [rad per itteration]
+    real arc                                = 0.2                    // How much missile arc (in Z)
+    private real turnrate                   = PI/2*MISSILE_INTERVAL    // Sets a turn rate for a missile (in X/Y) [rad per itteration]
     private real turnrateAcceleration       = 0
     real collision                          = COLLISION_SIZE         // Collision size of the missile can be set through method
 
@@ -68,7 +76,7 @@ public class Missile
         this.targetLoc = target.getPos()
         this.currentLoc = this.originLoc
 
-        this.targetZ = target.getLocalZ()
+        this.targetZ = target.getUnitHeight(DEFAULT_HITBOX)
 
         this.facing = this.originLoc.angleTo(this.targetLoc).radians() // Use setAngle for other initial angle
 
@@ -113,7 +121,7 @@ public class Missile
 
     function setOriginZ(real z)
         this.originZ = z
-        this.currentZ = originZ
+        this.currentZ = this.originZ
 
     /** Initial facing of the missile  **/
     function setFacing(real radians)
@@ -156,8 +164,8 @@ public class Missile
     function launch()
         this.t = getTimer()
         this.dummy = DummyRecycler.get(this.originLoc, angle(this.facing))
-        this.dummy.addEffect(this.sfxPath, "origin")
-        this.dummy.setFlyHeight(this.currentZ, 9999)
+        this.sfx = this.dummy.addEffect(this.sfxPath, "origin")
+        this.dummy.setFlyHeight(this.currentZ, 0)
 
         t.setData(this castTo int)
         t.startPeriodic(MISSILE_INTERVAL, function periodicActions)
@@ -184,8 +192,6 @@ public class Missile
         // Update missile location returns false if outside sentinel => destroy
         if not this.updateMissileLocation()
             return false
-
-        //this.updateMissileZ()
 
         // Movement succesful => start collision detection
         return true
@@ -233,22 +239,37 @@ public class Missile
         // Move the missile dummy
         this.dummy.setPos(this.currentLoc)
         this.updateMissileZ(stepDistance)
+
         return true
 
     private function updateMissileZ(real stepDistance)
         real totDist = this.originLoc.distanceTo(this.targetLoc)
-        real ratio = this.distanceToTarget/totDist*PI
-
-        if ratio > PI
-            ratio = PI
+        // How close are we to the target compared ("%" along the way)
+        real ratio = 1 - this.distanceToTarget/totDist
+        // Ratio needs to be 0 <= ratio <= 1
+        if ratio > 1
+            ratio = 1
         else if ratio < 0
             ratio = 0
 
-        real nextZ = Sin(ratio)*this.arc*totDist
-        real pitch = Atan((nextZ - this.currentZ)/stepDistance)
+        // Update target z if unit
+        if this.target != null
+            this.targetZ = this.target.getLocalZ()
 
-        this.currentZ = nextZ
-        this.dummy.setFlyHeight(this.currentZ, 9999)
+        // Linear z diff
+        real dzLine = (this.targetZ - this.originZ)*(stepDistance/totDist)
+
+        // Arc z diff
+        real dzArc = PI*Cos(ratio*PI)*this.arc*totDist/(totDist/stepDistance)
+
+        // Calculate pitch based on total change in z and change in xy-plane
+        real pitch = Atan((dzLine + dzArc)/stepDistance)
+
+        // Update z with both deltas
+        this.currentZ += dzLine + dzArc
+
+        // Set height of dummy and update pitch
+        this.dummy.setFlyHeight(this.currentZ, 0)
         this.dummy.setAnimation((Rad2Deg(pitch) + 90).toInt())
 
     // #####################################################
@@ -265,7 +286,6 @@ public class Missile
             destroy this
 
 
-
 function periodicActions()
     timer t = GetExpiredTimer()
     Missile m = t.getData() castTo Missile
@@ -278,4 +298,8 @@ function periodicActions()
         return
     if m.move()
         m.detectCollision()
+        // TODO: Fix why this is called on null sometimes
         m.detectTarget()
+
+function unit.getUnitHeight(real percentage) returns real
+    return 100*percentage
