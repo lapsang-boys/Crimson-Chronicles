@@ -33,7 +33,7 @@ public class DemonMob extends MobWrapper implements Deather
         this.fxDeathPath = fxDeathPath
         this.fxHealPath = fxHealPath
 
-    override function onDeath()
+    override function onDeath(player p)
         createTimedEffect(this.u.getPos(), 1.5, this.fxDeathPath)
         DemonGroup dg = new DemonGroup(this.u.getMaxHP()*this.percent, this.fxHealPath)
         forUnitsInRange(this.u.getPos(), this.radius, dg)

@@ -1,0 +1,64 @@
+package PlagueMob
+
+import ClosureForGroups
+import ClosureTimers
+import AbilityObjEditing
+import ObjectIds
+import Abilities
+import DummyRecycler
+import ObjectIdGenerator
+import GameplayConstants
+import PlayerData
+
+import Alexandria
+
+constant int ID_PLAGUE_CLOUD = compiletime(ABIL_ID_GEN.next())
+
+public class PlagueMob extends MobWrapper implements Deather
+    real plagueDuration
+    real range
+    int damagePerSecond
+
+    construct(unit u, real plagueDuration, real range, int damagePerSecond)
+        super(u)
+        this.plagueDuration = plagueDuration
+        this.range = range
+        this.damagePerSecond = damagePerSecond
+
+    override function onDeath(player p)
+        let pos = this.u.getPos()
+        let dummy = DummyRecycler.get(pos, angle(0))
+        let pd = playerData.get(p.getId())
+
+        dummy.addAbility(ID_PLAGUE_CLOUD)
+        dummy.setAbilityLevel(ID_PLAGUE_CLOUD, damagePerSecond)
+        effect e = dummy.addEffect(Abilities.plagueCloudCaster, "origin")
+
+        doPeriodicallyTimed(1.0, plagueDuration) cb ->
+            forUnitsInRange(pos, this.range) ucb ->
+                if ucb.getOwner() == PLAYER_BROWN
+                    pd.builder.damageTarget(ucb, this.damagePerSecond.toReal())
+                    ucb.addEffect(Abilities.bloodElfMissile, "origin").destr()
+
+            if cb.isLast()
+                DummyRecycler.recycle(dummy)
+                e.destr()
+
+class PlagueCloud extends AbilityDefinitionLightningShield
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(3)
+        setButtonPositionNormalY(2)
+
+        setEffectSound("")
+
+        setLevels(100)
+        presetDamageperSecond((int lvl) -> lvl.toReal())
+        presetAreaofEffect((int _) -> 512)
+        presetTargetsAllowed((int _) -> commaList(
+            TargetsAllowed.enemies
+        ))
+
+@compiletime function nanoBreweryMoveTower()
+    new PlagueCloud(ID_PLAGUE_CLOUD)

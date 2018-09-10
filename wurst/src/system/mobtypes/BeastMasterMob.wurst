@@ -42,7 +42,7 @@ public class BeastMob extends MobWrapper implements Deather
         this.t.setData(this castTo int)
         this.t.start(this.holdTime, function bindToMaster)
 
-    override function onDeath()
+    override function onDeath(player p)
         if not this.master.isAlive()
             return
 
@@ -51,7 +51,7 @@ public class BeastMob extends MobWrapper implements Deather
         this.master.attatchTimedEffect(2, this.fxBeastDeathPath2, "origin")
 
         // Get player builder to deal damage for bounty
-        PlayerData pd = playerData.get(this.beast.getPlayerN())
+        PlayerData pd = playerData.get(p.getId())
         pd.builder.damageTarget(this.master, this.beast.getMaxHP())
 
 // ##################################################################

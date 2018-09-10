@@ -38,7 +38,7 @@ public abstract class MobWrapper implements Spawner, Enterer, Deather, Ender, Ti
     override function onEnd() returns bool
         return false
 
-    override function onDeath()
+    override function onDeath(player p)
         skip
 
     override function startTick()
@@ -55,7 +55,7 @@ public interface Enterer
     function onEnter()
 
 public interface Deather
-    function onDeath()
+    function onDeath(player p)
 
 public interface Ender
     function onEnd() returns bool

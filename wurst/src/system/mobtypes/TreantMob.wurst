@@ -28,7 +28,7 @@ public class TreantMob extends MobWrapper implements Deather
         this.duration = duration
         this.fxDeathPath = fxDeathPath
 
-    override function onDeath()
+    override function onDeath(player p)
         createTimedEffect(this.u.getPos(), 1.5, this.fxDeathPath)
         SmogTarget st = new SmogTarget(this.u)
         forUnitsInRange(this.u.getPos(), this.radius, st)

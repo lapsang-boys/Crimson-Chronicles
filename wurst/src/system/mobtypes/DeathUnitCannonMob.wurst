@@ -28,7 +28,7 @@ public class DeathUnitCannonMob extends MobWrapper implements Deather
         player p = Player(super.u.getPlayerN())
         registerMobCreation(p)
 
-    override function onDeath()
+    override function onDeath(player p)
         let missileU = createUnit(PLAYER_BROWN, this.spawnId, this.u.getPos(), this.u.getPos().angleTo(u.getNext()))
         missileU.setUserData(this.u.getUserData())
 
