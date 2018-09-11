@@ -42,7 +42,7 @@ function healthCheck()
 
 function morph(CrowMorpherMob mhm)
     player p = Player(mhm.u.getPlayerN())
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     mhm.u.attatchTimedEffect(2, mhm.morphFx, "origin")
 
     mhm.u.setAbilityLevel(ID_SPELL_CROW_MORPH, pd.difficulty + 1)

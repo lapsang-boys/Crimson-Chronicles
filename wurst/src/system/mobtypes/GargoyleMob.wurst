@@ -1,0 +1,67 @@
+package GargoyleMob
+
+import Orders
+import TimerUtils
+import ClosureTimers
+import AbilityObjEditing
+import ObjectIds
+import GameplayConstants
+import Movement
+
+import StratholmeMobList
+import Alexandria
+
+public class GargoyleMob extends MobWrapper implements Ticker
+    timer t
+    real morphPercent
+    real duration
+
+    construct(unit u, real morphPercent, real duration)
+        super(u)
+        this.t = getTimer()
+        this.morphPercent = morphPercent
+        this.duration = duration
+
+        startTick()
+
+    override function startTick()
+        t.setData(this castTo int)
+        t.startPeriodic(0.25, function healthCheck)
+
+    ondestroy
+        this.t.release()
+
+
+function healthCheck()
+    timer t = GetExpiredTimer()
+    GargoyleMob gm = t.getData() castTo GargoyleMob
+
+    if gm.u.getHP()/gm.u.getMaxHP() <= gm.morphPercent
+        morph(gm)
+        t.pause()
+
+function morph(GargoyleMob gm)
+    print("Morph!")
+    gm.u.issueImmediateOrderById(Orders.stoneform)
+
+    doAfter(gm.duration, () -> begin
+        if gm.u.isAlive()
+            gm.u.issueImmediateOrderById(Orders.unstoneform)
+            gm.u.issuePointOrder("move", gm.u.getNext())
+    end)
+
+class StoneForm extends AbilityDefinitionStoneForm
+    construct(int id)
+        super(id)
+        setButtonPositionNormalX(3)
+        setButtonPositionNormalY(2)
+        setEffectSound("")
+        setRequirements("")
+        presetLifeRegenerationRatepersecond((int _) -> 20.0)
+        setLevels(NUM_DIFFICULTIES)
+        presetNormalFormUnit((int lvl) -> ID_MOB_GARGOYLE.get(lvl-1).toRawCode())
+        presetAlternateFormUnit((int lvl) -> ID_MOB_GARGOYLE_STONE_FORM.get(lvl-1).toRawCode())
+
+
+@compiletime function nanoBreweryMoveTower()
+    new StoneForm(ID_STONE_FORM)

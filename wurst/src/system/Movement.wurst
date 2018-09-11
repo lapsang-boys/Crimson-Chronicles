@@ -19,8 +19,8 @@ public function unit.getPlayerN() returns int
 
 // Pre-condition: unit arrives at correct node => increase custom value on unit u before calling GetNext.
 public function unit.getNext() returns vec2
-    var p = this.getPlayerN()
-    PlayerData pd = playerData.get(p)
+    var pn = this.getPlayerN()
+    PlayerData pd = playerData.get(pn)
     let cv = this.getUserData()
     let area = pd.getArea()
     let pathId = cv.getPathId()
@@ -37,8 +37,8 @@ public function unit.getNext() returns vec2
     return area.paths.get(pathId).rects.get(nodeId).getCenter()
 
 public function unit.getPrev() returns vec2
-    var p = this.getPlayerN()
-    PlayerData pd = playerData.get(p)
+    var pn = this.getPlayerN()
+    PlayerData pd = playerData.get(pn)
     let cv = this.getUserData()
     let area = pd.getArea()
     let pathId = cv.getPathId()
@@ -56,14 +56,14 @@ public function unit.getPrev() returns vec2
 
 
 public function unit.getArea() returns rect
-    var p = this.getPlayerN()
-    PlayerData pd = playerData.get(p)
+    var pn = this.getPlayerN()
+    PlayerData pd = playerData.get(pn)
     let area = pd.getArea()
     return area.area
 
 public function unit.getSpawn() returns rect
-    var p = this.getPlayerN()
-    PlayerData pd = playerData.get(p)
+    var pn = this.getPlayerN()
+    PlayerData pd = playerData.get(pn)
     let area = pd.getArea()
     let cv = this.getUserData()
     let pathId = cv.getPathId()
@@ -86,4 +86,7 @@ public function unit.getNodeId() returns int
 
 public function unit.getPathId() returns int
     return this.getUserData().getPathId()
-    
+
+public function unit.getPath() returns Path
+    let pd = playerData.get(this.getPlayerN())
+    return pd.getArea().paths.get(this.getPathId())

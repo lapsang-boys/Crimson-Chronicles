@@ -1,0 +1,70 @@
+package NecroMob
+
+import ClosureTimers
+import Abilities
+
+import StratholmeMobList
+import Alexandria
+import Movement
+import PlayerData
+import LevelHandler
+
+public class NecroMob extends MobWrapper implements Enterer
+    real delay
+    real damage
+    int skeletons
+
+    construct(unit u, real delay, real damage, int skeletons)
+        super(u)
+        this.delay = delay
+        this.damage = damage
+        this.skeletons = skeletons
+
+    override function onEnter()
+        this.u.setAnimation("stand channel")
+        this.u.pause()
+
+        let pd = playerData.get(u.getPlayerN())
+
+        doAfter(this.delay) ->
+            for i = 1 to this.skeletons
+                doAfter(0.5*i) ->
+                    var offset = angle(i*2*PI/this.skeletons).direction().setLength(128)
+                    var spawnPos = this.u.getPos().add(offset.x, offset.y)
+                    addEffect(Abilities.animateDeadTarget, spawnPos)
+
+                    let skeleton = createUnit(
+                        this.u.getOwner(),
+                        ID_MOB_SKELETON.get(pd.difficulty),
+                        spawnPos,
+                        this.u.getPos().angleTo(this.u.getNext()))
+
+                    // Make skeleton transparent.
+                    skeleton.setVertexColor(colorA(178, 178, 178, 180))
+                    skeleton.setUserData(this.u.getUserData())
+                    vec2 pos = skeleton.getNext()
+                    skeleton.issuePointOrder("move", pos)
+                    new SkeletonMob(skeleton, this)
+                    registerMobCreation(pd.p)
+            
+            doAfter(0.5*this.skeletons) ->
+                this.u.unpause()
+    
+
+public class SkeletonMob extends MobWrapper implements Deather
+    NecroMob nm
+
+    construct(unit u, NecroMob nm)
+        super(u)
+        this.nm = nm
+
+    override function onDeath(player p)
+        let pd = p.getPlayerData()
+
+        // The skeleton might have lived longer than the necromancer.
+        if nm == null
+            return
+
+        vec2 pos = nm.u.getPos()
+        addEffect(Abilities.deathCoilSpecialArt, pos).destr()
+        pd.builder.damageTarget(nm.u, nm.damage)

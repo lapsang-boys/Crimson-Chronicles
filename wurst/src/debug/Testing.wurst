@@ -8,7 +8,7 @@ function jumpToLevel()
     string command = GetEventPlayerChatString()
     int index = S2I(command.substring(4))
     player p = GetTriggerPlayer()
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
 
     // Remove all creeps in area.
     pd.cleanse(false, false)
@@ -26,7 +26,7 @@ function jumpToZone()
     string command = GetEventPlayerChatString()
     int index = S2I(command.substring(5))
     player p = GetTriggerPlayer()
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
 
     // Remove all creeps in area.
     pd.cleanse(false, false)

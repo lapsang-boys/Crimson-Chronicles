@@ -3,6 +3,7 @@ package StratholmeMobList
 import Assets
 import ObjectIdGenerator
 import LinkedList
+import ObjectIds
 import UnitObjEditing
 
 import FelwoodMobList
@@ -12,27 +13,30 @@ import Squad
 import MobType
 import GameplayConstants
 
-public constant LinkedList<int> ID_MOB_PLAGUE_RAT        = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_ABOMINATION       = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_BANSHEE           = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_WRAITH            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_SHADE             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_NECROMANCER       = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_SKELETON          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_GARGOYLE          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_DECIEVED_CRUSADER = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_VILLAGER          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_ZOMBIE            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_GHOUL             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_META_WAGON        = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_SLIME             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_LICH              = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_OBSIDIAN_STATUE   = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_DREADLORD         = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_THANE_KORTHAZZ    = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_BARON_RIVENDARE   = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_LADY_BLAUMEUX     = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
-public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant ID_STONE_FORM = compiletime(ABIL_ID_GEN.next())
+
+public constant LinkedList<int> ID_MOB_PLAGUE_RAT          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_ABOMINATION         = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_BANSHEE             = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_WRAITH              = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SHADE               = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_NECROMANCER         = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SKELETON            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GARGOYLE            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GARGOYLE_STONE_FORM = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DECIEVED_CRUSADER   = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_VILLAGER            = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_ZOMBIE              = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_GHOUL               = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_MEAT_WAGON          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SLIME               = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_LICH                = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_OBSIDIAN_STATUE     = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_DREADLORD           = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_THANE_KORTHAZZ      = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_BARON_RIVENDARE     = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_LADY_BLAUMEUX       = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
+public constant LinkedList<int> ID_MOB_SIR_ZELIEK          = new LinkedList<int> ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next())) ..add(compiletime(UNIT_ID_GEN.next()))
 
 @compiletime function generateLevels()
     for i=0 to NUM_DIFFICULTIES-1
@@ -59,21 +63,27 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
             bounty(0), lifeTaken(1), scaleMaxHp(i, 100), hpReg(1), movementSpeed(250), armor(2, ArmorType.Small), scaling(1.0))
 
     // Level 5 - Gargoyles
+        new MobDefinition(ID_MOB_GARGOYLE_STONE_FORM.get(i), "Stone Form Gargoyle", Units.gargoyle1, Soundsets.gargoyle,
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 320), hpReg(1), movementSpeed(0), armor(8, ArmorType.Large), scaling(1.0))
+            ..setNormalAbilities(ID_STONE_FORM.toRawCode())
         new MobDefinition(ID_MOB_GARGOYLE.get(i), "Gargoyle", Units.gargoyle1, Soundsets.gargoyle,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 140), hpReg(1), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 320), hpReg(1), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+            ..setMovementType(MovementType.Fly)
+            ..setMovementHeight(240)
+            ..setNormalAbilities(ID_STONE_FORM.toRawCode())
 
     // Level 6 - Decieved Crusaders
         new MobDefinition(ID_MOB_DECIEVED_CRUSADER.get(i), "Decieved Crusader", Units.theCaptain1, Soundsets.theCaptain,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 400), hpReg(1), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+            bounty(0), lifeTaken(0), scaleMaxHp(i, 400), hpReg(1), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
         new MobDefinition(ID_MOB_VILLAGER.get(i), "Villager", Units.villagerMan1, Soundsets.villagerMan1,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 200), hpReg(0), movementSpeed(300), armor(1, ArmorType.Unarmored), scaling(1.0))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 200), hpReg(0), movementSpeed(200), armor(1, ArmorType.Unarmored), scaling(1.0))
         new MobDefinition(ID_MOB_GHOUL.get(i), "Ghoul", Units.ghoul1, Soundsets.ghoul,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 320), hpReg(3), movementSpeed(250), armor(1, ArmorType.Small), scaling(1.0))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 320), hpReg(3), movementSpeed(300), armor(1, ArmorType.Small), scaling(1.0))
         new MobDefinition(ID_MOB_ZOMBIE.get(i), "Zombie", Units.zombie, Soundsets.zombie,
-            bounty(1), lifeTaken(1), scaleMaxHp(i, 390), hpReg(5), movementSpeed(200), armor(3, ArmorType.Large), scaling(1.0))
+            bounty(1), lifeTaken(1), scaleMaxHp(i, 390), hpReg(5), movementSpeed(150), armor(3, ArmorType.Large), scaling(1.0))
 
     // Level 7 - Meat Wagon
-        new MobDefinition(ID_MOB_META_WAGON.get(i), "Meat Wagon", Units.meatwagon1, Soundsets.meatwagon,
+        new MobDefinition(ID_MOB_MEAT_WAGON.get(i), "Meat Wagon", Units.meatwagon1, Soundsets.meatwagon,
             bounty(5), lifeTaken(2), scaleMaxHp(i, 1000), hpReg(5), movementSpeed(150), armor(5, ArmorType.Large), scaling(1.3))
         new MobDefinition(ID_MOB_SLIME.get(i), "Slime", Units.sludgeMonster, Soundsets.sludgeMonster,
             bounty(1), lifeTaken(1), scaleMaxHp(i, 350), hpReg(2), movementSpeed(350), armor(8, ArmorType.Large), scaling(1.1))
@@ -90,7 +100,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
         new MobDefinition(ID_MOB_DREADLORD.get(i), "Dreadlord", Units.heroDreadLord, Soundsets.heroDreadLord,
             bounty(5), lifeTaken(2), scaleMaxHp(i, 2600), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
 
-    // Level 10 - Dreadlords
+    // Level 11 - Four Horsemen
         new MobDefinition(ID_MOB_THANE_KORTHAZZ.get(i), "Thane Korth'azz", Units.heroDeathKnight, Soundsets.heroDeathKnight,
             bounty(5), lifeTaken(2), scaleMaxHp(i, 5000), hpReg(10), movementSpeed(250), armor(10, ArmorType.Large), scaling(1.5))
         new MobDefinition(ID_MOB_BARON_RIVENDARE.get(i), "Baron Rivendare", Units.heroDeathKnight, Soundsets.heroDeathKnight,
@@ -107,8 +117,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level0chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_PATH_SHOWER, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.75, 2), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_PATH_SHOWER, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.75, 2), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L0 = new Level(
         level0chain,
@@ -120,8 +129,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level1chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_PLAGUE_RAT, spawnNum(12), SpawnPosition.RANDOM, spawnInterval(0.75, 2), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_PLAGUE_RAT, spawnNum(12), SpawnPosition.RANDOM, spawnInterval(0.75, 2), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L1 = new Level(
         level1chain,
@@ -133,8 +141,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level2Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_ABOMINATION, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_ABOMINATION, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L2 = new Level(
         level2Chain,
@@ -169,8 +176,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level4Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_NECROMANCER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_NECROMANCER, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(2.1, 3.6), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L4 = new Level(
         level4Chain,
@@ -182,8 +188,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level5Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_GARGOYLE, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(1.1, 3.6), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_GARGOYLE, spawnNum(10), SpawnPosition.RANDOM, spawnInterval(1.1, 3.6), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L5 = new Level(
         level5Chain,
@@ -213,9 +218,8 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
     levels.add(L6)
 
     LinkedList<SquadMember> level7Chain = new LinkedList<SquadMember>
-    ..add(new SquadMember(ID_MOB_META_WAGON, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(4.1, 5.6), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_META_WAGON, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(4.1, 5.6), SpawnRegion.SECOND))
-    .toSquadChain()
+    ..add(new SquadMember(ID_MOB_MEAT_WAGON, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(4.1, 5.6), SpawnRegion.FIRST))
+    .mirror()
 
     Level L7 = new Level(
         level7Chain,
@@ -227,8 +231,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level8Chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_LICH, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(1.1, 1.6), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_LICH, spawnNum(3), SpawnPosition.RANDOM, spawnInterval(1.1, 1.6), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L8 = new Level(
         level8Chain,
@@ -240,8 +243,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level9chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_OBSIDIAN_STATUE, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.1, 2.1), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_OBSIDIAN_STATUE, spawnNum(2), SpawnPosition.RANDOM, spawnInterval(1.1, 2.1), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L9 = new Level(
         level9chain,
@@ -253,8 +255,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
 
     LinkedList<SquadMember> level10chain = new LinkedList<SquadMember>
     ..add(new SquadMember(ID_MOB_DREADLORD, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.FIRST))
-    ..add(new SquadMember(ID_MOB_DREADLORD, spawnNum(1), SpawnPosition.RANDOM, spawnInterval(0.1, 0.1), SpawnRegion.SECOND))
-    .toSquadChain()
+    .mirror()
 
     Level L10 = new Level(
         level10chain,
@@ -280,6 +281,7 @@ public constant LinkedList<int> ID_MOB_SIR_ZELIEK        = new LinkedList<int> .
     levels.add(L11)
 
     zone2levels
+        ..add(L0)
         ..add(L1)
         ..add(L2)
         ..add(L3)

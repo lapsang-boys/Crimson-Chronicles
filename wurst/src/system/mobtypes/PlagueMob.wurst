@@ -28,7 +28,7 @@ public class PlagueMob extends MobWrapper implements Deather
     override function onDeath(player p)
         let pos = this.u.getPos()
         let dummy = DummyRecycler.get(pos, angle(0))
-        let pd = playerData.get(p.getId())
+        let pd = p.getPlayerData()
 
         dummy.addAbility(ID_PLAGUE_CLOUD)
         dummy.setAbilityLevel(ID_PLAGUE_CLOUD, damagePerSecond)

@@ -122,17 +122,17 @@ function levelComplete(PlayerData pd)
     // might change area later.
 
 public function registerMobDeath(player p)
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     pd.mobsRemoved++
     if pd.mobsRemoved == pd.getLevel().squadChain.size()
         levelComplete(pd)
 
 public function registerMobCreation(player p)
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     pd.mobsRemoved--
 
 public function registerLeak(player p, int lifeTaken, int bounty)
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     pd.p.addGold(bounty)
     loseLife(pd, lifeTaken)
     updateLife(pd.p, pd.life)

@@ -6,7 +6,7 @@ import Levels
 
 function info()
     player p = GetTriggerPlayer()
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
 
     for i = pd.levelNum to pd.levelNum+3-1
         if i >= pd.getLevels().size()

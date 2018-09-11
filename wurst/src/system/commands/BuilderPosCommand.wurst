@@ -8,7 +8,7 @@ import TimedEffect
 
 function builderPos()
     player p = GetTriggerPlayer()
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
 
     vec2 pos = pd.builder.getPos()
 

@@ -36,7 +36,7 @@ class Saver implements ForGroupCallback
         saveMap.get(p).towers.add(new TowerInfo(u))
 
 public function save(player p)
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     
     SaveInfo si = saveMap.get(p)
     si.gold = p.getGold()
@@ -49,7 +49,7 @@ public function save(player p)
     print("Saved units and gold!")
 
 public function load(player p)
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     
     SaveInfo si = saveMap.get(p)
     p.setGold(si.gold)

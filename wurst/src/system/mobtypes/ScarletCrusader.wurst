@@ -1,0 +1,20 @@
+package ScarletCrusader
+
+import Abilities
+import Orders
+
+import Alexandria
+import Movement
+import GameplayConstants
+
+public class ScarletCrusader extends MobWrapper implements Spawner
+    effect e
+    construct(unit u)
+        super(u)
+
+    override function onSpawn()
+        let p = Player(u.getPlayerN())
+        u.setOwner(p, true)
+        u.setOwner(PLAYER_NEUTRAL, false)
+        u.issuePointOrderById(Orders.move, u.getNext())
+        this.e = u.addEffect(Abilities.stasisTotemTarget, "overhead")

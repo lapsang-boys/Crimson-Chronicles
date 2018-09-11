@@ -48,7 +48,7 @@ function spawnLevel()
 
 	builder.removeAbility(ID_NEXT_LEVEL)
 	builder.addAbility(ID_LEVEL_IN_PROGRESS)
-	PlayerData pd = playerData.get(p.getId())
+	PlayerData pd = p.getPlayerData()
 	playSummonLevelSound(pd)
 	pd.levelInProgress = true
 
@@ -68,7 +68,7 @@ function summonMobs()
 	let t = GetExpiredTimer()
 	let lt = t.getData() castTo TimerData
 	let p = lt.p
-	let pd = playerData.get(p.getId())
+	let pd = p.getPlayerData()
 	let chain = lt.l.squadChain
 	int num = chain.size()
 

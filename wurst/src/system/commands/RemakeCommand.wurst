@@ -11,7 +11,7 @@ import Regions
 
 function remake()
     player p = GetTriggerPlayer()
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
     string command = GetEventPlayerChatString()
 
     var zoneNum = pd.zoneNum

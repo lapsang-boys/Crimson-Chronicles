@@ -51,7 +51,7 @@ public class BeastMob extends MobWrapper implements Deather
         this.master.attatchTimedEffect(2, this.fxBeastDeathPath2, "origin")
 
         // Get player builder to deal damage for bounty
-        PlayerData pd = playerData.get(p.getId())
+        PlayerData pd = p.getPlayerData()
         pd.builder.damageTarget(this.master, this.beast.getMaxHP())
 
 // ##################################################################

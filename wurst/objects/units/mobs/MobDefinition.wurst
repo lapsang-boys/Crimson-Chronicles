@@ -67,7 +67,6 @@ public class MobDefinition extends UnitDefinition
         setDefenseBase(a.armor)
         setArmorType(a.armorType)
 
-
         setCollisionSize(1)
         setManaInitialAmount(0)
         setManaMaximum(0)

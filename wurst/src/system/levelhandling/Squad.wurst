@@ -50,6 +50,20 @@ public class SquadMember
         this.si = si
         this.sr = sr
 
+public function LinkedList<SquadMember>.mirror() returns LinkedList<SquadMember>
+    LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
+    for sm in this
+        spawnInterval last = spawnInterval(0.0, 0.0)
+        for i = 0 to sm.num-1
+            SquadMember single = new SquadMember(sm.u_ids, spawnNum(1), sm.sp, last, SpawnRegion.FIRST)
+            squadChain.add(single)
+
+            SquadMember single2 = new SquadMember(sm.u_ids, spawnNum(1), sm.sp, spawnInterval(0.0, 0.0), SpawnRegion.SECOND)
+            squadChain.add(single2)
+            
+            last = sm.si
+    return squadChain
+
 public function LinkedList<SquadMember>.toSquadChain() returns LinkedList<SquadMember>
     LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
     for sm in this

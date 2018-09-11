@@ -37,5 +37,8 @@ public constant int NUMBER_OF_ZONES = 2
 // Enemy player number. Required for checks.
 public constant player PLAYER_BROWN = Player(11)
 
+// Neutral player number. Required for special levels.
+public constant player PLAYER_NEUTRAL = Player(10)
+
 // Time until corpses are removed
 public constant real MOURGE_CLEAN_TIME = 3.

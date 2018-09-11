@@ -1,0 +1,48 @@
+package MeatWagonMob
+
+import ClosureTimers
+import Alexandria
+import Movement
+import MobMissile
+import GameplayConstants
+import LevelHandler
+import LinkedList
+
+public class MeatWagonMob extends MobWrapper implements Enterer
+    real v0
+    real alpha
+    real z0
+    string impactFx
+    LinkedList<int> spawnIds
+
+    construct(unit u, real v0, real alpha, real z0, string impactFx, LinkedList<int> spawnIds)
+        super(u)
+        this.v0 = v0
+        this.alpha = alpha
+        this.z0 = z0
+        this.impactFx = impactFx
+        this.spawnIds = spawnIds
+
+        player p = Player(super.u.getPlayerN())
+        registerMobCreation(p)
+
+    override function onEnter()
+        this.u.pause()
+        let angle = this.u.getPos().angleTo(u.getNext())
+        this.u.setFacing(angle)
+        this.u.setAnimation("attack")
+        doAfter(0.5) ->
+            int mobId = this.spawnIds.get(GetRandomInt(0, this.spawnIds.size()-1))
+            let missileU = createUnit(
+                PLAYER_BROWN,
+                mobId,
+                this.u.getPos(),
+                angle)
+
+            missileU.setUserData(this.u.getUserData())
+
+            MobMissile mm = new MobMissile(missileU, this.v0, this.alpha, this.z0, this.impactFx)
+            mm.launch()
+
+        doAfter(2.0) ->
+            this.u.unpause()

@@ -17,6 +17,11 @@ import CrowMorpherMob
 import Pitlord
 import PowerFaithMob
 import PlagueMob
+import NecroMob
+import GargoyleMob
+import MeatWagonMob
+import ShapeShifterMob
+import ScarletCrusader
 // import PeriodicSpawnerMob
 import TreantMob
 
@@ -61,9 +66,26 @@ public function shelfMob(unit u)
             case ID_MOB_PLAGUE_RAT.get(i)
                 new PlagueMob(u, 5., 512.0, 1)
 
+            // Level 4
+            case ID_MOB_NECROMANCER.get(i)
+                new NecroMob(u, 1.0, 80.0, 3)
+            // Level 5
+            case ID_MOB_GARGOYLE.get(i)
+                new GargoyleMob(u, 0.5, 5.0)
+            // Level 6
+            case ID_MOB_DECIEVED_CRUSADER.get(i)
+                new ScarletCrusader(u)
+            case ID_MOB_VILLAGER.get(i)
+                new ShapeShifterMob(u, new LinkedList<int>
+                ..add(ID_MOB_ZOMBIE.get(i))
+                ..add(ID_MOB_GHOUL.get(i)))
+            // Level 7
+            case ID_MOB_MEAT_WAGON.get(i)
+                new MeatWagonMob(u, 900, 60, 128, Abilities.glaiveMissileTarget,
+                    new LinkedList<int>
+                    ..add(ID_MOB_SLIME.get(i))
+                    ..add(ID_MOB_ZOMBIE.get(i))
+                    ..add(ID_MOB_GHOUL.get(i)))
+
             default
                 skip
-
-            // Implement this for Zone 2
-            // case ID_MOB_ROBIN_TEST.get(i)
-                // new CyclicHealerMob(u, 2, 3)

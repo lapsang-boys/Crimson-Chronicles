@@ -11,7 +11,8 @@ import TimedEffect
 function buildingSelect()
     let tavern = GetSellingUnit()
     let builder = GetSoldUnit()
-    PlayerData pd = playerData.get(tavern.getOwner().getId())
+    let p = tavern.getOwner()
+    PlayerData pd = p.getPlayerData()
     pd.setBuilder(builder)
 
     let pos = tavern.getPos()

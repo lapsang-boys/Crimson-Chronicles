@@ -10,17 +10,18 @@ import TowerConstants
 
 function startGameFirstTime(player p)
     printTimedToPlayer("Welcome!", DISPLAY_TIME, p)
+    SetPlayerAllianceStateAllyBJ(p, PLAYER_NEUTRAL, true)
 
     p.setMaxFood(3)
     startGame(p)
 
-    let pd = playerData.get(p.getId())
+    let pd = p.getPlayerData()
     pd.initFog()
 
     PLAYER_BROWN.setState(PLAYER_STATE_GIVES_BOUNTY, 1)
 
 public function startGame(player p)
-    let pd = playerData.get(p.getId())
+    let pd = p.getPlayerData()
     let pos = pd.getArea().area.getCenter()
     
     p.setGold(STARTING_GOLD.get(pd.zoneNum))
@@ -37,7 +38,9 @@ public function startGame(player p)
     SetTimeOfDay(0)
     SetTimeOfDayScale(0)
     SuspendTimeOfDay(true)
+    // TODO: Remove debug tech for player red.
     AddPlayerTechResearched(Player(0), ID_UNLOCKED_IN_ZONE_2, 1)
+    
 
     // Set the current level for all players to the first level.
     for i = 0 to NUMBER_OF_PLAYERS-1

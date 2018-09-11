@@ -1,0 +1,56 @@
+package ShapeShifterMob
+
+import Assets
+import ClosureTimers
+import LinkedList
+import Orders
+
+import GameplayConstants
+import Alexandria
+import Movement
+
+public class ShapeShifterMob extends MobWrapper implements Enterer
+    LinkedList<int> mobIds
+    rect activationNode
+    int mobId
+    construct(unit u, LinkedList<int> mobIds)
+        super(u)
+
+        let nodes = u.getPath().getNodes()
+        let idx = GetRandomInt(0, nodes.size()-1)
+
+        this.activationNode = nodes.get(idx)
+        this.activationNode.resize(
+            this.activationNode.getLeftBot() - vec2(128, 128),
+            this.activationNode.getRightTop() + vec2(128, 128))
+
+        this.mobId = mobIds.get(GetRandomInt(0, mobIds.size()-1))
+
+    override function onEnter()
+        var pos = u.getPos()
+        // Ignore other nodes.
+        
+        if not this.activationNode.contains(pos)
+            return
+        
+        let cv = u.getUserData()
+        let facing = u.getFacingAngle()
+        
+        doAfter(0.1) ->
+            u.pause()
+            u.setInvulnerable(true)
+            effect e = u.addEffect(Abilities.darkSummonTarget, "origin")
+            doAfter(1.) ->
+                pos = u.getPos()
+                u.remove()
+                e.destr()
+                
+                let monster = createUnit(
+                    PLAYER_BROWN,
+                    this.mobId,
+                    pos,
+                    facing)
+                
+                monster.addEffect(Abilities.darkPortalTarget, "origin").destr()
+                monster.setUserData(cv)
+                monster.issuePointOrderById(Orders.move, monster.getNext())

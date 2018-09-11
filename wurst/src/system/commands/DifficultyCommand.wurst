@@ -6,7 +6,7 @@ import PlayerData
 
 function difficulty()
     player p = GetTriggerPlayer()
-    PlayerData pd = playerData.get(p.getId())
+    PlayerData pd = p.getPlayerData()
 
     string msg = GetEventPlayerChatString()
 

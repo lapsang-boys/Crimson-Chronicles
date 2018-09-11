@@ -17,7 +17,7 @@ function act()
         mobMap.get(u.getHandleId()).onEnter()
 
 function isUnitOwnedByPlayerBrown() returns boolean
-    return GetTriggerUnit().getOwner() == PLAYER_BROWN
+    return GetTriggerUnit().getOwner() == PLAYER_BROWN or GetTriggerUnit().getOwner() == PLAYER_NEUTRAL
 
 function hasValid(int i) returns boolean
     return GetTriggerUnit().getUserData() mod 10 == i
