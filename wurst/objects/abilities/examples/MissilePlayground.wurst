@@ -9,8 +9,8 @@ import Tooltip
 import TimedEffect
 
 class PlaygorundMissile extends Missile
-    construct(unit source, vec2 targetLoc, string sfxPath, real velocity, real acceleration)
-        super(source, targetLoc, sfxPath, velocity, acceleration)
+    construct(unit source, vec2 targetLoc, string sfxPath, real velocity)
+        super(source, targetLoc, sfxPath, velocity)
 
     // #####################################################
     // =================== Action funcs  ===================
@@ -63,7 +63,7 @@ function firePlaygroundMissile()
     vec2 target = vec2(GetSpellTargetX(), GetSpellTargetY())
     let caster = GetTriggerUnit()
 
-    PlaygorundMissile m = new PlaygorundMissile(caster, target, Abilities.phoenix_Missile, 524, 0)
+    PlaygorundMissile m = new PlaygorundMissile(caster, target, Abilities.phoenix_Missile, 524)
     //m.setFacing(caster.getFacingAngle().radians + PI/4)
     //m.setOriginLoc(caster.getPos() + vec2(500, 0))
     m.setArc(0.1)
