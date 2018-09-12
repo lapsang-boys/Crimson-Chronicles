@@ -19,6 +19,8 @@ constant COLLISION_SIZE = 128/8
 constant MISSILE_INTERVAL = 1/32
 // Default height (66 units) for launching and aiming missiles from/at units.
 constant DEFAULT_HITBOX = 0.66
+// Default sfx scale
+constant DEFAULT_SCALE = 1.
 
 
 // TODO: depending on frotty use default values
@@ -32,13 +34,13 @@ public abstract class Missile
     private real ttl                        = 5                     // Time to live before auto-destruct.
     protected real liveTime                 = 0                     // Time since launched.
 
-    protected effect sfx
+    protected effect sfx                    = null
     private string sfxPath
-    private real scale                      = 1                     // SFX scale.
+    private real scale                      = DEFAULT_SCALE         // SFX scale.
 
-    private vec2 originLoc
+    private vec2 originLoc                  = vec2(0,0)
     private vec2 targetLoc                                          // Target for location aimed spells
-    private vec2 currentLoc
+    private vec2 currentLoc                 = vec2(0,0)
 
     private real originZ                    = this.source.getUnitHeight(DEFAULT_HITBOX)
     private real currentZ                   = this.originZ
@@ -60,87 +62,97 @@ public abstract class Missile
     MissileType missileType
 
     // Constructor for missile with unit target
-    construct(unit source, unit target, string sfxPath, real velocity, real acceleration)
+    construct(unit source, unit target, string sfxPath, real velocity)
         this.source = source
         this.target = target
 
-        this.originLoc = source.getPos() // Use setOrigin() for other starting loc
         this.targetLoc = target.getPos()
-        this.currentLoc = this.originLoc
-
         this.targetZ = target.getUnitHeight(DEFAULT_HITBOX)
-
-        this.facing = this.originLoc.angleTo(this.targetLoc).radians() // Use setAngle for other initial angle
 
         this.sfxPath = sfxPath
         this.velocity = velocity*MISSILE_INTERVAL
-        this.acceleration = acceleration
 
         this.missileType = HOMING
-
-    // TODO:
-    function blah(...)
-        // here
+        this.initDefaults()
 
     // Constructor for missile with location target
-    construct(unit source, vec2 targetloc, string sfxPath, real velocity, real acceleration)
+    construct(unit source, vec2 targetloc, string sfxPath, real velocity)
         this.source = source
         this.target = null
 
-        this.originLoc = source.getPos() // Use setOrigin() for other starting loc
         this.targetLoc = targetloc
-        this.currentLoc = this.originLoc
-
         this.targetZ = targetLoc.getTerrainZ()
-
-        this.facing = this.originLoc.angleTo(this.targetLoc).radians() // Use setAngle for other initial angle
 
         this.sfxPath = sfxPath
         this.velocity = velocity*MISSILE_INTERVAL
-        this.acceleration = acceleration
 
         this.missileType = TARGET
+        this.initDefaults()
 
     ondestroy
         DummyRecycler.recycle(this.dummy)
         this.sfx.destr()
         this.t.release()
 
+    function initDefaults()
+        // Set missile origin and update current loc, distToTarget
+        this.setOriginLoc(source.getPos())
+        // Use setAngle for other initial angle
+        this.setFacing(this.originLoc.angleTo(this.targetLoc).radians())
+
+
     // #####################################################
     // =================== Action funcs  ===================
     // #####################################################
 
     function onEnd()
-        print("native onEnd")
         destroy this
 
     function onCollision(unit u)
-        print("native onCollision")
-        print(u.getName())
-        u.addEffect(Abilities.frostNovaTarget, "origin")
+        skip
+
+    // Ensure that onEnd called if final target
+    private function onTagetCollision(unit u)
         if u.getHandleId() == this.target.getHandleId()
             this.onEnd()
 
     function onPeriod()
         skip
 
+    function onTimeExpire()
+        destroy this
+
     // #####################################################
     // ===================== Setters  ======================
     // #####################################################
 
-    // Pre-condition: TODO:
+    /** Initial location (origin XY) of the missile  **/
     function setOriginLoc(vec2 loc)
+        if this.currentLoc != this.originLoc
+            // The missile have been moved, cant set a new origin.
+            // TODO: debug print to avoid devel confusion
+            return
         this.originLoc = loc
         this.currentLoc = originLoc
         this.distanceToTarget = this.originLoc.distanceTo(this.targetLoc)
 
     function setOriginZ(real z)
+        if this.currentZ != this.originZ
+            // The missile have been moved, cant set a new origin.
+            // TODO: debug print to avoid devel confusion
+            return
         this.originZ = z
         this.currentZ = this.originZ
 
     /** Initial facing of the missile  **/
     function setFacing(real radians)
         this.facing = radians
+
+    /** Set the scale effect is created with on launch() or modify mid air **/
+    function setScale(real scale)
+        this.scale = scale
+        if this.sfx != null
+            this.sfx.setScale(scale)
 
     /** velocity is wc3 units/s  **/
     function setVelocity(real velocity)
@@ -170,14 +182,18 @@ public abstract class Missile
     // ===================== Getters  ======================
     // #####################################################
 
-    function getTimeToLive() returns real
-        return this.ttl
-
     function getPos() returns vec2
         return this.currentLoc
 
     function getZ() returns real
         return this.currentZ
+
+    /** The effect is created on launch() returns null before **/
+    function getSfx() returns effect
+        return this.sfx
+
+    function getTimeToLive() returns real
+        return this.ttl
 
     // #####################################################
     // ====================== Missile ======================
@@ -186,6 +202,7 @@ public abstract class Missile
         this.t = getTimer()
         this.dummy = DummyRecycler.get(this.originLoc, angle(this.facing))
         this.sfx = this.dummy.addEffect(this.sfxPath, "origin")
+        this.sfx.setScale(this.scale)
         this.dummy.setFlyHeight(this.currentZ, 0)
 
         t.setData(this castTo int)
@@ -196,19 +213,18 @@ public abstract class Missile
             real elapsedTime = t.getElapsed()
             m.liveTime += elapsedTime
             if m.liveTime > m.getTimeToLive()
-                // TODO:
-                print("destroy ttl")
-                destroy m
+                m.onTimeExpire()
             else if m.move()
                 m.detectCollision()
                 if m.missileType == MissileType.TARGET
-                    m.detectEnd()    
+                    m.detectEnd()
 
     function move() returns bool
         // Target unit destroyed => destroy missile
         if this.target == null and this.missileType == MissileType.HOMING
             // TODO: tagga inte lång, eller check if this runs
-            print("destroy target null and HOMING")
+            print("Target null and HOMING =>")
+            print("Call destroy")
             destroy this
             return false
 
@@ -244,7 +260,7 @@ public abstract class Missile
         // Update the missile facing angle depending on the turnrate
         // Angle is relative to the xy-plane.
         real targetAngle = currentLoc.angleTo(this.targetLoc).radians()
-        
+
         // TODO: bug?
         if 0. != this.turnrate and Cos(this.facing - targetAngle) < Cos(this.turnrate)
             // Right or left angle correction?
@@ -295,10 +311,16 @@ public abstract class Missile
         if this.target != null
             this.targetZ = this.target.getLocalZ()
 
-        // Linear z diff
-        real dzLine = (this.targetZ - this.originZ)*(stepDistance/totDist)
+        // === Linear z diff ===
+        real dzLine = 0
+        // Missile has a downward slope but has gone below target => go back up
+        if this.currentZ < this.targetZ and this.originZ > this.targetZ
+            dzLine = 0.01
+        // Missile correct (sort of exept if to high)
+        else
+            dzLine = (this.targetZ - this.originZ)*(stepDistance/totDist)
 
-        // Arc z diff
+        // === Arc z diff ===
         real dzArc = PI*Cos(ratio*PI)*this.arc*stepDistance
 
         // Calculate pitch based on total change in z and change in xy-plane
@@ -318,11 +340,16 @@ public abstract class Missile
     protected function detectCollision()
         forUnitsInRange(this.currentLoc, COLLISION_SIZE) cbu ->
             this.onCollision(cbu)
+            // Ensure that onEnd called if final target
+            this.onTagetCollision(cbu)
 
     protected function detectEnd()
         if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
             this.onEnd()
 
+// #####################################################
+// ================ Random help funcs ==================
+// #####################################################
 
 function unit.getUnitHeight(real percentage) returns real
     return 100*percentage
