@@ -1,3 +1,5 @@
+// TODO: Implement onLifeEnd
+// TODO: Make acceleration a method instead of a constructor field/atirtiritritir(?)
 package Missile
 
 import DummyRecycler
@@ -11,23 +13,15 @@ enum MissileType
     HOMING
     TARGET
 
-// Collision size of missile
+// Collision size of missile.
 constant COLLISION_SIZE = 128/8
-// Frame rate of system
+// Frame rate of system in seconds.
 constant MISSILE_INTERVAL = 1/32
-// Default height (66 units) for launching and aiming missiles from/at units
+// Default height (66 units) for launching and aiming missiles from/at units.
 constant DEFAULT_HITBOX = 0.66
 
-class MissileTarget implements ForGroupCallback
-    Missile m
 
-    construct(Missile m)
-        this.m = m
-
-    override function callback(unit u)
-        m.onCollision(u)
-
-
+// TODO: depending on frotty use default values
 public abstract class Missile
     unit source                                                     // Caster
     unit target                                                     // Target for homing missiles.
@@ -35,12 +29,12 @@ public abstract class Missile
     private unit dummy
     private timer t
 
-    private real ttl                        = 5                     // Time to live before autodestruct
-    protected real liveTime                 = 0
+    private real ttl                        = 5                     // Time to live before auto-destruct.
+    protected real liveTime                 = 0                     // Time since launched.
 
     protected effect sfx
     private string sfxPath
-    private real scale                      = 1
+    private real scale                      = 1                     // SFX scale.
 
     private vec2 originLoc
     private vec2 targetLoc                                          // Target for location aimed spells
@@ -83,6 +77,10 @@ public abstract class Missile
         this.acceleration = acceleration
 
         this.missileType = HOMING
+
+    // TODO:
+    function blah(...)
+        // here
 
     // Constructor for missile with location target
     construct(unit source, vec2 targetloc, string sfxPath, real velocity, real acceleration)
@@ -130,6 +128,7 @@ public abstract class Missile
     // ===================== Setters  ======================
     // #####################################################
 
+    // Pre-condition: TODO:
     function setOriginLoc(vec2 loc)
         this.originLoc = loc
         this.currentLoc = originLoc
@@ -190,11 +189,25 @@ public abstract class Missile
         this.dummy.setFlyHeight(this.currentZ, 0)
 
         t.setData(this castTo int)
-        t.startPeriodic(MISSILE_INTERVAL, function periodicActions)
+        t.startPeriodic(MISSILE_INTERVAL) ->
+            timer t = GetExpiredTimer()
+            Missile m = t.getData() castTo Missile
+
+            real elapsedTime = t.getElapsed()
+            m.liveTime += elapsedTime
+            if m.liveTime > m.getTimeToLive()
+                // TODO:
+                print("destroy ttl")
+                destroy m
+            else if m.move()
+                m.detectCollision()
+                if m.missileType == MissileType.TARGET
+                    m.detectEnd()    
 
     function move() returns bool
         // Target unit destroyed => destroy missile
         if this.target == null and this.missileType == MissileType.HOMING
+            // TODO: tagga inte lång, eller check if this runs
             print("destroy target null and HOMING")
             destroy this
             return false
@@ -211,11 +224,11 @@ public abstract class Missile
         // Update the missile facing angle depending on the turnrate
         this.updateAngle()
 
-        // Update missile location returns false if outside sentinel => destroy
+        // Update missile location; returns false if outside map bounds => destroy
         if not this.updateMissileLocation()
             return false
 
-        // Movement succesful => start collision detection
+        // Movement successful => start collision detection
         return true
 
     // #####################################################
@@ -229,17 +242,21 @@ public abstract class Missile
 
     private function updateAngle()
         // Update the missile facing angle depending on the turnrate
-        real a = currentLoc.angleTo(this.targetLoc).radians()
-
-        if 0. != this.turnrate and Cos(this.facing - a) < Cos(this.turnrate)
-            if 0. > Sin(a - this.facing)
+        // Angle is relative to the xy-plane.
+        real targetAngle = currentLoc.angleTo(this.targetLoc).radians()
+        
+        // TODO: bug?
+        if 0. != this.turnrate and Cos(this.facing - targetAngle) < Cos(this.turnrate)
+            // Right or left angle correction?
+            if 0. > Sin(targetAngle - this.facing)
                 this.facing = this.facing - this.turnrate
             else
-                    this.facing = this.facing + this.turnrate
+                this.facing = this.facing + this.turnrate
         else
-            this.facing = a
+            // If the angle correction is too small, we set the facing to the target angle.
+            this.facing = targetAngle
 
-        // Update the facing of the missile dummy
+        // Update the facing of the missile dummy.
         this.dummy.setFacing(angle(this.facing))
 
     private function updateMissileLocation() returns bool
@@ -299,29 +316,13 @@ public abstract class Missile
     // #####################################################
 
     protected function detectCollision()
-        MissileTarget mt = new MissileTarget(this)
-        forUnitsInRange(this.currentLoc, COLLISION_SIZE, mt)
+        forUnitsInRange(this.currentLoc, COLLISION_SIZE) cbu ->
+            this.onCollision(cbu)
 
     protected function detectEnd()
         if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
             this.onEnd()
 
-
-function periodicActions()
-    timer t = GetExpiredTimer()
-    Missile m = t.getData() castTo Missile
-
-    real elapsedTime = t.getElapsed()
-    m.liveTime += elapsedTime
-    if m.liveTime > m.getTimeToLive()
-        print("destroy ttl")
-        destroy m
-        return
-    if m.move()
-        m.detectCollision()
-        // TODO: Fix why this is called on null sometimes
-        if m.missileType == MissileType.TARGET
-            m.detectEnd()
 
 function unit.getUnitHeight(real percentage) returns real
     return 100*percentage
