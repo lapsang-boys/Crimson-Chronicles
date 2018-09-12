@@ -1,0 +1,76 @@
+package MissilePlayground
+
+import Missile
+import Assets
+import ChannelAbilityPreset
+import RegisterEvents
+
+import Tooltip
+import TimedEffect
+
+class PlaygorundMissile extends Missile
+    construct(unit source, vec2 targetLoc, string sfxPath, real velocity, real acceleration)
+        super(source, targetLoc, sfxPath, velocity, acceleration)
+
+    // #####################################################
+    // =================== Action funcs  ===================
+    // #####################################################
+
+    override function onEnd()
+        print("Playground onEnd")
+        destroy this
+
+    override function onCollision(unit u)
+        print("Playground onCollision")
+        print(u.getName())
+        u.addEffect(Abilities.fireLordDeathExplode, "origin")
+        if u.getHandleId() == this.target.getHandleId()
+            this.onEnd()
+
+    override function onPeriod()
+        createTimedEffect(this.getPos(), 0.5, Abilities.polyMorphTarget)
+
+
+// ##################################################################
+// ###################### Ability object ############################
+// ##################################################################
+
+@compiletime function generatefirePlaygroundMissile()
+    new ChannelAbilityPreset('asdf', 1, true)
+        ..setName("Playground missile")
+        ..setHotkeyNormal("W")
+        ..setTooltipNormal(1, tooltipCustomBasic("W", "Playground missile", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Yummy yummy in my tummy.",
+        "Shalom!"))
+        ..setIconNormal(Icons.bTNIllidanPrisonWagon)
+
+        ..presetTargetTypes(Targettype.POINT)
+        ..setTargetsAllowed(1, "enemy")
+        ..setCastRange(1, 1000)
+        ..setManaCost(1, 0)
+        ..setHeroAbility(false)
+
+        ..setButtonPositionNormalX(0)
+        ..setButtonPositionNormalY(0)
+
+// ##################################################################
+// ###################### Ability script ############################
+// ##################################################################
+
+
+function firePlaygroundMissile()
+    //let target = GetSpellTargetUnit()
+    vec2 target = vec2(GetSpellTargetX(), GetSpellTargetY())
+    let caster = GetTriggerUnit()
+
+    PlaygorundMissile m = new PlaygorundMissile(caster, target, Abilities.phoenix_Missile, 524, 0)
+    //m.setFacing(caster.getFacingAngle().radians + PI/4)
+    //m.setOriginLoc(caster.getPos() + vec2(500, 0))
+    m.setArc(0.1)
+    //m.setOriginZ(200)
+    // m.setTurnrateAcceleration(PI/8)
+    // m.setAcceleration(60)
+    m.launch()
+
+@initThird function initFocusFire()
+    registerSpellEffectEvent('asdf', function firePlaygroundMissile)
