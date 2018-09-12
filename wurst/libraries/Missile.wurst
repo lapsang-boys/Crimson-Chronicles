@@ -25,24 +25,22 @@ class MissileTarget implements ForGroupCallback
         this.m = m
 
     override function callback(unit u)
-        print(u.getName())
-        u.addEffect(Abilities.frostNovaTarget, "origin")
-        if u.getHandleId() == m.target.getHandleId()
-            destroy m
+        m.onCollision(u)
 
-public class Missile
+
+public abstract class Missile
     unit source                                                     // Caster
     unit target                                                     // Target for homing missiles.
 
     private unit dummy
     private timer t
 
-    private real ttl = 5                                            // Time to live before autodestruct
-    protected real liveTime = 0
+    private real ttl                        = 5                     // Time to live before autodestruct
+    protected real liveTime                 = 0
 
-    effect sfx
+    protected effect sfx
     private string sfxPath
-    real scale      = 1
+    private real scale                      = 1
 
     private vec2 originLoc
     private vec2 targetLoc                                          // Target for location aimed spells
@@ -60,8 +58,8 @@ public class Missile
     private real velocity                                            // WC3 units per second
     private real acceleration                                        // If missile has acceleration
 
-    real arc                                = 0.2                    // How much missile arc (in Z)
-    private real turnrate                   = PI/2*MISSILE_INTERVAL    // Sets a turn rate for a missile (in X/Y) [rad per itteration]
+    real arc                                = 0.1                    // How much missile arc (in Z)
+    private real turnrate                   = 3/4*PI*MISSILE_INTERVAL    // Sets a turn rate for a missile (in X/Y) [rad per itteration]
     private real turnrateAcceleration       = 0
     real collision                          = COLLISION_SIZE         // Collision size of the missile can be set through method
 
@@ -111,6 +109,24 @@ public class Missile
         this.t.release()
 
     // #####################################################
+    // =================== Action funcs  ===================
+    // #####################################################
+
+    function onEnd()
+        print("native onEnd")
+        destroy this
+
+    function onCollision(unit u)
+        print("native onCollision")
+        print(u.getName())
+        u.addEffect(Abilities.frostNovaTarget, "origin")
+        if u.getHandleId() == this.target.getHandleId()
+            this.onEnd()
+
+    function onPeriod()
+        skip
+
+    // #####################################################
     // ===================== Setters  ======================
     // #####################################################
 
@@ -157,6 +173,12 @@ public class Missile
 
     function getTimeToLive() returns real
         return this.ttl
+
+    function getPos() returns vec2
+        return this.currentLoc
+
+    function getZ() returns real
+        return this.currentZ
 
     // #####################################################
     // ====================== Missile ======================
@@ -260,7 +282,7 @@ public class Missile
         real dzLine = (this.targetZ - this.originZ)*(stepDistance/totDist)
 
         // Arc z diff
-        real dzArc = PI*Cos(ratio*PI)*this.arc*totDist/(totDist/stepDistance)
+        real dzArc = PI*Cos(ratio*PI)*this.arc*stepDistance
 
         // Calculate pitch based on total change in z and change in xy-plane
         real pitch = Atan((dzLine + dzArc)/stepDistance)
@@ -280,10 +302,9 @@ public class Missile
         MissileTarget mt = new MissileTarget(this)
         forUnitsInRange(this.currentLoc, COLLISION_SIZE, mt)
 
-    protected function detectTarget()
+    protected function detectEnd()
         if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
-            print("destroy on loc")
-            destroy this
+            this.onEnd()
 
 
 function periodicActions()
@@ -299,7 +320,8 @@ function periodicActions()
     if m.move()
         m.detectCollision()
         // TODO: Fix why this is called on null sometimes
-        m.detectTarget()
+        if m.missileType == MissileType.TARGET
+            m.detectEnd()
 
 function unit.getUnitHeight(real percentage) returns real
     return 100*percentage
