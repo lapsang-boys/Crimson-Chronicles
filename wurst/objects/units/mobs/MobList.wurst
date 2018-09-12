@@ -22,6 +22,7 @@ import GargoyleMob
 import MeatWagonMob
 import ShapeShifterMob
 import ScarletCrusader
+import IllusionMob
 // import PeriodicSpawnerMob
 import TreantMob
 
@@ -86,6 +87,9 @@ public function shelfMob(unit u)
                     ..add(ID_MOB_SLIME.get(i))
                     ..add(ID_MOB_ZOMBIE.get(i))
                     ..add(ID_MOB_GHOUL.get(i)))
+            // Level 9
+            case ID_MOB_DREADLORD.get(i)
+                new IllusionMob(u)
 
             default
                 skip
