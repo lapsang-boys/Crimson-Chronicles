@@ -14,7 +14,7 @@ enum MissileType
     TARGET
 
 // Collision size of missile.
-constant COLLISION_SIZE = 128/8
+constant COLLISION_SIZE = 128/4
 // Frame rate of system in seconds.
 constant MISSILE_INTERVAL = 1/32
 // Default height (66 units) for launching and aiming missiles from/at units.
@@ -339,9 +339,11 @@ public abstract class Missile
 
     protected function detectCollision()
         forUnitsInRange(this.currentLoc, COLLISION_SIZE) cbu ->
-            this.onCollision(cbu)
-            // Ensure that onEnd called if final target
-            this.onTagetCollision(cbu)
+            // The pick selects units in a plane, filter units based on z-diff aswell
+            if (this.currentZ - cbu.getUnitHeight(1)).abs() <= COLLISION_SIZE*2
+                this.onCollision(cbu)
+                // Ensure that onEnd called if final target
+                this.onTagetCollision(cbu)
 
     protected function detectEnd()
         if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
@@ -351,5 +353,6 @@ public abstract class Missile
 // ================ Random help funcs ==================
 // #####################################################
 
+/** percentage on decimal form (0.45 etc) **/
 function unit.getUnitHeight(real percentage) returns real
     return 100*percentage
