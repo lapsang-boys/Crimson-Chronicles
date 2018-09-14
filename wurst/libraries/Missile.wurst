@@ -40,13 +40,9 @@ public abstract class Missile
     private string sfxPath
     private real scale                      = DEFAULT_SCALE         // SFX scale.
 
-    private vec2 originLoc                  = vec2(0,0)
-    private vec2 targetLoc                                          // Target for location aimed spells
-    private vec2 currentLoc                 = vec2(0,0)
-
-    private real originZ                    = this.source.getUnitHeight(DEFAULT_HITBOX)
-    private real currentZ                   = this.originZ
-    private real targetZ
+    private vec3 originLoc                  = vec3(0, 0, 0)
+    private vec3 targetLoc                                          // Target for location aimed spells
+    private vec3 currentLoc                 = this.originLoc
 
     private real facing                                             // In radians
 
@@ -68,8 +64,7 @@ public abstract class Missile
         this.source = source
         this.target = target
 
-        this.targetLoc = target.getPos()
-        this.targetZ = target.getUnitHeight(DEFAULT_HITBOX)
+        this.targetLoc = this.target.getPos3Origin()
 
         this.sfxPath = sfxPath
         this.velocity = velocity*MISSILE_INTERVAL
@@ -78,12 +73,11 @@ public abstract class Missile
         this.initDefaults(createNow)
 
     // Constructor for missile with location target
-    construct(unit source, vec2 targetloc, string sfxPath, real velocity, bool createNow)
+    construct(unit source, vec3 targetloc, string sfxPath, real velocity, bool createNow)
         this.source = source
         this.target = null
 
         this.targetLoc = targetloc
-        this.targetZ = targetLoc.getTerrainZ()
 
         this.sfxPath = sfxPath
         this.velocity = velocity*MISSILE_INTERVAL
@@ -98,9 +92,9 @@ public abstract class Missile
 
     function initDefaults(bool createNow)
         // Set missile origin and update current loc, distToTarget
-        this.setOriginLoc(source.getPos())
-        // Use setAngle for other initial angle
-        this.setFacing(this.originLoc.angleTo(this.targetLoc).radians())
+        this.setOriginLoc(source.getPos3Origin())
+        // Use setAngle for other initial angle, angle calculated in the plane
+        this.setFacing(this.originLoc.toVec2().angleTo(this.targetLoc.toVec2()).radians())
         // Create missile dummy and SFX
         if createNow
             this.create()
@@ -135,7 +129,7 @@ public abstract class Missile
     // #####################################################
 
     /** Initial location (origin XY) of the missile  **/
-    function setOriginLoc(vec2 loc)
+    function setOriginLoc(vec3 loc)
         if this.currentLoc != this.originLoc
             // The missile have been moved, cant set a new origin.
             // TODO: debug print to avoid devel confusion
@@ -143,14 +137,6 @@ public abstract class Missile
         this.originLoc = loc
         this.currentLoc = originLoc
         this.distanceToTarget = this.originLoc.distanceTo(this.targetLoc)
-
-    function setOriginZ(real z)
-        if this.currentZ != this.originZ
-            // The missile have been moved, cant set a new origin.
-            // TODO: debug print to avoid devel confusion
-            return
-        this.originZ = z
-        this.currentZ = this.originZ
 
     /** Initial facing of the missile  **/
     function setFacing(real radians)
@@ -193,11 +179,8 @@ public abstract class Missile
     // ===================== Getters  ======================
     // #####################################################
 
-    function getPos() returns vec2
+    function getPos() returns vec3
         return this.currentLoc
-
-    function getZ() returns real
-        return this.currentZ
 
     /** The effect is created on launch() returns null before **/
     function getSfx() returns effect
@@ -212,10 +195,10 @@ public abstract class Missile
 
     /** creates the missile body and sfx, needs to be called by user if createNow is false in constructor **/
     function create()
-        this.dummy = DummyRecycler.get(this.originLoc, angle(this.facing))
+        this.dummy = DummyRecycler.get(this.originLoc.toVec2(), angle(this.facing))
         this.sfx = this.dummy.addEffect(this.sfxPath, "origin")
         this.sfx.setScale(this.scale)
-        this.dummy.setFlyHeight(this.currentZ, 0)
+        this.dummy.setFlyHeight(this.originLoc.z, 0)
 
 
     function launch()
@@ -269,13 +252,12 @@ public abstract class Missile
 
     private function updateTargetLoc()
         // Update missile guidance to its intended target.
-        this.targetLoc = this.target.getPos()
-        this.targetZ = this.target.getLocalZ()
+        this.targetLoc = this.target.getPos3Origin()
 
     private function updateAngle()
         // Update the missile facing angle depending on the turnrate
         // Angle is relative to the xy-plane.
-        real targetAngle = currentLoc.angleTo(this.targetLoc).radians()
+        real targetAngle = currentLoc.toVec2().angleTo(this.targetLoc.toVec2()).radians()
 
         // TODO: bug?
         if 0. != this.turnrate and Cos(this.facing - targetAngle) < Cos(this.turnrate)
@@ -292,29 +274,32 @@ public abstract class Missile
         this.dummy.setFacing(angle(this.facing))
 
     private function updateMissileLocation() returns bool
-        vec2 nextLoc = vec2(this.currentLoc.x + this.velocity*Cos(this.facing),
+        vec2 nextLocVec2 = vec2(this.currentLoc.x + this.velocity*Cos(this.facing),
                             this.currentLoc.y + this.velocity*Sin(this.facing))
 
         // Destroy missile if next location is outside sentinel bounds
-        if not nextLoc.inPlayable()
+        if not nextLocVec2.inPlayable()
             print("destr sentinel bound")
             destroy this
             return false
 
         // Update distance traveled
-        real stepDistance = nextLoc.distanceTo(this.currentLoc)
+        real stepDistance = nextLocVec2.distanceTo(this.currentLoc.toVec2())
         this.distanceTraveled += stepDistance
-        this.currentLoc = nextLoc
-        this.distanceToTarget = this.currentLoc.distanceTo(this.targetLoc)
 
-        // Move the missile dummy
-        this.dummy.setPos(this.currentLoc)
+        this.currentLoc.x = nextLocVec2.x
+        this.currentLoc.y = nextLocVec2.y
+
+        this.distanceToTarget = this.currentLoc.toVec2().distanceTo(this.targetLoc.toVec2())
+
+        // Move the missile dummy in the plane
+        this.dummy.setPos(this.currentLoc.toVec2())
         this.updateMissileZ(stepDistance)
 
         return true
 
     private function updateMissileZ(real stepDistance)
-        real totDist = this.originLoc.distanceTo(this.targetLoc)
+        real totDist = this.originLoc.toVec2().distanceTo(this.targetLoc.toVec2())
         // How close are we to the target compared ("%" along the way)
         real ratio = 1 - this.distanceToTarget/totDist
         // Ratio needs to be 0 <= ratio <= 1
@@ -323,18 +308,14 @@ public abstract class Missile
         else if ratio < 0
             ratio = 0
 
-        // Update target z if unit
-        if this.target != null
-            this.targetZ = this.target.getLocalZ()
-
         // === Linear z diff ===
         real dzLine = 0
         // Missile has a downward slope but has gone below target => go back up
-        if this.currentZ < this.targetZ and this.originZ > this.targetZ
+        if this.currentLoc.z < this.targetLoc.z and this.originLoc.z > this.targetLoc.z
             dzLine = 0.01
         // Missile correct (sort of exept if to high)
         else
-            dzLine = (this.targetZ - this.originZ)*(stepDistance/totDist)
+            dzLine = (this.targetLoc.z - this.originLoc.z)*(stepDistance/totDist)
 
         // === Arc z diff ===
         real dzArc = PI*Cos(ratio*PI)*this.arc*stepDistance
@@ -343,10 +324,10 @@ public abstract class Missile
         real pitch = Atan((dzLine + dzArc)/stepDistance)
 
         // Update z with both deltas
-        this.currentZ += dzLine + dzArc
+        this.currentLoc.z += dzLine + dzArc
 
         // Set height of dummy and update pitch
-        this.dummy.setFlyHeight(this.currentZ, 0)
+        this.dummy.setFlyHeight(this.currentLoc.z, 0)
         this.dummy.setAnimation((Rad2Deg(pitch) + 90).toInt())
 
     // #####################################################
@@ -354,14 +335,13 @@ public abstract class Missile
     // #####################################################
 
     protected function detectCollision()
-        forUnitsInRange(this.currentLoc, COLLISION_SIZE) cbu ->
+        forUnitsInRange(this.currentLoc.toVec2(), COLLISION_SIZE) cbu ->
             // Do nothing if hit unit is caster
             if cbu.getHandleId() != this.source.getHandleId()
-                if this.hitMap.has(cbu.getHandleId())
-                    print(cbu.getName() +  " in hitmap")
-
                 // The pick selects units in a plane, filter units based on z-diff aswell AND filter on hit units
-                if (this.currentZ - cbu.getUnitHeight(1)).abs() <= COLLISION_SIZE*2 and not this.hitMap.has(cbu.getHandleId())
+                if (this.currentLoc.z - cbu.getPos3Origin().z).abs() <= COLLISION_SIZE*2
+                or (this.currentLoc.z - cbu.getPos3Fly().z).abs() <= COLLISION_SIZE*2
+                and not this.hitMap.has(cbu.getHandleId())
                     this.onCollision(cbu)
                     // Ensure that onEnd called if final target
                     this.onTagetCollision(cbu)
@@ -369,7 +349,7 @@ public abstract class Missile
                         this.hitMap.put(cbu.getHandleId(), true)
 
     protected function detectEnd()
-        if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
+        if this.currentLoc.toVec2().distanceTo(this.targetLoc.toVec2()) <= COLLISION_SIZE
             this.onArrive()
 
 // #####################################################
@@ -379,3 +359,7 @@ public abstract class Missile
 /** percentage on decimal form (0.45 etc) **/
 function unit.getUnitHeight(real percentage) returns real
     return 100*percentage
+
+/** return unit pos with added height for model z **/
+function unit.getPos3Origin() returns vec3
+    return this.getPos3Fly() + vec3(0, 0, this.getUnitHeight(DEFAULT_HITBOX))
