@@ -6,8 +6,7 @@ import DummyRecycler
 import TimerUtils
 import MapBounds
 import ClosureForGroups
-
-import Assets
+import HashMap
 
 enum MissileType
     HOMING
@@ -27,6 +26,9 @@ constant DEFAULT_SCALE = 1.
 public abstract class Missile
     unit source                                                     // Caster
     unit target                                                     // Target for homing missiles.
+
+    private bool allowMultiHit              = false                 // The same missile cant hit the same target several times
+    private HashMap<int, bool> hitMap       = new HashMap<int, bool>
 
     private unit dummy
     private timer t
@@ -62,7 +64,7 @@ public abstract class Missile
     MissileType missileType
 
     // Constructor for missile with unit target
-    construct(unit source, unit target, string sfxPath, real velocity)
+    construct(unit source, unit target, string sfxPath, real velocity, bool createNow)
         this.source = source
         this.target = target
 
@@ -73,10 +75,10 @@ public abstract class Missile
         this.velocity = velocity*MISSILE_INTERVAL
 
         this.missileType = HOMING
-        this.initDefaults()
+        this.initDefaults(createNow)
 
     // Constructor for missile with location target
-    construct(unit source, vec2 targetloc, string sfxPath, real velocity)
+    construct(unit source, vec2 targetloc, string sfxPath, real velocity, bool createNow)
         this.source = source
         this.target = null
 
@@ -87,18 +89,21 @@ public abstract class Missile
         this.velocity = velocity*MISSILE_INTERVAL
 
         this.missileType = TARGET
-        this.initDefaults()
+        this.initDefaults(createNow)
 
     ondestroy
         DummyRecycler.recycle(this.dummy)
         this.sfx.destr()
         this.t.release()
 
-    function initDefaults()
+    function initDefaults(bool createNow)
         // Set missile origin and update current loc, distToTarget
         this.setOriginLoc(source.getPos())
         // Use setAngle for other initial angle
         this.setFacing(this.originLoc.angleTo(this.targetLoc).radians())
+        // Create missile dummy and SFX
+        if createNow
+            this.create()
 
 
     // #####################################################
@@ -107,6 +112,9 @@ public abstract class Missile
 
     function onEnd()
         destroy this
+
+    function onArrive()
+        this.onEnd()
 
     function onCollision(unit u)
         skip
@@ -178,6 +186,9 @@ public abstract class Missile
     function setTimeToLive(real ttl)
         this.ttl = ttl
 
+    function enableMultiHit()
+        this.allowMultiHit = true
+
     // #####################################################
     // ===================== Getters  ======================
     // #####################################################
@@ -198,13 +209,17 @@ public abstract class Missile
     // #####################################################
     // ====================== Missile ======================
     // #####################################################
-    function launch()
-        this.t = getTimer()
+
+    /** creates the missile body and sfx, needs to be called by user if createNow is false in constructor **/
+    function create()
         this.dummy = DummyRecycler.get(this.originLoc, angle(this.facing))
         this.sfx = this.dummy.addEffect(this.sfxPath, "origin")
         this.sfx.setScale(this.scale)
         this.dummy.setFlyHeight(this.currentZ, 0)
 
+
+    function launch()
+        this.t = getTimer()
         t.setData(this castTo int)
         t.startPeriodic(MISSILE_INTERVAL) ->
             timer t = GetExpiredTimer()
@@ -218,6 +233,7 @@ public abstract class Missile
                 m.detectCollision()
                 if m.missileType == MissileType.TARGET
                     m.detectEnd()
+
 
     function move() returns bool
         // Target unit destroyed => destroy missile
@@ -339,15 +355,22 @@ public abstract class Missile
 
     protected function detectCollision()
         forUnitsInRange(this.currentLoc, COLLISION_SIZE) cbu ->
-            // The pick selects units in a plane, filter units based on z-diff aswell
-            if (this.currentZ - cbu.getUnitHeight(1)).abs() <= COLLISION_SIZE*2
-                this.onCollision(cbu)
-                // Ensure that onEnd called if final target
-                this.onTagetCollision(cbu)
+            // Do nothing if hit unit is caster
+            if cbu.getHandleId() != this.source.getHandleId()
+                if this.hitMap.has(cbu.getHandleId())
+                    print(cbu.getName() +  " in hitmap")
+
+                // The pick selects units in a plane, filter units based on z-diff aswell AND filter on hit units
+                if (this.currentZ - cbu.getUnitHeight(1)).abs() <= COLLISION_SIZE*2 and not this.hitMap.has(cbu.getHandleId())
+                    this.onCollision(cbu)
+                    // Ensure that onEnd called if final target
+                    this.onTagetCollision(cbu)
+                    if not this.allowMultiHit
+                        this.hitMap.put(cbu.getHandleId(), true)
 
     protected function detectEnd()
         if this.currentLoc.distanceTo(this.targetLoc) <= COLLISION_SIZE
-            this.onEnd()
+            this.onArrive()
 
 // #####################################################
 // ================ Random help funcs ==================
