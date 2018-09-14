@@ -9,8 +9,8 @@ import Tooltip
 import TimedEffect
 
 class PlaygorundMissile extends Missile
-    construct(unit source, vec2 targetLoc, string sfxPath, real velocity)
-        super(source, targetLoc, sfxPath, velocity)
+    construct(unit source, unit target, string sfxPath, real velocity, bool createNow)
+        super(source, target, sfxPath, velocity, createNow)
 
     // #####################################################
     // =================== Action funcs  ===================
@@ -20,15 +20,19 @@ class PlaygorundMissile extends Missile
         print("Playground onEnd")
         destroy this
 
+    override function onArrive()
+        print("arrived")
+        createTimedEffect(this.getPos().toVec2(), 1, Abilities.witchDoctorMissile)
+        this.onEnd()
+        //this.launch()
+
     override function onCollision(unit u)
         print("Playground onCollision")
         print(u.getName())
         u.addEffect(Abilities.fireLordDeathExplode, "origin")
-        if u.getHandleId() == this.target.getHandleId()
-            this.onEnd()
 
     override function onPeriod()
-        createTimedEffect(this.getPos(), 0.5, Abilities.polyMorphTarget)
+        createTimedEffect(this.getPos().toVec2(), 0.5, Abilities.druidoftheTalonMissile)
 
 
 // ##################################################################
@@ -44,7 +48,7 @@ class PlaygorundMissile extends Missile
         "Shalom!"))
         ..setIconNormal(Icons.bTNIllidanPrisonWagon)
 
-        ..presetTargetTypes(Targettype.POINT)
+        ..presetTargetTypes(Targettype.UNIT)
         ..setTargetsAllowed(1, "enemy")
         ..setCastRange(1, 1000)
         ..setManaCost(1, 0)
@@ -59,15 +63,17 @@ class PlaygorundMissile extends Missile
 
 
 function firePlaygroundMissile()
-    //let target = GetSpellTargetUnit()
-    vec2 target = vec2(GetSpellTargetX(), GetSpellTargetY())
+    let target = GetSpellTargetUnit()
+    //vec2 target = vec2(GetSpellTargetX(), GetSpellTargetY())
+    //real targetZ = target.getTerrainZ()
     let caster = GetTriggerUnit()
 
-    PlaygorundMissile m = new PlaygorundMissile(caster, target, Abilities.phoenix_Missile, 524)
+    // PlaygorundMissile m = new PlaygorundMissile(caster, vec3(target.x, target.y, targetZ), Abilities.phoenix_Missile, 524, true)
+    PlaygorundMissile m = new PlaygorundMissile(caster, target, Abilities.phoenix_Missile, 524, true)
     //m.setFacing(caster.getFacingAngle().radians + PI/4)
     //m.setOriginLoc(caster.getPos() + vec2(500, 0))
-    m.setArc(0.1)
-    //m.setOriginZ(200)
+    m.setArc(0.2)
+    // m.setOriginLoc(vec3(caster.getPos().x, caster.getPos().y, 300))
     // m.setTurnrateAcceleration(PI/8)
     // m.setAcceleration(60)
     m.launch()
