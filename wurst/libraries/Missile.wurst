@@ -51,6 +51,8 @@ public abstract class Missile
 
     private real velocity                                            // WC3 units per second
     private real acceleration                                        // If missile has acceleration
+    private real nonLinearAccelerationValue = 0.
+    private bool nonLinearAcceleration      = false                  // Determines how to acceleration is applied
 
     real arc                                = 0.1                    // How much missile arc (in Z)
     private real turnrate                   = 3/4*PI*MISSILE_INTERVAL    // Sets a turn rate for a missile (in X/Y) [rad per itteration]
@@ -166,9 +168,20 @@ public abstract class Missile
     function setVelocity(real velocity)
         this.velocity = velocity*MISSILE_INTERVAL
 
-    /** acceleration is wc3 units/s^2  **/
-    function setAcceleration(real acceleration)
+    /** Linear acceleration is wc3 units/s^2  **/
+    function setLinearAcceleration(real acceleration)
         this.acceleration = acceleration*MISSILE_INTERVAL
+
+    /** Nonlinear acceleration is (decimal % of current speed)/s^2  **/
+    function setNonLinearAcceleration(real decimalPercentage)
+        this.nonLinearAccelerationValue = decimalPercentage
+        this.nonLinearAcceleration = true
+        this.updateNonLinearAccerleration()
+
+    /** Used internaly for updating non-linear acceleration based on speed and set percentage
+    This function is called each frame to update the acceleration according to the current speed.**/
+    private function updateNonLinearAccerleration()
+        this.acceleration = this.velocity*this.nonLinearAccelerationValue*MISSILE_INTERVAL
 
     /** turnrate is radians/s  **/
     function setTurnrate(real turnrate)
@@ -242,8 +255,13 @@ public abstract class Missile
             destroy this
             return false
 
-        // Increase velocity
+        // Update non-linear accerleration
+        if this.nonLinearAcceleration == true
+            this.updateNonLinearAccerleration()
+
+        // Apply acceleration
         this.velocity += acceleration
+
         // Increase turnrate with time, 0 by default
         this.turnrate += this.turnrateAcceleration
 
