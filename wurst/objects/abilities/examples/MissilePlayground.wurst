@@ -1,12 +1,53 @@
 package MissilePlayground
 
 import Missile
+import MultiTargetMissile
 import Assets
+import LinkedList
 import ChannelAbilityPreset
 import RegisterEvents
+import ClosureForGroups
 
 import Tooltip
 import TimedEffect
+import GameplayConstants
+
+// #####################################################
+// =================== Multi missile  ==================
+// #####################################################
+
+class PlaygorundMissile2 extends MultiTargetMissile
+    construct(unit source, LinkedList<MissileTargetWrapper> targetList, string sfxPath, real velocity, bool createNow)
+        super(source, targetList, sfxPath, velocity, createNow)
+
+    // #####################################################
+    // =================== Action funcs  ===================
+    // #####################################################
+
+    override function onArrive()
+        this.onEnd()
+
+    override function onEnd()
+        bool foundTarget = false
+
+        forUnitsInRange(this.currentPos.toVec2(), 524) cbu ->
+            if foundTarget
+                skip
+            else if cbu.getOwner() == PLAYER_BROWN and not this.hitMap.has(cbu.getHandleId())
+                this.targetList.add(new MissileTargetWrapper(cbu))
+                foundTarget = true
+
+        // If we found a target in the closure above the targetlist is now longer => launch towards new taget
+        if this.i < this.targetList.size()
+            createTimedEffect(this.getPos().toVec2(), 1, Abilities.feralspirittarget)
+            this.launch()
+        else
+            destroy this
+
+
+// #####################################################
+// =================== Basic missile  ==================
+// #####################################################
 
 class PlaygorundMissile extends Missile
     construct(unit source, unit target, string sfxPath, real velocity, bool createNow)
@@ -30,6 +71,9 @@ class PlaygorundMissile extends Missile
         print("Playground onCollision")
         print(u.getName())
         u.addEffect(Abilities.fireLordDeathExplode, "origin")
+        if u.getHandleId() == this.target.getHandleId()
+            this.onEnd()
+            return
 
     override function onPeriod()
         createTimedEffect(this.getPos().toVec2(), 0.5, Abilities.druidoftheTalonMissile)
@@ -57,6 +101,24 @@ class PlaygorundMissile extends Missile
         ..setButtonPositionNormalX(0)
         ..setButtonPositionNormalY(0)
 
+@compiletime function generatefirePlaygroundMissile2()
+    new ChannelAbilityPreset('qwer', 1, true)
+        ..setName("Playground missile")
+        ..setHotkeyNormal("E")
+        ..setTooltipNormal(1, tooltipCustomBasic("E", "Playground missile 2", ""))
+        ..setTooltipNormalExtended(1, tooltipTextFlavor("Yummy yummy in my tummy.",
+        "Shalom!"))
+        ..setIconNormal(Icons.bTNAcorn1)
+
+        ..presetTargetTypes(Targettype.UNIT)
+        ..setTargetsAllowed(1, "enemy")
+        ..setCastRange(1, 1000)
+        ..setManaCost(1, 0)
+        ..setHeroAbility(false)
+
+        ..setButtonPositionNormalX(1)
+        ..setButtonPositionNormalY(0)
+
 // ##################################################################
 // ###################### Ability script ############################
 // ##################################################################
@@ -78,5 +140,39 @@ function firePlaygroundMissile()
     // m.setAcceleration(60)
     m.launch()
 
+function firePlaygroundMissile2()
+    let caster = GetTriggerUnit()
+    LinkedList<MissileTargetWrapper> targetList = new LinkedList<MissileTargetWrapper>
+
+    let targetU = GetSpellTargetUnit()
+    targetList.add(new MissileTargetWrapper(targetU))
+
+    PlaygorundMissile2 m = new PlaygorundMissile2(caster, targetList, Abilities.mortarMissile, 524, true)
+
+
+    // vec2 target = vec2(GetSpellTargetX(), GetSpellTargetY())
+    // real targetZ = target.getTerrainZ()
+
+
+
+
+    // targetList.add(new MissileTargetWrapper(vec3(target.x,target.y, targetZ)))
+    // vec2 prevtarget = caster.getPos()
+
+    // for i = 0 to 5
+    //     vec3 prevTarget = targetList.get(i).targetPos
+    //     angle a = prevtarget.angleTo(target)
+    //     vec3 nextTarget = prevTarget.polarProject((5-i)*64., a + angle(PI/4*(i+1)), angle(PI/2))
+    //     MissileTargetWrapper next = new MissileTargetWrapper(nextTarget)
+    //     targetList.add(next)
+
+    // PlaygorundMissile2 m = new PlaygorundMissile2(caster, targetList, Abilities.mortarMissile, 524, true)
+
+    m.setArc(0.2)
+    //m.setAcceleration(-2)
+    m.setTimeToLive(10)
+    m.launch()
+
 @initThird function initFocusFire()
     registerSpellEffectEvent('asdf', function firePlaygroundMissile)
+    registerSpellEffectEvent('qwer', function firePlaygroundMissile2)
