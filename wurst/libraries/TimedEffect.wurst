@@ -2,14 +2,24 @@ package TimedEffect
 
 import ClosureTimers
 
-public function unit.attatchTimedEffect(real duration, string fxPath, string attachPoint)
+public function unit.attatchTimedEffect(real duration, string fxPath, string attachPoint) returns effect
     effect e = this.addEffect(fxPath, attachPoint)
     doAfter(duration, () -> begin
         e.destr()
     end)
+    return e
 
-public function createTimedEffect(vec2 pos, real duration, string fxPath)
+public function createTimedEffect(vec2 pos, real duration, string fxPath) returns effect
     effect e = addEffect(fxPath, pos)
     doAfter(duration, () -> begin
         e.destr()
     end)
+    return e
+
+public function createTimedEffect(vec3 pos, real duration, string fxPath) returns effect
+    effect e = addEffect(fxPath, pos)
+    e.setHeight(pos.z)
+    doAfter(duration, () -> begin
+        e.destr()
+    end)
+    return e
