@@ -40,9 +40,9 @@ public abstract class Missile
     private string sfxPath
     private real scale                      = DEFAULT_SCALE         // SFX scale.
 
-    private vec3 originPos                  = vec3(0, 0, 0)
-    private vec3 targetPos                                          // Target for location aimed spells
-    private vec3 currentPos                 = this.originPos
+    vec3 originPos                          = vec3(0, 0, 0)
+    vec3 targetPos                                          // Target for location aimed spells
+    vec3 currentPos                         = this.originPos
 
     private real facing                                             // In radians
 
@@ -109,7 +109,13 @@ public abstract class Missile
     function onEnd()
         destroy this
 
+    /** only used to abstract target handling for multi traget missile **/
+    function onTargetPos()
+        print("ontargetpos single")
+        this.onArrive()
+
     function onArrive()
+        print("onarrive single")
         this.onEnd()
 
     function onCollision(unit u)
@@ -117,7 +123,6 @@ public abstract class Missile
         if u.getHandleId() == this.target.getHandleId()
             this.onEnd()
             return
-
 
     function onPeriod()
         skip
@@ -135,6 +140,11 @@ public abstract class Missile
             // The missile have been moved, cant set a new origin.
             // TODO: debug print to avoid devel confusion
             return
+        this.originPos = pos
+        this.currentPos = originPos
+        this.distanceToTarget = this.originPos.distanceTo(this.targetPos)
+
+    function updateOriginPos(vec3 pos)
         this.originPos = pos
         this.currentPos = originPos
         this.distanceToTarget = this.originPos.distanceTo(this.targetPos)
@@ -206,9 +216,10 @@ public abstract class Missile
 
 
     function launch()
-        this.t = getTimer()
-        t.setData(this castTo int)
-        t.startPeriodic(MISSILE_INTERVAL) ->
+        if this.t == null // MultiTarget repeats launch -> reuse timer
+            this.t = getTimer()
+        this.t.setData(this castTo int)
+        this.t.startPeriodic(MISSILE_INTERVAL) ->
             timer t = GetExpiredTimer()
             Missile m = t.getData() castTo Missile
 
@@ -351,8 +362,8 @@ public abstract class Missile
                         this.hitMap.put(cbu.getHandleId(), true)
 
     protected function detectEnd()
-        if this.currentPos.toVec2().distanceTo(this.targetPos.toVec2()) <= COLLISION_SIZE
-            this.onArrive()
+        if this.currentPos.distanceTo(this.targetPos) <= COLLISION_SIZE
+            this.onTargetPos()
 
 // #####################################################
 // ================ Random help funcs ==================
@@ -363,5 +374,5 @@ function unit.getUnitHeight(real percentage) returns real
     return 100*percentage
 
 /** return unit pos with added height for model z **/
-function unit.getPos3Origin() returns vec3
+public function unit.getPos3Origin() returns vec3
     return this.getPos3Fly() + vec3(0, 0, this.getUnitHeight(DEFAULT_HITBOX))
