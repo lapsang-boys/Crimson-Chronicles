@@ -1,0 +1,109 @@
+package MultiTargetMissile
+
+import Missile
+import LinkedList
+import TimedEffect
+import Assets
+
+enum NextTargetType
+    UNIT
+    POS
+
+// #####################################################
+// ============== Multi-target wrapper =================
+// #####################################################
+
+/** help class used to enable targetList for missile to contain both positions and unit targets **/
+public class MissileTargetWrapper
+    unit u = null
+    vec3 targetPos = vec3(0, 0, 0)
+
+    construct(unit u)
+        this.u = u
+        this.targetPos = u.getPos3Origin()
+
+    construct(vec3 targetPos)
+        this.targetPos = targetPos
+
+    protected function getU() returns unit
+        return this.u
+
+    protected function getPos() returns vec3
+        return this.targetPos
+
+// #####################################################
+// ============== Multi-target missile =================
+// #####################################################
+
+public abstract class MultiTargetMissile extends Missile
+    // List containing the multiple targets for this missile, can be updated in flight
+    LinkedList<MissileTargetWrapper> targetList
+    // Current index in targetList
+    int i = 0
+    // Track the type of next target
+    NextTargetType ntt
+
+    construct(unit source, LinkedList<MissileTargetWrapper> targetList, string sfxPath, real velocity, bool createNow)
+        // Construct using the vec3 super constructor, the target type is handled on .launch()
+        super(source, targetList.getFirst().getPos(), sfxPath, velocity, createNow)
+        this.targetList = targetList
+
+    /** Used to handle taget changing and etc. Use onArrive for functionality **/
+    override function onTargetPos()
+        this.i += 1
+        createTimedEffect(this.getPos().toVec2(), 1, Abilities.scatterShotTarget)
+
+        if this.i >= this.targetList.size()
+            // If we are on final target call onEnd
+            this.onEnd()
+        else
+            // Else we arrive and launch towards next target
+            this.onArrive()
+            this.launch()
+
+    override function onArrive()
+        skip
+
+    override function onCollision(unit u)
+        // Ensure that onEnd called if final target, also update where we are in targetList
+        if u.getHandleId() == this.target.getHandleId()
+            this.i += 1
+            this.onEnd()
+            return
+
+    override function launch()
+        // User super launch but handle target before
+        this.handleNextTarget()
+        super.launch()
+
+
+    private function handleNextTarget()
+        if this.i >= this.targetList.size()
+            print("ERROR: MultiTargetMissile - handle next called with empty next")
+            return
+
+        unit nextTargetUnit = this.targetList.get(this.i).getU()
+        vec3 nextTargetPos = this.targetList.get(this.i).getPos()
+
+        // If next target is unit
+        if nextTargetUnit != null
+            this.ntt = NextTargetType.UNIT                      // Set target type
+            super.target = nextTargetUnit                       // Update missile target
+            super.targetPos = this.target.getPos3Origin()       // Update targetPos
+            super.missileType = missileType.HOMING              // Set missileType
+            super.updateFacing()                                // Instantly face the next target
+        // Else next target is a position
+        else
+            this.ntt = NextTargetType.POS                       // Set target type
+            super.targetPos = nextTargetPos                     // Update targetPos
+            super.target = null                                 // Remove homing unit target (if any)
+            super.missileType = missileType.TARGET              // Set missileType
+
+        // Update missile origin
+        // TODO: Alter this so that an inital origin other than caster is possible
+        super.updateOriginPos(super.getPos())
+
+
+
+
+
