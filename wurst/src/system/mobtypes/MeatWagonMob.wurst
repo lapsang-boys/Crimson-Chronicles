@@ -32,8 +32,30 @@ public class MeatWagonMob extends MobWrapper implements Enterer, Deather
 
     override function onEnter()
         this.u.pause()
-        let angle = this.u.getPos().angleTo(u.getNext())
-        this.u.setFacing(angle)
+        let baseAngle = this.u.getPos().angleTo(u.getNext())
+        angle a = angle(0)
+        real angleVariation = GetRandomReal(-PI/8, PI/8)
+        int directionVariation = GetRandomInt(1, 2)
+
+        switch u.getNodeId()
+            case 2
+                if directionVariation == 1
+                    a = baseAngle + angle(PI/3 + angleVariation)
+                else
+                    a = baseAngle + angle(-PI/3 + angleVariation)
+            case 3
+                if u.getPathId() == 0
+                    a = baseAngle + angle(-PI/16 + angleVariation)
+                else
+                    a = baseAngle + angle(PI/3 + angleVariation)
+            case 4
+                if u.getPathId() == 0
+                    a = baseAngle + angle(-PI/16 + angleVariation)
+                else
+
+                    a = baseAngle + angle(PI/16 + angleVariation)
+
+        this.u.setFacing(a)
         this.u.setAnimation("attack")
         doAfter(0.5) ->
             int mobId = this.spawnIds.get(GetRandomInt(0, this.spawnIds.size()-1))
@@ -41,7 +63,7 @@ public class MeatWagonMob extends MobWrapper implements Enterer, Deather
                 PLAYER_BROWN,
                 mobId,
                 this.u.getPos(),
-                angle)
+                a)
 
             missileU.setUserData(this.u.getUserData())
 
