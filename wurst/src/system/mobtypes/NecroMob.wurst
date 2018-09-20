@@ -4,10 +4,13 @@ import ClosureTimers
 import Abilities
 
 import StratholmeMobList
+import TimedEffect
 import Alexandria
 import Movement
 import PlayerData
 import LevelHandler
+
+constant sekeltonSpawnTime = 2.3
 
 public class NecroMob extends MobWrapper implements Enterer
     real delay
@@ -23,33 +26,43 @@ public class NecroMob extends MobWrapper implements Enterer
     override function onEnter()
         this.u.setAnimation("stand channel")
         this.u.pause()
+        effect e = createTimedEffect(this.u.getPos(), this.delay, Abilities.vampiricAura)
+            ..setScale(2)
+            ..setColor(0, 255, 0)
+        // Hide effect by height because death is super slow
+        doAfter(this.delay + sekeltonSpawnTime) ->
+            e.setZ(-100)
 
         let pd = playerData.get(u.getPlayerN())
 
-        doAfter(this.delay) ->
-            for i = 1 to this.skeletons
-                doAfter(0.5*i) ->
-                    var offset = angle(i*2*PI/this.skeletons).direction().setLength(128)
-                    var spawnPos = this.u.getPos().add(offset.x, offset.y)
-                    addEffect(Abilities.animateDeadTarget, spawnPos)
+        for i = 1 to this.skeletons
+            doAfter(i*this.delay/this.skeletons) ->
+                var offset = angle(PI/16 + i*2*PI/this.skeletons).direction().setLength(128)
+                var spawnPos = this.u.getPos().add(offset.x, offset.y)
+                createTimedEffect(spawnPos, 2, Abilities.raiseSkeleton)
 
-                    let skeleton = createUnit(
-                        this.u.getOwner(),
-                        ID_MOB_SKELETON.get(pd.difficulty),
-                        spawnPos,
-                        this.u.getPos().angleTo(this.u.getNext()))
+                let skeleton = createUnit(
+                    this.u.getOwner(),
+                    ID_MOB_SKELETON.get(pd.difficulty),
+                    spawnPos,
+                    this.u.getPos().angleTo(this.u.getNext()))
 
-                    // Make skeleton transparent.
-                    skeleton.setVertexColor(colorA(178, 178, 178, 180))
-                    skeleton.setUserData(this.u.getUserData())
+                new SkeletonMob(skeleton, this)
+                registerMobCreation(pd.p)
+
+                // Make skeleton transparent.
+                skeleton.setVertexColor(colorA(178, 178, 178, 180))
+                skeleton.setUserData(this.u.getUserData())
+                skeleton.pause()
+                skeleton.setAnimation("birth")
+                doAfter(sekeltonSpawnTime) ->
+                    skeleton.unpause()
                     vec2 pos = skeleton.getNext()
                     skeleton.issuePointOrder("move", pos)
-                    new SkeletonMob(skeleton, this)
-                    registerMobCreation(pd.p)
-            
-            doAfter(0.5*this.skeletons) ->
-                this.u.unpause()
-    
+
+        doAfter(1.2*this.delay) ->
+            this.u.unpause()
+
 
 public class SkeletonMob extends MobWrapper implements Deather
     NecroMob nm
@@ -66,5 +79,5 @@ public class SkeletonMob extends MobWrapper implements Deather
             return
 
         vec2 pos = nm.u.getPos()
-        addEffect(Abilities.deathCoilSpecialArt, pos).destr()
+        createTimedEffect(pos, 2, Abilities.deathCoilSpecialArt)
         pd.builder.damageTarget(nm.u, nm.damage)
