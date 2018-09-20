@@ -69,7 +69,7 @@ public function shelfMob(unit u)
 
             // Level 4
             case ID_MOB_NECROMANCER.get(i)
-                new NecroMob(u, 1.0, 80.0, 3)
+                new NecroMob(u, 2.3, 80.0, 3)
             // Level 5
             case ID_MOB_GARGOYLE.get(i)
                 new GargoyleMob(u, 0.5, 5.0)
@@ -89,7 +89,7 @@ public function shelfMob(unit u)
                     ..add(ID_MOB_GHOUL.get(i)))
             // Level 9
             case ID_MOB_DREADLORD.get(i)
-                new IllusionMob(u)
+                new IllusionMob(u, 1)
 
             default
                 skip
