@@ -1,0 +1,68 @@
+package SmokeScreenMob
+
+import TimedEffect
+import Orders
+import ClosureForGroups
+import ClosureTimers
+import AbilityObjEditing
+import ObjectIdGenerator
+import InstantDummyCaster
+import GameplayConstants
+import Abilities
+import ObjectIds
+
+import Alexandria
+
+public constant ID_SMOKE_BOMB = compiletime(ABIL_ID_GEN.next())
+
+// public class SmokeScreenMob extends MobWrapper implements Ticker
+//     real interval
+//     real range
+//     real chance
+//     int sleep
+//     int sleepLength
+//     construct(unit u, real interval, real range, real chance, int sleep)
+//         super(u)
+//         this.interval = interval
+//         this.range = range
+//         this.chance = chance
+//         this.sleep = 0
+//         this.sleepLength = sleep
+
+//         startTick()
+
+//     override function startTick()
+//         doPeriodically(this.interval) _ ->
+//             if this.sleep > 0
+//                 this.sleep -= 1
+//             else
+//                 if GetRandomReal(0, 1) <= chance // 20% chance.
+//                     filterfunc filter = Filter (() -> GetFilterUnit().getOwner() != PLAYER_BROWN)
+//                     forNearestUnit(this.u.getPos(), this.range, filter) closest ->
+//                         this.sleep = sleepLength
+//                         createTimedEffect(closest.getPos(), 5, Abilities.cloudOfFog)
+                        
+//                         forUnitsInRange(closest.getPos(), 512.) tower ->
+//                             InstantDummyCaster.castTarget(this.u.getOwner(), ID_SMOKE_BOMB, 1, Orders.curse, tower)
+                    
+
+class SmokeBomb extends AbilityDefinitionBrewmasterDrunkenHaze
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(3)
+        setButtonPositionNormalY(2)
+
+        setEffectSound("")
+
+        setManaCost(1, 0)
+        setChanceToMiss(1, 0.3)
+        setDurationNormal(1, 5)
+        setArtTarget(Abilities.tornado_Target)
+        // setTargetsAllowed(1, commaList(
+        //     TargetsAllowed.structure,
+        //     TargetsAllowed.invulnerable
+        // ))
+
+// @compiletime function anotherName()
+//     new SmokeBomb(ID_SMOKE_BOMB)

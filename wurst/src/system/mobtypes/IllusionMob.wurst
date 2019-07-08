@@ -1,18 +1,15 @@
 package IllusionMob
 
 import ClosureForGroups
-import Objects
-import Orders
-import TimedEffect
 import ClosureTimers
-import LinkedList
-
+import AbilityObjEditing
+import GameplayConstants
 import PlayerData
+import Orders
+import StratholmeMobList
+
 import Alexandria
 import Movement
-import MobMissile
-import GameplayConstants
-import LevelHandler
 
 public class IllusionMob extends MobWrapper implements Enterer
     real delay
@@ -21,14 +18,36 @@ public class IllusionMob extends MobWrapper implements Enterer
         this.delay = delay
 
     override function onEnter()
+        let pd = playerData.get(u.getPlayerN())
         u.pause()
-        u.setAnimation("stand channel")
+        u.setAnimation("spell")
         doAfter(this.delay) ->
             u.unpause()
+            u.setAbilityCooldown(ID_MIRROR_IMAGE, 1, 0)
+            
             u.issueImmediateOrderById(Orders.mirrorimage)
             var cv = u.getUserData()
-            doAfter(0.1) ->
+            doAfter(0.5) ->
                 forUnitsInRange(u.getPos(), 512) cbu ->
                     if cbu.isIllusion()
                         cbu.setUserData(cv)
+                    if cbu.getOwner() == PLAYER_BROWN
                         cbu.issuePointOrderById(Orders.move, cbu.getNext())
+
+
+class MirrorImage extends AbilityDefinitionBladeMasterMirrorImage
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(3)
+        setButtonPositionNormalY(2)
+
+        setEffectSound("")
+        setManaCost(1, 0)
+        setCastingTime(1, 0)
+        setNumberofImages(1, 3)
+        setDamageTaken(1, 3.0)
+        setAnimationDelay(1, 0.0)
+
+@compiletime function nanoBreweryMoveTower()
+    new MirrorImage(ID_MIRROR_IMAGE)

@@ -10,12 +10,18 @@ function builderPos()
     player p = GetTriggerPlayer()
     PlayerData pd = p.getPlayerData()
 
-    vec2 pos = pd.builder.getPos()
+    vec2 builderPos = pd.builder.getPos()
+    vec2 centerPos = pd.getArea().area.getCenter()
+
+    vec2 pos = builderPos - centerPos
+    pos += centerPos
 
     print("Builder pos: (" + R2S(pos.x) + ", " + R2S(pos.y) + ").")
     createTimedEffect(pos, 2, Abilities.howlCaster)
     AddSpecialEffect(Abilities.darkRitualTarget, pos.x, pos.y)
     pd.builder.attatchTimedEffect(2, Abilities.levelupcaster, "origin")
+
+    createUnit(pd.p, ID_TORCH, pos, angle(0))
 
     PingMinimap(pos.x, pos.y, 1)
 

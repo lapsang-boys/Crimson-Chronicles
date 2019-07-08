@@ -6,6 +6,15 @@ import Orders
 import Alexandria
 import Movement
 import GameplayConstants
+import AbilityObjEditing
+import Tooltip
+import Assets
+import ObjectIds
+import BuffObjEditing
+import ObjectIdGenerator
+
+public constant ID_TOUGH_CHOICE = compiletime(ABIL_ID_GEN.next())
+public constant ID_TOUGH_CHOICE_BUFF = compiletime(BUFF_ID_GEN.next())
 
 public class ScarletCrusader extends MobWrapper implements Spawner
     effect e
@@ -18,3 +27,57 @@ public class ScarletCrusader extends MobWrapper implements Spawner
         u.setOwner(PLAYER_NEUTRAL, false)
         u.issuePointOrderById(Orders.move, u.getNext())
         this.e = u.addEffect(Abilities.stasisTotemTarget, "overhead")
+
+
+class ToughChoiceAura extends AbilityDefinitionAuraEnduranceCreep
+    construct(int id)
+        super(id)
+
+        setName("Leadership")
+        setHotkeyNormal("")
+        setTooltipNormal(1, tooltipCustomBasic("Passive", "Leadership", ""))
+        setTooltipNormalExtended(1, tooltipTextFlavor("Inspire fellow soliders to increase their ferocity in battle.",
+        "What we will achieve today will make our legacy immortal. Raise your sword and together we will charge towards our promised fate."))
+
+        setButtonPositionNormalX(0)
+        setButtonPositionNormalY(2)
+        setArtCaster(Abilities.trueshotAura)
+        setIconNormal(Icons.bTNDivineIntervention)
+        setItemAbility(false)
+        setArtTarget(Abilities.trueshotAura)
+        setHeroAbility(false)
+        setRequirements("")
+
+        setTargetsAllowed(1, commaList(
+            TargetsAllowed.structure
+        ))
+
+        setDurationNormal(1, 5.)
+
+        setAttackSpeedIncrease(1, -0.5)
+        setManaCost(1, 0)
+        setCastRange(1, 512.)
+        setAreaofEffect(1, 512.)
+
+        setLevels(1)
+        setBuffs(1, ID_TOUGH_CHOICE_BUFF.toRawCode())
+        setMissileArt("")
+
+class ToughChoiceBuff extends BuffDefinition
+    construct(int newBuffId, int origBuggId)
+        super(newBuffId, origBuggId)
+
+        setIcon(Icons.bTNCurse)
+        setArtTarget(1, Abilities.shadowstrike)
+        setTargetAttachmentPoint0(1, "overhead")
+
+        // setMissileArt(1, "")
+
+        setIconNormal(1, Icons.bTNCurse)
+        setTooltipNormal(1, tooltipBuffName("Tough choice", false))
+        setTooltipNormalExtended(1, tooltipBuffText("Forced to kill an allied, but confused solider, makes your units hesitate and attack much slower."))
+
+        
+@compiletime function generateSpellsAndBuffs()
+    new ToughChoiceBuff(ID_TOUGH_CHOICE_BUFF, 'Brej')
+    new ToughChoiceAura(ID_TOUGH_CHOICE)

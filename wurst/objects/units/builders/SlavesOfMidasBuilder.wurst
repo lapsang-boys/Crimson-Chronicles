@@ -9,6 +9,8 @@ import BuilderConstants
 import TowerConstants
 import Tooltip
 
+import ScarletCrusader
+
 class Builder extends UnitDefinition
     construct(int id)
         super(id, 'uaco')
@@ -49,6 +51,8 @@ class Builder extends UnitDefinition
         setNormalAbilities(commaList(
             AbilityIds.invulnerable,
             ID_NEXT_LEVEL,
+            ID_TOUGH_CHOICE,
+            // ID_SMOKE_BOMB,    
             ID_FOCUS_FIRE))
 
         // ------------------------------------

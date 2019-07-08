@@ -64,6 +64,12 @@ public function LinkedList<SquadMember>.mirror() returns LinkedList<SquadMember>
             last = sm.si
     return squadChain
 
+public function LinkedList<SquadMember>.repeat(int n) returns LinkedList<SquadMember>
+    LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
+    for i = 1 to n
+        squadChain.addAll(this)
+    return squadChain
+
 public function LinkedList<SquadMember>.toSquadChain() returns LinkedList<SquadMember>
     LinkedList<SquadMember> squadChain = new LinkedList<SquadMember>
     for sm in this

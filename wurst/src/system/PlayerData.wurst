@@ -8,6 +8,12 @@ import Levels
 import Regions
 import Leaderboard
 import GameplayConstants
+import UnitObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import Assets
+
+public constant ID_TORCH = compiletime(UNIT_ID_GEN.next())
 
 class Remover implements ForGroupCallback
     bool removePlayerUnits
@@ -39,6 +45,7 @@ public class PlayerData
     bool levelInProgress
     int difficulty
     fogmodifier fog
+    LinkedList<unit> torches
 
     construct(int playerNum, int levelNum, int zoneNum, int life)
         this.playerNum = playerNum
@@ -49,6 +56,15 @@ public class PlayerData
         this.mobsRemoved = 0
         this.levelInProgress = false
         this.difficulty = NORMAL
+
+    function addTorches()
+        print("addTorches")
+        // this.torches = new LinkedList<unit>
+        // ..add(createUnit(this.p, ID_TORCH, pos, angle(0)))
+
+    function removeTorches()
+        print("addTorches")
+        this.torches = new LinkedList<unit>
 
     function setBuilder(unit builder)
         this.builder = builder
@@ -78,8 +94,14 @@ public class PlayerData
         this.fog.stop()
         this.fog.destr()
 
-        // Create fog for new area.
-        this.initFog()
+        if this.zoneNum == ZONE_STRATHOLME
+            this.addTorches()
+        else
+            this.removeTorches()
+            
+            // Create fog for new area.
+            this.initFog()    
+    
 
     function getArea() returns Area
         if zones.size() < this.zoneNum
@@ -110,3 +132,19 @@ public function unit.getPlayerData() returns PlayerData
 
 public function player.getPlayerData() returns PlayerData
     return playerData.get(this.getId())
+
+
+class Torch extends UnitDefinition
+    construct(int id)
+        super(id, 'oeye')
+
+        setSightRadiusDay(512)
+        setSightRadiusNight(512)
+
+        setNormalAbilities(commaList(
+            AbilityIds.invulnerable
+            // AbilityIds.locust
+        ))
+    
+@compiletime function torch()
+    new Torch(ID_TORCH)
